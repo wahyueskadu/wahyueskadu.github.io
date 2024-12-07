@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
+</head>
+<style>
+	body {
+      background-color: lightpink;
+	  color: darkred;
+	  font-family: 'Inter', sans-serif;
+	  font-variation-settings: 'wght' 400;
+	  margin: 50px;
+	  font-color: red;
+	  font-size: 20px;
+
+    }
+	
+	button {
+	  background-color: darkred;
+	  border: none;
+	  border-radius: 0px;
+	  color: white;
+	  padding: 10px 15px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 2px 2px;
+	  cursor: pointer;
+	  font-family: 'Inter', sans-serif;
+	  font-variation-settings: 'wght' 400;
+	  width: 150px;
+	}
+	
+	button[disabled]{
+	  background-color: lightcoral;
+	}
+	
+	input {
+	  background-color: white;
+	  border: none;
+	  border-radius: 0px;
+	  color: black;
+	  padding: 10px 15px;
+	  font-size: 1em;
+	  text-align: left;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 2px 2px;
+	  cursor: pointer;
+	  font-family: 'Inter', sans-serif;
+	  font-variation-settings: 'wght' 400;
+	  width: 440px;
+	}
+	
+	h1 {
+		text-align: center;
+		font-color: white;
+		font-size: 90px;
+		font-variation-settings: 'wght' 500;
+	}
+	
+	h2{
+		font-size: 1.2em;
+	}
+	
+	li{
+		font-size:2em;
+	}
+	.accordion-content {
+		display: none;
+	}
+
+	.accordion-header {
+		cursor: pointer;
+	}
+
+	.accordion-header:hover {
+		background-color: darkred;
+		color: lightpink;
+	}
+
+	.show {
+		display: block;
+	}
+	
+
+  </style>
+</head>
+<title>LATIHAN MATEMATIKA</title>
+<body>
+
+<h1>LATIHAN MATEMATIKA</h1>
+
+	<ol>
+		<div class="accordion-item">
+			<li class="accordion-header">Unsur Aljabar</li>
+			<div class="accordion-content">
+				<p id="textUnsur"></p>
+				<input id="BBPenjumlahanBox"><button onclick="BBPenjumlahan">Test</button>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<li class="accordion-header">Penjumlahan dan Pengurangan</li>
+			<div class="accordion-content">
+				<p id="soalJumlahKurang">Klik Soal Baru untuk memulai</p>
+				<input id="inputJumlahKurang"></br>
+				<button id="cJumlahKurang" disabled onclick="cekJumlahKurang()">Cek Jawaban</button>
+				<button id="lJumlahKurang" disabled onclick="lihatJumlahKurang()">Lihat Jawaban</button>
+				<button id="gJumlahKurang" onclick="getSoalJumlahKurang()">Soal Baru</button>
+				<div id="outJumlahKurang"></div></br>
+			</div>
+		</div> 
+		<div class="accordion-item">
+			<li class="accordion-header">Perkalian Aljabar Satu Suku</li>
+			<div class="accordion-content">
+				<p id="soalSatuSuku">Klik Soal Baru untuk memulai</p>
+				<input id="inputSatuSuku"></br>
+				<button id="cSatuSuku" disabled onclick="cekSatuSuku()">Cek Jawaban</button>
+				<button id="lSatuSuku" disabled onclick="lihatSatuSuku()">Lihat Jawaban</button>
+				<button id="gSatuSuku" onclick="getSoalSatuSuku()">Soal Baru</button>
+				<div id="outSatuSuku"></div></br>
+			</div>
+		</div> 
+	</ol>
+<script>
+const accordionItems = document.querySelectorAll('.accordion-item');
+
+accordionItems.forEach(item => {
+  const header = item.querySelector('.accordion-header');
+  const content = item.querySelector('.accordion-content');
+
+  header.addEventListener('click', () => {
+    content.classList.toggle('show');
+  });
+})
+
+let ansJumlahKurang;
+
+function getSoalJumlahKurang() {
+
+  let x1 = getIntergerNZ(-9,9);
+  let x2 = getIntergerNZ(-9,9);
+  do{
+  x2 = getIntergerNZ(-9,9);
+  } while (x1 + x2 == 0);
+  let c1 = getIntergerNZ(-9,9);
+  let c2 = getIntergerNZ(-9,9);
+  do{
+  c2 = getIntergerNZ(-9,9);
+  } while (c1 + c2 == 0);
+  let text = `${x1}x + ${c1} + ${x2}x + ${c2}`;
+  let texted = text.replaceAll("+ -"," – ");
+	texted = texted.replace("-"," – ");
+	texted = texted.replaceAll("1x","x");
+  let ansx = x1 + x2;
+  let ansc = c1 + c2;
+  let ans = `${ansx}x + ${ansc}`;
+  
+  ansJumlahKurang = ans.replaceAll("+ -"," – ");
+  document.getElementById("cJumlahKurang").disabled = false;
+  document.getElementById("lJumlahKurang").disabled = false;
+  document.getElementById("inputJumlahKurang").focus();
+  document.getElementById("soalJumlahKurang").innerHTML =texted+"=....";
+}
+
+function cekJumlahKurang(){
+let ans = ansJumlahKurang.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+let input = document.getElementById("inputJumlahKurang").value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+if (ans == input){
+	answ = "Jawaban kamu benar";
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("inputJumlahKurang").focus();
+	}
+document.getElementById("outJumlahKurang").innerHTML = answ;
+document.getElementById("inputJumlahKurang").value = "";
+
+}
+
+function lihatJumlahKurang(){
+document.getElementById("outJumlahKurang").innerHTML="Jawaban yang benar adalah "+ ansJumlahKurang;
+document.getElementById("inputJumlahKurang").value = "";
+}
+
+function getIntergerNZ(min, max) {
+  let randomNum;
+  do {
+    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  } while (randomNum === 0);
+  return randomNum;
+}
+
+document.getElementById("inputJumlahKurang").addEventListener("keydown", function(event){
+    if (event.keyCode === 13) {
+      cekJumlahKurang();
+    }
+  });
+
+let ansSatuSuku;
+
+function getSoalSatuSuku (){
+  //do {
+	let a = getIntergerNZ(-9,9);
+ // while (a!=1);
+  let b = getIntergerNZ(-9,9);
+  let c = getIntergerNZ(-9,9);
+  let text = ` ${a} ( ${b}x + ${c} )`;
+  let texted = pretty(text);
+	let answ = (a*b)+"x + "+(a*c);
+	answ = pretty(answ);
+	ansSatuSuku = answ
+  document.getElementById("cSatuSuku").disabled = false;
+  document.getElementById("lSatuSuku").disabled = false;
+  document.getElementById("inputSatuSuku").focus();
+  document.getElementById("soalSatuSuku").innerHTML =texted+"=....";
+}
+
+function cekSatuSuku(){
+let ans = ansSatuSuku.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+let input = document.getElementById("inputSatuSuku").value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+if (ans == input){
+	answ = "Jawaban kamu benar";
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("inputSatuSuku").focus();
+	}
+document.getElementById("outSatuSuku").innerHTML = answ;
+document.getElementById("inputSatuSuku").value = "";
+
+}
+
+function lihatSatuSuku(){
+document.getElementById("outSatuSuku").innerHTML="Jawaban yang benar adalah "+ ansSatuSuku;
+document.getElementById("inputSatuSuku").value = "";
+}
+
+document.getElementById("inputSatuSuku").addEventListener("keydown", function(event){
+    if (event.keyCode === 13) {
+      cekSatuSuku();
+    }
+  });
+
+
+function cleanonex (text) {
+	text = text.replaceAll("1x","x");
+	return text;
+}
+ function pretty(text){
+  let texted = text.replaceAll("+ -"," – ");
+		texted = texted.replace(" -"," – ");
+		texted = texted.replaceAll(" 1x"," x");
+	 return texted;
+ }
+
+</script>
+</body>
+</html>
