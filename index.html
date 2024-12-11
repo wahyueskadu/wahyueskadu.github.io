@@ -20,9 +20,18 @@ body {
 h1 {
   text-align: center;
   font-size: 50px;
-	font-variation-settings: 'wght' 400;
+	font-variation-settings: 'wght' 300;
+  margin: 0;
 	}
 	
+h2 {
+  text-align: center;
+  font-size: 30px;
+	font-variation-settings: 'wght' 300;
+  margin: 0;
+  margin-bottom: 20px;
+	}
+
 h3{
     font-size: 2em;
     font-variation-settings: 'wght' 200;
@@ -121,9 +130,9 @@ display:inline;
 
 <body>
 <h1>LATIHAN MATEMATIKA</h1>
+<h2>ALJABAR</h2>
 <div class="accordion-container"></div>
 <div id="test"></div>
-
 
 <script>
 
@@ -172,7 +181,7 @@ accordionData.forEach(section => {
   accordionContent.id = "get"+section.function;
   accordionContent.textContent = "Soal Baru";
   accordionContent.addEventListener("click", () => {
-  eval(accordionContent.id+"()")
+    window[accordionContent.id]();
   });
 
   const accordionSoal = document.createElement("span");
@@ -184,7 +193,7 @@ accordionData.forEach(section => {
   accordionInput.placeholder= "Jawaban";
   accordionInput.addEventListener("keydown",function(event){
      if(event.keyCode === 13) {
-      eval("send"+section.function+"()")
+      window["send"+section.function]();
     }});
 
 
@@ -193,7 +202,7 @@ accordionData.forEach(section => {
   accordionSend.textContent = "-->";
   accordionSend.classList.add("sendbttn");
   accordionSend.addEventListener("click", () => {
-  eval(accordionSend.id+"()")
+    window[accordionSend.id]();
   });
 
   const accordionOutput = document.createElement("span");
@@ -204,7 +213,7 @@ accordionData.forEach(section => {
   accordionShow.textContent =  "?";
   accordionShow.classList.add("sendbttn");
   accordionShow.addEventListener("click", () => {
-  eval(accordionShow.id+"()")
+    window[accordionShow.id]();
   });
 
   accordionBody.appendChild(accordionContent);
@@ -397,7 +406,7 @@ let w = "AjDuaDua";
   let b = getIntergerNZ(-5,5);
   let c = getIntergerNZ(-5,5);
   let d = getIntergerNZ(-5,5);
-  let soal = ` ( ${a}x + ${b} ) ( ${c}x +${d} )`;
+  let soal = ` ( ${a}x + ${b} ) ( ${c}x + ${d} )`;
   soal = pretty(soal);
 	let ans = (a*a)+"x² + "+(a*d+b*c)+"x +"+(d*d);
 	ans = pretty(ans);
@@ -484,8 +493,6 @@ function showAjKuadrat(){
   ans = "Jawaban yang benar adalalah "+ ansArray[w];
   document.getElementById("output"+w).innerHTML = ans;
 }
-
-
 
 </script>
 </body>
