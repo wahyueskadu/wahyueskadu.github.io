@@ -408,7 +408,7 @@ let w = "AjDuaDua";
   let d = getIntergerNZ(-5,5);
   let soal = ` ( ${a}x + ${b} ) ( ${c}x + ${d} )`;
   soal = pretty(soal);
-	let ans = (a*a)+"x² + "+(a*d+b*c)+"x +"+(d*d);
+	let ans = (a*c)+"x² + "+(a*d+b*c)+"x +"+(b*d);
 	ans = pretty(ans);
 	ansArray[w] = ans;
   document.getElementById("input"+w).focus();
