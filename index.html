@@ -13,7 +13,7 @@ body {
 	color: darkred;
   font-family: 'Inter', sans-serif;
   font-variation-settings: 'wght' 600;
-  margin: 3cqw;
+  margin: 3px;
   font-size: 20px;
   }
 
@@ -32,11 +32,13 @@ h2 {
   margin-bottom: 20px;
 	}
 
+
 h3{
+
     font-size: 2em;
     font-variation-settings: 'wght' 200;
-   
   }
+
 
 button {
   background-color: darkred;
@@ -72,8 +74,10 @@ input {
 }
 
 input::placeholder {
-  color: lightcoral; /* Change the placeholder color to gray */
+  color: lightcoral;
 }
+
+
 .sendbttn{
   width : 50px;
 }
@@ -92,9 +96,10 @@ display:inline;
 }
 
 .accordion-item {
-  overflow: hidden;
+  overflow: visible;
   margin-top: 5px;
 }
+
 
 .accordion-header {
   padding-left: 8px;
@@ -113,6 +118,11 @@ display:inline;
   color: lightpink;
 }
 
+.accordion-header::marker{
+  color:aquamarine
+}
+
+
 .expand {
   font-variation-settings: 'wght' 600;
 }
@@ -126,12 +136,30 @@ display:inline;
   margin-bottom: 15px;
 }
 
+
+ol {
+  list-style: decimal;
+  padding-left: 50px;
+}
+
+ol li::marker{
+  font-size: 2em;
+  font-variation-settings: 'wght' 200;
+
+}
+
+ol li:hover::marker{
+  font-variation-settings: 'wght' 900;
+
+}
+
+
 </style>
 
 <body>
 <h1>LATIHAN MATEMATIKA</h1>
 <h2>ALJABAR</h2>
-<div class="accordion-container"></div>
+<ol id="accordionContainer" class="accordion-container"></ol>
 <div id="test"></div>
 
 <script>
@@ -142,7 +170,7 @@ const accordionData = [
     function: "AjUnsur"
   },
   {
-    title: "Penjumlahan & Pengurangan",
+    title: "Penjumlahan dan Pengurangan",
     function: "AjJumlahKurang"
   },
   {
@@ -160,12 +188,14 @@ const accordionData = [
   // ... more sections
 ];
 
-const accordionContainer = document.querySelector(".accordion-container");
+
+const accordionContainer = document.getElementById("accordionContainer");
+
 
 accordionData.forEach(section => {
-  const accordionItem = document.createElement("div");
-  accordionItem.classList.add("accordion-item");
-
+  const accordionItem = document.createElement("li");
+   accordionItem.classList.add("accordion-item");
+  
   const accordionHeader = document.createElement("h3");
   accordionHeader.classList.add("accordion-header");
   accordionHeader.textContent = section.title;
@@ -179,7 +209,8 @@ accordionData.forEach(section => {
   
   const accordionContent = document.createElement("button");
   accordionContent.id = "get"+section.function;
-  accordionContent.textContent = "Soal Baru";
+  accordionContent.textContent = "New";
+  //accordionContent.classList.add("sendbttn");
   accordionContent.addEventListener("click", () => {
     window[accordionContent.id]();
   });
@@ -222,12 +253,14 @@ accordionData.forEach(section => {
   accordionBody.appendChild(accordionSend);
   accordionBody.appendChild(accordionShow);
   accordionBody.appendChild(accordionOutput);
- 
+
   accordionItem.appendChild(accordionHeader);
   accordionItem.appendChild(accordionBody);
  
   accordionContainer.appendChild(accordionItem);
+
 });
+
 
 let ansArray = {};
 
