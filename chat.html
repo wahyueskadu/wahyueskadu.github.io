@@ -8,7 +8,7 @@
 <style>
 body {
     font-family: 'Inter', sans-serif;
-    font-variation-settings: 'wght' 400;
+    font-variation-settings: 'wght' 300;
   background-color: lightpink;
 }
 
@@ -23,8 +23,8 @@ body {
   margin-bottom: 10px;
   overflow-y: scroll; /* Enable scrolling for messages */
   max-height: 500px; /* Set maximum height for message area */
-  scrollbar-width: thin;
-  scrollbar-color: #5f5f5f hsla(180, 100%, 44%, 0);
+  scrollbar-width: none;
+  scrollbar-color: #5f5f5f hsla(180, 100%, 44%, 0); 
 }
 
 .message {
@@ -32,29 +32,31 @@ body {
   border-radius: 15px;
   padding: 5px;
   //width: fit-content;
- // clear: both;
+  clear: both;
   //border: 1px solid darkred;
   /*box-shadow: 4px 4px 1px rgba(0, 0, 0, 1); /* Add drop shadow */
 }
 
 .user-message {
-  background-color: lightpink;
+  background-color: darkred;
+  color: lightpink;
   text-align: right;
   margin-right: auto;
  // width: 100%;
- // float: right;
+  float: right;
 }
 
 .bot-message {
   background-color: lightpink;
   text-align: left;
+  color: darkred;
 }
 
 .message p {
   font-size: 30pt; /* Reduced font size */
   padding: 5px;
   margin : 0px;
-  color: darkred;
+  //color: darkred;
   }
 
 .pinned {
@@ -76,37 +78,55 @@ body {
 input[type="text"] {
   flex-grow: 1;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border: 3px solid darkred;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin:0;
 }
 
 button {
   padding: 10px 15px;
-  background-color: #4CAF50;
+  background-color: darkred;
   color: white;
   border: none;
-  border-radius: 3px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   cursor: pointer;
+  margin:0;
+}
+
+h2{
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-variation-settings: 'wght' 600;
+    font-size: 30pt;
+    margin: 10px;
+    color: darkred;
 }
 </style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
 
-<h2>Chat</h2>
 
-<div class="chat-container">
-  <div class="message bot-message">
-    <p>Hello!</p>
-  </div>
-  <div class="message user-message">
-    <p>Hi there!</p>
-  </div>
-</div>
+<div style=" height:100vh;  display: flex; flex-direction: column;" >
+    <h2>TESTING</h2>
+    <div class="chat-container" style=" flex-grow: 1;">
+        <p>`
 
-<div class="input-container">
-  <input type="text" id="messageInput" placeholder="Type your message...">
-  <button onclick="sendMessage()">Send</button>
+        `</p>
+        <div class="message bot-message">
+            <p>Hello!</p>
+        </div>
+        <div class="message user-message">
+            <p>Hi there!</p>
+        </div>
+    </div>
+
+    <div class="input-container" style="padding : 0px; background-color:">
+    <input type="text" id="messageInput" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+    </div>
 </div>
 
 <script>
