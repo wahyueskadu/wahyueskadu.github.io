@@ -54,7 +54,7 @@ body{
   flex-direction: column; 
   align-items: center;
   height: 100%;
-  padding: 0 10px 0 10px;
+  padding: 0px 10px 0px 10px;
 }
 
 h1{
@@ -104,6 +104,9 @@ option{
   margin-top: 0px;
   padding-top: 5px;
   /* position: relative; */
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-end; 
 }
 
 .divider{
@@ -316,7 +319,7 @@ option{
     gettest();
     inputMsg.value = "";
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
+    inputMsg.focus();
   }
 
   function gettest(){
