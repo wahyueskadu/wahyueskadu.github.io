@@ -98,15 +98,17 @@ option{
   border-right: none;
   min-height: 100px;
   overflow-y: scroll;
+  height: 100%;
   width: 100%;
   max-width: 500px;
   margin-bottom: 0;
   margin-top: 0px;
   padding-top: 5px;
-  /* position: relative; */
+  /* position: relative; 
   display: flex;
   flex-direction: column; 
-  justify-content: flex-end; 
+  justify-content: flex-end; */ 
+
 }
 
 .divider{
@@ -209,7 +211,7 @@ option{
     </div>
   </div>
   <div class="inputContainer">
-    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autofocus>
+    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
     <button id="sendMsg"  onclick="sendInput()">
       <i class="fa fa-circle-arrow-right"></i> 
     </button>
@@ -320,6 +322,7 @@ option{
     inputMsg.value = "";
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
     inputMsg.focus();
+    window.scrollTo(0, window.scrollHeight);
   }
 
   function gettest(){
