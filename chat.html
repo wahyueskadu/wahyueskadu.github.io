@@ -209,7 +209,7 @@ option{
     </div>
   </div>
   <div class="inputContainer">
-    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
+    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autofocus>
     <button id="sendMsg"  onclick="sendInput()">
       <i class="fa fa-circle-arrow-right"></i> 
     </button>
@@ -320,7 +320,6 @@ option{
     inputMsg.value = "";
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
     inputMsg.focus();
-    window.scrollTo(0, window.scrollHeight);
   }
 
   function gettest(){
