@@ -235,6 +235,7 @@ option{
   let attempt, stateNow, inputNow, ansVar, questionProgress, namaSiswa, kelasSiswa, nomorSiswa;
   stateNow = "BASEPenjumlahanPengurangan";
 
+  let ans, tipesoal;
   const chatContainer =  document.querySelector(".chatContainer");
   const inputMsg =  document.getElementById("inputMsg");
 
@@ -317,7 +318,14 @@ option{
     inputNow = 'nama';
   }
 
-  generateHello();
+  //generateHello();
+
+  function generateEmergency(){
+    questionProgress = 1;
+getSoal(1)
+  }
+
+  generateEmergency();
 
   //when enter pressed, it sort of press the send button
   function handleEnter(event) {
@@ -362,12 +370,12 @@ option{
     return textP;
   }
 
-
+ inputNow = 'soal';
 
   //set what happens when enter pressed
   function sendInput(){
     wrap(inputMsg.value);
-    inputNow = 'absen';
+    /*inputNow = 'absen';
     /*switch (inputNow){
       case 'nama':
         namaSiswa = inputMsg.value;
@@ -388,7 +396,27 @@ option{
         getSoal(1);
         break
     }*/
-    getSoal(1);
+    if (ans == inputMsg.value){
+      wrapbot('Jawaban kamu benar!');
+      questionProgress += 1;
+      getSoal(1);
+    }else{
+      switch (tipesoal){
+        case 1:
+          resp = `sudut penyiku jika dijumlahkan hasilnya 90`;
+          break
+        case 2:
+          resp = `sudut pelurus jika dijumlahkan hasilnya 90`;
+          break
+        case 3:
+          resp = `sudut bertolak belakang besarnya sama`;
+        break
+      }
+  wrapbot(`Jawaban kamu salah`);
+  wrapbot(`Ingat, ${resp}.`);
+  wrapbot('Coba lagi');
+    }
+    
 
     inputMsg.value = "";
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
@@ -396,22 +424,27 @@ option{
     window.scrollTo(0, window.scrollHeight);
   }
 
+  
   function getSoal(x){
   switch (x){
     case 1:
-      let asd = getintegerNZ(1,3);
-      switch (asd){
+      tipesoal = getintegerNZ(1,3);
+      makedivider(`Soal ${questionProgress}`)
+      switch (tipesoal){
       case 1:
         let pelurus = getintegerNZ(10,170);
-        wrapbot(`Sudut pelurus dari ${pelurus} adalah ....`);
+        ans = 180 - pelurus;
+        wrapbot(`Sudut pelurus dari ${pelurus} adalah .... `);
         break
       case 2:
-        let penyiku = getintegerNZ(10,170);
+        let penyiku = getintegerNZ(10,80);
+        ans = 90 - penyiku;
         wrapbot(`Sudut penyiku dari ${penyiku} adalah ....`);
         break
       case 3:
         let bertoklakbelakang = getintegerNZ(10,170);
         wrapbot(`Sudut bertolak belakang dari ${bertoklakbelakang} adalah ....`);
+        ans = bertoklakbelakang
         break
       } 
       break;
