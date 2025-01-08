@@ -1,0 +1,634 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <!-- For a .svg file -->
+     <link rel="icon" href="blob:https://phosphoricons.com/c3ccac0b-4c72-4ba4-97b4-5650a3f33949" type="image/svg+xml">
+     <title>Wahyu Eskadu</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+</head>    
+<style>
+
+*{
+  font-family: 'DM Sans', sans-serif;
+  font-variation-settings: 'wght' 600;
+  box-sizing: border-box; 
+  margin: 0px;
+  color: var(--secondtext-color);
+}
+
+:root {
+  --bg-color: #FCF6B1;
+  --primary-color:##2D1E2F;
+  --accent-color: #F7B32B;
+  --accenttext-color: var(--bg-color);
+  --second-color: #B8B8D1;
+  --secondtext-color : #2D1E2F;
+}
+
+::-webkit-scrollbar {
+  position:absolute;
+  top: 0; 
+  right: 0px; 
+  width: 4px
+}
+
+::-webkit-scrollbar-track {
+  background : var(--secondtext-color); 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: white; 
+  width: 90px;
+}
+
+body{
+  background-color: var(--bg-color);
+  text-align: center;
+  font-size: 25pt;
+  color: var(--accent-color);
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  height: 100%;
+  padding: 0px 10px 0px 10px;
+}
+
+h1{
+  font-size: 40pt;
+  font-variation-settings: 'wght'900;
+  margin: 10px;
+}
+
+select{
+  font-size: 15pt;
+  background-color: transparent;
+  border-color: transparent;
+  max-width: 100%;
+  overflow-y: auto;
+  white-space: normal; /* Prevents text from wrapping */
+  text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+  color: var(--accent-color);
+}
+
+option{
+  font-size: 10pt;
+  white-space: normal;
+  background-color: var(--accent-color);
+}
+
+
+.headerContainer{
+  border-radius: 10px 10px 0px 0px;
+  background-color: var(--secondtext-color);
+  color:var(--accent-color);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 0;
+}
+
+.chatContainer{
+  height: 100%;
+  border: 4px solid var(--secondtext-color);
+  border-bottom : none;
+  border-top: none;
+  border-right: none;
+  min-height: 100px;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 0;
+  margin-top: 0px;
+  padding-top: 5px;
+  /* position: relative; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-end; */ 
+
+}
+
+.divider{
+  font-size: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color:var(--secondtext-color)
+}
+.msg {
+  margin: 5px 10px 10px 5px;
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+  box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.msgUser {
+  background-color: var(--accent-color);
+  text-align: right;
+  margin-left: auto;
+  color: var(--bg-color);
+}
+
+.msgBot {
+  background-color: var(--second-color);
+  text-align: left;
+  margin-right: auto;
+  color: var(--accent-color);
+}
+
+.msg p {
+  font-size: 18pt; /* Reduced font size */
+  margin : 0px;
+}
+
+.msgpinned{
+    position: sticky;
+    top: 5;
+    background-color: var(--bg-color);
+    /*padding: 5px 0 5px 0; */
+}
+
+.inputContainer{
+  height: fit-content;
+  padding: 5px 5px 5px 5px;
+  max-height: 500px;
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  background-color: var(--secondtext-color);
+  width: 100%;
+  box-sizing: border-box; 
+  max-width: 500px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+#inputMsg{
+  background-color: white;
+  border: none;
+  border-color: var(--accent-color);
+  border-radius: 8px;
+  color: var(--secondtext-color);
+  padding: 5px 10px;
+  display: inline-block;
+  margin: 2px 2px;
+  flex-grow: 1;
+  font-size: 20px;
+}
+
+
+#sendMsg{
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  margin: 2px 2px;
+  font-size: 20pt;
+  font-variation-settings: 'wght' 100;
+}
+
+.svgline{
+  stroke: rgb(0, 0, 0);
+  stroke-width: 3px;
+}
+
+.svgbg{
+  fill: white;
+}
+
+.svgtext{
+       /* text-anchor: middle;
+        dominant-baseline: middle;
+        fill: black; */
+        font-size: 15px;
+    }
+</style>
+
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body>
+  <h1>LATIHAN</h1>
+  <div class="headerContainer">
+    <select id="stateSelect"></select>
+  </div>
+  <div class="chatContainer">
+   
+  </div>
+  <div class="inputContainer">
+    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
+    <button id="sendMsg"  onclick="sendInput()">
+      <i class="fa fa-circle-arrow-right"></i> 
+    </button>
+  </div>
+    
+<script>
+  
+  let attempt, stateNow, inputNow, ansVar, questionProgress, namaSiswa, kelasSiswa, nomorSiswa;
+  stateNow = "BASEPenjumlahanPengurangan";
+
+  const chatContainer =  document.querySelector(".chatContainer");
+  const inputMsg =  document.getElementById("inputMsg");
+
+  const stateList = [
+    {
+      title: "Kedudukan Garis",
+      function : "GDSKedudukan"
+    },
+    {
+      title: "Sudut Pelurus, Sudut Penyiku, Sudut Bertolak Belakang",
+      function : "GDSPelurusPenyiku"
+    },
+  /*  {
+      title: "Sudut Transversal",
+      function: "GDSTransversal"
+    }
+    {
+      title: "Kedudukan Garis dan Nama Sudut",
+      function: "GDSKedudukan"
+    },
+    {
+      title: "Sudut Berpenyiku",
+      function: "GDSSiku"
+    },
+    {
+      title: "Sudut Pelurus",
+      function: "GDSLurus"
+    },
+*/
+      // ... more sections
+    ];
+
+  function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+//  window.onload {
+  //  getBASEPenjumlahanPengurangan();
+  
+   //window.onload = function() { var input = document.getElementById('autoFocusInput'); input.focus(); }
+ /* window.addEventListener('load', function() {
+    const scrollbar = document.querySelector('.chatContainer'); 
+    scrollbar.addEventListener('mouseover', function() {
+      scrollbar.style.overflowY = 'scroll'; 
+    });
+    scrollbar.addEventListener('mouseout', function() {
+      scrollbar.style.overflowY = 'hidden'; 
+    });
+  });
+*/
+  const mySelect = document.getElementById('stateSelect');
+  mySelect.addEventListener('change', function() {
+    const selectedValue = this.value; 
+    stateNow = selectedValue;
+    chatContainer.innerHTML = '';
+    inputMsg.value = '';
+    questionProgress = 0;
+
+    const theName = stateList.find(x => x['function'] === stateNow);
+    wrapbot(`Soal materi "${theName['title']}"`);
+    wrapbot(stateNow)
+    window[`get${stateNow}`]();
+  });
+    
+  function generateDropDown(){
+    const drop = document.getElementById("stateSelect");
+    stateList.forEach(section => {
+      const opt = document.createElement("option");
+      opt.textContent = section.title;
+      opt.value = section.function;
+      drop.appendChild(opt);
+    });
+  }
+
+  generateDropDown();
+  
+  function generateHello(){
+    wrapbot('Hello!');
+    wrapbot('Sebelum memulai belajar, kita kenalan dulu');
+    wrapbot('Siapa namamu?');
+    inputNow = 'nama';
+  }
+
+  generateHello();
+
+  //when enter pressed, it sort of press the send button
+  function handleEnter(event) {
+        if (event.keyCode === 13) { 
+        // Call your function here
+        sendInput(); 
+        }
+  }
+
+  
+  function wrap(text , type="u"){
+    const textbubble = document.createElement("div");
+    let bubbletype = "";
+    if (type == "u"){
+      bubbletype = "msgUser";
+    } else {
+      bubbletype = "msgBot";
+    }
+    textbubble.classList.add ("msg",bubbletype);
+    textbubbletext = makeText(text);
+    textbubble.appendChild(textbubbletext);
+    
+    chatContainer.appendChild(textbubble);
+  };
+
+  
+
+  function wrapbot(text){
+    wrap(text,'b');
+  }
+  
+  function makedivider(text){
+    const divider = document.createElement("p");
+    divider.classList.add ("divider");
+    divider.textContent = text;
+    chatContainer.appendChild(divider);
+  }
+ 
+  function makeText(text){
+    const textP = document.createElement("p");
+    textP.textContent = text;
+    return textP;
+  }
+
+
+
+  //set what happens when enter pressed
+  function sendInput(){
+    wrap(inputMsg.value);
+    inputNow = 'absen';
+    /*switch (inputNow){
+      case 'nama':
+        namaSiswa = inputMsg.value;
+        inputNow = 'kelas';
+        wrapbot(`hi ${namaSiswa}`);
+        wrapbot(`Kamu di kelas 7 apa?`);
+        break
+      case 'kelas':
+        kelasSiswa = inputMsg.value;
+        inputNow = 'absen';
+        wrapbot(`Nomor absen kamu?`);
+        break
+      case 'absen':
+        nomorSiswa = inputMsg.value;
+        inputNow = 'soal';
+        questionProgress = 1;
+        wrapbot(`Sekarang kita lanjut ke soal,`);
+        getSoal(1);
+        break
+    }*/
+    getSoal(1);
+
+    inputMsg.value = "";
+    chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    inputMsg.focus();
+    window.scrollTo(0, window.scrollHeight);
+  }
+
+  function getSoal(x){
+  switch (x){
+    case 1:
+      let asd = getintegerNZ(1,3);
+      switch (asd){
+      case 1:
+        let pelurus = getintegerNZ(10,170);
+        wrapbot(`Sudut pelurus dari ${pelurus} adalah ....`);
+        break
+      case 2:
+        let penyiku = getintegerNZ(10,170);
+        wrapbot(`Sudut penyiku dari ${penyiku} adalah ....`);
+        break
+      case 3:
+        let bertoklakbelakang = getintegerNZ(10,170);
+        wrapbot(`Sudut bertolak belakang dari ${bertoklakbelakang} adalah ....`);
+        break
+      } 
+      break;
+    case 875:
+      makedivider(`Soal ${questionProgress}`);
+      let type = getintegerNZ(1,4);
+     
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add ('msgBot', 'msg');
+
+
+
+      const msgSVG = makeSVG()
+      const msgBg = makeSVGBg();
+      msgSVG.appendChild (msgBg);
+
+      const angle = getintegerNZ(15,155);
+      const thetaRad = angle * (Math.PI / 180);
+      const x = 110 + 80 * Math.cos(thetaRad);
+      const y = 110 - 80 * Math.sin(thetaRad);
+
+      const msgLine1 = makeSVGPath(`M 10 110 L 210 110`);
+      const msgLine2 = makeSVGPath(`M ${x} ${y} L 110 110`);
+   
+
+      msgSVG.appendChild(msgLine1);    
+      msgSVG.appendChild(msgLine2);
+
+
+      
+
+
+      /*let xpos = getintegerNZ(1,5)*10;
+      let xpos2 = xpos + 50
+      let skew = getintegerNZ(3,8)*10
+      const msgLine1 = makeSVGPath(`M ${xpos} 10 l ${skew} 100`);
+      const msgLine2 = makeSVGPath(`M ${xpos2} 10 l ${skew} 100`);
+   
+
+      msgSVG.appendChild (msgLine1);
+      msgSVG.appendChild (msgLine2);*/
+      msgDiv.appendChild (msgSVG);
+
+      msgLabel1 = angleText(angle,angle + '°');
+      msgSVG.appendChild(msgLabel1);
+
+      msgLabel2 = angleText2(angle,'x');
+      msgSVG.appendChild(msgLabel2);
+
+      const msgText = makeText("Besar x adalah....");
+      msgDiv.appendChild (msgText);
+
+      chatContainer.appendChild (msgDiv);
+      break
+    }
+  }
+
+  function angleText2 (angle,text){
+    angle = 180-angle
+
+      const msgLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      msgLabel.setAttribute ('x',110);
+      msgLabel.setAttribute ('y',110);
+      msgLabel.textContent = 'x';
+      msgLabel.classList.add ('svgtext');
+
+      const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+      tspan.setAttribute("x", "100");
+      tspan.setAttribute("dy", "-10");
+      tspan.setAttribute("transform", "rotate(45 100 75)");
+      tspan.textContent = "128°";
+
+      msgLabel.appendChild(tspan);
+    return msgLabel;
+
+  }
+
+
+  function angleText (angle,text){
+    const thetaRad = angle * (Math.PI / 180);
+    const textangle = thetaRad/2;
+      let rtext = 40;
+   /*   if (angle < 50){
+        rtext += 20;
+      } else if (angle > 100){
+        rtext -= 5;
+      };*/
+
+     let xtext = 110 + rtext * Math.cos(textangle);
+
+      if (angle < 145){
+        xtext += 5;
+      }
+      const ytext = 110 - rtext * Math.sin(textangle);
+
+      const msgLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      msgLabel.setAttribute ('x',xtext);
+      msgLabel.setAttribute ('y',ytext);
+      msgLabel.textContent = text;
+      msgLabel.classList.add ('svgtext');
+    return msgLabel;
+
+  }
+
+  
+  function roundedRectanglePath(x = 0, y = 0, width = 220, height = 120, radius = 5) {
+    if (radius > Math.min(width, height) / 2) {
+      radius = Math.min(width, height) / 2; // Ensure radius doesn't exceed half the shortest side
+    }
+    return `M ${x + radius} ${y} ` +
+         `h ${width - 2 * radius} ` +
+         `a ${radius} ${radius} 0 0 1 ${radius} ${radius} ` +
+         `v ${height - 2 * radius} ` +
+         `a ${radius} ${radius} 0 0 1 -${radius} ${radius} ` +
+         `h -${width - 2 * radius} ` +
+         `a ${radius} ${radius} 0 0 1 -${radius} -${radius} ` +
+         `v -${height - 2 * radius} ` +
+         `a ${radius} ${radius} 0 0 1 ${radius} -${radius} z`;
+  }
+
+  function makeSVGBg (){
+    const msgBg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    msgBg.setAttribute ('d',roundedRectanglePath());
+    msgBg.classList.add ('svgbg')
+    return msgBg;
+  }
+
+  function makeSVGPath (d){
+    const msgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    msgPath.setAttribute ('d',d);
+    msgPath.classList.add ('svgline')
+    return msgPath;
+  }
+  
+  function makeSVG (height = 120, width = 220){
+    const msgSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    msgSVG.setAttribute('height', height);
+    msgSVG.setAttribute('width',  width);
+    let h = height - 20;
+    let w = height - 20;
+    msgSVG.setAttribute('viewbox', `0 0 ${h} ${w}`);
+    return msgSVG;
+  }
+
+  /*function gettest(){
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add ('msgBot', 'msg');
+
+    const msgText = makeText("Tentuakn besar x");
+    msgDiv.appendChild (msgText);
+
+    const  msgSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    msgSVG.setAttribute('height', "120");
+    msgSVG.setAttribute('width', "220");
+    msgSVG.setAttribute('viewbox', "0 0 100 50");
+    
+    const msgAxis = makeSVGPath('M 10 110 L 210 110');
+    const msgBg = makeSVGBg();
+    msgSVG.appendChild (msgBg);
+    msgSVG.appendChild (msgAxis);
+    msgDiv.appendChild (msgSVG);
+
+    chatContainer.appendChild (msgDiv);
+  }
+
+
+  */
+
+  //get integer non zero
+  function getintegerNZ(min, max) {
+      let randomNum;
+      do {
+          randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+      } while (randomNum === 0);
+      return randomNum;
+  }
+
+  //make text pretty, with spaces around operators
+  function pretty(text){
+  let texted = text.replaceAll("+ -"," – ");
+          texted = texted.replace(" -"," – ");
+          texted = " "+texted;
+          texted = texted.replaceAll(" 1x"," x");
+      texted = texted.replaceAll(" –1x"," –x");
+      texted = texted.replaceAll(" -1x"," –x");
+      return texted;}
+
+  function getGDSKedudukan(){
+    makedivider(`Soal ${questionProgress}`);
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add ('msgBot', 'msg');
+
+    const msgText = makeText("Tentuakn besar x");
+    msgDiv.appendChild (msgText);
+
+    const  msgSVG = makeSVG();
+    
+    //const msgAxis = makeSVGPath('M 10 110 L 210 110');
+    const msgBg = makeSVGBg();
+    msgSVG.appendChild (msgBg);
+    msgSVG.appendChild (msgAxis);
+    msgDiv.appendChild (msgSVG);
+
+    chatContainer.appendChild (msgDiv);
+  }
+
+  function getGDSPelurusPenyiku(){
+    temp('hfm')
+  }
+
+  function getGDSTransversal(){
+    temp('trans')
+  }
+
+  function temp(text){
+    wrapbot(text);
+  }
+  </script>
+</body>
+</html>
