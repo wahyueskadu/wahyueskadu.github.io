@@ -65,6 +65,7 @@
         font-size: 40pt;
         font-variation-settings: 'wght'900;
         margin: 10px;
+        line-height: 0.9;
     }
 
     select{
@@ -92,8 +93,15 @@
         max-width: 500px;
         margin-bottom: 0;
         font-size: 25px;
+        display: flex;
+        padding: 5px 10px 5px 10px;        
+        justify-content: space-between;
+        align-items: center;
     }
 
+    .headerText{
+        color:var(--accent-color);
+    }
     .chatContainer{
         height: 100%;
         border: 4px solid var(--secondtext-color);
@@ -126,7 +134,7 @@
         padding: 5px;
         width: fit-content;
         box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
-        max-width: 300px;
+        max-width: 230px;
         word-wrap: break-word;
     }
 
@@ -232,10 +240,14 @@
     </style>
 </head>
 <body>
-    <h1>LATIHAN</h1>
+    <h1>LATIHAN GARIS DAN SUDUT</h1>
     <div class="headerContainer">
-    Garis dan Sudut 1
      <!--   <select id="stateSelect"></select> -->
+     <div>
+        <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
+       <span class="headerText">Hi, User</span>
+    </div>
+    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;';">Ganti Akun </span>
     </div>
     <div class="chatContainer">
      
@@ -244,6 +256,8 @@
       <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
       <button id="sendMsg"  onclick="sendInput()">
         <i class="fa fa-circle-arrow-right"></i> 
+        <button id="sendMsg"  onclick="scrollToLastDivider()">
+            <i class="fa fa-circle-arrow-up"></i> 
       </button>
     </div>
     <div id="toast" class="toast"></div>
@@ -253,11 +267,13 @@
 
     const chatContainer = document.querySelector(".chatContainer"); 
     const inputMsg = document.getElementById("inputMsg");
-
-    let questionProgress, attemptAnswer, qArray;
+    let questionProgress, attemptAnswer, firstTry;
+    let startTime;
+    questionCount = 2;
+    const qArray = {};
     /* Startups */
 
-    //letsStart();
+    letsStart();
     
     //at load or refresh
     function letsStart(){
@@ -268,10 +284,12 @@
     }
 
     //letstest
-    letsTest()
+    //letsTest()
     function letsTest(){
         inputNow = 'soal';
         questionProgress = 1;
+        firstTry = 0;
+        attemptAnswer = 0
        // makeBubbleBot(`Sekarang kita lanjut ke soal.`);
         getSoal(1);
     }
@@ -287,7 +305,7 @@
 
     //set what happens when button pressed
     function sendInput(){
-        getSoal();
+        //getSoal();
         //if input return immediately
         /*if (inputMsg.value.trim() == '') {
             showToast('Kotak input tidak boleh kosong');
@@ -315,74 +333,121 @@
                 makeBubbleBot(`Sekarang kita lanjut ke soal.`);
                 getSoal(1);
                 break
-            case 'soaxl':
+            case 'soal':
                 checkAnswer();
             }
-        inputMsg.value = "";
+         inputMsg.value = "";
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
         inputMsg.focus();
         window.scrollTo(0, window.scrollHeight);
         }
 
     function getSoal(){
-    makeDivider(`Soal ${questionProgress}`);
-      
-    //const
-    let questionType = getintegerNZ(1,6);
-    questionTypeList = 'Bertolak Belakang#Sehadap#Dalam Berseberangan#Luar Berseberangan#Dalam Sepihak#Luar Sepihak'
-    answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
+        if (questionProgress == 1){
+            startTime = Date.now(); 
+        }
+        makeDivider(`Soal ${questionProgress}, Skor ${firstTry}`);
+        
+        //const
+        let questionType = getintegerNZ(1,6);
+        questionTypeList = 'Bertolak Belakang#Sehadap#Dalam Berseberangan#Luar Berseberangan#Dalam Sepihak#Luar Sepihak'
+        answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
 
-    answerListTemp = answerList[questionType-1];
-    makeBubbleUser(answerListTemp);
-    let initialAngle = 1;
-    do{
-        initialAngle = getintegerNZ (1,6);
-        answerFix = answerListTemp[initialAngle-1];
-        makeBubbleUser(answerFix);
-    } while (answerFix === '#');
+        answerListTemp = answerList[questionType-1];
+        let initialAngle = 1;
+        do{
+            initialAngle = getintegerNZ (1,6);
+            answerFix = answerListTemp[initialAngle-1];
+        } while (answerFix === '#');
 
-    questionTypeText = questionTypeList.split("#")[questionType-1];
-    questionTypeText = questionTypeText.toLowerCase(); 
+        questionTypeText = questionTypeList.split("#")[questionType-1];
+        questionTypeText = questionTypeText.toLowerCase(); 
 
-    //makeBubbleUser(`${questionTypeText} dari ${questionType} adalah ${answerFix}`);
-    const bubble = makeBubbleBlank();
+        //makeBubbleUser(`${questionTypeText} dari ${questionType} adalah ${answerFix}`);
+        const bubble = makeBubbleBlank();
 
-    append(bubble,makeText(`Sudut yang merupakan sudut ${questionTypeText} dengan sudut ${initialAngle} adalah ${answerFix}`))
-    const SVGContainer = makeSVG();
+        append(bubble,makeText(`Sudut yang merupakan sudut ${questionTypeText} dengan sudut ${initialAngle} adalah...`))
+        const SVGContainer = makeSVG();
 
-   
-    append(SVGContainer,makeSVGBg());
-    append(SVGContainer,makeSVGPath (`M 10 60 h 200`));
-    append(SVGContainer,makeParallel());
-    makeParallelText(SVGContainer);
+    
+        append(SVGContainer,makeSVGBg());
+        append(SVGContainer,makeSVGPath (`M 10 60 h 200`));
+        append(SVGContainer,makeParallel());
+        makeParallelText(SVGContainer);
 
-    bubble.appendChild (SVGContainer);
+        bubble.appendChild (SVGContainer);
 
-    chatContainer.appendChild(bubble);
+        chatContainer.appendChild(bubble);
+        qArray.initialAngle = initialAngle;
+        qArray.answerFix = answerFix;
+        }
+
+        /*function checkAnswer(){
+            if (ans == inputMsg.value){
+                wrapbot('Jawaban kamu benar!');
+                questionProgress += 1;
+                getSoal(1);
+                } else {
+                switch (tipesoal){
+                    case 1:
+                    resp = `sudut penyiku jika dijumlahkan hasilnya 90`;
+                    break
+                    case 2:
+                    resp = `sudut pelurus jika dijumlahkan hasilnya 90`;
+                    break
+                    case 3:
+                    resp = `sudut bertolak belakang besarnya sama`;
+                    break
+                        makeBubbleBot(`Jawaban kamu salah`);
+            makeBubbleBot(`Ingat, ${resp}.`);
+            makeBubbleBot('Coba lagi');
+        } */
+        
+    
+
+    function checkAnswer(){
+        if(inputMsg.value == qArray.answerFix){
+            makeBubbleBot('Jawaban kamu benar');
+            questionProgress += 1;
+            if (attemptAnswer == 0){firstTry +=1}
+            attemptAnswer = 0;
+            if (questionProgress <= questionCount){
+                getSoal();
+            } else {
+                printResult();
+                //chatContainer.innerHTML = "";    
+            }
+        } else {
+            makeBubbleBot('Jawaban masih kurang tepat, coba lagi');
+            attemptAnswer = 1;
+        }
     }
 
-    /*function checkAnswer(){
-        if (ans == inputMsg.value){
-            wrapbot('Jawaban kamu benar!');
-            questionProgress += 1;
-            getSoal(1);
-            } else {
-            switch (tipesoal){
-                case 1:
-                resp = `sudut penyiku jika dijumlahkan hasilnya 90`;
-                break
-                case 2:
-                resp = `sudut pelurus jika dijumlahkan hasilnya 90`;
-                break
-                case 3:
-                resp = `sudut bertolak belakang besarnya sama`;
-                break
-                       makeBubbleBot(`Jawaban kamu salah`);
-        makeBubbleBot(`Ingat, ${resp}.`);
-        makeBubbleBot('Coba lagi');
-    } */
-    
-    
+    function printResult(){
+        makeDivider('Hasil Pekerjaan Kamu');
+        makeBubbleBot('Selamat, kamu sudah berhasil menyelesaikan soal');
+        makeBubbleBot(`Dari 5 soal, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan`);
+        makeBubbleBot(firstTry);
+        makeBubbleBot(questionCount);
+        makeBubbleBot(firstTry == questionCount);
+        let resultTime = printTime();
+        if(firstTry == questionCount){
+            makeBubbleBot(`Waktu yang diperlukan: ${resultTime}`);
+        } else {
+            
+        }
+    }
+
+    function printTime() { 
+      const endTime = Date.now();
+      const elapsedTime = endTime - startTime; 
+
+      const minutes = Math.floor(elapsedTime / 60000); 
+      const seconds = Math.floor((elapsedTime % 60000) / 1000);
+
+      const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
+      return formattedTime;
+    }
     /* Displays */
 
     
@@ -504,6 +569,13 @@
       }, 3000); // Hide toast after 3 seconds
     }
 
+    function scrollToLastDivider() {
+        const dividers = document.querySelectorAll('.divider'); 
+        if (dividers.length > 0) { 
+            const lastDivider = dividers[dividers.length - 1]; 
+            lastDivider.scrollIntoView({ behavior: 'smooth' }); 
+        }
+    }
     /* Basic Functions */
 
     function getintegerNZ(min, max) {
