@@ -153,7 +153,7 @@
     }
 
     .msg p {
-        font-size: 16pt; /* Reduced font size */
+        font-size: 14pt; /* Reduced font size */
         font-variation-settings: 'wght'500;
         margin : 0px;
     }
@@ -247,7 +247,7 @@
         <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
        <span class="headerText">Hi, User</span>
     </div>
-    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;';">Ganti Akun </span>
+    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;">Ganti Akun </span>
     </div>
     <div class="chatContainer">
      
@@ -269,7 +269,7 @@
     const inputMsg = document.getElementById("inputMsg");
     let questionProgress, attemptAnswer, firstTry;
     let startTime;
-    questionCount = 2;
+    questionCount = 10;
     const qArray = {};
     /* Startups */
 
@@ -331,10 +331,16 @@
                 inputNow = 'soal';
                 questionProgress = 1;
                 makeBubbleBot(`Sekarang kita lanjut ke soal.`);
+                firstTry = 0;
                 getSoal(1);
+                
                 break
             case 'soal':
                 checkAnswer();
+                break
+            case 'selesai':
+                chatContainer.innerHTML = ''
+                letsTest();
             }
          inputMsg.value = "";
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
@@ -342,13 +348,13 @@
         window.scrollTo(0, window.scrollHeight);
         }
 
-    function getSoal(){
+    function getSoal(questionKind){
         if (questionProgress == 1){
             startTime = Date.now(); 
         }
-        makeDivider(`Soal ${questionProgress}, Skor ${firstTry}`);
-        
-        //const
+        attemptAnswer = 0;
+        makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
+
         let questionType = getintegerNZ(1,6);
         questionTypeList = 'Bertolak Belakang#Sehadap#Dalam Berseberangan#Luar Berseberangan#Dalam Sepihak#Luar Sepihak'
         answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
@@ -359,6 +365,11 @@
             initialAngle = getintegerNZ (1,6);
             answerFix = answerListTemp[initialAngle-1];
         } while (answerFix === '#');
+
+
+        
+        //const
+
 
         questionTypeText = questionTypeList.split("#")[questionType-1];
         questionTypeText = questionTypeText.toLowerCase(); 
@@ -409,7 +420,9 @@
         if(inputMsg.value == qArray.answerFix){
             makeBubbleBot('Jawaban kamu benar');
             questionProgress += 1;
-            if (attemptAnswer == 0){firstTry +=1}
+            if (attemptAnswer == 0){
+                firstTry +=1
+            }
             attemptAnswer = 0;
             if (questionProgress <= questionCount){
                 getSoal();
@@ -426,16 +439,16 @@
     function printResult(){
         makeDivider('Hasil Pekerjaan Kamu');
         makeBubbleBot('Selamat, kamu sudah berhasil menyelesaikan soal');
-        makeBubbleBot(`Dari 5 soal, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan`);
-        makeBubbleBot(firstTry);
-        makeBubbleBot(questionCount);
-        makeBubbleBot(firstTry == questionCount);
+        makeBubbleBot(`Dari ${questionCount} soal, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan`);
         let resultTime = printTime();
         if(firstTry == questionCount){
-            makeBubbleBot(`Waktu yang diperlukan: ${resultTime}`);
+            makeBubbleBot(`Waktu kamu mengerjakan adalah ${resultTime}`);
+            makeBubbleBot('Apakah kamu bisa mengerjakan lebih cepat dari ini?')
         } else {
-            
+            makeBubbleBot('Yuk coba lagi, agar bisa betul semua tanpa bantuan')
         }
+        makeBubbleBot('Tekan enter untuk mengulang soal')
+        inputNow = 'selesai';
     }
 
     function printTime() { 
