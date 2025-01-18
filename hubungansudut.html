@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <!-- For a .svg file -->
      <link rel="icon" href="blob:https://phosphoricons.com/c3ccac0b-4c72-4ba4-97b4-5650a3f33949" type="image/svg+xml">
-     <title>Wahyu Eskadu</title>
+     <title>Working Title</title>
 
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 </head>    
@@ -135,7 +135,8 @@
         width: fit-content;
         box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
         max-width: 230px;
-        word-wrap: break-word;
+       /* word-wrap: break-word; */
+       white-space: pre-wrap;
     }
 
     .msgUser {
@@ -247,7 +248,7 @@
         <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
        <span class="headerText">Hi, User</span>
     </div>
-    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;">  </span>
+    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;"></span>
     </div>
     <div class="chatContainer">
      
@@ -355,44 +356,82 @@
         attemptAnswer = 0;
         makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
 
-        let questionType = getintegerNZ(1,6);
+        let questionType = getIntegerNZ(1,6);
         questionTypeList = 'Bertolak Belakang#Sehadap#Dalam Berseberangan#Luar Berseberangan#Dalam Sepihak#Luar Sepihak'
         answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
 
         answerListTemp = answerList[questionType-1];
         let initialAngle = 1;
+        let initialAnswer;
         do{
-            initialAngle = getintegerNZ (1,6);
-            answerFix = answerListTemp[initialAngle-1];
-        } while (answerFix === '#');
+            initialAngle = getIntegerNZ (1,6);
+            initialAnswer = answerListTemp[initialAngle-1];
+        } while (initialAnswer === '#');
 
 
         
         //const
-
-
         questionTypeText = questionTypeList.split("#")[questionType-1];
         questionTypeText = questionTypeText.toLowerCase(); 
 
+        const labelList = ['12345678','abcdefgh','12563478','abefcdgh'];
+
+        //add special label
+        leftSide = [1,2,5,6];
+        if (questionType > 2){
+            if(leftSide.includes(initialAngle)){
+                    labelList.push('  12  34','  ab  cd');
+                    labelList.push('  12  34','  ab  cd');
+            } else {
+                    labelList.push('12  34  ','ab  cd  ');
+                    labelList.push('12  34  ','ab  cd  ');
+            }
+        }
+        rnd = getInteger(0,labelList.length-1);
+        label = labelList[rnd];
+
+ 
+
         //makeBubbleUser(`${questionTypeText} dari ${questionType} adalah ${answerFix}`);
         const bubble = makeBubbleBlank();
-
-        append(bubble,makeText(`Sudut yang merupakan sudut ${questionTypeText} dengan sudut ${initialAngle} adalah...`))
+        
+        displayAngle = label[initialAngle-1];
+        if (displayAngle == ' ') {
+            displayAngle = 'x'
+            label = replaceChar(label,initialAngle-1,'x');
+        };
+        displayAnswer = label[initialAnswer-1];
+        append(bubble,makeText(`Sudut yang merupakan sudut ${questionTypeText} dengan sudut ${displayAngle} adalah...`))
         const SVGContainer = makeSVG();
 
     
         append(SVGContainer,makeSVGBg());
         append(SVGContainer,makeSVGPath (`M 10 60 h 200`));
-        append(SVGContainer,makeParallel());
-        makeParallelText(SVGContainer);
+        skewType = getInteger(0,1);
+
+        //test
+        //skewType = 1
+        if (skewType == 0){
+            append(SVGContainer,makeParallel());
+            makeParallelText(SVGContainer,label); 
+        } else {
+            append(SVGContainer,makeParallel(undefined,undefined,30));
+            makeParallelText(SVGContainer,label,skewType); 
+        }
+
 
         bubble.appendChild (SVGContainer);
 
         chatContainer.appendChild(bubble);
+     
         qArray.initialAngle = initialAngle;
-        qArray.answerFix = answerFix;
-        }
+        qArray.initalAnswer = initialAnswer;
+        qArray.displayAngle = displayAngle;
+        qArray.displayAnswer = displayAnswer;
+        qArray.questionType = questionType;
+  
 
+        }
         /*function checkAnswer(){
             if (ans == inputMsg.value){
                 wrapbot('Jawaban kamu benar!');
@@ -414,10 +453,17 @@
             makeBubbleBot('Coba lagi');
         } */
         
-    
+    function qSave (key){
+        qArray[key] = key;
+    }
 
     function checkAnswer(){
-        if(inputMsg.value == qArray.answerFix){
+        input = inputMsg.value;
+        input = input.toLowerCase(input.trim());
+        if (input == 'minta jawaban' & attemptAnswer>5){
+            makeBubbleUser(`Jawabannya adalah ${qArray.displayAnswer}.`);
+            makeBubbleUser(`ketik dan kirim untuk melanjutkan ke soal berikutnya`);
+        } else if (input == qArray.displayAnswer) {
             makeBubbleBot('Jawaban kamu benar');
             questionProgress += 1;
             if (attemptAnswer == 0){
@@ -431,23 +477,56 @@
                 //chatContainer.innerHTML = "";    
             }
         } else {
-            makeBubbleBot('Jawaban masih kurang tepat, coba lagi');
-            attemptAnswer = 1;
+            attemptAnswer += 1;
+            //test
+            makeBubbleUser(attemptAnswer)
+            switch (attemptAnswer) {
+                case 1:
+                    makeBubbleBot(`Jawaban masih kurang tepat, coba lagi`);
+                    break;
+                case 2: 
+                    getHelp();
+                    break;
+                default:
+                    makeBubbleBot(`Jawaban masih kurang tepat, coba baca lagi pesan sebelumnya.`);
+                    break;
+            }
+            if (attemptAnswer > 5){
+                makeBubbleBot('Kesulitan? ketik "Minta Jawaban" untuk melihat jawabannya')
+            }
         }
     }
 
+    function getHelp(){
+         questionHelpList = [
+            'Coba ingat lagi ciri sudut yang saling bertolak belakang',
+            'Ingat, sudut yang sehadap arahnya sama. </br>Contoh, jika ada sudut yang arahnya ke kiri atas, maka yang sehadap juga ke arah kiri atas',
+            'Ingat, sudut dalam artinya berada di antara dua garis pararel, sudut berseberangan artinya melewati garis yang memotong',
+            'Ingat, sudut luar artinya tidak berada di antara dua garis pararel, sudut berseberangan artinya melewati garis yang memotong',
+            'Ingat, sudut dalam artinya berada di antara dua garis pararel, sudut sepihak artinya tidak melewati garis yang memotong',
+            'Ingat, sudut luar artinya tidak berada di antara dua garis pararel, sudut sepihak artinya tidak melewati garis yang memotong'];
+        makeBubbleBot('Jawaban masih kurang tepat');
+        makeBubbleBot(questionHelpList[qArray.questionType-1]);
+        makeBubbleBot('Coba lagi')
+    }
     function printResult(){
         makeDivider('Hasil Pekerjaan Kamu');
-        makeBubbleBot('Selamat, kamu sudah berhasil menyelesaikan soal');
-        makeBubbleBot(`Dari ${questionCount} soal, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan`);
+        makeBubbleUser(firstTry == questionCount);
         let resultTime = printTime();
-        if(firstTry == questionCount){
-            makeBubbleBot(`Waktu kamu mengerjakan adalah ${resultTime}`);
-            makeBubbleBot('Apakah kamu bisa mengerjakan lebih cepat dari ini?')
+        if (firstTry == 0) {
+            makeBubbleBot (`Yah, kamu belum bisa mengerjakan tanpa bantuan 😢🥺`);
+            makeBubbleBot('Yuk, coba lagi dengan menekan enter');
         } else {
-            makeBubbleBot('Yuk coba lagi, agar bisa betul semua tanpa bantuan')
+            makeBubbleBot(`Selamat, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan 🥳`);
+            if (firstTry == questionCount){
+                makeBubbleBot(`Kamu selesai dalam waktu ${resultTime}!`);
+                makeBubbleBot(`Bisakah kamu menyelesaikan lebih cepat?Yuk, coba lagi dengan menekan enter`)
+            } else {
+                makeBubbleBot(`Bisakah kamu menyelesaikan semua soal tanpa bantuan?`);
+                makeBubbleBot('Yuk, coba lagi dengan menekan enter');
+            }
         }
-        makeBubbleBot('Tekan enter untuk mengulang soal')
+       
         inputNow = 'selesai';
     }
 
@@ -538,22 +617,37 @@
         return msgLabel
     }
 
-    function makeParallel(container, width = 130, height = 100, skew = -30){
+    function makeParallel(width = 130, height = 100, skew = -30){
         if (skew < 0){width += 2*skew}
         let x1start = (220-width)/2
         let x2start = 220-x1start-skew;
         path = makeSVGPath(`m ${x1start} 10 l ${skew} 100 M ${x2start} 10 l ${skew} 100`);
         return path
     }
-    function makeParallelText(SVGContainer){
-        append(SVGContainer,makeSVGText('1',50,50))
-        append(SVGContainer,makeSVGText('2',75,50))
-        append(SVGContainer,makeSVGText('3',150,50))
-        append(SVGContainer,makeSVGText('4',175,50))
-        append(SVGContainer,makeSVGText('5',45,75))
-        append(SVGContainer,makeSVGText('6',70,75))
-        append(SVGContainer,makeSVGText('7',145,75))
-        append(SVGContainer,makeSVGText('8',170,75))
+    function makeParallelText(SVGContainer,text='12345678',type=0){
+
+        let coordList
+        switch (type) {
+            case 0:
+            coordList = [[50,50],[75,50],[150,50],[175,50],[45,75],[70,75],[145,75],[170,75]];
+            break;
+            case 1:
+            coordList = [[45,50],[70,50],[145,50],[170,50],[50,75],[75,75],[150,75],[175,75]];
+            break;
+        }
+        for (let i = 0; i < 8; i++){
+            coord = coordList[i];
+            append(SVGContainer,makeSVGText(text[i],coord[0],coord[1]))
+        }
+        /*append(SVGContainer,makeSVGText(text[0],50,50))
+        append(SVGContainer,makeSVGText(text[1],75,50))
+        append(SVGContainer,makeSVGText(text[4],45,75))
+        append(SVGContainer,makeSVGText(text[5],70,75))
+        append(SVGContainer,makeSVGText(text[2],150,50))
+        append(SVGContainer,makeSVGText(text[3],175,50))
+        append(SVGContainer,makeSVGText(text[6],145,75))
+        append(SVGContainer,makeSVGText(text[7],170,75))
+        */
     }
     
     //rounded rectangle
@@ -591,12 +685,25 @@
     }
     /* Basic Functions */
 
-    function getintegerNZ(min, max) {
+    function getIntegerNZ(min, max) {
       let randomNum;
       do {
-          randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+          randomNum = getInteger(min,max);
       } while (randomNum === 0);
       return randomNum;
   }
+
+    function getInteger(min,max){
+        let randomNuml
+        randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomNum;
+    }
+
+    function replaceChar(str, index, replacement) {
+        if (index < 0 || index >= str.length) {
+            return str; // Handle invalid index
+        }
+        return str.substring(0, index) + replacement + str.substring(index + 1);
+        }
 </script>
 </body>
