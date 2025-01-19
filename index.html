@@ -271,7 +271,7 @@
     const inputMsg = document.getElementById("inputMsg");
     let questionProgress, attemptAnswer, firstTry;
     let startTime;
-    questionCount = 5;
+    questionCount = 10;
     const qArray = {};
     const userID = {}
     /* Startups */
@@ -473,7 +473,7 @@
         } else {
             attemptAnswer += 1;
             //test
-            makeBubbleUser(attemptAnswer)
+            //makeBubbleUser(attemptAnswer)
             switch (attemptAnswer) {
                 case 1:
                     makeBubbleBot(`Jawaban masih kurang tepat, coba lagi`);
