@@ -242,14 +242,14 @@
 </head>
 <body>
     <h1>LATIHAN GARIS DAN SUDUT</h1>
-    <p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>
+    <!--<p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>-->
     <div class="headerContainer">
      <!--   <select id="stateSelect"></select> -->
      <div>
         <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
-       <span class="headerText">Hi, User</span>
+       <span class="headerText" id="displayUser" style="max-width: 250 px; white-space: nowrap; text-overflow: ellipsis;">Hi, User</span>
     </div>
-    <span class="headerText" style="font-size: 75%; font-variation-settings: 'wght'300;"></span>
+    <button class="headerText" onclick="letsRestart()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Akun</button>
     </div>
     <div class="chatContainer">
      
@@ -263,31 +263,62 @@
       </button>-->
     </div>
     <div id="toast" class="toast"></div>
+    <div style="display:none">
+    <form name="sendForm" ><input id="formInput" name="email"></form> <button onclick="submitForm()">Lalala</button>
+    </div>
 <script>
 
     /* Constants and Variables */
 
     const chatContainer = document.querySelector(".chatContainer"); 
     const inputMsg = document.getElementById("inputMsg");
-    let questionProgress, attemptAnswer, firstTry;
+    const diplayUser = document.getElementById("displayUser");
+    let questionProgress, attemptAnswer, firstTry, resultTime;
     let startTime;
-    questionCount = 10;
+    questionCount = 2;
     const qArray = {};
     const userID = {}
+    
+    /* Form Thing */
+    const scriptURL = `https://script.google.com/macros/s/AKfycbxOP-imsb87LEVfV_u_DH89KO6Z0-AFi3KRigVGLgPgtnTAnvGbn1C21uBawClwcAjB/exec`
+    const form = document.forms['sendForm']
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => makeBubbleBot('Jawaban kamu berhasil dikirim'))
+        .catch(error => makeBubbleBot('Jawaban kamu belum berhasil dikirim'))
+    })
+ 
+    function submitForm() {
+        const inp = document.getElementById('formInput')
+        inp.value = `${namaSiswa}#${kelasSiswa}#${nomorSiswa}#${firstTry}#${resultTime}`;
+        const e = new Event('submit', { cancelable: true });
+        form.dispatchEvent(e);
+    }
+
     /* Startups */
 
-    //letsStart();
+    letsStart();
     
     //at load or refresh
     function letsStart(){
         makeBubbleBot('Hello!');
         makeBubbleBot('Sebelum memulai belajar, kita kenalan dulu');
-        makeBubbleBot('Siapa namamu?');
+        makeBubbleBot('Siapa namamu? Nama panggilan saja.');
         inputNow = 'nama';
     }
 
+    function letsRestart(){
+        diplayUser.textContent = `Hi, User`;
+        namaSiswa = ``;
+        kelasSiswa = ``;
+        nomorSiswa = ``;
+        chatContainer.innerHTML = '';
+        letsStart()
+    }
     //letsStart();
-    letsTest()
+    //letsTest()
     function letsTest(){
         inputNow = 'soal';
         questionProgress = 1;
@@ -310,15 +341,15 @@
     function sendInput(){
         //getSoal();
         //if input return immediately
-        if (inputMsg.value.trim() == '') {
+        if (inputMsg.value.trim() == '' & inputNow != 'selesai') {
             showToast('Kotak input tidak boleh kosong');   
             return;
         }
-
         makeBubbleUser(inputMsg.value);
         switch (inputNow) {
             case 'nama':
                 namaSiswa = inputMsg.value;
+                diplayUser.textContent = `Hi, ${namaSiswa}`
                 inputNow = 'kelas';
                 makeBubbleBot(`hi ${namaSiswa}`);
                 makeBubbleBot(`Kamu di kelas 7 apa?`);
@@ -330,6 +361,7 @@
                 break
             case 'absen':
                 nomorSiswa = inputMsg.value;
+                diplayUser.textContent += `(${kelasSiswa}/${nomorSiswa})`;
                 inputNow = 'soal';
                 questionProgress = 1;
                 makeBubbleBot(`Sekarang kita lanjut ke soal.`);
@@ -473,7 +505,6 @@
         } else {
             attemptAnswer += 1;
             //test
-            //makeBubbleUser(attemptAnswer)
             switch (attemptAnswer) {
                 case 1:
                     makeBubbleBot(`Jawaban masih kurang tepat, coba lagi`);
@@ -506,8 +537,8 @@
     }
     function printResult(){
         makeDivider('Hasil Pekerjaan Kamu');
-        makeBubbleUser(firstTry == questionCount);
-        let resultTime = printTime();
+        resultTime = printTime();
+        submitForm();
         if (firstTry == 0) {
             makeBubbleBot (`Yah, kamu belum bisa mengerjakan tanpa bantuan 😢🥺`);
             makeBubbleBot('Yuk, coba lagi dengan menekan enter');
@@ -515,7 +546,7 @@
             makeBubbleBot(`Selamat, kamu berhasil mengerjakan ${firstTry} soal tanpa bantuan 🥳`);
             if (firstTry == questionCount){
                 makeBubbleBot(`Kamu selesai dalam waktu ${resultTime}!`);
-                makeBubbleBot(`Bisakah kamu menyelesaikan lebih cepat?Yuk, coba lagi dengan menekan enter`)
+                makeBubbleBot(`Bisakah kamu menyelesaikan lebih cepat? Yuk, coba lagi dengan menekan enter`)
             } else {
                 makeBubbleBot(`Bisakah kamu menyelesaikan semua soal tanpa bantuan?`);
                 makeBubbleBot('Yuk, coba lagi dengan menekan enter');
