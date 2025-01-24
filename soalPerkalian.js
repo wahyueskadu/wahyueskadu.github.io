@@ -63,6 +63,8 @@ function getHelp(){
     } else if (input % x2 == 0){
         makeBubbleBot(`Jawaban kamu belum benar, kalau ${input} adalah ${input/x2} \xd7 ${x2}`)
         makeBubbleBot('Coba lagi')
+    } else {
+        makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)
     }
 
 }
