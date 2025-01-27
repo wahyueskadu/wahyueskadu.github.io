@@ -1,3 +1,7 @@
+function letsGo(url){
+    window.location.href = url;
+}
+
 function letsStart(){
     makeBubbleBot('Hello!');
     makeBubbleBot('Sebelum memulai belajar, kita kenalan dulu');
@@ -53,11 +57,7 @@ function submitForm() {
     form.dispatchEvent(e);
 }
 
-/*URL PARAM*/
-const urlParams = new URLSearchParams(window.location.search);
-const subchapterTitle = urlParams.get('test');
-const h1 = document.querySelector("h1");
-h1.textContent += ` ${subchapterTitle}`;
+
 
 /////////////////////////////////////////////////////////////////////* Displays */
 
@@ -291,8 +291,8 @@ function replaceChar(str, index, replacement) {
         input = inputMsg.value;
         input = input.toLowerCase(input.trim());
         if (input == 'minta jawaban' & attemptAnswer>5){
-            makeBubbleUser(`Jawabannya adalah ${qArray.displayAnswer}.`);
-            makeBubbleUser(`ketik dan kirim untuk melanjutkan ke soal berikutnya`);
+            makeBubbleBot(`Jawabannya adalah ${qArray.displayAnswer}.`);
+            makeBubbleBot(`ketik dan kirim jawaban untuk melanjutkan ke soal berikutnya`);
         } else if (isItTrue()) {
             makeBubbleBot('Jawaban kamu benar');
             questionProgress += 1;
@@ -348,3 +348,38 @@ function replaceChar(str, index, replacement) {
       const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
       return formattedTime;
     }
+
+
+function fetchChapterInfo(JSONData){
+    fetch('test.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Process the JSON data here
+    console.log(data); 
+
+    // Example: Accessing data from the JSON object
+    for (const item of data) {
+     const pp = document.getElementById('pp');
+     pp.textContent = JSON.stringify(data);
+    }
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
+}
+
+function findCharacterPosition(string, character) {
+    const position = string.indexOf(character);
+  
+    if (position !== -1) {
+      return position;
+    } else {
+      return -1; 
+    }
+  }
+  

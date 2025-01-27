@@ -1,0 +1,32 @@
+<html>
+    <head>
+</head>
+<body>
+    <input id="a" value="0"></input>
+    <input id="b"></input>
+    <button onclick="test()">check</button>
+    <div id="result"></div>
+<script>
+    const a = document.getElementById("a");
+    const b = document.getElementById("b");
+    const r = document.getElementById("result");
+    const questionTypeList = ['Bertolak Belakang','Sehadap','Dalam Berseberangan','Luar Berseberangan','Dalam Sepihak','Luar Sepihak']
+    const answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
+
+    function test (){
+    const ax = a.value;
+    const bx = b.value;
+    r.textContent =''
+
+    for (i=0; i < answerList.length; i++){
+        list = answerList[i];
+        r.textContent += list[ax]+"#";
+        if (list[ax] == bx){
+            r.textContent = questionTypeList[i];
+        }
+    }
+    r.textContent += 'asd'
+    }
+    </script>
+</body>
+</html>

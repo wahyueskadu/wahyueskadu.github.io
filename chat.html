@@ -1,467 +1,93 @@
-<html>
+  <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+         <title>Working Title</title>
+    <link rel="stylesheet" href="styles.css"> 
 </head>    
-<style>
-
-*{
-  font-family: 'DM Sans', sans-serif;
-  font-variation-settings: 'wght' 600;
-  box-sizing: border-box; 
-  margin: 0px;
-  color: var(--secondtext-color);
-}
-
-:root {
-  --bg-color: #FCF6B1;
-  --primary-color:##2D1E2F;
-  --accent-color: #F7B32B;
-  --accenttext-color: var(--bg-color);
-  --second-color: #B8B8D1;
-  --secondtext-color : #2D1E2F;
-}
-
-::-webkit-scrollbar {
-  position:absolute;
-  top: 0; 
-  right: 0px; 
-  width: 4px
-}
-
-::-webkit-scrollbar-track {
-  background : var(--secondtext-color); 
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color); 
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: white; 
-  width: 90px;
-}
-
-body{
-  background-color: var(--bg-color);
-  text-align: center;
-  font-size: 25pt;
-  color: var(--accent-color);
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-  height: 100%;
-  padding: 0px 10px 0px 10px;
-}
-
-h1{
-  font-size: 40pt;
-  font-variation-settings: 'wght' 1000;
-  margin: 10px;
-}
-
-select{
-  font-size: 20pt;
-  background-color: transparent;
-  border-color: transparent;
-  max-width: 300px;
-  overflow-y: auto;
-  white-space: normal; /* Prevents text from wrapping */
-  text-overflow: ellipsis; /* Adds ellipsis for overflow text */
-  color: var(--accent-color);
-}
-
-option{
-  font-size: 10pt;
-  white-space: normal;
-  background-color: var(--accent-color);
-}
-
-
-.headerContainer{
-  border-radius: 10px 10px 0px 0px;
-  background-color: var(--secondtext-color);
-  color:var(--accent-color);
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 0;
-}
-
-.chatContainer{
-  height: 100%;
-  border: 4px solid var(--secondtext-color);
-  border-bottom : none;
-  border-top: none;
-  border-right: none;
-  min-height: 100px;
-  overflow-y: scroll;
-  height: 100%;
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 0;
-  margin-top: 0px;
-  padding-top: 5px;
-  /* position: relative; 
-  display: flex;
-  flex-direction: column; 
-  justify-content: flex-end; */ 
-
-}
-
-.divider{
-  font-size: 15px;
-  background-color: rgba(0, 0, 0, 0.2);
-  color:var(--secondtext-color)
-}
-.msg {
-  margin: 5px 10px 10px 5px;
-  border-radius: 5px;
-  padding: 5px;
-  width: fit-content;
-  box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
-  max-width: 300px;
-  word-wrap: break-word;
-}
-
-.msgUser {
-  background-color: var(--accent-color);
-  text-align: right;
-  margin-left: auto;
-  color: var(--bg-color);
-}
-
-.msgBot {
-  background-color: var(--second-color);
-  text-align: left;
-  margin-right: auto;
-  color: var(--accent-color);
-}
-
-.msg p {
-  font-size: 20pt; /* Reduced font size */
-  margin : 0px;
-}
-
-.msgpinned{
-    position: sticky;
-    top: 5;
-    background-color: var(--bg-color);
-    /*padding: 5px 0 5px 0; */
-}
-
-.inputContainer{
-  height: fit-content;
-  padding: 5px 5px 5px 5px;
-  max-height: 500px;
-  border-radius: 0px 0px 10px 10px;
-  display: flex;
-  background-color: var(--secondtext-color);
-  width: 100%;
-  box-sizing: border-box; 
-  max-width: 500px;
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-
-#inputMsg{
-  background-color: white;
-  border: none;
-  border-color: var(--accent-color);
-  border-radius: 10px;
-  color: var(--secondtext-color);
-  padding: 5px 10px;
-  display: inline-block;
-  margin: 2px 2px;
-  flex-grow: 1;
-  font-size: 20px;
-}
-
-
-#sendMsg{
-  background-color: var(--accent-color);
-  border: none;
-  border-radius: 10px;
-  padding: 5px 10px;
-  text-align: center;
-  display: inline-block;
-  margin: 2px 2px;
-  font-size: 20pt;
-  font-variation-settings: 'wght' 100;
-}
-
-</style>
-
-</head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
-  <h1>LATIHAN</h1>
-  <div class="headerContainer">
-    <select id="stateSelect"></select>
-  </div>
-  <div class="chatContainer">
-    <div class="msgBot msg">
-        <p>Hello!</p>
+    <h1>LATIHAN</h1>
+    <!--<p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>-->
+    <div class="headerContainer">
+     <!--   <select id="stateSelect"></select> -->
+      <!--
+     <div>
+        <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
+       <span class="headerText" id="displayUser" style="max-width: 250 px; white-space: nowrap; text-overflow: ellipsis;">Hi, User</span>
+       <button class="headerText" onclick="letsRestart()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Akun</button>
     </div>
-    <p class="divider">SOAL 1</p>
-    <div class="msgUser msg">
-        <p>Hi there!</p>
-    </div>
-  </div>
-  <div class="inputContainer">
-    <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
-    <button id="sendMsg"  onclick="sendInput()">
-      <i class="fa fa-circle-arrow-right"></i> 
-    </button>
-  </div>
+  -->
+  <div>
+    <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
+    <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">Menu Utama</button>
+</div>
     
+    </div>
+    <div class="chatContainer">
+     
+    </div>
+    <div class="inputContainer">
+      <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
+      <button id="sendMsg"  onclick="sendInput()">
+        <i class="fa fa-circle-arrow-right"></i> 
+       <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
+            <i class="fa fa-circle-arrow-up"></i> 
+      </button>-->
+    </div>
+    <div id="toast" class="toast"></div>
+    <div style="display:none">
+    <form name="sendForm" ><input id="formInput" name="email"></form> <button onclick="submitForm()">Lalala</button>
+    </div>
+    <!--
+        <script src="soalPerkalian.js"></script>
+    
+<script src="test.js"></script>
+<script  src="main.js"></script>
+ <script src="test.js"></script>
+    <script type="module" src="test.js"></script>
+  -->
+  
+  <script src="main.js"></script>
+  
+
 <script>
-  
-  let attempt, stateNow, ansState, ansVar=[];
-  stateNow = "test";
-  const chatContainer =  document.querySelector(".chatContainer");
-  const inputMsg =  document.getElementById("inputMsg");
+  /*URL PARAM*/
+  const urlParams = new URLSearchParams(window.location.search);
+  const rawParams = urlParams.get('test')
+  const subchapterTitle = rawParams.split('.')[1].toUpperCase();
+  const h1 = document.querySelector("h1");
+  h1.textContent += ` ${subchapterTitle}`;
+  url = rawParams.replace(/\s/g, '');
 
-  window.onload = function() { var input = document.getElementById('autoFocusInput'); input.focus(); }
- /* window.addEventListener('load', function() {
-    const scrollbar = document.querySelector('.chatContainer'); 
-    scrollbar.addEventListener('mouseover', function() {
-      scrollbar.style.overflowY = 'scroll'; 
-    });
-    scrollbar.addEventListener('mouseout', function() {
-      scrollbar.style.overflowY = 'hidden'; 
-    });
+
+  function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve(); 
+    script.onerror = () => reject(new Error(`Error loading ${src}`));
+    document.head.appendChild(script);
   });
-*/
-  const mySelect = document.getElementById('stateSelect');
-  mySelect.addEventListener('change', function() {
-    const selectedValue = this.value; 
-  //  stateNow = selectedValue;
-  chatContainer.innerHTML = ``;
-  wrap("Siapa Nama Kamu?","b")
-  });
-
-  const stateList = [
-    {
-      title:"Kedudukan Garis",
-      function: "GDSKedudukanGaris"
-    },
-    {
-      title: "Penamaan Sudut",
-      function: "GsNama"
-    },
-    {
-      title: "Sudut Berpenyiku",
-      function: "GsSiku"
-    },
-    {
-      title: "Sudut Pelurus",
-      function: "GsLurus"
-    },
-    {
-      title: "Perkalian Dua Suku",
-      function: "AjDuaDua"
-    },
-    {
-      title: "Kuadrat Dua Suku",
-      function: "AjKuadrat"
-    },
-      // ... more sections
-    ];
-    
-  function generateDropDown(){
-    const drop = document.getElementById("stateSelect");
-    stateList.forEach(section => {
-      const opt = document.createElement("option");
-      opt.textContent = section.title;
-      opt.value = section.function;
-      drop.appendChild(opt);
-    });
-  }
-
-  generateDropDown();
-  
-  //when enter pressed, it sort of press the send button
-  function handleEnter(event) {
-        if (event.keyCode === 13) { 
-        // Call your function here
-        sendInput(); 
-        }
-  }
-
-  function wrap(text , type="u"){
-    const textbubble = document.createElement("div");
-    let bubbletype = "";
-    if (type == "u"){
-      bubbletype = "msgUser";
-    } else {
-      bubbletype = "msgBot";
-    }
-    textbubble.classList.add ("msg",bubbletype);
-    const textbubbletext = document.createElement("p");
-    textbubbletext.textContent = text;
-    textbubble.appendChild(textbubbletext);
-    
-    chatContainer.appendChild(textbubble);
-  };
-
-  function makedivider(text){
-    const divider = document.createElement("p");
-    divider.classList.add ("divider");
-    divider.textContent = text;
-    chatContainer.appendChild(divider);
-  }
- 
-  //set what happens when enter pressed
-  function sendInput(){
-    wrap(inputMsg.value);
-    makedivider("Asdfasdf")
-    gettest();
-    inputMsg.value = "";
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-    inputMsg.focus();
-    window.scrollTo(0, window.scrollHeight);
-  }
-
-  function gettest(){
-    let answer = 180 -  inputMsg.value
-    wrap(answer,"b");
-  }
-
-
-  //get integer non zero
-  function getintegerNZ(min, max) {
-      let randomNum;
-      do {
-          randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-      } while (randomNum === 0);
-      return randomNum;
-  }
-
-  //make text pretty, with spaces around operators
-  function pretty(text){
-  let texted = text.replaceAll("+ -"," – ");
-          texted = texted.replace(" -"," – ");
-          texted = " "+texted;
-          texted = texted.replaceAll(" 1x"," x");
-      texted = texted.replaceAll(" –1x"," –x");
-      texted = texted.replaceAll(" -1x"," –x");
-      return texted;}
-
-
-  //print the text
-  function getOut(w,soal,ans){
-    //  ansVar[0] = ans;
-      const msgPin = document.createElement("div");
-      msgPin.classList.add ("msgpinned");
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add ("msg","msgBot");
-      const msgP = document.createElement("p");
-      msgP.textContent = soal;
-
-
-      msgDiv.appendChild(msgP);
-      msgPin.appendChild(msgDiv);
-      chatContainer.appendChild(msgPin);
-      document.getElementById("inputMsg").innerHTML = ""; 
-      
-  
-      const msgB = document.createElement("button");
-      msgB.textContent = soal+"=...";
-      msgDiv.appendChild(msgB);
-
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      inputMsg.value = ``;
-  }
-
-  
-  function gettest2(){
-    const msgPin = document.createElement("div");
-      msgPin.classList.add ("msgpinned");
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add ("msg","msgBot");
-      const msgP = document.createElement("p");
-      msgP.textContent = "zxctfvgbh";
-
-  const  msgSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      msgSVG.setAttribute('height', "100");
-      msgSVG.setAttribute('width', "200");
-      msgSVG.setAttribute('viewbox', "0 0 100 50");
-      msgSVG.setAttribute('background-color','#ffff00');
-      //; padding:10px;";
-      
-      const msgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      msgPath.setAttribute ('d','M 20 20 L 80 80');
-      msgPath.setAttribute ('stroke','black')
-      msgPath.setAttribute ('stroke-width','5')
-      //msgPath.setAttribute ('background-color','#ffffff')
- //                 style="fill:none;stroke:var(--accent-color);stroke-width:2" />
-    msgSVG.appendChild(msgPath);
-
-      msgDiv.appendChild(msgP);
-     // msgDiv.appendChild(msgSVG);
-      msgPin.appendChild(msgDiv);
-
-      chatContainer.appendChild(msgPin);
-      document.getElementById("inputMsg").innerHTML = ""; 
-
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      inputMsg.value = ``;
-  }
-
-
-
-  function getAjJumlahKurang(){
-      let w = stateNow;
-      let x1 = getintegerNZ(-9,9);
-      let x2 = getintegerNZ(-9,9);
-      do{
-      x2 = getintegerNZ(-9,9);
-      } while (x1 + x2 == 0);
-      let c1 = getintegerNZ(-9,9);
-      let c2 = getintegerNZ(-9,9);
-      do{
-      c2 = getintegerNZ(-9,9);
-      } while (c1 + c2 == 0);
-      let soal = `${x1}x + ${c1} + ${x2}x + ${c2}`;
-      soal = pretty(soal)+" = ...";
-      let ansx = x1 + x2;
-      let ansc = c1 + c2;
-      let ans = `${ansx}x + ${ansc}`;
-     // ans = pretty(ans);
-      getOut(w,soal,ans);     
-};
-
-function sendAjJumlahKurang(){
-let w = "AjJumlahKurang";
-let ans = ansArray[w]
-
-ans = ans.replaceAll(/\s+/g,'');
-ans = ans.replaceAll("–","-");
-
-let input = document.getElementById("input"+w).value;
-input = input.replaceAll(/\s+/g,'');
-input = input.replaceAll("–","-");
-
-if (ans == input){
-soal = document.getElementById("soal"+w).textContent;
-soal = soal.slice(0, -4);
-answ = "Jawaban kamu benar,"+pretty(soal)+" "+pretty(ans);
-} else {
-answ = "Jawaban kamu salah. Coba lagi.";
-document.getElementById("input"+w).focus();
-}
-  
-document.getElementById("output"+w).innerHTML = answ;
-document.getElementById("input"+w).value = "";
-
 }
 
-function showAjJumlahKurang(){
+async function main() {
+  await loadScript(`soal${url}.js`); 
+  //letsStart();
+  letsTest();
+  console.log("myScript.js loaded, now proceed to next line"); 
 }
 
+main();
+
+    //loadScript('./main.js');
+   // loadScript('./test.js');
+
+
+    /* Startups */
+
+
+
+   
 </script>
 </body>
-</html>
