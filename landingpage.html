@@ -49,10 +49,11 @@
         {
             Title : `Bilangan`,
             Code : `BB`,
-            SubChapter : ['Penjumlahan dan Pengurangan','Perkalian','Pembagian'],
-    //    },{
-     //       Title : `Aljabar`,
-     //       SubChapter: ['Penjumlahan dan Pengurangan Aljabar','Perkalian Aljabar']
+            SubChapter : ['Perkalian','Pembagian'],
+        },{
+            Title : `Aljabar`,
+            Code : 'ALJ',
+            SubChapter: ['Penjumlahan dan Pengurangan Aljabar','Perkalian Aljabar']
         },{
             Title : `Garis`,
             Code: `GDS`,
@@ -79,7 +80,7 @@
     }
 
     function testLink(text){
-        const url = `chat.html?test=${text}`;
+        const url = `chat.html?q=${text}`;
         window.location.href = url;
     }
     

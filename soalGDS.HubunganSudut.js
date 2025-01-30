@@ -1,6 +1,5 @@
 
 questionCount = 15;
-
 questionTypeList = questionTypeList = ['Bertolak Belakang','Sehadap','Dalam Berseberangan','Luar Berseberangan','Dalam Sepihak','Luar Sepihak']
 answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
 
@@ -11,7 +10,6 @@ function getSoal(questionKind){
     attemptAnswer = 0;
   //  qArray = {};
     makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
-
 
     let questionType = getIntegerNZ(1,6);
  
@@ -26,7 +24,7 @@ function getSoal(questionKind){
 
     //const
     questionTypeText = questionTypeList[questionType-1];
-    questionTypeText = questionTypeText.toLowerCase(); 
+    questionTypeText = questionTypeText; 
 
     const bubble = makeBubbleBlank();
 
@@ -67,8 +65,7 @@ function getSoal(questionKind){
             append(SVGContainer,makeParallel(undefined,undefined,30));
             makeParallelText(SVGContainer,label,skewType); 
         }
-    
-    
+          
     bubble.appendChild (SVGContainer);
     }
     chatContainer.appendChild(bubble);
@@ -82,8 +79,7 @@ function getSoal(questionKind){
     }
 
 function getHelp(){
-    relation = whatRelation().toLowerCase()
-    makeBubbleUser(relation)
+    relation = whatRelation();
     if (input.length != 1) {
         makeBubbleBot('Jawaban berupa satu digit/huruf. Misal: a, b, 1, 2, ...');
         attemptAnswer += 1;
@@ -113,6 +109,7 @@ function whatRelation(){
         list = answerList[i];
         if (list[ax-1] == bx){
             result = questionTypeList[i];
+            result = result.toLowerCase();
         }
     }
     return result

@@ -289,7 +289,8 @@ function replaceChar(str, index, replacement) {
 
         function checkAnswer(){
         input = inputMsg.value;
-        input = input.toLowerCase(input.trim());
+        input = input.toLowerCase()
+        input.trim();
         if (input == 'minta jawaban' & attemptAnswer>5){
             makeBubbleBot(`Jawabannya adalah ${qArray.displayAnswer}.`);
             makeBubbleBot(`ketik dan kirim jawaban untuk melanjutkan ke soal berikutnya`);
@@ -382,4 +383,5 @@ function findCharacterPosition(string, character) {
       return -1; 
     }
   }
-  
+
+ 

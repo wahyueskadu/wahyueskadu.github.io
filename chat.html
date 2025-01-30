@@ -7,7 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>LATIHAN</h1>
+  <div style="text-align: right; width: 100%; max-width: 500px; margin-top: 5px; font-size: 30px;">
+   <!--<button onclick="cycleColorScheme()" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+      <i class="fa-solid fa-palette"></i>
+  </button>
+-->  
+  </div>
+  <h1>LATIHAN</h1>
+    
     <!--<p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>-->
     <div class="headerContainer">
      <!--   <select id="stateSelect"></select> -->
@@ -22,7 +29,10 @@
     <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
     <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">Menu Utama</button>
 </div>
-    
+
+
+<button class="headerText" onclick="cycleColorScheme()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Tema</button>
+
     </div>
     <div class="chatContainer">
      
@@ -52,9 +62,27 @@
   
 
 <script>
+  currentScheme = 0;
+  cycleColorScheme();
+function cycleColorScheme() {
+  const root = document.documentElement;
+  root.classList.remove(`scheme-${currentScheme}`);
+
+  currentScheme++;
+  if (currentScheme > 4) {
+    currentScheme = 1; 
+  }
+
+  root.classList.add(`scheme-${currentScheme}`);
+}
+  
   /*URL PARAM*/
   const urlParams = new URLSearchParams(window.location.search);
-  const rawParams = urlParams.get('test')
+  const rawParams = urlParams.get('q')
+  if (rawParams === null) {
+  window.location.href = 'landingpage.html'; 
+  }
+
   const subchapterTitle = rawParams.split('.')[1].toUpperCase();
   const h1 = document.querySelector("h1");
   h1.textContent += ` ${subchapterTitle}`;
@@ -77,6 +105,7 @@ async function main() {
   letsTest();
   console.log("myScript.js loaded, now proceed to next line"); 
 }
+
 
 main();
 
