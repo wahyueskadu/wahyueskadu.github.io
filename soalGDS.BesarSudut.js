@@ -10,25 +10,6 @@ function getSoal(){
     attemptAnswer = 0;
   //  qArray = {};
     makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
-
-  
-
-    firstTry = 1
-    if (firstTry < 10){
-    getSoalA()
-    } else {
-    getsoalB()
-    }
-}
-
-function getsoalB(){
-
-
-}
-
-function getSoalA(questionKind){
-
-
    
     let questionType = getIntegerNZ(1,6);
 
@@ -44,37 +25,33 @@ function getSoalA(questionKind){
     questionTypeText = questionTypeList[questionType-1];
     questionTypeText = questionTypeText.toLowerCase(); 
 
-    const bubble = makeBubbleBlank();
+    valueQuestion = getInteger(20,70);
+    const bubble = makeBubbleBlank()
 
-    if (true){
-       labelList = ['12345678','abcdefgh','12563478','abefcdgh'];
-
-        //add special label
-        leftSide = [1,2,5,6];
-        if (questionType > 2){
-            if(leftSide.includes(initialAngle)){
-                    labelList.push('  12  34','  ab  cd');
-                    labelList.push('  12  34','  ab  cd');
-            } else {
-                    labelList.push('12  34  ','ab  cd  ');
-                    labelList.push('12  34  ','ab  cd  ');
-            }
-        }
-        rnd = getInteger(0,labelList.length-1);
-        label = labelList[rnd];
-
+       label = Array(8).fill('')
         displayAngle = label[initialAngle-1];
-        if (displayAngle == ' ') {
-            displayAngle = 'x'
-            label = replaceChar(label,initialAngle-1,'x');
-        };
-        displayAnswer = label[initialAnswer-1];
-        append(bubble,makeText(`Sudut yang merupakan sudut ${questionTypeText} dengan sudut ${displayAngle} adalah...`))
+        label[initialAngle-1] = 'x'
+       
+        skewType = getInteger(0,1);;;;;;;;;;;;;
+        skewness = (initialAnswer)%2+skewType+(initialAnswer>4);
+        if (skewness == 1) { 
+            valueQuestion = 180 - valueQuestion;
+        }
+
+        label[initialAnswer-1] = valueQuestion;
+
+        if(questionType > 4){
+            displayAnswer = 180 - valueQuestion;
+        } else {
+            displayAnswer = valueQuestion
+        }
+
+        append(bubble,makeText(`Perhatikan gambar berikut!`))
         const SVGContainer = makeSVG();
     
         append(SVGContainer,makeSVGBg());
         append(SVGContainer,makeSVGPath (`M 10 60 h 200`));
-        skewType = getInteger(0,1);
+        
 
         if (skewType == 0){
             append(SVGContainer,makeParallel());
@@ -85,8 +62,9 @@ function getSoalA(questionKind){
         }
           
     bubble.appendChild (SVGContainer);
-    }
+    append(bubble,makeText('nilai x adalah...'))
     chatContainer.appendChild(bubble);
+    
  
     qArray.initialAngle = initialAngle;
     qArray.initalAnswer = initialAnswer;
@@ -97,11 +75,28 @@ function getSoalA(questionKind){
     }
 
 function getHelp(){
-    relation = whatRelation();
-    if (relation != false){
-        relation = questionTypeList[relation];
+    switch (attemptAnswer){
+        case 1:
+            makeBubbleBot('Jawaban kamu belum tepat, coba lagi!')
+            break
+        case 2:
+            makeBubbleBot('Jawaban kamu belum tepat, perhatikan hubungan antara dua sudut tersebut')
+            makeBubbleBot('Coba lagi')
+            break;
+        case 3:
+            makeBubbleBot(`Hubungan kedua sudut adalah ${questionTypeList[qArray.questionType-1]}. Sekarang ingat kembali bagaimana besar sudutnya.`)
+            makeBubbleBot('Coba lagi')
+            break;
+        case 4:
+            if (qArray.questionType-1 >4) {
+                besaranSudut = 'pelurus'
+            } else { besaranSudut = 'sama'}
+            makeBubbleBot(`Besar sudur yang saling ${questionTypeList[qArray.questionType-1]} adalah ${besaranSudut}`)
+        default:
+            makeBubbleBot('Jawaban kamu belum tepat. Coba lagi!');
+        
     }
-
+    /*
     if (input.length != 1) {
         makeBubbleBot('Jawaban berupa satu digit/huruf. Misal: a, b, 1, 2, ...');
         attemptAnswer += 1;
@@ -122,22 +117,8 @@ function getHelp(){
         makeBubbleBot(`Hubungan antara ${displayAngle} dan ${input} adalah sudut ${relation}, jadi jawaban kamu belum tepat`);
         makeBubbleBot('Coba lagi')
     }
+        */
 }
-
-function whatRelation(){
-    const ax = qArray.initialAngle;
-    bx = findCharacterPosition( qArray.label,input)+1;
-    for (i=0; i < answerList.length; i++){
-        list = answerList[i];
-        if (list[ax-1] == bx){
-            result = i
-          //  result = result.toLowerCase();
-        }
-    }
-    return result
-}
-
-
 
 function isItTrue(){
     result = (input == qArray.displayAnswer)

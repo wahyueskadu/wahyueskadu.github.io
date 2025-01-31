@@ -1,5 +1,5 @@
 
-questionCount = 15;
+questionCount = 5;
 questionTypeList = questionTypeList = ['Bertolak Belakang','Sehadap','Dalam Berseberangan','Luar Berseberangan','Dalam Sepihak','Luar Sepihak']
 answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
 

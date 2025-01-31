@@ -171,15 +171,17 @@ function makeParallelText(SVGContainer,text='12345678',type=0){
     let coordList
     switch (type) {
         case 0:
-        coordList = [[50,50],[75,50],[150,50],[175,50],[45,75],[70,75],[145,75],[170,75]];
+        coordList = [[55,50],[70,50],[155,50],[170,50],[50,75],[65,75],[150,75],[165,75]];
         break;
         case 1:
-        coordList = [[45,50],[70,50],[145,50],[170,50],[50,75],[75,75],[150,75],[175,75]];
+        coordList = [[50,50],[65,50],[150,50],[165,50],[55,75],[70,75],[155,75],[170,75]];
         break;
     }
+  //  text = ['aa','bb','ccppp','dd','ee','eef','gg','hh']
+    alignList = ['end','start'];;;;;;;;;;;;;;;;;;;;
     for (let i = 0; i < 8; i++){
         coord = coordList[i];
-        append(SVGContainer,makeSVGText(text[i],coord[0],coord[1]))
+        append(SVGContainer,makeSVGText(text[i],coord[0],coord[1],alignList[i%2]))
     }
 }
 
@@ -320,7 +322,6 @@ function replaceChar(str, index, replacement) {
         makeDivider('Hasil Pekerjaan Kamu');
 
         resultTime = printTime();
-        makeBubbleUser(resultTime)
        // submitForm();
         if (firstTry == 0) {
             makeBubbleBot (`Yah, kamu belum bisa mengerjakan tanpa bantuan 😢🥺`);

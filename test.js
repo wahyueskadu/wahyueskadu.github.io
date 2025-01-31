@@ -1,4 +1,4 @@
-
+makeBubbleBot('asdasdf')
 questionCount = 15;
 questionTypeList = ['bertolak belakang','sehadap','dalam berseberangan','luar berseberangan','dalam sepihak','luar sepihak']
 answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']

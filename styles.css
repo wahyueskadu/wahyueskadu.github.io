@@ -176,7 +176,7 @@
 
     .divider{
         font-size: 15px;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: var(--second-color);
         color:var(--secondtext-color)
     }
 

@@ -1,32 +1,100 @@
 <html>
     <head>
-</head>
-<body>
-    <input id="a" value="0"></input>
-    <input id="b"></input>
-    <button onclick="test()">check</button>
-    <div id="result"></div>
-<script>
-    const a = document.getElementById("a");
-    const b = document.getElementById("b");
-    const r = document.getElementById("result");
-    const questionTypeList = ['Bertolak Belakang','Sehadap','Dalam Berseberangan','Luar Berseberangan','Dalam Sepihak','Luar Sepihak']
-    const answerList = ['65872143','34127856','#76##32#','8##54##1','#32##76#','4##18##5']
-
-    function test (){
-    const ax = a.value;
-    const bx = b.value;
-    r.textContent =''
-
-    for (i=0; i < answerList.length; i++){
-        list = answerList[i];
-        r.textContent += list[ax]+"#";
-        if (list[ax] == bx){
-            r.textContent = questionTypeList[i];
-        }
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+             <title>Working Title</title>
+        <link rel="stylesheet" href="styles.css"> 
+    </head>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+      <div style="text-align: right; width: 100%; max-width: 500px; margin-top: 5px; font-size: 30px;">
+       <!--<button onclick="cycleColorScheme()" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+          <i class="fa-solid fa-palette"></i>
+      </button>
+    -->  
+      </div>
+      <h1>LATIHAN</h1>
+        
+        <!--<p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>-->
+        <div class="headerContainer">
+         <!--   <select id="stateSelect"></select> -->
+          <!--
+         <div>
+            <i class="fa-solid fa-circle-user" style="color:var(--accent-color); font-size: 85%; margin-right: 5px;"></i>
+           <span class="headerText" id="displayUser" style="max-width: 250 px; white-space: nowrap; text-overflow: ellipsis;">Hi, User</span>
+           <button class="headerText" onclick="letsRestart()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Akun</button>
+        </div>
+      -->
+      <div>
+        <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
+        <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">Menu Utama</button>
+    </div>
+    
+    
+    <button class="headerText" onclick="cycleColorScheme()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Tema</button>
+    
+        </div>
+        <div class="chatContainer">
+         
+        </div>
+        <div class="inputContainer">
+          <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus>
+          <button id="sendMsg"  onclick="sendInput()">
+            <i class="fa fa-circle-arrow-right"></i> 
+           <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
+                <i class="fa fa-circle-arrow-up"></i> 
+          </button>-->
+        </div>
+        <div id="toast" class="toast"></div>
+        <div style="display:none">
+        <form name="sendForm" ><input id="formInput" name="email"></form> <button onclick="submitForm()">Lalala</button>
+        </div>
+        <!--
+            <script src="soalPerkalian.js"></script>
+        
+    <script src="test.js"></script>
+    <script  src="main.js"></script>
+     <script src="test.js"></script>
+        <script type="module" src="test.js"></script>
+      -->
+      
+      <script src="main.js"></script>
+      
+    
+    <script>
+      currentScheme = 0;
+      cycleColorScheme();
+    function cycleColorScheme() {
+      const root = document.documentElement;
+      root.classList.remove(`scheme-${currentScheme}`);
+    
+      currentScheme++;
+      if (currentScheme > 4) {
+        currentScheme = 1; 
+      }
+    
+      root.classList.add(`scheme-${currentScheme}`);
     }
-    r.textContent += 'asd'
+         
+      function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => resolve(); 
+        script.onerror = () => reject(new Error(`Error loading ${src}`));
+        document.head.appendChild(script);
+      });
     }
+    
+        //loadScript('./main.js');
+        loadScript('./test.js');
+        m
+    
+    
+        /* Startups */
+    
+    
+    
+       
     </script>
-</body>
-</html>
+    </body>
