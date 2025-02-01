@@ -9,16 +9,12 @@ function getSoal(){
     }
     attemptAnswer = 0;
   //  qArray = {};
-    makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
+    makeDivider(`Soal ${questionProgress} dari ${questionCount} ${firstTry}`);
 
   
 
-    firstTry = 1
-    if (firstTry < 10){
+    
     getSoalA()
-    } else {
-    getsoalB()
-    }
 }
 
 function getsoalB(){
