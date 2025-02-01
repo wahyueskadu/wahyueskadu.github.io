@@ -13,12 +13,7 @@ function getSoal(){
 
   
 
-    firstTry = 1
-    if (firstTry < 10){
-    getSoalA()
-    } else {
-    getsoalB()
-    }
+   getsoalA();
 }
 
 function getsoalB(){
