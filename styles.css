@@ -104,17 +104,17 @@
     h1{
         font-size: 40pt;
         font-variation-settings: 'wght'900;
-        margin: 10px;
+        margin-top: 10px;
         line-height: 0.9;
         color:var(--h1)
     }
 
     h2{
         font-size: 20pt;
-        font-variation-settings: 'wght'400;
-        margin: 10px;
+        font-variation-settings: 'wght'300;
+        margin-bottom: 10px;
         line-height: 0.9;
-        text-align: left;
+        color:var(--h1)
     }
 
     

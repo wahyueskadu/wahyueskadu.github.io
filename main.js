@@ -52,7 +52,7 @@ form.addEventListener('submit', e => {
 
 function submitForm() {
     const inp = document.getElementById('formInput')
-    inp.value = `${namaSiswa}#${kelasSiswa}#${nomorSiswa}#${firstTry}#${resultTime}`;
+    inp.value = `${namaSiswa}#${kelasSiswa}#${nomorSiswa}#${firstTry}#${resultTime}#${url}`;
     const e = new Event('submit', { cancelable: true });
     form.dispatchEvent(e);
 }
@@ -322,7 +322,7 @@ function replaceChar(str, index, replacement) {
         makeDivider('Hasil Pekerjaan Kamu');
 
         resultTime = printTime();
-       // submitForm();
+        submitForm();
         if (firstTry == 0) {
             makeBubbleBot (`Yah, kamu belum bisa mengerjakan tanpa bantuan 😢🥺`);
             makeBubbleBot('Yuk, coba lagi dengan menekan enter');

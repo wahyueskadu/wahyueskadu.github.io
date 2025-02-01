@@ -14,7 +14,7 @@
 -->  
   </div>
   <h1>LATIHAN</h1>
-    
+  <h2></h2>
     <!--<p style="font-size: 20px;">Submit hasil masih dalam proses, sementara untuk latihan dulu ya.</p>-->
     <div class="headerContainer">
      <!--   <select id="stateSelect"></select> -->
@@ -26,8 +26,13 @@
     </div>
   -->
   <div>
-    <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
+    <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+      <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
+    </button>
+    <span class="headerText" id="displayUser" style="max-width: 250 px; white-space: nowrap; text-overflow: ellipsis;">Hi, User</span>
+    <!--
     <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">Menu Utama</button>
+  -->
 </div>
 
 
@@ -84,7 +89,7 @@ function cycleColorScheme() {
   }
 
   const subchapterTitle = rawParams.split('.')[1].toUpperCase();
-  const h1 = document.querySelector("h1");
+  const h1 = document.querySelector("h2");
   h1.textContent += ` ${subchapterTitle}`;
   url = rawParams.replace(/\s/g, '');
 
@@ -101,8 +106,8 @@ function cycleColorScheme() {
 
 async function main() {
   await loadScript(`soal${url}.js`); 
-  //letsStart();
-  letsTest();
+  letsStart();
+  //letsTest();
   console.log("myScript.js loaded, now proceed to next line"); 
 }
 
