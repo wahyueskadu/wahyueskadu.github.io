@@ -60,7 +60,8 @@
     remake()
     
     function splitString(inputString) {
-  const match = inputString.match(/(.*)\s?\((\w+),(\w+)\)/);
+const match = inputString.match(/(.*)\s?\(\s*(\w+)\s*,\s*(\w+)\s*\)/);
+
 
   if (match) {
     return [match[1],match[2],match[3]];
