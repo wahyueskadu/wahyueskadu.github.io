@@ -1,0 +1,322 @@
+<html>
+<head>
+    <style>
+        
+    .svgline{
+        stroke: rgb(0, 0, 0);
+        stroke-width: 1px;
+        fill: none
+    }
+
+    .svgaxis{
+        stroke: rgb(0, 0, 0);
+        stroke-width: 3px;
+        fill: none 
+    }
+
+    .svgaxisthin{
+        stroke: rgb(0, 0, 0);
+        stroke-width: 1px;
+        fill: none 
+    }
+
+    .svgbg{
+        fill: white;
+        stroke-width: 5px;
+        stroke: black;
+    }
+
+
+    .svgtext{
+        /*text-anchor: middle;
+        dominant-baseline: middle;*/
+        fill: black; 
+        font-size: 15px;
+        }
+
+    </style>
+    </head>
+<body>
+    <div id="test">
+
+    </div>
+    <div>
+        Ukuran: 
+        <input id="x" value="14">
+    <input id="y" value="3">
+    </br>
+    Titik-titik: <input id="points">
+    <button onclick="remake()">lets gooo</button>
+    </br>
+</body>
+
+<script>
+    const container = document.getElementById('test');
+    const inputx = document.getElementById('x');
+    const inputy = document.getElementById('y');
+    const inputp = document.getElementById('points');
+    container.textContent = 'sdg'
+    
+    remake()
+    
+    function splitString(inputString) {
+  const match = inputString.match(/(.*)\s?\((\w+),(\w+)\)/);
+
+  if (match) {
+    return [match[1],match[2],match[3]];
+  } else {
+    return ; // Return empty array if no match at all
+  }
+}
+
+    function remake(){
+            container.textContent = ''
+
+    pointList =  inputp.value
+    pointList = pointList.split(';')
+    const p=[]
+    for (const element of pointList){
+        p.push(splitString(element))
+    }
+    container.textContent = JSON.stringify(pointList)
+    container.textContent = JSON.stringify(p)
+
+    
+    marginTop = 60;
+    marginLeft = 40;
+    marginRight = 30;
+    marginBottom = 50;
+    gap = 30
+    axisarrow = 20
+    xwidth = Number(inputx.value)-1
+    xheight = 1+Number(inputy.value);
+    
+    widthnp = xwidth*gap;
+    heightnp = xheight*gap
+    width = widthnp+marginLeft+marginRight+axisarrow
+    height = heightnp+marginTop+marginBottom+axisarrow
+    const theSVG = makeSVG(height,width)
+    theSVG.appendChild(makeSVGBg(width,height))
+    theSVG.appendChild(makeSVGPath(`M ${marginLeft} ${marginTop-axisarrow} v${heightnp+axisarrow} h${widthnp+axisarrow}`,'svgAxis'));
+    theSVG.appendChild(makeSVGPath(`M ${marginLeft+widthnp+axisarrow} ${marginTop+heightnp} m -10 -10 l 10 10 m -10 10 l 10 -10 l 1 0`,'svgAxis'))
+    theSVG.appendChild(makeSVGPath(`M ${marginLeft} ${marginTop-axisarrow} m -10 10 l 10 -10 m 10 10 l -10 -10 l 0 -1`,'svgAxis'))
+
+    container.appendChild(theSVG)
+
+    AxisX = `M ${marginLeft} ${marginTop+heightnp} `;
+    for (i=0; i<xwidth; i++){
+        AxisX += `m ${gap} -${heightnp} v${heightnp} `
+    }
+
+    AxisY = `M ${marginLeft} ${marginTop} `;
+    for (i=0; i<xheight; i++){
+        AxisY += `h${widthnp} m -${widthnp} ${gap}`
+    }
+
+ 
+
+    theSVG.appendChild(makeSVGPath(AxisX))
+    theSVG.appendChild(makeSVGPath(AxisY))
+
+  //  theSVG.appendChild(makeSVGText('lololo'));
+   // theSVG.appendChild(makeSVGText('lalala',100,100))
+
+     labelX = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    
+     for (i=0;i <= xwidth; i++){
+        theSVG.appendChild(makeSVGText(labelX[i],marginLeft+i*gap,heightnp+marginTop+15,'middle','text-top'))
+     }
+
+     labelY = '123456789'
+    
+    for (i=0;i < xheight; i++){
+       theSVG.appendChild(makeSVGText(i,marginLeft-15,marginTop+heightnp-i*gap-gap+5,'middle','text-top'))
+    }
+    // theSVG.appendChild(makeSVGText("A",marginLeft,heightnp+marginTop+15,'middle','text-top'))
+
+
+    
+    for (const element of p){
+        console.log("Current element:", element); // Check each element
+
+        if (element === undefined || element === null) {
+    console.error("An element in p is undefined or null!");
+    continue;
+}
+
+
+        pointText = element[0]
+        console.log(labelX);
+        e1 = element[1]
+        console.log(e1)
+        pointX = labelX.indexOf(e1);
+        pointY = Number(element[2])+1;
+        pointCirc = makeSVGCircle(marginLeft+pointX*gap,marginTop+heightnp-pointY*gap,5)
+        theSVG.appendChild(pointCirc)
+        pointTextSVG = makeSVGText(pointText,marginLeft+pointX*gap,marginTop+heightnp-pointY*gap+20)
+        theSVG.appendChild(pointTextSVG)
+
+        const textWidth = pointTextSVG.getComputedTextLength()+6; //Accurate text length
+        const textHeight = 15; // Approximate height, adjust if necessary
+
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", marginLeft+pointX*gap-textWidth/2-3); // Add padding - left
+        rect.setAttribute("y", marginTop+heightnp-pointY*gap+5); // Add padding - top
+        rect.setAttribute("width", textWidth + 10); // Add padding - right
+        rect.setAttribute("height", textHeight*1.4); // Add padding - bottom
+        rect.setAttribute("fill", 'white');
+        rect.setAttribute("rx", 5) //optional: rounded corners
+        rect.setAttribute("ry", 5) //optional: rounded corners
+
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g"); //grouping
+        g.appendChild(rect);
+        g.appendChild(pointTextSVG);
+        
+        theSVG.appendChild(g);
+
+    }
+
+
+
+    }
+
+    function makeSVG (height = 120, width = 220){
+    const msgSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    msgSVG.setAttribute('height', height);
+    msgSVG.setAttribute('width',  width);
+    let h = height - 20;
+    let w = height - 20;
+    msgSVG.setAttribute('viewbox', `0 0 ${h} ${w}`);
+    return msgSVG;
+}
+
+function makeSVGBg (){
+    const msgBg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    msgBg.setAttribute ('d',roundedRectanglePath());
+    msgBg.classList.add ('svgbg')
+    return msgBg;
+}
+
+function makeSVGPath (d, type='svgline'){
+    const msgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    msgPath.setAttribute ('d',d);
+    msgPath.classList.add (type);
+    return msgPath;
+}
+
+function roundedRectanglePath() {
+    stroke = 5
+    x = stroke;
+    y = stroke;
+    radius = 10
+    width -= 10
+    height -= 10
+if (radius > Math.min(width, height) / 2) {
+    radius = Math.min(width, height) / 2; // Ensure radius doesn't exceed half the shortest side
+}
+return `M ${x + radius} ${y} ` +
+        `h ${width - 2 * radius} ` +
+        `a ${radius} ${radius} 0 0 1 ${radius} ${radius} ` +
+        `v ${height - 2 * radius} ` +
+        `a ${radius} ${radius} 0 0 1 -${radius} ${radius} ` +
+        `h -${width - 2 * radius} ` +
+        `a ${radius} ${radius} 0 0 1 -${radius} -${radius} ` +
+        `v -${height - 2 * radius} ` +
+        `a ${radius} ${radius} 0 0 1 ${radius} -${radius} z`;
+}
+
+function makeSVGText (text, x=100, y=100,xalign='middle',yalign='middle'){
+    fontSize = 30;
+    const msgLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    msgLabel.setAttribute ('x',x);
+    msgLabel.setAttribute ('y',y);
+    msgLabel.textContent = text;
+    msgLabel.classList.add ('svgtext');
+    // Set text-anchor to "middle"
+    msgLabel.setAttribute('text-anchor', xalign);
+    msgLabel.setAttribute('vertical-align', yalign);
+
+    const textWidth = msgLabel.getComputedTextLength(); //Accurate text length
+    const textHeight = fontSize; // Approximate height, adjust if necessary
+
+  return msgLabel; // Return the group containing both elements
+}
+
+function makeSVGTextWithBackground(text, x, y, backgroundColor, textColor, fontSize) {
+  const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  textElement.textContent = text;
+  textElement.setAttribute("x", x);
+  textElement.setAttribute("y", y);
+  textElement.setAttribute("font-size", fontSize || "12"); // Default font size
+  textElement.setAttribute("fill", textColor || "black"); // Default text color
+
+  // Calculate text width (important for rectangle sizing)
+  const textWidth = textElement.getComputedTextLength(); //Accurate text length
+  const textHeight = fontSize; // Approximate height, adjust if necessary
+
+  const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  rect.setAttribute("x", x - 5); // Add padding - left
+  rect.setAttribute("y", y - textHeight*0.8); // Add padding - top
+  rect.setAttribute("width", textWidth + 10); // Add padding - right
+  rect.setAttribute("height", textHeight*1.4); // Add padding - bottom
+  rect.setAttribute("fill", backgroundColor);
+  rect.setAttribute("rx", 5) //optional: rounded corners
+  rect.setAttribute("ry", 5) //optional: rounded corners
+
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g"); //grouping
+  g.appendChild(rect);
+  g.appendChild(textElement);
+
+  return g; // Return the group containing both elements
+}
+
+function makeSVGCircle(x,y,r){
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+// Set the circle's attributes
+circle.setAttribute("cx", x);
+circle.setAttribute("cy", y);
+circle.setAttribute("r", r);
+circle.setAttribute("fill", "black");
+return circle
+}
+
+function inlineSVGStyles(svgElement) {
+    const elements = svgElement.querySelectorAll('*'); // Select all SVG elements
+
+    elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        for (let i = 0; i < computedStyle.length; i++) {
+            const property = computedStyle[i];
+            element.style[property] = computedStyle.getPropertyValue(property);
+        }
+    });
+
+    return svgElement; // Return the styled SVG element
+}
+
+
+function downloadSVG() {
+  const svg = document.querySelector('svg');
+
+  if (!svg) {
+      console.error("SVG not found!");
+      return;
+  }
+
+  const styledSVG = inlineSVGStyles(svg.cloneNode(true)); //clone is very important
+
+  const svgData = new XMLSerializer().serializeToString(styledSVG);
+  const blob = new Blob([svgData], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my_styled_svg.svg";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+    </script>
+</html>
