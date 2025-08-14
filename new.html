@@ -1,0 +1,629 @@
+<html>
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
+</head> -->
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/nerdamer.core.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Algebra.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Calculus.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Solve.js"></script> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+body {
+  background-color: lightpink;
+	color: darkred;
+  font-family: 'Inter', sans-serif;
+  font-variation-settings: 'wght' 600;
+  margin: 3px;
+  font-size: 25px;
+  }
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+	font-variation-settings: 'wght' 300;
+  margin: 0;
+	}
+	
+h2 {
+  text-align: center;
+  font-size: 30px;
+	font-variation-settings: 'wght' 300;
+  margin: 0;
+  margin-bottom: 20px;
+	}
+
+
+h3{
+
+    font-size: 2em;
+    font-variation-settings: 'wght' 200;
+  }
+
+
+button {
+  background-color: darkred;
+  border: none;
+  border-radius: 10px;
+  color: lightpink;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  margin: 2px 2px;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  font-variation-settings: inherit;
+}
+
+
+input {
+  background-color: white;
+  border: none;
+  border-color: darkred;
+  border-radius: 10px;
+
+  color: darkred;
+  padding: 5px 10px;
+  display: inline-block;
+  margin: 2px 2px;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  font-variation-settings: inherit;
+  width: min(calc(100% - 112px),500px);
+}
+
+input::placeholder {
+  color: lightcoral;
+}
+
+
+.sendbttn{
+  width : 50px;
+}
+
+span {
+  display: block;
+  padding-left: 10px;
+}
+
+.inline{
+display:inline;
+
+}
+.accordion {
+  width: 100%;
+}
+
+.accordion-item {
+  overflow: visible;
+  margin-top: 5px;
+}
+
+
+.accordion-header {
+  padding-left: 8px;
+  padding-right: 5px;
+  padding-top: 3px;
+  padding-right: 3px;
+  font-size: 1.5 em;
+  margin: 0px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.accordion-header:hover {
+  background-color: darkred;
+  color: lightpink;
+}
+
+.accordion-header::marker{
+  color:aquamarine
+}
+
+
+.expand {
+  font-variation-settings: 'wght' 600;
+}
+
+.accordion-content {
+  display: none;
+}
+
+.accordion-item.active .accordion-content {
+  display: block;
+  margin-bottom: 15px;
+}
+
+
+ol {
+  list-style: decimal;
+  padding-left: 50px;
+}
+
+ol li::marker{
+  font-size: 2em;
+  font-variation-settings: 'wght' 200;
+
+}
+
+button:focus{
+  background-color: aqua;
+}
+.math-field{
+  --display: block;
+    white-space: nowrap;     /* Prevents wrapping */
+  overflow-x: auto;        /* Allows horizontal scroll */
+}
+
+  math-field::part(menu-toggle),
+  math-field::part(virtual-keyboard-toggle) {
+    display: none;
+  }
+
+</style>
+
+<body>
+
+  <math-field readonly id="mf">
+  2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{} ^ \placeholder[y]
+</math-field>
+
+<h1>LATIHAN MATEMATIKA</h1>
+<h2>BILANGAN BERPANGKAT</h2>
+<ol id="accordionContainer" class="accordion-container"></ol>
+<div id="test"></div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    MathLive.renderMathInDocument();
+  });
+
+document.querySelectorAll('math-field').forEach(mf => {
+  mf.addEventListener(
+  'keydown',
+  (ev) => {
+    if (ev.key === '\\') {
+      ev.preventDefault();
+      mf.executeCommand(['insert', ev.key]);
+    } else if (ev.key === 'Escape') ev.preventDefault();
+  },
+  { capture: true }
+);
+});
+
+document.getElementById('test').addEventListener('click', () => {
+  rnd1=Math.floor(Math.random()*10)+1;
+  rnd2=Math.floor(Math.random()*10);
+
+  text = rnd2;
+  for (let i = 0; i < rnd1; i++) {
+  text += "\\times"+rnd2;
+  }
+
+  document.getElementById('mf').value = `${text} = \\placeholder[x]{} ^ \\placeholder[y]`;
+});
+
+
+
+
+const accordionData = [
+ {
+    title: "Bilangan Berpangkat",
+    function: "BBPengertian"
+  },
+  {
+    title: "Perkalian Bilangan Berpangkat",
+    function: "BBKali"
+  },
+  {
+    title: "Pembagian Bilangan Berpangkat",
+    function: "BBBagi"
+  },
+  {
+    title: "Pangkat Bilangan Pecahan",
+    function: "BBPangkat Pecahan"
+  },
+  {
+    title: "Bentuk Akar Kuadrat",
+    function: "BBAkar"
+  },
+  {
+    title: "Perkalian Bentuk Akar",
+    function: "BBKaliAkar"
+  },
+  {
+    title: "Pembagian Bentuk Akar",
+    function: "BBBagiAkar"
+  },
+  {
+    title: "Kelipatan Bilangan Kuadrat",
+    function: "BBKelipatan"
+  },
+  {
+    title: "Menyederhanakan Bentuk Akar",
+    function: "BBMenyederhanakan"
+  },
+  // ... more sections
+];
+
+let ansArray = {};
+
+
+const accordionContainer = document.getElementById("accordionContainer");
+
+
+
+accordionData.forEach(section => {
+  const accordionItem = document.createElement("li");
+   accordionItem.classList.add("accordion-item");
+  
+  const accordionHeader = document.createElement("h3");
+  accordionHeader.classList.add("accordion-header");
+  accordionHeader.textContent = section.title;
+  
+  accordionHeader.addEventListener("click", () => {
+  if(typeof ansArray[section.function] === 'undefined'){
+    window["get"+section.function]();
+  }
+
+  accordionItem.classList.toggle("active");
+  accordionHeader.classList.toggle("expand");
+  });
+
+  const accordionBody = document.createElement("div");
+  accordionBody.classList.add("accordion-content");
+  
+  const accordionContent = document.createElement("button");
+  accordionContent.id = "get"+section.function;
+  accordionContent.textContent = "Coba Soal Lain";
+  accordionContent.addEventListener("click", () => {
+    window[accordionContent.id]();
+  });
+  accordionContent.addEventListener("focus", () => {
+    document.getElementById("test").innerHTML="asdfg";
+  });
+
+  const accordionSoal = document.createElement("span");
+  accordionSoal.id="soal"+section.function;
+  accordionSoal.innerHTML = "";
+
+  const accordionInput = document.createElement("input");
+  accordionInput.id="input"+section.function;
+  accordionInput.placeholder= "Jawaban";
+  accordionInput.addEventListener("keydown",function(event){
+     if(event.keyCode === 13) {
+      window["send"+section.function]();
+    }});
+
+
+  const accordionSend = document.createElement("button");
+  accordionSend.id = "send"+section.function;
+  accordionSend.textContent = "-->";
+  accordionSend.classList.add("sendbttn");
+  accordionSend.addEventListener("click", () => {
+    window[accordionSend.id]();
+  });
+
+  const accordionOutput = document.createElement("span");
+  accordionOutput.id="output"+section.function;
+  
+  const accordionShow = document.createElement("button");
+  accordionShow.id = "show"+section.function;
+  accordionShow.textContent =  "?";
+  accordionShow.classList.add("sendbttn");
+  accordionShow.addEventListener("click", () => {
+    window[accordionShow.id]();
+  });
+
+  
+  accordionBody.appendChild(accordionSoal);
+  accordionBody.appendChild(accordionInput);
+  accordionBody.appendChild(accordionSend);
+  accordionBody.appendChild(accordionShow);
+  accordionBody.appendChild(accordionOutput);
+  accordionBody.appendChild(accordionContent);
+  
+  accordionItem.appendChild(accordionHeader);
+  accordionItem.appendChild(accordionBody);
+ 
+  accordionContainer.appendChild(accordionItem);
+
+});
+
+
+
+
+function getIntergerNZ(min, max) {
+  let randomNum;
+  do {
+    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  } while (randomNum === 0);
+  return randomNum;
+}
+
+function pretty(text){
+  let texted = text.replaceAll("+ -"," – ");
+		texted = texted.replace(" -"," – ");
+		texted = " "+texted;
+		texted = texted.replaceAll(" 1x"," x");
+    texted = texted.replaceAll(" –1x"," –x");
+    texted = texted.replaceAll(" -1x"," –x");
+	 return texted;}
+
+function getBBPengertian(){
+  let w = "BBPengertian";
+
+
+  let a = getIntergerNZ(2,9);
+  let b = getIntergerNZ(2,5);
+  let soal = ` ${a}x² + ${b}x`;
+  soal = pretty(soal);
+  soal = "Konstanta dari "+soal+" adalah....";
+	ans = a;
+
+  // First, ensure you have a target div in your HTML, for example:
+// Then, in your JavaScript, append the math-field to that div:
+const mathField = document.createElement('math-field');
+mathField.setAttribute('readonly', '');
+mathField.id = 'mf';
+
+  value = a;
+  for (let i = 0; i < b; i++) {
+  value += "\\times"+a;
+  }
+
+mathField.value = `${value} = \\placeholder[x]{} ^ \\placeholder[y]`;
+
+
+  ansArray[w]=ans;
+  document.getElementById("input"+w).focus();
+  document.getElementById("soal"+w).innerHTML="";
+  document.getElementById("soal"+w).appendChild(mathField);
+  document.getElementById("output"+w).innerHTML = ""; 
+};
+
+function sendBBPengertian(){
+  let w = "BBPengertian";
+  let ans = ansArray[w];
+  
+  //ans = ans.replace(/\s+/g,'');
+
+  let input = document.getElementById("input"+w).value;
+	input = input.replaceAll(/\s+/g,'');
+   
+  if (ans == input){
+    soal = document.getElementById("soal"+w).textContent;
+    soal = soal.slice(0, -4);
+	  answ = "Jawaban kamu benar. "+soal+" "+ ans;
+    document.getElementById("show"+w).focus;
+	} else {
+	  answ = "Jawaban kamu salah. Coba lagi.";
+	  document.getElementById("input"+w).focus();
+	}
+  
+  document.getElementById("output"+w).innerHTML = answ;
+  document.getElementById("input"+w).value = "";
+  
+}
+
+function showBBPengertian(){
+  let w = "BBPengertian";
+  ans = "Jawaban yang benar adalalah "+ ansArray[w];
+  document.getElementById("output"+w).innerHTML = ans;
+}
+
+function getAjJumlahKurang(){
+  let w = "AjJumlahKurang";
+  let x1 = getIntergerNZ(-9,9);
+  let x2 = getIntergerNZ(-9,9);
+  do{
+  x2 = getIntergerNZ(-9,9);
+  } while (x1 + x2 == 0);
+  let c1 = getIntergerNZ(-9,9);
+  let c2 = getIntergerNZ(-9,9);
+  do{
+  c2 = getIntergerNZ(-9,9);
+  } while (c1 + c2 == 0);
+  let soal = `${x1}x + ${c1} + ${x2}x + ${c2}`;
+  soal = pretty(soal);
+  let ansx = x1 + x2;
+  let ansc = c1 + c2;
+  let ans = `${ansx}x + ${ansc}`;
+  ans = pretty(ans);
+ 
+  ansArray[w]=ans;
+  document.getElementById("input"+w).focus();
+  document.getElementById("soal"+w).innerHTML =soal+"=....";
+  document.getElementById("output"+w).innerHTML = ""; 
+};
+
+function sendAjJumlahKurang(){
+  let w = "AjJumlahKurang";
+  let ans = ansArray[w]
+  
+  ans = ans.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+  
+  let input = document.getElementById("input"+w).value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+  
+  if (ans == input){
+  soal = document.getElementById("soal"+w).textContent;
+  soal = soal.slice(0, -4);
+	answ = "Jawaban kamu benar,"+pretty(soal)+" "+pretty(ans);
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("input"+w).focus();
+	}
+  
+document.getElementById("output"+w).innerHTML = answ;
+document.getElementById("input"+w).value = "";
+
+}
+
+function showAjJumlahKurang(){
+  let w = "AjJumlahKurang";
+  ans = "Jawaban yang benar adalalah "+ ansArray[w];
+  document.getElementById("output"+w).innerHTML = ans;
+}
+
+function getAjSatuSatu(){
+document.getElementById("test").innerHTML="2";
+};
+
+function getAjSatuDua(){
+let w = "AjSatuDua";
+	let a = getIntergerNZ(2,9);
+  let b = getIntergerNZ(-9,9);
+  let c = getIntergerNZ(-9,9);
+  let soal = ` ${a} ( ${b}x + ${c} )`;
+  soal = pretty(soal);
+	let ans = (a*b)+"x + "+(a*c);
+	ans = pretty(ans);
+	ansArray[w] = ans;
+  document.getElementById("input"+w).focus();
+  document.getElementById("soal"+w).innerHTML =soal+"=....";
+  document.getElementById("output"+w).innerHTML = ""; 
+};
+
+function sendAjSatuDua(){
+  let w = "AjSatuDua";
+  let ans = ansArray[w]
+  
+  ans = ans.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+  
+  let input = document.getElementById("input"+w).value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+  
+  if (ans == input){
+  soal = document.getElementById("soal"+w).textContent;
+  soal = soal.slice(0, -4);
+	answ = "Jawaban kamu benar,"+pretty(soal)+" "+pretty(ans);
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("input"+w).focus();
+	}
+  
+document.getElementById("output"+w).innerHTML = answ;
+document.getElementById("input"+w).value = "";
+
+}
+
+function showAjSatuDua(){
+  let w = "AjSatuDua";
+  ans = "Jawaban yang benar adalalah "+ ansArray[w];
+  document.getElementById("output"+w).innerHTML = ans;
+}
+
+function getAjDuaDua(){
+let w = "AjDuaDua";
+	let a = getIntergerNZ(-5,5);
+  let b = getIntergerNZ(-5,5);
+  let c = getIntergerNZ(-5,5);
+  let d = getIntergerNZ(-5,5);
+  let soal = ` ( ${a}x + ${b} ) ( ${c}x + ${d} )`;
+  soal = pretty(soal);
+	let ans = (a*c)+"x² + "+(a*d+b*c)+"x +"+(b*d);
+	ans = pretty(ans);
+	ansArray[w] = ans;
+  document.getElementById("input"+w).focus();
+  document.getElementById("soal"+w).innerHTML =soal+"=....";
+  document.getElementById("output"+w).innerHTML = ""; 
+};
+
+function sendAjDuaDua(){
+  let w = "AjDuaDua";
+  let ans = ansArray[w]
+  
+  ans = ans.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+  
+  let input = document.getElementById("input"+w).value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+  input = input.replaceAll("x2","x²")
+
+  if (ans == input){
+  soal = document.getElementById("soal"+w).textContent;
+  soal = soal.slice(0, -4);
+	answ = "Jawaban kamu benar,"+pretty(soal)+" "+pretty(ans);
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("input"+w).focus();
+	}
+  
+document.getElementById("output"+w).innerHTML = answ;
+document.getElementById("input"+w).value = "";
+
+}
+
+function showAjDuaDua(){
+  let w = "AjDuaDua";
+  ans = "Jawaban yang benar adalalah "+ ansArray[w];
+  document.getElementById("output"+w).innerHTML = ans;
+}
+
+function getAjKuadrat(){
+let w = "AjKuadrat";
+	let a = getIntergerNZ(-5,5);
+  let b = getIntergerNZ(-5,5);
+  let soal = ` ( ${a}x + ${b} )²`;
+  soal = pretty(soal);
+	let ans = (a*a)+"x² + "+(a*b+a*b)+"x +"+(b*b);
+	ans = pretty(ans);
+	ansArray[w] = ans;
+  document.getElementById("input"+w).focus();
+  document.getElementById("soal"+w).innerHTML =soal+"=....";
+  document.getElementById("output"+w).innerHTML = ""; 
+};
+
+function sendAjKuadrat(){
+  let w = "AjKuadrat";
+  let ans = ansArray[w]
+  
+  ans = ans.replaceAll(/\s+/g,'');
+	ans = ans.replaceAll("–","-");
+  
+  let input = document.getElementById("input"+w).value;
+	input = input.replaceAll(/\s+/g,'');
+	input = input.replaceAll("–","-");
+  input = input.replaceAll("x2","x²")
+
+  if (ans == input){
+  soal = document.getElementById("soal"+w).textContent;
+  soal = soal.slice(0, -4);
+	answ = "Jawaban kamu benar,"+pretty(soal)+" "+pretty(ans);
+	} else {
+	answ = "Jawaban kamu salah. Coba lagi.";
+	document.getElementById("input"+w).focus();
+	}
+  
+document.getElementById("output"+w).innerHTML = answ;
+document.getElementById("input"+w).value = "";
+
+}
+
+function showAjKuadrat(){
+  let w = "AjKuadrat";
+  ans = "Jawaban yang benar adalalah "+ ansArray[w];
+  document.getElementById("output"+w).innerHTML = ans;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+  <html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+         <title>Working Title</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  
+ <math-field readonly id="mf">
+      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{sss} ^ \placeholder[y]{sasd}
+    </math-field>
+  
+  <div style="text-align: right; width: 100%; max-width: 500px; margin-top: 5px; font-size: 30px;">
+   <button onclick="cycleColorScheme()" style="font-size: 65%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+     ganti tema
+  </button>
+  </div>
+  <h1>LATIHAN</h1>
+  <h2></h2>
+    <div class="headerContainer">
+  <div>
+    <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+      <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
+    </button>
+
+</div>
+
+       <select id="stateSelect">
+        <option value="state1">State 1</option>
+        <option value="state2">State 2</option>
+        <option value="state3">State 3</option>
+        <option value="state4">State 4</option>
+       </select> 
+
+
+<button class="headerText" onclick="cycleColorScheme()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Tema</button>
+
+    </div>
+    <div class="chatContainer">
+
+    <math-field readonly id="mf">
+      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{sss} ^ \placeholder[y]{sasd}
+    </math-field>
+
+    </div>
+   
+    <div class="inputContainer">
+    <!---  <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus> -->
+      <button id="sendMsg"  onclick="sendInput()">
+        <i class="fa fa-circle-arrow-right"></i> 
+       <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
+            <i class="fa fa-circle-arrow-up"></i> 
+      </button>-->
+    </div>
+
+    
+    <div id="toast" class="toast"></div>
+    <div style="display:none">
+    <form name="sendForm" ><input id="formInput" name="email"></form> <button onclick="submitForm()">Lalala</button>
+    </div>
+
+  
+    <!--
+        <script src="soalPerkalian.js"></script>
+    
+<script src="test.js"></script>
+<script  src="main.js"></script>
+ <script src="test.js"></script>
+    <script type="module" src="test.js"></script>
+  -->
+  
+
+
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
+  
+
+<script>
+  currentScheme = 0;
+  cycleColorScheme();
+function cycleColorScheme() {
+  const root = document.documentElement;
+  root.classList.remove(`scheme-${currentScheme}`);
+
+  currentScheme++;
+  if (currentScheme > 4) {
+    currentScheme = 1; 
+  }
+
+  root.classList.add(`scheme-${currentScheme}`);
+}
+  
+  /*URL PARAM*/
+  const urlParams = new URLSearchParams(window.location.search);
+  const rawParams = urlParams.get('q')
+
+
+  const subchapterTitle = rawParams.split('.')[1].toUpperCase();
+  const h1 = document.querySelector("h2");
+  h1.textContent += ` ${subchapterTitle}`;
+  url = rawParams.replace(/\s/g, '');
+
+
+  function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve(); 
+    script.onerror = () => reject(new Error(`Error loading ${src}`));
+    document.head.appendChild(script);
+  });
+}
+
+async function main() {
+  await loadScript(`soal${url}.js`); 
+  letsStart();
+  //letsTest();
+  console.log("myScript.js loaded, now proceed to next line"); 
+}
+
+
+main();
+
+    //loadScript('./main.js');
+   // loadScript('./test.js');
+
+
+    /* Startups */
+
+
+
+   
+</script>
+</body>
