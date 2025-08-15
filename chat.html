@@ -34,7 +34,7 @@
     </div>
     <div class="chatContainer" id="mainContainer">
     <math-field readonly id="mfe">
-      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{sss} ^ \placeholder[y]{sasd}
+      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{x} ^ \placeholder[y]{y}
     </math-field>
 
     </div>
@@ -160,6 +160,12 @@ function getInteger(min,max){
   mySelect.appendChild(option);
 });
 
+
+mf.addEventListener('focus', () => {
+    mf.executeCommand('showVirtualKeyboard');
+  });
+
+  
 BBPengertian();
  mySelect.addEventListener("change", function () {
             //window[mySelect.value]();
@@ -201,7 +207,8 @@ mf.addEventListener("focusin", () => {
 });
 
   };
-  
+
+  BBPengertian();
 function sendInput(){
 
   const mfx = document.getElementById("mf");
@@ -209,7 +216,14 @@ function sendInput(){
   y =mfx.getPromptValue("y");
 
   state = (x == a && y == b);
+
   document.getElementById("mainContainer").innerHTML=`${state} ${a} ${y} ${b} ${x}`;
+  if (x == a && y == b){
+document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+  } else{
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Salah`;
+  }
+  
   
   /*const mathField = document.createElement('math-field');
   mathField.id = "mf"

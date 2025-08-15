@@ -19,6 +19,13 @@
         --h1 : var(--secondtext-color);
         --chat : var(--bg-color);
         --chat-border : var(--secondtext-color);
+
+
+        --keyboard-background: #222;       /* background color */
+  --keyboard-foreground: #fff;       /* key text color */
+  --keyboard-accent: #ffcc00;        /* accent (like function keys) */
+  --keyboard-button-background: #333; /* button background */
+  --keyboard-button-foreground: #fff; /* button text color */
     }
 
     :root.scheme-1 {
