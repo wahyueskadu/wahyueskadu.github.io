@@ -60,7 +60,7 @@
     </div>
 
   
-  <script src="main.js"></script>
+  <!--<script src="main.js"></script>-->
   <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
   
 
@@ -97,6 +97,7 @@ function getInteger(min,max){
     randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNum;
 }
+
 
 
   /*URL PARAM*/
@@ -161,9 +162,11 @@ function getInteger(min,max){
 });
 
 
-mf.addEventListener('focus', () => {
+function attachKeyboardHandler(mf) {
+  mf.addEventListener('focus', () => {
     mf.executeCommand('showVirtualKeyboard');
   });
+}
 
   
 BBPengertian();
@@ -178,13 +181,7 @@ BBPengertian();
   function BBPengertian(){
 
 
-  const option = document.createElement("option");
-  option.value = "asd";
-  option.textContent = "asdg";
-  mySelect.appendChild(option);
-
-  
-  
+ 
   const mathField = document.createElement('math-field');
 
       mathField.setAttribute('readonly', '');
@@ -202,9 +199,14 @@ BBPengertian();
   document.getElementById("mainContainer").innerHTML="";
   document.getElementById("mainContainer").appendChild(mathField);
 
+
 mf.addEventListener("focusin", () => {
   mathVirtualKeyboard.layouts = ["numeric-only"];
 });
+
+mf.addEventListener('focus', () => {
+    mf.executeCommand('showVirtualKeyboard');
+  });
 
   };
 
@@ -250,14 +252,7 @@ async function main() {
   console.log("myScript.js loaded, now proceed to next line"); 
 }
 
-
-main();
 */
-    //loadScript('./main.js');
-   // loadScript('./test.js');
-
-
-    /* Startups */
 
 
 
