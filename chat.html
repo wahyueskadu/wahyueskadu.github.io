@@ -7,17 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  
- <math-field readonly id="mf">
-      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{sss} ^ \placeholder[y]{sasd}
-    </math-field>
-  
-  <div style="text-align: right; width: 100%; max-width: 500px; margin-top: 5px; font-size: 30px;">
-   <button onclick="cycleColorScheme()" style="font-size: 65%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
-     ganti tema
-  </button>
-  </div>
+
   <h1>LATIHAN</h1>
+
+  <select id="LessonSelector">
+  </select> 
+
   <h2></h2>
     <div class="headerContainer">
   <div>
@@ -27,20 +22,16 @@
 
 </div>
 
-       <select id="stateSelect">
-        <option value="state1">State 1</option>
-        <option value="state2">State 2</option>
-        <option value="state3">State 3</option>
-        <option value="state4">State 4</option>
-       </select> 
+
 
 
 <button class="headerText" onclick="cycleColorScheme()" style="font-size: 75%; font-variation-settings: 'wght'300; background-color: #00000000; border:none; cursor: pointer;">Ganti Tema</button>
 
     </div>
-    <div class="chatContainer">
+    <div class="chatContainer" id="mainContainer">
+hiuyiy
 
-    <math-field readonly id="mf">
+    <math-field readonly id="mfe">
       2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{sss} ^ \placeholder[y]{sasd}
     </math-field>
 
@@ -78,21 +69,41 @@
   
 
 <script>
+
+
+  /*THEME*/
   currentScheme = 0;
   cycleColorScheme();
-function cycleColorScheme() {
-  const root = document.documentElement;
-  root.classList.remove(`scheme-${currentScheme}`);
+  function cycleColorScheme() {
+    const root = document.documentElement;
+    root.classList.remove(`scheme-${currentScheme}`);
 
-  currentScheme++;
-  if (currentScheme > 4) {
-    currentScheme = 1; 
+    currentScheme++;
+    if (currentScheme > 4) {
+      currentScheme = 1; 
+    }
+
+    root.classList.add(`scheme-${currentScheme}`);
   }
-
-  root.classList.add(`scheme-${currentScheme}`);
-}
   
+  function getIntegerNZ(min, max) {
+    let randomNum;
+    do {
+        randomNum = getInteger(min,max);
+    } while (randomNum === 0);
+    return randomNum;
+}
+
+
+function getInteger(min,max){
+    let randomNuml
+    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomNum;
+}
+
+
   /*URL PARAM*/
+  /*
   const urlParams = new URLSearchParams(window.location.search);
   const rawParams = urlParams.get('q')
 
@@ -101,8 +112,96 @@ function cycleColorScheme() {
   const h1 = document.querySelector("h2");
   h1.textContent += ` ${subchapterTitle}`;
   url = rawParams.replace(/\s/g, '');
+*/
+
+  const accordionData = [
+   {
+    title: "Bilangan Berpangkat",
+    function: "BBPengertian"
+    },
+    {
+    title: "Perkalian Bilangan Berpangkat",
+    function: "BBKali"
+    },
+    {
+    title: "Pembagian Bilangan Berpangkat",
+    function: "BBBagi"
+    },
+    {
+    title: "Pangkat Bilangan Pecahan",
+    function: "BBPangkat Pecahan"
+    },
+    {
+    title: "Bentuk Akar Kuadrat",
+    function: "BBAkar"
+    },
+    {
+    title: "Perkalian Bentuk Akar",
+    function: "BBKaliAkar"
+    },
+    {
+    title: "Pembagian Bentuk Akar",
+    function: "BBBagiAkar"
+    },
+    {
+    title: "Kelipatan Bilangan Kuadrat",
+    function: "BBKelipatan"
+    },
+    {
+    title: "Menyederhanakan Bentuk Akar",
+    function: "BBMenyederhanakan"
+    },
+    // ... more sections
+  ];
+
+  const mySelect = document.getElementById("LessonSelector");
+  accordionData.forEach(item => {
+  const option = document.createElement("option");
+  option.value = item.function
+  option.textContent = item.title;
+  mySelect.appendChild(option);
+});
+
+ mySelect.addEventListener("change", function () {
+            //window[mySelect.value]();
+            BBPengertian();
+        });
+
+  function BBMemyederhanakan (){
+    BBPengertian();
+  }
+  function BBPengertian(){
 
 
+  const option = document.createElement("option");
+  option.value = "asd";
+  option.textContent = "asdg";
+  mySelect.appendChild(option);
+
+  
+  
+  const mathField = document.createElement('math-field');
+
+      mathField.setAttribute('readonly', '');
+      mathField.id = 'mf';
+      a = getInteger(2,9);
+      b = getInteger(2,5);
+
+    value = a;
+    for (let i = 0; i < b; i++) {
+    value += "\\times"+a;
+
+    }
+
+  mathField.value = `${value} = \\placeholder[x]{} ^ \\placeholder[y]`;
+  document.getElementById("mainContainer").innerHTML="";
+  document.getElementById("mainContainer").appendChild(mathField);
+
+
+
+  };
+  
+  /*
   function loadScript(src) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
@@ -111,7 +210,7 @@ function cycleColorScheme() {
     script.onerror = () => reject(new Error(`Error loading ${src}`));
     document.head.appendChild(script);
   });
-}
+  }
 
 async function main() {
   await loadScript(`soal${url}.js`); 
@@ -122,7 +221,7 @@ async function main() {
 
 
 main();
-
+*/
     //loadScript('./main.js');
    // loadScript('./test.js');
 
@@ -134,3 +233,4 @@ main();
    
 </script>
 </body>
+</html>

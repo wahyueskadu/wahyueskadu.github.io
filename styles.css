@@ -93,7 +93,7 @@
     body{
         background-color: var(--bg-color);
         text-align: center;
-        font-size: 25pt;
+        font-size: 20pt;
         color: var(--accent-color);
         display: flex;
         flex-direction: column; 
@@ -128,7 +128,7 @@
         overflow-y: auto;
         white-space: normal; /* Prevents text from wrapping */
         text-overflow: ellipsis; /* Adds ellipsis for overflow text */
-        color: var(--accent-color);
+        color: var(--h1);
     }
 
     option{
@@ -154,6 +154,22 @@
     .headerText{
         color:var(--accent-color);
     }
+
+    .inputContainer{
+        height: fit-content;
+        padding: 5px 5px 5px 5px;
+        max-height: 500px;
+        border-radius: 0px 0px 10px 10px;
+        display: flex;
+        background-color: var(--chat-border);
+        width: 100%;
+        box-sizing: border-box; 
+        max-width: 500px;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    
     .chatContainer{
         background-color: var(--chat);
         height: 100%;
@@ -173,14 +189,16 @@
         /* position: relative; 
         display: flex;
         flex-direction: column; 
-        justify-content: flex-end; */ 
+        justify-content: flex-end; *
 
         display: flex;
-        justify-content: center; /* horizontal center */
+        justify-content: center; /* horizontal center *
         align-items: center;     /* vertical center */
         
     }
 
+
+    /*
     .divider{
         font-size: 15px;
         background-color: var(--second-color);
@@ -192,9 +210,9 @@
         border-radius: 5px;
         padding: 5px;
         width: fit-content;
-        box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
+        box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow *
         max-width: 230px;
-       /* word-wrap: break-word; */
+       /* word-wrap: break-word; *
        white-space: pre-wrap;
     }
 
@@ -213,7 +231,7 @@
     }
 
     .msg p {
-        font-size: 14pt; /* Reduced font size */
+        font-size: 14pt; /* Reduced font size *
         font-variation-settings: 'wght'500;
         margin : 0px;
     }
@@ -222,24 +240,32 @@
         position: sticky;
         top: 5;
         background-color: var(--bg-color);
-        /*padding: 5px 0 5px 0; */
+        /*padding: 5px 0 5px 0; *
     }
 
-    .inputContainer{
-        height: fit-content;
-        padding: 5px 5px 5px 5px;
-        max-height: 500px;
-        border-radius: 0px 0px 10px 10px;
-        display: flex;
-        background-color: var(--chat-border);
-        width: 100%;
-        box-sizing: border-box; 
-        max-width: 500px;
-        margin-top: 0;
-        margin-bottom: 15px;
+    
+
+
+    .svgline{
+        stroke: rgb(0, 0, 0);
+        stroke-width: 3px;
+        fill: none
     }
 
-    #inputMsg{
+    .svgbg{
+        fill: white;
+    }
+
+    .svgtext{
+        /*text-anchor: middle;
+        dominant-baseline: middle;*
+        fill: black; 
+        font-size: 15px;
+        }
+
+        */
+
+            #inputMsg{
         background-color: white;
         border: none;
         border-color: var(--accent-color);
@@ -263,24 +289,6 @@
         font-size: 15pt;
         font-variation-settings: 'wght' 100;
     }
-
-    .svgline{
-        stroke: rgb(0, 0, 0);
-        stroke-width: 3px;
-        fill: none
-    }
-
-    .svgbg{
-        fill: white;
-    }
-
-    .svgtext{
-        /*text-anchor: middle;
-        dominant-baseline: middle;*/
-        fill: black; 
-        font-size: 15px;
-        }
-
     .toast {
         position: fixed;
         bottom: 100px;
@@ -300,7 +308,24 @@
     }
 
 
+    math-field {
+  background-color: transparent !important; /* Remove white background */
+  border: none !important;                  /* No border */
+  box-shadow: none !important;               /* Remove shadow if any */
+  outline: none !important;                  /* Remove focus outline */
+  color: black;                              /* Math text color */
+  font-size: 40px;                           /* Math size */
+  padding: 20px;                                /* No padding */
+  margin: 30px;
+}
+
+
+
     math-field::part(menu-toggle),
     math-field::part(virtual-keyboard-toggle) {
         display: none;
   }
+
+  math-field::part(placeholder) {
+  color: rgb(7, 209, 227); /* semi-transparent placeholder */
+}
