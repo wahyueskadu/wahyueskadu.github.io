@@ -314,9 +314,10 @@
   box-shadow: none !important;               /* Remove shadow if any */
   outline: none !important;                  /* Remove focus outline */
   color: black;                              /* Math text color */
-  font-size: 40px;                           /* Math size */
-  padding: 20px;                                /* No padding */
-  margin: 30px;
+  font-size: 20px;                           /* Math size */
+  padding: 0px;                                /* No padding */
+  margin: 0px;
+  --placeholder-color: rgb(255, 255, 255);
 }
 
 
