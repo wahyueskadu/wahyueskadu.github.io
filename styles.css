@@ -161,6 +161,7 @@
         max-height: 500px;
         border-radius: 0px 0px 10px 10px;
         display: flex;
+        gap: 8px;
         background-color: var(--chat-border);
         width: 100%;
         box-sizing: border-box; 
@@ -168,6 +169,12 @@
         margin-top: 0;
         margin-bottom: 15px;
     }
+
+    .inputContainer button {
+  flex: 1;           /* take equal space */
+  padding: 10px;     /* adjust for touch comfort */
+  font-size: 1rem;
+}
 
     
     .chatContainer{

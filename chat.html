@@ -1,11 +1,15 @@
-  <html>
+<html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
          <title>Working Title</title>
     <link rel="stylesheet" href="styles.css"> 
 </head>    
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
+
+
 <body>
 
   <h1>LATIHAN</h1>
@@ -37,10 +41,13 @@
    
     <div class="inputContainer">
     <!---  <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus> -->
-      <button id="sendMsg"  onclick="sendInput()">
+      <button id="sendMsg"  onclick="BBPengertian()">
+        Ganti Soal
+        <i class="fa-solid fa-rotate"></i></button>
+          <button id="sendMsg"  onclick="sendInput()">
         Cek Jawaban
-        <i class="fa fa-circle-arrow-right"></i></button>
-    
+        
+<i class="fa-solid fa-right-long"></i></button>
        <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
             <i class="fa fa-circle-arrow-up"></i> 
       </button>-->
@@ -53,23 +60,13 @@
     </div>
 
   
-    <!--
-        <script src="soalPerkalian.js"></script>
-    
-<script src="test.js"></script>
-<script  src="main.js"></script>
- <script src="test.js"></script>
-    <script type="module" src="test.js"></script>
-  -->
-  
-
-
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
   
 
 <script>
-
+  let a =0;
+  let b = 0
 
   /*THEME*/
   currentScheme = 0;
@@ -190,7 +187,7 @@ BBPengertian();
       b = getInteger(2,5);
 
     value = a;
-    for (let i = 0; i < b; i++) {
+    for (let i = 0; i < b-1; i++) {
     value += "\\times"+a;
 
     }
@@ -211,11 +208,15 @@ function sendInput(){
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
 
-  const mathField = document.createElement('math-field');
+  state = (x == a && y == b);
+  document.getElementById("mainContainer").innerHTML=`${state} ${a} ${y} ${b} ${x}`;
+  
+  /*const mathField = document.createElement('math-field');
   mathField.id = "mf"
   mathField.value = `${x}^{${y}}`;
   document.getElementById("mainContainer").innerHTML="";
   document.getElementById("mainContainer").appendChild(mathField);
+  */
 }
   /*
   function loadScript(src) {
