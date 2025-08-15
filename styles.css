@@ -134,7 +134,7 @@
     option{
         font-size: 10pt;
         white-space: normal;
-        background-color: var(--accent-color);
+        background-color: var(--bg-color);
     }
 
     .headerContainer{
@@ -186,13 +186,10 @@
         margin-bottom: 0;
         margin-top: 0px;
         padding-top: 5px;
-        /* position: relative; 
-        display: flex;
-        flex-direction: column; 
-        justify-content: flex-end; *
+ 
 
         display: flex;
-        justify-content: center; /* horizontal center *
+        justify-content: center; /* horizontal center */
         align-items: center;     /* vertical center */
         
     }
@@ -287,7 +284,7 @@
         display: inline-block;
         margin: 2px 2px;
         font-size: 15pt;
-        font-variation-settings: 'wght' 100;
+        font-variation-settings: 'wght' 300;
     }
     .toast {
         position: fixed;
@@ -317,16 +314,15 @@
   font-size: 20px;                           /* Math size */
   padding: 0px;                                /* No padding */
   margin: 0px;
-  --placeholder-color: rgb(255, 255, 255);
 }
 
 
 
-    math-field::part(menu-toggle),
-    math-field::part(virtual-keyboard-toggle) {
+    math-field::part(menu-toggle){
         display: none;
   }
 
+  
   math-field::part(placeholder) {
   color: rgb(7, 209, 227); /* semi-transparent placeholder */
 }
