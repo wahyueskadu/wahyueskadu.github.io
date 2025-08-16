@@ -239,6 +239,7 @@ function BBAkar (){
   }
 
 
+
 function createmf(value,id){
   const mathField = document.createElement('math-field');
   mathField.setAttribute('readonly', '');
@@ -246,12 +247,13 @@ function createmf(value,id){
   mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
-  mathField.addEventListener("focusin", () => {
+  mf.addEventListener("focusin", () => {
   mathVirtualKeyboard.layouts = ["numeric-only"];
-  mathField.executeCommand("showVirtualKeyboard");
+  mf.executeCommand("showVirtualKeyboard");
 });
 
 }
+
 function sendInput(){
   window["cek"+mySelect.value]();
 }
