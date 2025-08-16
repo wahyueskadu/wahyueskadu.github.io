@@ -293,14 +293,14 @@ function cekBBKali(){
   if (x == q.n && y == (q.a+q.b)){
      document.getElementById("cekButton").style.display = "none";
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
+    createmf(`${q.value} = ${x} ^ {${y}}`,"mf");
     
   } else{
       document.getElementById("mainContainer").innerHTML=`
     <p>Jawaban Kamu Belum Tepat</p>
     <p class="small-text">Coba Lagi</p>   
     `;
-    createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
+    createmf(`${q.value} = \\placeholder[x]{      } ^{\\placeholder[y]{     }}`,"mf");
 
   }
 }
