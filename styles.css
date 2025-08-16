@@ -131,12 +131,13 @@
     
 
     select{
-        font-size: 20pt;
+        font-size: 15pt;
         appearance: none;
         background-color: transparent;
         border: 2px solid var(--h1);
         border-radius: 12px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 500px;
         overflow-y: auto;
         white-space: normal; /* Prevents text from wrapping */
         text-overflow: ellipsis; /* Adds ellipsis for overflow text */
@@ -377,5 +378,6 @@
       math-field::part(virtual-keyboard-toggle){
         display: none;
   }
+
 
   
