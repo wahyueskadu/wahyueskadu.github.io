@@ -132,10 +132,9 @@
 
     select{
         font-size: 15pt;
-        appearance: none;
         background-color: transparent;
         border: 2px solid var(--h1);
-        border-radius: 12px;
+        border-radius: 10px;
         width: 100%;
         max-width: 500px;
         overflow-y: auto;
@@ -381,3 +380,4 @@
 
 
   
+
