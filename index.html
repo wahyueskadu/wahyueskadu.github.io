@@ -14,9 +14,11 @@
 
   <h1>LATIHAN</h1>
 
-
+<div class="selectContainer">
   <select id="LessonSelector">
   </select> 
+    <i class="fa-solid fa-chevron-down"></i>
+</div>
 
   <h2></h2>
     <div class="headerContainer">
@@ -41,10 +43,10 @@
    
     <div class="inputContainer">
     <!---  <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus> -->
-      <button id="sendMsg"  onclick="soalBaru()">
+      <button id="soalBaru"  onclick="soalBaru()">
         Soal Baru
         <i class="fa-solid fa-shuffle"></i></button>
-      <button id="sendMsg"  onclick="sendInput()">
+      <button id="cekButton"  onclick="sendInput()">
         Cek Jawaban
         <i class="fa-solid fa-right-long"></i></button>
        <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
@@ -131,19 +133,23 @@ function getInteger(min,max){
     {
     title: "Pangkat Bilangan Pecahan",
     function: "BBPangkat Pecahan"
-    },
+    }
+  */,
     {
     title: "Bentuk Akar Kuadrat",
     function: "BBAkar"
-    },
+    }
+  ,
     {
     title: "Perkalian Bentuk Akar",
     function: "BBKaliAkar"
-    },
+    }
+    ,
     {
     title: "Pembagian Bentuk Akar",
     function: "BBBagiAkar"
     },
+    /*
     {
     title: "Kelipatan Bilangan Kuadrat",
     function: "BBKelipatan"
@@ -170,12 +176,21 @@ function attachKeyboardHandler(mf) {
   });
 }
   
-BBPengertian();
  mySelect.addEventListener("change", function () {
     state = mySelect.value;            
-    window[mySelect.value]();
+    soalBaru();
 
         });
+function BBPengertian(){
+  q.a = getInteger(2,9);
+  q.b = getInteger(2,5);
+  q.value = q.a;
+  for (let i = 0; i < q.b-1; i++) {
+    q.value += "\\times"+q.a;
+  }
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
+  };
 
 function BBKali (){
   q.n = getInteger(2,9);
@@ -196,16 +211,37 @@ function BBKali (){
   document.getElementById("mainContainer").innerHTML="";
   createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
   }
-function BBPengertian(){
+
+function BBAkar (){
+  q.a = getInteger(2,9);
+  q.value = `\\sqrt{${(q.a*q.a)}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
+  }
+  
+
+  function BBKaliAkar (){
   q.a = getInteger(2,9);
   q.b = getInteger(2,5);
-  q.value = q.a;
-  for (let i = 0; i < q.b-1; i++) {
-    q.value += "\\times"+q.a;
-  }
+  q.value = `\\sqrt{${q.a}}\\times\\sqrt{${q.b}}`;
+  
   document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
-  };
+  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}`,"mf");
+  }
+  
+   mySelect.value="BBAkar";
+  soalBaru();
+
+  function BBBagiAkar (){
+  q.b = getInteger(3,9);
+  q.a = getInteger(2,9)*q.b;
+  q.value = `\\frac{\\sqrt{${q.a}}}{\\sqrt{${q.b}}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}}`,"mf");
+  }
+
 
 function createmf(value,id){
   const mathField = document.createElement('math-field');
@@ -232,9 +268,8 @@ function cekBBPengertian(){
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
 
-  state = (x == q.a && y == q.b);
-
   if (x == q.a && y == q.b){
+     document.getElementById("cekButton").style.display = "none";
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
     createmf(`${q.value} = ${x} ^ ${y}`,"mf");
     
@@ -255,9 +290,8 @@ function cekBBKali(){
   y =mfx.getPromptValue("y");
 
 
-  state = (x == q.n && y == (q.a+q.b));
-
   if (x == q.n && y == (q.a+q.b)){
+     document.getElementById("cekButton").style.display = "none";
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
     createmf(`${q.value} = ${x} ^ ${y}`,"mf");
     
@@ -276,10 +310,8 @@ function cekBBBagi(){
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
 
-
-  state = (x == q.n && y == (q.a-q.b));
-
   if (x == q.n && y == (q.a-q.b)){
+     document.getElementById("cekButton").style.display = "none";
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
     createmf(`${q.value} = ${x} ^ ${y}`,"mf");
     
@@ -293,7 +325,67 @@ function cekBBBagi(){
   }
 }
 
+function cekBBAkar(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+
+  if (x == (q.a)){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${x}`,"mf");
+    
+  } else {
+    // value = mf.value;
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
+    //createmf(value,"mf");
+  }
+}
+
+function cekBBKaliAkar(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+
+  if (x == (q.a*q.b)){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = \\sqrt{${x}}`,"mf");
+    
+  } else {
+    // value = mf.value;
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\sqrt{\\placeholder[x]{      }}`,"mf");
+    //createmf(value,"mf");
+  }
+}
+
+function cekBBBagiAkar(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+
+  if (x == (q.a/q.b)){
+        document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = \\sqrt{${x}}`,"mf");
+
+  } else{
+    document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\sqrt{\\placeholder[x]{      }}`,"mf");
+    //createmf(value,"mf");
+  }
+}
+
 function soalBaru(){
+   document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
   }
   /*const mathField = document.createElement('math-field');
