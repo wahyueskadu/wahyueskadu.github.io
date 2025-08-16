@@ -228,9 +228,6 @@ function BBAkar (){
   document.getElementById("mainContainer").innerHTML="";
   createmf(`${q.value} = \\sqrt{\\placeholder[x]{}`,"mf");
   }
-  
-   mySelect.value="BBAkar";
-  soalBaru();
 
   function BBBagiAkar (){
   q.b = getInteger(3,9);
@@ -255,7 +252,7 @@ const mathField = new MathfieldElement({
   mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
-});
+};
 
 }
 function sendInput(){
