@@ -34,7 +34,7 @@
     </div>
     <div class="chatContainer" id="mainContainer">
     <math-field readonly id="mfe">
-      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{x} ^ \placeholder[y]{y}
+      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{ } ^ \placeholder[y]{y}
     </math-field>
 
     </div>
@@ -66,8 +66,7 @@
   
 
 <script>
-  let a =0;
-  let b = 0
+  let  q = [];
 
   /*THEME*/
   currentScheme = 0;
@@ -187,16 +186,16 @@ BBPengertian();
 
       mathField.setAttribute('readonly', '');
       mathField.id = 'mf';
-      a = getInteger(2,9);
-      b = getInteger(2,5);
+      q.a = getInteger(2,9);
+      q.b = getInteger(2,5);
 
-    value = a;
-    for (let i = 0; i < b-1; i++) {
-    value += "\\times"+a;
 
+          value = q.a;
+    for (let i = 0; i < q.b-1; i++) {
+    value += "\\times"+q.a;
     }
 
-  mathField.value = `${value} = \\placeholder[x]{x} ^ \\placeholder[y]{y}`;
+  mathField.value = `${value} = \\placeholder[x]{} ^ \\placeholder[y]{}`;
 
 
   document.getElementById("mainContainer").innerHTML="";
@@ -220,14 +219,50 @@ function sendInput(){
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
 
-  state = (x == a && y == b);
+  state = (x == q.a && y == q.b);
 
-  document.getElementById("mainContainer").innerHTML=`${state} ${a} ${y} ${b} ${x}`;
-  if (x == a && y == b){
+  if (x == q.a && y == q.b){
 document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+
+
+const mathField = document.createElement('math-field');
+
+      mathField.setAttribute('readonly', '');
+      mathField.id = 'mf';
+
+          value = q.a;
+    for (let i = 0; i < q.b-1; i++) {
+    value += "\\times"+q.a;
+    }
+
+  mathField.value = `${value} = ${x} ^ ${y}`;
+
+
+  document.getElementById("mainContainer").appendChild(mathField);
   } else{
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Salah`;
+  
+    document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>
+  
+    
+    `;
+       const mathField = document.createElement('math-field');
+
+      mathField.setAttribute('readonly', '');
+      mathField.id = 'mf';
+
+          value = q.a;
+    for (let i = 0; i < q.b-1; i++) {
+    value += "\\times"+q.a;
+    }
+
+  mathField.value = `${value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`;
+
+
+  document.getElementById("mainContainer").appendChild(mathField);
   }
+  
   
   
   /*const mathField = document.createElement('math-field');
