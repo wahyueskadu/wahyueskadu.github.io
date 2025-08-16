@@ -246,10 +246,10 @@ function createmf(value,id){
   mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
-  mf.addEventListener("focusin", () => {
+  mathField.addEventListener("focusin", () => {
   mathVirtualKeyboard.layouts = ["numeric-only"];
-  mf.executeCommand("showVirtualKeyboard");
-};
+  mathField.executeCommand("showVirtualKeyboard");
+});
 
 }
 function sendInput(){
