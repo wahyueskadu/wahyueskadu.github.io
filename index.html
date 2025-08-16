@@ -250,12 +250,9 @@ function createmf(value,id){
   document.getElementById("mainContainer").appendChild(mathField);
 
   mf.addEventListener("focusin", () => {
-    mathVirtualKeyboard.layouts = ["numeric-only"];
-  });
-
-  mf.addEventListener('focus', () => {
-    mf.executeCommand('showVirtualKeyboard');
-  });
+  mathVirtualKeyboard.layouts = ["numeric-only"];
+  mf.executeCommand("showVirtualKeyboard");
+});
 
 }
 function sendInput(){
