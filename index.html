@@ -41,15 +41,12 @@
    
     <div class="inputContainer">
     <!---  <input id="inputMsg"  onkeypress="handleEnter(event)" placeholder="Jawab" autocomplete="off" autofocus> -->
-      <button id="sendMsg"  onclick="BBPengertian()">
-        Ganti Soal
-        
- 
-<i class="fa-solid fa-shuffle"></i></button>
-          <button id="sendMsg"  onclick="sendInput()">
+      <button id="sendMsg"  onclick="soalBaru()">
+        Soal Baru
+        <i class="fa-solid fa-shuffle"></i></button>
+      <button id="sendMsg"  onclick="sendInput()">
         Cek Jawaban
-        
-<i class="fa-solid fa-right-long"></i></button>
+        <i class="fa-solid fa-right-long"></i></button>
        <!-- <button id="sendMsg"  onclick="scrollToLastDivider()">
             <i class="fa fa-circle-arrow-up"></i> 
       </button>-->
@@ -69,7 +66,7 @@
 
 <script>
   let  q = [];
-
+  let state = ""
   /*THEME*/
   currentScheme = 0;
   cycleColorScheme();
@@ -119,11 +116,12 @@ function getInteger(min,max){
     title: "Bilangan Berpangkat",
     function: "BBPengertian"
     },
-    /*
+    
     {
     title: "Perkalian Bilangan Berpangkat",
     function: "BBKali"
-    },
+    }
+    /*,
     {
     title: "Pembagian Bilangan Berpangkat",
     function: "BBBagi"
@@ -172,29 +170,37 @@ function attachKeyboardHandler(mf) {
   
 BBPengertian();
  mySelect.addEventListener("change", function () {
-            //window[mySelect.value]();
-            BBPengertian();
+    state = mySelect.value;            
+    window[mySelect.value]();
+
         });
 
-function BBMemyederhanakan (){
-  BBPengertian();
+function BBKali (){
+  q.n = getInteger(2,9);
+  q.a = getInteger(2,9);
+  q.b = getInteger(2,5);
+  q.value = `${q.n}^${q.a}\\times${q.n}^${q.b}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
   }
   
 function BBPengertian(){
   q.a = getInteger(2,9);
   q.b = getInteger(2,5);
+  q.value = q.a;
+  for (let i = 0; i < q.b-1; i++) {
+    q.value += "\\times"+q.a;
+  }
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
+  };
+
+function createmf(value,id){
   const mathField = document.createElement('math-field');
   mathField.setAttribute('readonly', '');
-  mathField.id = 'mf';
-
-  value = q.a;
-  for (let i = 0; i < q.b-1; i++) {
-    value += "\\times"+q.a;
-  }
-
-  mathField.value = `${value} = \\placeholder[x]{} ^ \\placeholder[y]{}`;
-
-  document.getElementById("mainContainer").innerHTML="";
+  mathField.id = id;
+  mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
   mf.addEventListener("focusin", () => {
@@ -204,12 +210,13 @@ function BBPengertian(){
   mf.addEventListener('focus', () => {
     mf.executeCommand('showVirtualKeyboard');
   });
-  };
 
-BBPengertian();
-
+}
 function sendInput(){
+  window["cek"+mySelect.value]();
+}
 
+function cekBBPengertian(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
@@ -218,51 +225,52 @@ function sendInput(){
 
   if (x == q.a && y == q.b){
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    const mathField = document.createElement('math-field');
-    mathField.setAttribute('readonly', '');
-    mathField.id = 'mf';
-    value = q.a;
-    for (let i = 0; i < q.b-1; i++) {
-    value += "\\times"+q.a;
-    }
-    mathField.value = `${value} = ${x} ^ ${y}`;
-    document.getElementById("mainContainer").appendChild(mathField);
+    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
+    
   } else{
       document.getElementById("mainContainer").innerHTML=`
     <p>Jawaban Kamu Belum Tepat</p>
     <p class="small-text">Coba Lagi</p>   
     `;
-      const mathField = document.createElement('math-field');
+    createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
 
-      mathField.setAttribute('readonly', '');
-      mathField.id = 'mf';
-
-      value = q.a;
-      for (let i = 0; i < q.b-1; i++) {
-       value += "\\times"+q.a;
-      }
-
-      mathField.value = `${value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`;
-      document.getElementById("mainContainer").appendChild(mathField); 
   }
-  
-  mf.addEventListener("focusin", () => {
-    mathVirtualKeyboard.layouts = ["numeric-only"];
-  });
+}
 
-  mf.addEventListener('focus', () => {
-    mf.executeCommand('showVirtualKeyboard');
-  });
 
-  
-  
+function cekBBKali(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+  y =mfx.getPromptValue("y");
+
+
+  state = (x == q.n && y == (q.a+q.b));
+
+  if (x == q.n && y == (q.a+q.b)){
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
+    
+  } else{
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
+
+  }
+}
+
+
+function soalBaru(){
+  window[mySelect.value]();
+  }
   /*const mathField = document.createElement('math-field');
   mathField.id = "mf"
   mathField.value = `${x}^{${y}}`;
   document.getElementById("mainContainer").innerHTML="";
   document.getElementById("mainContainer").appendChild(mathField);
   */
-}
+
   /*
   function loadScript(src) {
   return new Promise((resolve, reject) => {
