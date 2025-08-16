@@ -22,10 +22,10 @@
 
 
         --keyboard-background: #222;       /* background color */
-  --keyboard-foreground: #fff;       /* key text color */
-  --keyboard-accent: #ffcc00;        /* accent (like function keys) */
-  --keyboard-button-background: #333; /* button background */
-  --keyboard-button-foreground: #fff; /* button text color */
+    --keyboard-foreground: #fff;       /* key text color */
+    --keyboard-accent: #ffcc00;        /* accent (like function keys) */
+    --keyboard-button-background: #333; /* button background */
+    --keyboard-button-foreground: #fff; /* button text color */
     }
 
     :root.scheme-1 {
@@ -107,6 +107,9 @@
         align-items: center;
         height: 100%;
         padding: 0px 10px 0px 10px;
+
+        --keyboard-background: var(--primary-color);
+        --keycap-background: var(--accent-color);
     }
 
     h1{
@@ -320,14 +323,18 @@
 
 
     math-field {
+                --secondtext-color : var(--accent-color);
   background-color: transparent !important; /* Remove white background */
   border: none !important;                  /* No border */
   box-shadow: none !important;               /* Remove shadow if any */
   outline: none !important;                  /* Remove focus outline */
   color: black;                              /* Math text color */
-  font-size: 20px;                           /* Math size */
+  font-size: 25px;                           /* Math size */
   padding: 0px;                                /* No padding */
   margin: 0px;
+  --prompt-color: var(--keyboard-accent);
+  --placeholder-color: #00ccff;  /* Color of \placeholder text */
+  --placeholder-opacity: 0.6;    /* Make it semi-transparent */
 }
 
 
@@ -336,7 +343,8 @@
         display: none;
   }
 
+      math-field::part(virtual-keyboard-toggle){
+        display: none;
+  }
+
   
-  math-field::part(placeholder) {
-  color: rgb(7, 209, 227); /* semi-transparent placeholder */
-}
