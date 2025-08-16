@@ -359,7 +359,7 @@
   border: none !important;                  /* No border */
   box-shadow: none !important;               /* Remove shadow if any */
   outline: none !important;                  /* Remove focus outline */
-  color: black;                              /* Math text color */
+  color:     color:var(--h1)                      /* Math text color */
   font-size: 25px;                           /* Math size */
   padding: 0px;                                /* No padding */
   margin: 0px;
@@ -380,4 +380,5 @@
 
 
   
+
 
