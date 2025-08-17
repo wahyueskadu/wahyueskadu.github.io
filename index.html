@@ -11,7 +11,7 @@
 
 
 <body>
-
+<math-field></math-field>
   <h1>LATIHAN</h1>
 
 
@@ -112,6 +112,8 @@ function getInteger(min,max){
   h1.textContent += ` ${subchapterTitle}`;
   url = rawParams.replace(/\s/g, '');
 */
+mathVirtualKeyboard.layouts = ["numeric-only"];
+mathVirtualKeyboard.show();
 
   const accordionData = [
    {
@@ -251,15 +253,14 @@ function createmf(value,id){
   mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
-  mf.addEventListener("focusin", () => {
-    mathVirtualKeyboard.layouts = ["numeric-only"];
-  });
+  /*
+mf.mathVirtualKeyboardPolicy = "manual";
 
-  mf.addEventListener('focus', () => {
-    mf.executeCommand('showVirtualKeyboard');
-  });
-
+mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
+mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
+*/
 }
+
 
 function sendInput(){
   window["cek"+mySelect.value]();
@@ -389,6 +390,7 @@ function cekBBBagiAkar(){
 function soalBaru(){
    document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
+  mathVirtualKeyboard.show();
   }
   /*const mathField = document.createElement('math-field');
   mathField.id = "mf"

@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <select id="lala"></select>
+            <option>asdfasef</option>
+        </select>
+
+
+        <math-field readonly id="mfe">
+      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{ } ^ \placeholder[y]{y}
+    </math-field>
+
+      <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
+        <script>
+  const mySelect = document.getElementById("lala");
+const options = ["Apple", "Banana", "Cherry"];
+
+options.forEach(item => {
+  const option = document.createElement("option");
+  option.value = item.toLowerCase();
+  option.textContent = item;
+  mySelect.appendChild(option);
+});
+
+        </script>
+    </body>
+</html>

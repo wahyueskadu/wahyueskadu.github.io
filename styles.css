@@ -110,6 +110,10 @@
 
         --keyboard-background: var(--primary-color);
         --keycap-background: var(--accent-color);
+        --keyboard-toolbar-background: var(--primary-color);
+        --keycap-secondary-background: var(--primary-color);
+
+
     }
 
     h1{
