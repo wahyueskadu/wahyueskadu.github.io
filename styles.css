@@ -62,7 +62,7 @@
         --second-color: #F2E94E;
         --secondtext-color: #483D51;
         --h1: var(--second-color);
-        --chat: #A3D9FF;
+        --chat: hsl(205, 87%, 30%);
         --chat-border: var(--secondtext-color);
     }
 
@@ -110,10 +110,8 @@
 
         --keyboard-background: var(--primary-color);
         --keycap-background: var(--accent-color);
-        --keyboard-toolbar-background: var(--primary-color);
-        --keycap-secondary-background: var(--primary-color);
-
-
+        --keyboard-toolbar-background: var(--accent-color);
+        --keycap-secondary-background: var(--accent-color);
     }
 
     h1{
@@ -225,6 +223,7 @@
         border-top: none;
         border-right: none;
         min-height: 100px;
+        color:var(--h1);
 
         overflow-y: scroll;
         height: 100%;
@@ -377,11 +376,11 @@
     math-field::part(menu-toggle){
         display: none;
   }
-/*
+
       math-field::part(virtual-keyboard-toggle){
         display: none;
   }
-        */
+        
 
 
   
