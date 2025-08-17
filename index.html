@@ -67,7 +67,8 @@
 
 <script>
   let  q = [];
-  let state = ""
+  let state = "";
+ 
   /*THEME*/
   currentScheme = 0;
   cycleColorScheme();
@@ -180,6 +181,10 @@ function attachKeyboardHandler(mf) {
     soalBaru();
 
         });
+
+
+  soalBaru();
+
 function BBPengertian(){
   q.a = getInteger(2,9);
   q.b = getInteger(2,5);
@@ -239,7 +244,6 @@ function BBAkar (){
   }
 
 
-
 function createmf(value,id){
   const mathField = document.createElement('math-field');
   mathField.setAttribute('readonly', '');
@@ -248,9 +252,12 @@ function createmf(value,id){
   document.getElementById("mainContainer").appendChild(mathField);
 
   mf.addEventListener("focusin", () => {
-  mathVirtualKeyboard.layouts = ["numeric-only"];
-  mf.executeCommand("showVirtualKeyboard");
-});
+    mathVirtualKeyboard.layouts = ["numeric-only"];
+  });
+
+  mf.addEventListener('focus', () => {
+    mf.executeCommand('showVirtualKeyboard');
+  });
 
 }
 

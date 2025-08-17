@@ -359,7 +359,7 @@
   border: none !important;                  /* No border */
   box-shadow: none !important;               /* Remove shadow if any */
   outline: none !important;                  /* Remove focus outline */
-  color:     color:var(--h1)                      /* Math text color */
+  color:var(--h1)   ;                   /* Math text color */
   font-size: 25px;                           /* Math size */
   padding: 0px;                                /* No padding */
   margin: 0px;
@@ -373,10 +373,11 @@
     math-field::part(menu-toggle){
         display: none;
   }
-
+/*
       math-field::part(virtual-keyboard-toggle){
         display: none;
   }
+        */
 
 
   
