@@ -150,15 +150,16 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
     title: "Pembagian Bentuk Akar",
     function: "BBBagiAkar"
     },
-    /*
+    
     {
     title: "Kelipatan Bilangan Kuadrat",
     function: "BBKelipatan"
     },
+    
     {
     title: "Menyederhanakan Bentuk Akar",
     function: "BBMenyederhanakan"
-    },*/
+    }
     // ... more sections
   ];
 
@@ -242,6 +243,16 @@ function BBAkar (){
   
   document.getElementById("mainContainer").innerHTML="";
   createmf(`${q.value} = \\sqrt{\\placeholder[x]{}}`,"mf");
+  }
+
+  function BBKelipatan (){
+  q.a = getInteger(2,5);
+  q.b = getInteger(2,6);
+  sqrt=q.a*q.a;
+  q.value = `${sqrt}\\times${q.b}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
   }
 
 
@@ -386,6 +397,26 @@ function cekBBBagiAkar(){
   }
 }
 
+function cekBBKelipatan(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+
+  if (x == (q.a*q.a*q.b)){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${x}`,"mf");
+    
+  } else {
+    // value = mf.value;
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
+    //createmf(value,"mf");
+  }
+}
+
 function soalBaru(){
    document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
@@ -393,11 +424,11 @@ function soalBaru(){
 
   const mf = document.getElementById("mf");
 
-// focus the mathfield
-mf.focus();
+  // focus the mathfield
+  mf.focus();
 
-// move caret to the very first placeholder
-mf.executeCommand("moveToNextPlaceholder");
+  // move caret to the very first placeholder
+  mf.executeCommand("moveToNextPlaceholder");
 
   mathVirtualKeyboard.show();
   }
