@@ -21,7 +21,7 @@
   <h2></h2>
     <div class="headerContainer">
   <div>
-    <button class="headerText" onclick="letsGo('landingpage.html')" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
+    <button class="headerText" onclick="homeButton()" style="font-size: 85%; font-variation-settings: 'wght'400; background-color: #00000000; border:none; cursor: pointer;">
       <i class="fa-solid fa-house" style="color:var(--accent-color); font-size: 75%; margin-right: 5px;"></i>
     </button>
 
@@ -65,7 +65,7 @@
   
 
 <script>
-  let  q = [];
+  let  q = {};
   let state = "";
  
   /*THEME*/
@@ -155,11 +155,11 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
     title: "Kelipatan Bilangan Kuadrat",
     function: "BBKelipatan"
     },
-    
+    /*
     {
     title: "Menyederhanakan Bentuk Akar",
     function: "BBMenyederhanakan"
-    }
+    }*/
     // ... more sections
   ];
 
@@ -169,8 +169,34 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
   option.value = item.function
   option.textContent = item.title;
   mySelect.appendChild(option);
-});
+  });
 
+function homeButton(){
+mainContainer = document.getElementById("mainContainer");
+mainContainer.innerHTML = "";
+const homeContainer = document.createElement("div");
+homeContainer.className="homeContainer";
+accordionData.forEach(item => {
+const button = document.createElement("button");
+  //option.value = item.function
+  button.textContent = item.title.toUpperCase();
+
+ button.onclick = () => {
+  mySelect.value = item.function;
+  soalBaru();
+  }
+
+
+
+  
+  homeContainer.appendChild(button);
+  });
+
+  mainContainer.appendChild(homeContainer)
+  
+}
+
+homeButton();
 
 function attachKeyboardHandler(mf) {
   mf.addEventListener('focus', () => {
@@ -184,8 +210,6 @@ function attachKeyboardHandler(mf) {
 
         });
 
-
-  soalBaru();
 
 function BBPengertian(){
   q.a = getInteger(2,9);
@@ -418,6 +442,7 @@ function cekBBKelipatan(){
 }
 
 function soalBaru(){
+  q={};
    document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
   
