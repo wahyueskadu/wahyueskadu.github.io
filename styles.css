@@ -260,9 +260,14 @@
         display: flex;
         justify-content: center; /* horizontal center */
         align-items: center;     /* vertical center */
-                flex-direction: column;
+        flex-direction: column;
         
     }
+
+    .chatContainer.home {
+  align-items: flex-start;   /* push content to top */
+  padding-top: 5rem;         /* optional spacing */
+}
 
 .small-text {
   font-size: 80%;
