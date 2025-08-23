@@ -98,6 +98,17 @@ function getInteger(min,max){
     return randomNum;
 }
 
+function getIntegerNonSquare(min, max) {
+  let num;
+  while (true) {
+    num = getInteger(min,max); // random in range
+    let sqrt = Math.sqrt(num);
+    if (sqrt !== Math.floor(sqrt)) { 
+      // not a perfect square
+      return num;
+    }
+  }
+}
 
 
   /*URL PARAM*/
@@ -137,10 +148,16 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
     }
   */,
     {
-    title: "Bentuk Akar Kuadrat",
+    title: "Akar Kuadrat",
     function: "BBAkar"
     }
   ,
+    {
+    title: "Penjumlahan & pengurangan Bentuk Akar",
+    function: "BBJumlahAkar"
+    }
+    ,
+        
     {
     title: "Perkalian Bentuk Akar",
     function: "BBKaliAkar"
@@ -150,7 +167,6 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
     title: "Pembagian Bentuk Akar",
     function: "BBBagiAkar"
     },
-    
     {
     title: "Kelipatan Bilangan Kuadrat",
     function: "BBKelipatan"
@@ -173,6 +189,7 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
 
 function homeButton(){
   mathVirtualKeyboard.hide();
+  mySelect.selectedIndex = -1;
 mainContainer = document.getElementById("mainContainer");
 mainContainer.innerHTML = "";
 mainContainer.classList.add("home");
@@ -186,7 +203,6 @@ const button = document.createElement("button");
  button.onclick = () => {
   mySelect.value = item.function;
   soalBaru();
-  mainContainer.classList.remove("home");
   }
   homeContainer.appendChild(button);
   });
@@ -242,7 +258,7 @@ function BBKali (){
   }
 
 function BBAkar (){
-  q.a = getInteger(2,9);
+  q.a = getInteger(2,15);
   q.value = `\\sqrt{${(q.a*q.a)}}`;
   
   document.getElementById("mainContainer").innerHTML="";
@@ -250,9 +266,20 @@ function BBAkar (){
   }
   
 
-  function BBKaliAkar (){
+  function BBJumlahAkar(){
   q.a = getInteger(2,9);
-  q.b = getInteger(2,5);
+  q.x = getIntegerNonSquare(2,9);
+  q.b = getInteger(2,9);
+  q.value = `${q.a}\\sqrt{${q.x}}+${q.b}\\sqrt{${q.x}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{}`,"mf");
+  }
+
+
+  function BBKaliAkar (){
+  q.a = getIntegerNonSquare(2,9);
+  q.b = getIntegerNonSquare(2,9);
   q.value = `\\sqrt{${q.a}}\\times\\sqrt{${q.b}}`;
   
   document.getElementById("mainContainer").innerHTML="";
@@ -260,8 +287,8 @@ function BBAkar (){
   }
 
   function BBBagiAkar (){
-  q.b = getInteger(3,9);
-  q.a = getInteger(2,9)*q.b;
+  q.b = getIntegerNonSquare(3,9);
+  q.a = getIntegerNonSquare(2,9)*q.b;
   q.value = `\\frac{\\sqrt{${q.a}}}{\\sqrt{${q.b}}}`;
   
   document.getElementById("mainContainer").innerHTML="";
@@ -381,6 +408,27 @@ function cekBBAkar(){
   }
 }
 
+function cekBBJumlahAkar(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+  y = mfx.getPromptValue("y");
+
+  if (x == (q.a+q.b)&&y==q.x){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${x}\\sqrt{${y}}`,"mf");
+    
+  } else {
+    // value = mf.value;
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{      }}`,"mf");
+    //createmf(value,"mf");
+  }
+}
+
 function cekBBKaliAkar(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
@@ -442,6 +490,7 @@ function cekBBKelipatan(){
 
 function soalBaru(){
   q={};
+    mainContainer.classList.remove("home");
     mathVirtualKeyboard.show();
    document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
