@@ -172,6 +172,7 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
   });
 
 function homeButton(){
+  mathVirtualKeyboard.hide();
 mainContainer = document.getElementById("mainContainer");
 mainContainer.innerHTML = "";
 mainContainer.classList.add("home");
@@ -441,6 +442,7 @@ function cekBBKelipatan(){
 
 function soalBaru(){
   q={};
+    mathVirtualKeyboard.show();
    document.getElementById("cekButton").style.display = "block";
   window[mySelect.value]();
   
@@ -453,7 +455,7 @@ function soalBaru(){
   // move caret to the very first placeholder
   mf.executeCommand("moveToNextPlaceholder");
 
-  mathVirtualKeyboard.show();
+
   }
   /*const mathField = document.createElement('math-field');
   mathField.id = "mf"
