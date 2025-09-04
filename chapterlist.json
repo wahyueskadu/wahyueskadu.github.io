@@ -1,0 +1,44 @@
+[
+  {
+    "subchapter": "2.1",
+    "activity": [
+      {
+        "title": "Bilangan Berpangkat",
+        "function": "BBPengertian"
+      },
+      {
+        "title": "Perkalian Bilangan Berpangkat",
+        "function": "BBKali"
+      },
+      {
+        "title": "Pembagian Bilangan Berpangkat",
+        "function": "BBBagi"
+      }
+    ]
+  },
+  {
+    "subchapter": "2.2",
+    "activity": [
+      {
+        "title": "Akar Kuadrat",
+        "function": "BBAkar"
+      },
+      {
+        "title": "Penjumlahan & pengurangan Bentuk Akar",
+        "function": "BBJumlahAkar"
+      },
+      {
+        "title": "Perkalian Bentuk Akar",
+        "function": "BBKaliAkar"
+      },
+      {
+        "title": "Pembagian Bentuk Akar",
+        "function": "BBBagiAkar"
+      },
+      {
+        "title": "Kelipatan Bilangan Kuadrat",
+        "function": "BBKelipatan"
+      }
+    ]
+  }
+]

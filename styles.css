@@ -238,37 +238,77 @@
         font-variation-settings: 'wght' 300;
 }
 
-    
-    .chatContainer{
-        background-color: var(--chat);
-        height: 100%;
-        border: 4px solid var(--chat-border);
-        border-bottom : none;
-        border-top: none;
-        border-right: none;
-        min-height: 100px;
-        color:var(--h1);
+.chatContainer {
+    background-color: var(--chat);
+    border: 4px solid var(--chat-border);
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    min-height: 100px;
+    color: var(--h1);
 
-        overflow-y: scroll;
-        height: 100%;
-        width: 100%;
-        max-width: 500px;
-        margin-bottom: 0;
-        margin-top: 0px;
-        padding-top: 5px;
- 
+    overflow-y: scroll;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 0;
+    margin-top: 0px;
+    padding-top: 5px;
 
-        display: flex;
-        justify-content: center; /* horizontal center */
-        align-items: center;     /* vertical center */
-        flex-direction: column;
-
-    }
-
-    .chatContainer.home {
-  align-items: flex-start;   /* push content to top */
-  padding-top: 5rem;         /* optional spacing */
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    flex-direction: column;
+    height: 100%;
 }
+
+.chatContainer.home {
+    align-items: flex-start;   /* push content to top */
+    justify-content: flex-start; /* align content to top vertically */
+    padding-top: 0;            /* remove extra spacing */
+    height: 100%;
+}
+
+.subchapter-divider {
+    width: 100vw;
+    max-width: 100vw;
+    /*margin-left: calc(-50vw + 50%);*/
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), var(--second-color), var(--accent-color));
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    opacity: 1;
+    text-align: left;
+
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.material-btn {
+    /*float: right*/
+    width: 10 px !important;
+    background-color: var(--secondtext-color) !important;
+    color: var(--accent-color);
+    border: none;
+    border-radius: 0px;
+    font-size: 12pt !important;
+    font-variation-settings: 'wght' 300;
+    padding: 1px 1px !important;
+    opacity: 1;
+    box-shadow: none;
+    margin-top: 0px !important;
+    transition: color 0.2s, opacity 0.2s;
+}
+
+/*
+.material-btn:hover {
+    background-color: var(--accent-color);
+    color: pink;
+    opacity: 1;
+}*/
+
 
 .small-text {
   font-size: 80%;

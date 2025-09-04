@@ -6,8 +6,11 @@
 </head>    
 
     <body>
-        
-        <table border="1" cellpadding="8" cellspacing="0">
+        <select id="lala"></select>
+    </br>
+<div id="test"></div>
+
+        <table border="5" cellpadding="8" cellspacing="10">
           <thead>
             <tr>
               <th>Sub-chapter</th>
@@ -47,16 +50,78 @@
 
 
       <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
-        <script>
+<script>
+
+console.log('haha');
   const mySelect = document.getElementById("lala");
 const options = ["Apple", "Banana", "Cherry"];
 
-options.forEach(item => {
+const myArr = ["Orange", "Banana", "Mango", "Kiwi"];
+
+
+const chapterlist=[
+  {
+    "subchapter": "2.1",
+    "activity": [
+      {
+        "title": "Bilangan Berpangkat",
+        "function": "BBPengertian"
+      },
+      {
+        "title": "Perkalian Bilangan Berpangkat",
+        "function": "BBKali"
+      },
+      {
+        "title": "Pembagian Bilangan Berpangkat",
+        "function": "BBBagi"
+      }
+    ]
+  },
+  {
+    "subchapter": "2.2",
+    "activity": [
+      {
+        "title": "Akar Kuadrat",
+        "function": "BBAkar"
+      },
+      {
+        "title": "Penjumlahan & pengurangan Bentuk Akar",
+        "function": "BBJumlahAkar"
+      },
+      {
+        "title": "Perkalian Bentuk Akar",
+        "function": "BBKaliAkar"
+      },
+      {
+        "title": "Pembagian Bentuk Akar",
+        "function": "BBBagiAkar"
+      },
+      {
+        "title": "Kelipatan Bilangan Kuadrat",
+        "function": "BBKelipatan"
+      }
+    ]
+  }
+]
+
+const accordionData = chapterlist.flatMap(sub => sub.activity);
+
+
+const test = document.getElementById("test");
+test.innerHTML="lplplp";
+test.innerHTML+=JSON.stringify(accordionData);
+
+
+  activities.forEach(item => {
   const option = document.createElement("option");
-  option.value = item.toLowerCase();
-  option.textContent = item;
+  option.value = item.title.toLowerCase();
+  option.textContent = item.title;
   mySelect.appendChild(option);
+
+
 });
+
+
 
         </script>
     </body>

@@ -125,60 +125,86 @@ function getIntegerNonSquare(min, max) {
 */
 mathVirtualKeyboard.layouts = ["numeric-only"];
 
+const chapterlist=[
+  {
+    "subchapter": "2.1",
+    "activity": [
+      {
+        "title": "Bilangan Berpangkat",
+        "function": "BBPengertian"
+      },
+      {
+        "title": "Menentukan Pangkat Bilangan(?)",
+        "function": "BBPengertian"
+      },
+      {
+        "title": "Perkalian Bilangan Berpangkat",
+        "function": "BBKali"
+      },
+      {
+        "title": "Pembagian Bilangan Berpangkat",
+        "function": "BBBagi"
+      }
+    ]
+  },
+  {"subchapter":"2.2",
+    "activity":[
+      {
+        "title": "Perpangkatan Bilangan Berpangkat",
+        "function": "BBBagi"
+      },
+      {
+        "title": "Perpangkatan Pada Perkalian",
+        "function": "BBBagi"
+      }
+      ,
+      {
+        "title": "Perpangkatan Pada Pembagian",
+        "function":""}
+    ]
+  },
+  {"subchapter":"2.3",
+    "activity":[
+      {
+        "title": "Operasi Campuran Pada Bilangan Berpangkat",
+        "function": "BBBagi"
+      }
+    ]
+  },
+  {
+    "subchapter": "2.4",
+    "activity": [
+      {
+        "title": "Bentuk Akar Kuadrat",
+        "function": "BBAkar"
+      },
+      {
+        "title": "Penjumlahan & pengurangan Bentuk Akar",
+        "function": "BBJumlahAkar"
+      },
+      {
+        "title": "Perkalian Bentuk Akar",
+        "function": "BBKaliAkar"
+      },
+      {
+        "title": "Pembagian Bentuk Akar",
+        "function": "BBBagiAkar"
+      }
+    ]},
+  {
+    "subchapter": "2.4",
+    "activity": [
+      
+      {
+        "title": "Kelipatan Bilangan Kuadrat",
+        "function": "BBKelipatan"
+      }
+    ]
+  }
+]
 
-  const accordionData = [
-   {
-    title: "Bilangan Berpangkat",
-    function: "BBPengertian"
-    },
-    
-    {
-    title: "Perkalian Bilangan Berpangkat",
-    function: "BBKali"
-    }
-    ,
-    {
-    title: "Pembagian Bilangan Berpangkat",
-    function: "BBBagi"
-    }
-    
-    /*,
-    {
-    title: "Pangkat Bilangan Pecahan",
-    function: "BBPangkat Pecahan"
-    }
-  */,
-    {
-    title: "Akar Kuadrat",
-    function: "BBAkar"
-    }
-  ,
-    {
-    title: "Penjumlahan & pengurangan Bentuk Akar",
-    function: "BBJumlahAkar"
-    }
-    ,
-        
-    {
-    title: "Perkalian Bentuk Akar",
-    function: "BBKaliAkar"
-    }
-    ,
-    {
-    title: "Pembagian Bentuk Akar",
-    function: "BBBagiAkar"
-    },
-    {
-    title: "Kelipatan Bilangan Kuadrat",
-    function: "BBKelipatan"
-    },
-    /*
-    {
-    title: "Menyederhanakan Bentuk Akar",
-    function: "BBMenyederhanakan"
-    }*/
-    // ... more sections
-  ];
+const accordionData = chapterlist.flatMap(sub => sub.activity);
+  
 
   const mySelect = document.getElementById("LessonSelector");
   accordionData.forEach(item => {
@@ -197,21 +223,54 @@ mainContainer.innerHTML = "";
 mainContainer.classList.add("home");
 const homeContainer = document.createElement("div");
 homeContainer.className="homeContainer";
-accordionData.forEach(item => {
-const button = document.createElement("button");
-  //option.value = item.function
-  button.textContent = item.title.toUpperCase();
+chapterlist.forEach(sub => {
+  // Divider for subchapter
+  const divider = document.createElement("div");
+  divider.textContent = `Lembar Kerja ${sub.subchapter}`;
+  divider.className = "subchapter-divider";
+  // Add download/read material button
+  // Container for subchapter title and button, centered
+  const dividerHeader = document.createElement("div");
+// dividerHeader.style.display = "flex";
+ // dividerHeader.style.justifyContent = "center";
+//dividerHeader.style.alignItems = "left";
+  //dividerHeader.style.gap = "8px";
 
- button.onclick = () => {
-  mySelect.value = item.function;
-  soalBaru();
-  }
-  homeContainer.appendChild(button);
+  // Subchapter title
+  const dividerTitle = document.createElement("span");
+  dividerTitle.textContent = `Lembar Kerja ${sub.subchapter}`;
+  dividerHeader.appendChild(dividerTitle);
+
+  // Material button (can be replaced with icon later)
+  const pdfButton = document.createElement("button");
+  pdfButton.textContent = "Unduh";
+  pdfButton.className = "material-btn";
+  pdfButton.style.marginLeft = "4px";
+  pdfButton.onclick = () => {
+    const pdfPath = `LK/${sub.subchapter}.pdf`;
+    window.open(pdfPath, "_blank");
+  };
+  dividerHeader.appendChild(pdfButton);
+
+  // Add header to divider
+  divider.innerHTML = "";
+  divider.appendChild(dividerHeader);
+
+  homeContainer.appendChild(divider);
+
+  // Buttons for activities
+  sub.activity.forEach(item => {
+    const button = document.createElement("button");
+    button.textContent = item.title.toUpperCase();
+    button.onclick = () => {
+      mySelect.value = item.function;
+      soalBaru();
+    };
+    homeContainer.appendChild(button);
   });
+});
 
-  mainContainer.appendChild(homeContainer)
-  
-}
+mainContainer.appendChild(homeContainer);}
 
 homeButton();
 
