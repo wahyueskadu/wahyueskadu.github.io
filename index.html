@@ -1,7 +1,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-         <title>Working Title</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'%3E%3Cpath d='M128 160C128 142.3 142.3 128 160 128L320 128C337.7 128 352 142.3 352 160L352 448L448 448L448 320C448 302.3 462.3 288 480 288L544 288C561.7 288 576 302.3 576 320C576 337.7 561.7 352 544 352L512 352L512 480C512 497.7 497.7 512 480 512L320 512C302.3 512 288 497.7 288 480L288 192L192 192L192 320C192 337.7 177.7 352 160 352L96 352C78.3 352 64 337.7 64 320C64 302.3 78.3 288 96 288L128 288L128 160z'/%3E%3C/svg%3E">
+    <title>Wahyu Eskadu</title>
     <link rel="stylesheet" href="styles.css"> 
 </head>    
 
@@ -189,6 +190,7 @@ mathVirtualKeyboard.layouts = ["numeric-only"];
 
 function homeButton(){
   mathVirtualKeyboard.hide();
+  document.getElementById("cekButton").style.display = "none";
   mySelect.selectedIndex = -1;
 mainContainer = document.getElementById("mainContainer");
 mainContainer.innerHTML = "";

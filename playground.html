@@ -1,13 +1,50 @@
 <html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+         <title>Working Title</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>    
+
     <body>
-        <select id="lala"></select>
-            <option>asdfasef</option>
-        </select>
+        
+        <table border="1" cellpadding="8" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Sub-chapter</th>
+              <th>PDF Material</th>
+              <th>Exercises</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Introduction</td>
+              <td><a href="materials/introduction.pdf" target="_blank">View PDF</a></td>
+              <td>
+                <a href="exercises/intro-ex1.pdf" target="_blank">Exercise 1</a><br>
+                <a href="exercises/intro-ex2.pdf" target="_blank">Exercise 2</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 1: Basics</td>
+              <td><a href="materials/chapter1.pdf" target="_blank">View PDF</a></td>
+              <td>
+                <a href="exercises/ch1-ex1.pdf" target="_blank">Exercise 1</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Chapter 2: Advanced Topics</td>
+              <td><a href="materials/chapter2.pdf" target="_blank">View PDF</a></td>
+              <td>
+                <a href="exercises/ch2-ex1.pdf" target="_blank">Exercise 1</a><br>
+                <a href="exercises/ch2-ex2.pdf" target="_blank">Exercise 2</a><br>
+                <a href="exercises/ch2-ex3.pdf" target="_blank">Exercise 3</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
 
-        <math-field readonly id="mfe">
-      2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{ } ^ \placeholder[y]{y}
-    </math-field>
+
 
       <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
         <script>
