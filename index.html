@@ -134,8 +134,8 @@ const chapterlist=[
         "function": "BBPengertian"
       },
       {
-        "title": "Menentukan Pangkat Bilangan(?)",
-        "function": "BBPengertian"
+        "title": "Menentukan Pangkat Bilangan",
+        "function": "BBKePangkat"
       },
       {
         "title": "Perkalian Bilangan Berpangkat",
@@ -237,13 +237,13 @@ chapterlist.forEach(sub => {
   //dividerHeader.style.gap = "8px";
 
   // Subchapter title
-  const dividerTitle = document.createElement("span");
-  dividerTitle.textContent = `Lembar Kerja ${sub.subchapter}`;
-  dividerHeader.appendChild(dividerTitle);
+  //const dividerTitle = document.createElement("span");
+  //dividerTitle.textContent = `Lembar Kerja ${sub.subchapter}`;
+  //dividerHeader.appendChild(dividerTitle);
 
   // Material button (can be replaced with icon later)
   const pdfButton = document.createElement("button");
-  pdfButton.textContent = "Unduh";
+  pdfButton.innerHTML = `LEMBAR KERJA ${sub.subchapter}      <i class="fa-solid fa-arrow-down"></i> `;
   pdfButton.className = "material-btn";
   pdfButton.style.marginLeft = "4px";
   pdfButton.onclick = () => {
@@ -296,95 +296,53 @@ function BBPengertian(){
   }
   document.getElementById("mainContainer").innerHTML="";
   createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
-  };
+};
 
-function BBKali (){
-  q.n = getInteger(2,9);
-  q.a = getInteger(2,9);
-  q.b = getInteger(2,5);
-  q.value = `${q.n}^${q.a}\\times${q.n}^${q.b}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
+function cekBBPengertian(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+  y =mfx.getPromptValue("y");
+
+  if (x == q.a && y == q.b){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
+    
+  } else{
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
+
   }
-  
-  function BBBagi (){
-  q.n = getInteger(2,9);
-  q.a = getInteger(3,9);
-  q.b = getInteger(2,q.a);
-  q.value = `\\frac{${q.n}^${q.a}}{${q.n}^${q.b}}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
-  }
-
-function BBAkar (){
-  q.a = getInteger(2,15);
-  q.value = `\\sqrt{${(q.a*q.a)}}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
-  }
-  
-
-  function BBJumlahAkar(){
-  q.a = getInteger(2,9);
-  q.x = getIntegerNonSquare(2,9);
-  q.b = getInteger(2,9);
-  q.value = `${q.a}\\sqrt{${q.x}}+${q.b}\\sqrt{${q.x}}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{}`,"mf");
-  }
-
-
-  function BBKaliAkar (){
-  q.a = getIntegerNonSquare(2,9);
-  q.b = getIntegerNonSquare(2,9);
-  q.value = `\\sqrt{${q.a}}\\times\\sqrt{${q.b}}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}`,"mf");
-  }
-
-  function BBBagiAkar (){
-  q.b = getIntegerNonSquare(3,9);
-  q.a = getIntegerNonSquare(2,9)*q.b;
-  q.value = `\\frac{\\sqrt{${q.a}}}{\\sqrt{${q.b}}}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}}`,"mf");
-  }
-
-  function BBKelipatan (){
-  q.a = getInteger(2,5);
-  q.b = getInteger(2,6);
-  sqrt=q.a*q.a;
-  q.value = `${sqrt}\\times${q.b}`;
-  
-  document.getElementById("mainContainer").innerHTML="";
-  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
-  }
-
-
-function createmf(value,id){
-  const mathField = document.createElement('math-field');
-  mathField.setAttribute('readonly', '');
-  mathField.id = id;
-  mathField.value = value;
-  document.getElementById("mainContainer").appendChild(mathField);
-
-  
-mf.mathVirtualKeyboardPolicy = "manual";
-
-mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
-/*mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
-*/
 }
 
+function BBKePangkat(){
+  q.max = [7,5,4,4,3,3,3,3];
+  q.a = getInteger(2,9);
+  q.b = getInteger(2,q.max[q.a-2])
+  q.value = Math.pow(q.a,q.b);
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = ${q.a} ^ \\placeholder[x]{}`,"mf");
+};
 
-function sendInput(){
-  window["cek"+mySelect.value]();
+function cekBBKePangkat(){
+  const mfx = document.getElementById("mf");
+  x = mfx.getPromptValue("x");
+
+  if (x == q.b){
+     document.getElementById("cekButton").style.display = "none";
+    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+    createmf(`${q.value} = ${q.a} ^ ${x}`,"mf");
+    
+  } else{
+      document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p>   
+    `;
+    createmf(`${q.value} = ${q.a      } ^ \\placeholder[x]{     }`,"mf");
+  }
 }
 
 function cekBBPengertian(){
@@ -408,11 +366,20 @@ function cekBBPengertian(){
 }
 
 
+function BBKali (){
+  q.n = getInteger(2,9);
+  q.a = getInteger(2,9);
+  q.b = getInteger(2,5);
+  q.value = `${q.n}^${q.a}\\times${q.n}^${q.b}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
+}
+
 function cekBBKali(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
   y =mfx.getPromptValue("y");
-
 
   if (x == q.n && y == (q.a+q.b)){
      document.getElementById("cekButton").style.display = "none";
@@ -427,6 +394,16 @@ function cekBBKali(){
     createmf(`${q.value} = \\placeholder[x]{      } ^{\\placeholder[y]{     }}`,"mf");
 
   }
+}
+
+function BBBagi (){
+  q.n = getInteger(2,9);
+  q.a = getInteger(3,9);
+  q.b = getInteger(2,q.a);
+  q.value = `\\frac{${q.n}^${q.a}}{${q.n}^${q.b}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{} ^ \\placeholder[y]{}`,"mf");
 }
 
 function cekBBBagi(){
@@ -449,6 +426,14 @@ function cekBBBagi(){
   }
 }
 
+function BBAkar (){
+  q.a = getInteger(2,15);
+  q.value = `\\sqrt{${(q.a*q.a)}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
+}
+
 function cekBBAkar(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
@@ -467,6 +452,16 @@ function cekBBAkar(){
     createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
     //createmf(value,"mf");
   }
+}
+
+function BBJumlahAkar(){
+  q.a = getInteger(2,9);
+  q.x = getIntegerNonSquare(2,9);
+  q.b = getInteger(2,9);
+  q.value = `${q.a}\\sqrt{${q.x}}+${q.b}\\sqrt{${q.x}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{}`,"mf");
 }
 
 function cekBBJumlahAkar(){
@@ -490,6 +485,15 @@ function cekBBJumlahAkar(){
   }
 }
 
+function BBKaliAkar (){
+  q.a = getIntegerNonSquare(2,9);
+  q.b = getIntegerNonSquare(2,9);
+  q.value = `\\sqrt{${q.a}}\\times\\sqrt{${q.b}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}`,"mf");
+}
+
 function cekBBKaliAkar(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
@@ -508,6 +512,15 @@ function cekBBKaliAkar(){
     createmf(`${q.value} = \\sqrt{\\placeholder[x]{      }}`,"mf");
     //createmf(value,"mf");
   }
+}
+
+function BBBagiAkar (){
+  q.b = getIntegerNonSquare(3,9);
+  q.a = getIntegerNonSquare(2,9)*q.b;
+  q.value = `\\frac{\\sqrt{${q.a}}}{\\sqrt{${q.b}}}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\sqrt{\\placeholder[x]{}}`,"mf");
 }
 
 function cekBBBagiAkar(){
@@ -529,6 +542,16 @@ function cekBBBagiAkar(){
   }
 }
 
+function BBKelipatan (){
+  q.a = getInteger(2,5);
+  q.b = getInteger(2,6);
+  sqrt=q.a*q.a;
+  q.value = `${sqrt}\\times${q.b}`;
+  
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = \\placeholder[x]{}`,"mf");
+}
+
 function cekBBKelipatan(){
   const mfx = document.getElementById("mf");
   x = mfx.getPromptValue("x");
@@ -547,6 +570,25 @@ function cekBBKelipatan(){
     createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
     //createmf(value,"mf");
   }
+}
+
+function createmf(value,id){
+  const mathField = document.createElement('math-field');
+  mathField.setAttribute('readonly', '');
+  mathField.id = id;
+  mathField.value = value;
+  document.getElementById("mainContainer").appendChild(mathField);
+
+  
+mf.mathVirtualKeyboardPolicy = "manual";
+
+mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
+/*mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
+*/
+}
+
+function sendInput(){
+  window["cek"+mySelect.value]();
 }
 
 function soalBaru(){

@@ -277,10 +277,10 @@
     border: none;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 25px;
+    margin-bottom: 45px;
     opacity: 1;
-    text-align: left;
+    text-align: center;
 
     margin-left: 0;
     margin-right: auto;
@@ -289,12 +289,12 @@
 .material-btn {
     /*float: right*/
     width: 10 px !important;
-    background-color: var(--secondtext-color) !important;
-    color: var(--accent-color);
-    border: none;
+    background-color: transparent !important;
+    color: var(--secondtext-color);
+    border: none !important;
     border-radius: 0px;
-    font-size: 12pt !important;
-    font-variation-settings: 'wght' 300;
+    font-size: 30pt !important;
+    font-variation-settings: 'wght' 200 !important;
     padding: 1px 1px !important;
     opacity: 1;
     box-shadow: none;
