@@ -13,6 +13,7 @@
 
 <body>
   <h1>LATIHAN</h1>
+  <!-- <button id="test-btn" onclick="test()">papapapapapapapapapapaaa</button> -->
 
 
   <select id="LessonSelector">
@@ -66,37 +67,57 @@
   
 
 <script>
-  let  q = {};
-  let state = "";
- 
-  /*THEME*/
-  currentScheme = 0;
-  cycleColorScheme();
-  function cycleColorScheme() {
-    const root = document.documentElement;
-    root.classList.remove(`scheme-${currentScheme}`);
 
-    currentScheme++;
-    if (currentScheme > 4) {
-      currentScheme = 1; 
-    }
+mathVirtualKeyboard.layouts = ["numeric-only"];
 
-    root.classList.add(`scheme-${currentScheme}`);
-  }
-  
-  function getIntegerNZ(min, max) {
-    let randomNum;
-    do {
-        randomNum = getInteger(min,max);
-    } while (randomNum === 0);
-    return randomNum;
+//q is for question, a is for answer objects.
+let q = {};
+let a = {};
+//let state = "";
+
+const subchapterSelector = document.getElementById("LessonSelector");
+
+function test(){
+  const btn = document.getElementById("test-btn");
+  getAllPlaceholder()
+  btn.textContent = JSON.stringify(a)+JSON.stringify(q);
 }
 
+function getAllPlaceholder(){
+  const mfx = document.getElementById("mf");
+  placeholderList = mfx.getPrompts();
+  placeholderList.forEach (item => {
+    a[item] = mfx.getPromptValue(item) || "";
+  });
+}
+
+  /*THEME*/
+  currentScheme = 0;
+//  cycleColorScheme();
+function cycleColorScheme() {
+  const root = document.documentElement;
+  root.classList.remove(`scheme-${currentScheme}`);
+
+  currentScheme++;
+  if (currentScheme > 4) {
+    currentScheme = 1; 
+  }
+
+  root.classList.add(`scheme-${currentScheme}`);
+}
+
+function getIntegerNZ(min, max) {
+  let randomNum;
+  do {
+      randomNum = getInteger(min,max);
+  } while (randomNum === 0);
+  return randomNum;
+}
 
 function getInteger(min,max){
-    let randomNuml
-    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomNum;
+  let randomNuml
+  randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomNum;
 }
 
 function getIntegerNonSquare(min, max) {
@@ -112,165 +133,159 @@ function getIntegerNonSquare(min, max) {
 }
 
 
-  /*URL PARAM*/
-  /*
-  const urlParams = new URLSearchParams(window.location.search);
-  const rawParams = urlParams.get('q')
+/*URL PARAM*/
+/*
+const urlParams = new URLSearchParams(window.location.search);
+const rawParams = urlParams.get('q')
 
 
-  const subchapterTitle = rawParams.split('.')[1].toUpperCase();
-  const h1 = document.querySelector("h2");
-  h1.textContent += ` ${subchapterTitle}`;
-  url = rawParams.replace(/\s/g, '');
+const subchapterTitle = rawParams.split('.')[1].toUpperCase();
+const h1 = document.querySelector("h2");
+h1.textContent += ` ${subchapterTitle}`;
+url = rawParams.replace(/\s/g, '');
 */
-mathVirtualKeyboard.layouts = ["numeric-only"];
 
 const chapterlist=[
+{
+"subchapter": "2.1",
+"activity": [
   {
-    "subchapter": "2.1",
-    "activity": [
-      {
-        "title": "Bilangan Berpangkat",
-        "function": "BBPengertian"
-      },
-      {
-        "title": "Menentukan Pangkat Bilangan",
-        "function": "BBKePangkat"
-      },
-      {
-        "title": "Perkalian Bilangan Berpangkat",
-        "function": "BBKali"
-      },
-      {
-        "title": "Pembagian Bilangan Berpangkat",
-        "function": "BBBagi"
-      }
-    ]
-  },
-  {"subchapter":"2.2",
-    "activity":[
-      {
-        "title": "Perpangkatan Bilangan Berpangkat",
-        "function": "BBBagi"
-      },
-      {
-        "title": "Perpangkatan Pada Perkalian",
-        "function": "BBBagi"
-      }
-      ,
-      {
-        "title": "Perpangkatan Pada Pembagian",
-        "function":""}
-    ]
-  },
-  {"subchapter":"2.3",
-    "activity":[
-      {
-        "title": "Operasi Campuran Pada Bilangan Berpangkat",
-        "function": "BBBagi"
-      }
-    ]
+    "title": "Bilangan Berpangkat",
+    "function": "BBPengertian"
   },
   {
-    "subchapter": "2.4",
-    "activity": [
-      {
-        "title": "Bentuk Akar Kuadrat",
-        "function": "BBAkar"
-      },
-      {
-        "title": "Penjumlahan & pengurangan Bentuk Akar",
-        "function": "BBJumlahAkar"
-      },
-      {
-        "title": "Perkalian Bentuk Akar",
-        "function": "BBKaliAkar"
-      },
-      {
-        "title": "Pembagian Bentuk Akar",
-        "function": "BBBagiAkar"
-      }
-    ]},
+    "title": "Menentukan Pangkat Bilangan",
+    "function": "BBKePangkat"
+  },
   {
-    "subchapter": "2.4",
-    "activity": [
-      
-      {
-        "title": "Kelipatan Bilangan Kuadrat",
-        "function": "BBKelipatan"
-      }
-    ]
+    "title": "Perkalian Bilangan Berpangkat",
+    "function": "BBKali"
+  },
+  {
+    "title": "Pembagian Bilangan Berpangkat",
+    "function": "BBBagi"
   }
+]},
+{
+"subchapter":"2.2",
+"activity":[
+  {
+    "title": "Perpangkatan Bilangan Berpangkat",
+    "function": "BBPangkatPangkat"
+  },
+  {
+    "title": "Perpangkatan Pada Perkalian",
+    "function": "BBPangkatKali"
+  }
+  ,
+  {
+    "title": "Perpangkatan Pada Pembagian",
+    "function":"BBPangkatBagi"}
+]},
+{
+"subchapter":"2.3",
+"activity":[
+  {
+    "title": "Operasi Campuran Pada Bilangan Berpangkat",
+    "function": "BBBagi"
+  }
+]},
+{
+"subchapter": "2.4",
+"activity": [
+  {
+    "title": "Bentuk Akar Kuadrat",
+    "function": "BBAkar"
+  },
+  {
+    "title": "Penjumlahan & pengurangan Bentuk Akar",
+    "function": "BBJumlahAkar"
+  },
+  {
+    "title": "Perkalian Bentuk Akar",
+    "function": "BBKaliAkar"
+  },
+  {
+    "title": "Pembagian Bentuk Akar",
+    "function": "BBBagiAkar"
+  }
+]},
+{
+"subchapter": "2.5",
+"activity": [    
+  {
+    "title": "Kelipatan Bilangan Kuadrat",
+    "function": "BBKelipatan"
+  }
+]}
 ]
 
-const accordionData = chapterlist.flatMap(sub => sub.activity);
-  
-
-  const mySelect = document.getElementById("LessonSelector");
-  accordionData.forEach(item => {
+const subchapterlist = chapterlist.flatMap(sub => sub.activity);
+subchapterlist.forEach(item => {
   const option = document.createElement("option");
   option.value = item.function
   option.textContent = item.title;
-  mySelect.appendChild(option);
-  });
+  subchapterSelector.appendChild(option);
+});
 
 function homeButton(){
   mathVirtualKeyboard.hide();
   document.getElementById("cekButton").style.display = "none";
-  mySelect.selectedIndex = -1;
-mainContainer = document.getElementById("mainContainer");
-mainContainer.innerHTML = "";
-mainContainer.classList.add("home");
-const homeContainer = document.createElement("div");
-homeContainer.className="homeContainer";
-chapterlist.forEach(sub => {
-  // Divider for subchapter
-  const divider = document.createElement("div");
-  divider.textContent = `Lembar Kerja ${sub.subchapter}`;
-  divider.className = "subchapter-divider";
-  // Add download/read material button
-  // Container for subchapter title and button, centered
-  const dividerHeader = document.createElement("div");
-// dividerHeader.style.display = "flex";
- // dividerHeader.style.justifyContent = "center";
-//dividerHeader.style.alignItems = "left";
-  //dividerHeader.style.gap = "8px";
+  subchapterSelector.selectedIndex = -1;
+  mainContainer = document.getElementById("mainContainer");
+  mainContainer.innerHTML = "";
+  mainContainer.classList.add("home");
+  const homeContainer = document.createElement("div");
+  homeContainer.className="homeContainer";
+  chapterlist.forEach(sub => {
+    // Divider for subchapter
+    const divider = document.createElement("div");
+    divider.textContent = `Lembar Kerja ${sub.subchapter}`;
+    divider.className = "subchapter-divider";
+    // Add download/read material button
+    // Container for subchapter title and button, centered
+    const dividerHeader = document.createElement("div");
+  // dividerHeader.style.display = "flex";
+  // dividerHeader.style.justifyContent = "center";
+  //dividerHeader.style.alignItems = "left";
+    //dividerHeader.style.gap = "8px";
 
-  // Subchapter title
-  //const dividerTitle = document.createElement("span");
-  //dividerTitle.textContent = `Lembar Kerja ${sub.subchapter}`;
-  //dividerHeader.appendChild(dividerTitle);
+    // Subchapter title
+    //const dividerTitle = document.createElement("span");
+    //dividerTitle.textContent = `Lembar Kerja ${sub.subchapter}`;
+    //dividerHeader.appendChild(dividerTitle);
 
-  // Material button (can be replaced with icon later)
-  const pdfButton = document.createElement("button");
-  pdfButton.innerHTML = `LEMBAR KERJA ${sub.subchapter}      <i class="fa-solid fa-arrow-down"></i> `;
-  pdfButton.className = "material-btn";
-  pdfButton.style.marginLeft = "4px";
-  pdfButton.onclick = () => {
-    const pdfPath = `LK/${sub.subchapter}.pdf`;
-    window.open(pdfPath, "_blank");
-  };
-  dividerHeader.appendChild(pdfButton);
-
-  // Add header to divider
-  divider.innerHTML = "";
-  divider.appendChild(dividerHeader);
-
-  homeContainer.appendChild(divider);
-
-  // Buttons for activities
-  sub.activity.forEach(item => {
-    const button = document.createElement("button");
-    button.textContent = item.title.toUpperCase();
-    button.onclick = () => {
-      mySelect.value = item.function;
-      soalBaru();
+    // Material button (can be replaced with icon later)
+    const pdfButton = document.createElement("button");
+    pdfButton.innerHTML = `LEMBAR KERJA ${sub.subchapter}      <i class="fa-solid fa-arrow-down"></i> `;
+    pdfButton.className = "material-btn";
+    pdfButton.style.marginLeft = "4px";
+    pdfButton.onclick = () => {
+      const pdfPath = `LK/${sub.subchapter}.pdf`;
+      window.open(pdfPath, "_blank");
     };
-    homeContainer.appendChild(button);
-  });
-});
+    dividerHeader.appendChild(pdfButton);
 
-mainContainer.appendChild(homeContainer);}
+    // Add header to divider
+    divider.innerHTML = "";
+    divider.appendChild(dividerHeader);
+
+    homeContainer.appendChild(divider);
+
+    // Buttons for activities
+    sub.activity.forEach(item => {
+      const button = document.createElement("button");
+      button.textContent = item.title.toUpperCase();
+      button.onclick = () => {
+        subchapterSelector.value = item.function;
+        soalBaru();
+      };
+      homeContainer.appendChild(button);
+    });
+  });
+
+  mainContainer.appendChild(homeContainer);
+}
 
 homeButton();
 
@@ -280,12 +295,21 @@ function attachKeyboardHandler(mf) {
   });
 }
   
- mySelect.addEventListener("change", function () {
-    state = mySelect.value;            
-    soalBaru();
+subchapterSelector.addEventListener("change", function () {
+  state = subchapterSelector.value;            
+  soalBaru();
+});
 
-        });
+function itscorrect(){
+  document.getElementById("cekButton").style.display = "none";
+  document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
+}
 
+function itsincorrect(){
+  document.getElementById("mainContainer").innerHTML=`
+    <p>Jawaban Kamu Belum Tepat</p>
+    <p class="small-text">Coba Lagi</p> `;
+}
 
 function BBPengertian(){
   q.a = getInteger(2,9);
@@ -299,22 +323,12 @@ function BBPengertian(){
 };
 
 function cekBBPengertian(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-  y =mfx.getPromptValue("y");
-
-  if (x == q.a && y == q.b){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
-    
+  if (a.x == q.a && a.y == q.b){
+    itscorrect();
+    createmf(`${q.value} = ${a.x} ^ ${a.y}`,"mf"); 
   } else{
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
-
   }
 }
 
@@ -328,43 +342,14 @@ function BBKePangkat(){
 };
 
 function cekBBKePangkat(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-
-  if (x == q.b){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${q.a} ^ ${x}`,"mf");
-    
+  if (a.x == q.b){
+    itscorrect();
+    createmf(`${q.value} = ${q.a} ^ ${a.x}`,"mf");
   } else{
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = ${q.a      } ^ \\placeholder[x]{     }`,"mf");
   }
 }
-
-function cekBBPengertian(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-  y =mfx.getPromptValue("y");
-
-  if (x == q.a && y == q.b){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
-    
-  } else{
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
-    createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
-
-  }
-}
-
 
 function BBKali (){
   q.n = getInteger(2,9);
@@ -377,22 +362,12 @@ function BBKali (){
 }
 
 function cekBBKali(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-  y =mfx.getPromptValue("y");
-
-  if (x == q.n && y == (q.a+q.b)){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x} ^ {${y}}`,"mf");
-    
+  if (a.x == q.n && a.y == (q.a+q.b)){
+    itscorrect()
+    createmf(`${q.value} = ${a.x} ^ {${a.y}}`,"mf");
   } else{
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\placeholder[x]{      } ^{\\placeholder[y]{     }}`,"mf");
-
   }
 }
 
@@ -407,15 +382,10 @@ function BBBagi (){
 }
 
 function cekBBBagi(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-  y =mfx.getPromptValue("y");
-
-  if (x == q.n && y == (q.a-q.b)){
-     document.getElementById("cekButton").style.display = "none";
+  if (a.x == q.n && a.y == (q.a-q.b)){
+    document.getElementById("cekButton").style.display = "none";
     document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x} ^ ${y}`,"mf");
-    
+    createmf(`${q.value} = ${a.x} ^ ${a.y}`,"mf");
   } else{
       document.getElementById("mainContainer").innerHTML=`
     <p>Jawaban Kamu Belum Tepat</p>
@@ -423,6 +393,74 @@ function cekBBBagi(){
     `;
     createmf(`${q.value} = \\placeholder[x]{      } ^ \\placeholder[y]{     }`,"mf");
 
+  }
+}
+
+function BBPangkatPangkat(){
+  q.max = [7,5,4,4,3,3,3,3];
+  q.a = getInteger(2,11);
+  q.b = getInteger(2,7);
+  q.c = getInteger(2,7);
+  q.value = `(${q.a}^${q.b})^${q.c}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf( `${q.value} = ${q.a} ^ \\placeholder[x]{}`,"mf");
+};
+
+function cekBBPangkatPangkat(){
+  if (a.x == q.b * q.c){
+    itscorrect()
+    createmf(`${q.value} = ${q.a} ^{${a.x}}`,"mf");
+  } else{
+    itsincorrect();
+    createmf(`${q.value} = ${q.a      } ^ \\placeholder[x]{     }`,"mf");
+  }
+}
+
+function BBPangkatKali(){
+  q.a = getInteger(2,11);
+  do {
+    q.b = getInteger(2, 11);
+  } while (q.b === q.a);
+  q.c = getInteger(2,11);
+
+  q.value = `({${q.a}} \\times {${q.b})}^{${q.c}}`;
+  q.ans = `{${q.a}}^{${q.c}} \\times {${q.b}}^{${q.c}}`;
+  q.placeholder = `\\placeholder[p]{}^\\placeholder[q]{} \\times \\placeholder[r]{}^\\placeholder[s]{}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf( `${q.value} = ${q.placeholder}`,"mf");
+};
+
+function cekBBPangkatKali(){
+  if (a.p == q.a && a.q == q.c && a.r == q.b && a.s == q.c){
+    itscorrect();
+    createmf(`${q.value} =  ${q.ans}`,"mf");
+  } else{
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
+  }
+}
+
+function BBPangkatBagi(){
+  q.a = getInteger(2,11);
+  do {
+    q.b = getInteger(2, 11);
+  } while (q.b === q.a);
+  q.c = getInteger(2,11);
+  
+  q.value = `(\\frac{${q.a}}{${q.b}})^{${q.c}}`;
+  q.ans = `\\frac{{${q.a}}^{${q.c}}}{{${q.b}}^{${q.c}}}`;
+  q.placeholder = `\\frac{\\placeholder[p]{}^\\placeholder[q]{}}{\\placeholder[r]{}^\\placeholder[s]{}}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf( `${q.value} = ${q.placeholder}`,"mf");
+};
+
+function cekBBPangkatBagi(){
+  if (a.p == q.a && a.q == q.c && a.r == q.b && a.s == q.c){
+    itscorrect();
+    createmf(`${q.value} =  ${q.ans}`,"mf");
+  } else{
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
   }
 }
 
@@ -435,22 +473,12 @@ function BBAkar (){
 }
 
 function cekBBAkar(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-
-  if (x == (q.a)){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x}`,"mf");
-    
+  if (a.x == (q.a)){
+    itscorrect();
+    createmf(`${q.value} = ${a.x}`,"mf");
   } else {
-    // value = mf.value;
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
-    //createmf(value,"mf");
   }
 }
 
@@ -465,21 +493,11 @@ function BBJumlahAkar(){
 }
 
 function cekBBJumlahAkar(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-  y = mfx.getPromptValue("y");
-
-  if (x == (q.a+q.b)&&y==q.x){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x}\\sqrt{${y}}`,"mf");
-    
+  if (a.x == (q.a+q.b)&&a.y==q.x){
+    itscorrect();
+    createmf(`${q.value} = ${a.x}\\sqrt{${a.y}}`,"mf");
   } else {
-    // value = mf.value;
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{      }}`,"mf");
     //createmf(value,"mf");
   }
@@ -495,20 +513,11 @@ function BBKaliAkar (){
 }
 
 function cekBBKaliAkar(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-
-  if (x == (q.a*q.b)){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = \\sqrt{${x}}`,"mf");
-    
+  if (a.x == (q.a*q.b)){
+    itscorrect();
+    createmf(`${q.value} = \\sqrt{${a.x}}`,"mf");
   } else {
-    // value = mf.value;
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\sqrt{\\placeholder[x]{      }}`,"mf");
     //createmf(value,"mf");
   }
@@ -524,21 +533,12 @@ function BBBagiAkar (){
 }
 
 function cekBBBagiAkar(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-
-  if (x == (q.a/q.b)){
-        document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = \\sqrt{${x}}`,"mf");
-
+  if (a.x == (q.a/q.b)){
+    itscorrect();
+    createmf(`${q.value} = \\sqrt{${a.x}}`,"mf");
   } else{
-    document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\sqrt{\\placeholder[x]{      }}`,"mf");
-    //createmf(value,"mf");
   }
 }
 
@@ -553,22 +553,12 @@ function BBKelipatan (){
 }
 
 function cekBBKelipatan(){
-  const mfx = document.getElementById("mf");
-  x = mfx.getPromptValue("x");
-
   if (x == (q.a*q.a*q.b)){
-     document.getElementById("cekButton").style.display = "none";
-    document.getElementById("mainContainer").innerHTML=`Jawaban Kamu Benar`;
-    createmf(`${q.value} = ${x}`,"mf");
-    
+    itscorrect();
+    createmf(`${q.value} = ${a.x}`,"mf");
   } else {
-    // value = mf.value;
-      document.getElementById("mainContainer").innerHTML=`
-    <p>Jawaban Kamu Belum Tepat</p>
-    <p class="small-text">Coba Lagi</p>   
-    `;
+    itsincorrect();
     createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
-    //createmf(value,"mf");
   }
 }
 
@@ -579,8 +569,7 @@ function createmf(value,id){
   mathField.value = value;
   document.getElementById("mainContainer").appendChild(mathField);
 
-  
-mf.mathVirtualKeyboardPolicy = "manual";
+  mf.mathVirtualKeyboardPolicy = "manual";
 
 mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
 /*mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
@@ -588,25 +577,25 @@ mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
 }
 
 function sendInput(){
-  window["cek"+mySelect.value]();
+  mfx = document.getElementById("mf");
+  getAllPlaceholder();
+  window["cek"+subchapterSelector.value]();
 }
 
 function soalBaru(){
   q={};
-    mainContainer.classList.remove("home");
-    mathVirtualKeyboard.show();
-   document.getElementById("cekButton").style.display = "block";
-  window[mySelect.value]();
-  
+  mainContainer.classList.remove("home");
+  mathVirtualKeyboard.show();
+  document.getElementById("cekButton").style.display = "block";
+  window[subchapterSelector.value]();
+  mfx = document.getElementById("mf");
 
   const mf = document.getElementById("mf");
-
   // focus the mathfield
   mf.focus();
 
   // move caret to the very first placeholder
   mf.executeCommand("moveToNextPlaceholder");
-
 
   }
   /*const mathField = document.createElement('math-field');
@@ -636,9 +625,6 @@ async function main() {
 
 */
 
-
-
-   
 </script>
 </body>
 </html>
