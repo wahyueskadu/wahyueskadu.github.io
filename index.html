@@ -216,7 +216,43 @@ const chapterlist=[
   {
     "title": "Kelipatan Bilangan Kuadrat",
     "function": "BBKelipatan"
+  },
+   {
+    "title": "Menyederhanakan Bentuk Akar",
+    "function": "BBMenyederhanakan"
   }
+]},
+{
+"subchapter": "2.6",
+"activity": [    
+  {
+    "title": "Merasionalkan Penyebut (1)",
+    "function": "BBMerasionalkan1"
+  },
+  {
+    "title": "Merasionalkan Penyebut (2)",
+    "function": "BBMerasionalkan2"
+  },
+  {
+    "title": "Merasionalkan Penyebut (3)",
+    "function": "BBMerasionalkan3"
+  },
+]},
+{
+"subchapter": "2.7",
+"activity": [    
+  {
+    "title": "Mengubah Bentuk Biasa ke Bentuk Baku",
+    "function": "BBBiasaKeBaku"
+  },
+  {
+    "title": "Mengubah Bentuk Baku ke Bentuk Biasa",
+    "function": "BBBakuKeBiasa"
+  },
+  {
+    "title": "Operasi pada Bentuk Baku",
+    "function": "BBOperasiBaku"
+  },
 ]}
 ]
 
@@ -486,14 +522,22 @@ function BBJumlahAkar(){
   q.a = getInteger(2,9);
   q.x = getIntegerNonSquare(2,9);
   q.b = getInteger(2,9);
-  q.value = `${q.a}\\sqrt{${q.x}}+${q.b}\\sqrt{${q.x}}`;
+  q.type = getInteger(0,1);
+  if(q.type == 1){
+    operator = '+';
+    q.ans = q.a+q.b;
+  } else {
+    operator = '-'
+    q.ans = q.a -q.b
+  }
+  q.value = `${q.a}\\sqrt{${q.x}}${operator}${q.b}\\sqrt{${q.x}}`;
   
   document.getElementById("mainContainer").innerHTML="";
   createmf(`${q.value} = \\placeholder[x]{}\\sqrt{\\placeholder[y]{}`,"mf");
 }
 
 function cekBBJumlahAkar(){
-  if (a.x == (q.a+q.b)&&a.y==q.x){
+  if (a.x == (q.ans)&&a.y==q.x){
     itscorrect();
     createmf(`${q.value} = ${a.x}\\sqrt{${a.y}}`,"mf");
   } else {
@@ -561,6 +605,47 @@ function cekBBKelipatan(){
     createmf(`${q.value} = \\placeholder[x]{      }`,"mf");
   }
 }
+
+function BBMenyederhanakan(){
+  q.a = getInteger(2,5);
+  q.b = getIntegerNonSquare(2,6);
+  q.c = q.a*q.a*q.b;
+  q.value = `\\sqrt{${q.c}}`;
+  q.placeholder = `\\placeholder[x]{}\\sqrt{\\placeholder[y]{}}`;
+  q.ans = `${q.a}\\sqrt{${q.b}}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = ${q.placeholder}`,"mf");
+}
+
+function cekBBMenyederhanakan(){
+  if (a.x == q.a && a.y ==q.b){
+    itscorrect();
+    createmf(`${q.value} = ${q.ans}`,"mf");
+  } else {
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
+  }
+}
+
+function BBMerasionalkan1(){
+  q.a = getIntegerNonSquare(2,20);
+  q.value = `\\frac{1}{\\sqrt{${q.a}}}`;
+  q.placeholder = `\\frac{\\placeholder[a]{}}{\\placeholder[x]{}}\\sqrt{\\placeholder[y]{}}`;
+  q.ans = `\\frac{1}{${q.a}}\\sqrt{${q.a}}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = ${q.placeholder}`,"mf");
+}
+
+function cekBBMerasionalkan1(){
+  if (a.a == 1 && a.x == q.a && a.y ==q.a){
+    itscorrect();
+    createmf(`${q.value} = ${q.ans}`,"mf");
+  } else {
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
+  }
+}
+
 
 function createmf(value,id){
   const mathField = document.createElement('math-field');
