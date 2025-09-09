@@ -8,11 +8,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head>
-
-
 <body>
-  <h1>LATIHAN</h1>
+  <h1>LATIHAN BAB II</h1>
   <!-- <button id="test-btn" onclick="test()">papapapapapapapapapapaaa</button> -->
 
 
@@ -35,7 +32,7 @@
 
     </div>
     <div class="chatContainer" id="mainContainer">
-    <math-field readonly id="mfe">
+    <math-field readonly id="mf">
       2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{ } ^ \placeholder[y]{y}
     </math-field>
 
@@ -226,17 +223,9 @@ const chapterlist=[
 "subchapter": "2.6",
 "activity": [    
   {
-    "title": "Merasionalkan Penyebut (1)",
+    "title": "Merasionalkan Penyebut",
     "function": "BBMerasionalkan1"
-  },
-  {
-    "title": "Merasionalkan Penyebut (2)",
-    "function": "BBMerasionalkan2"
-  },
-  {
-    "title": "Merasionalkan Penyebut (3)",
-    "function": "BBMerasionalkan3"
-  },
+  }
 ]},
 {
 "subchapter": "2.7",
@@ -646,6 +635,50 @@ function cekBBMerasionalkan1(){
   }
 }
 
+function BBBiasaKeBaku(){
+  
+  q.mantissa = getInteger(1,99);
+  if (q.mantissa >=10){q.mantissa = q.mantissa/10};
+  q.base = getInteger(3,10);
+  q.value = `${q.mantissa}\\times10^{${q.base}}`;
+  q.placeholder = `\\placeholder[a]{}`;
+  q.ans = q.mantissa*Math.pow(10,q.base);
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = ${q.placeholder}`,"mf");
+}
+
+function cekBBBiasaKeBaku(){
+  if (a.a == q.ans){
+    itscorrect();
+    createmf(`${q.value} = ${q.ans}`,"mf");
+  } else {
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
+  }
+}
+
+function BBBakuKeBiasa(){
+  
+  q.mantissa = getInteger(1,99);
+  if (q.mantissa >=10){q.mantissa = q.mantissa/10};
+  q.base = getInteger(3,10);
+  q.temp = `${q.mantissa}\\times10^{${q.base}}`;
+  q.placeholder = `\\placeholder[a]{}\\times 10^{\\placeholder[b]{}}`;
+  q.value = q.mantissa*Math.pow(10,q.base);
+  q.ans = `${q.mantissa}\\times10^{${q.base}}`;
+  document.getElementById("mainContainer").innerHTML="";
+  createmf(`${q.value} = ${q.placeholder}`,"mf");
+}
+
+function cekBBBakuKeBiasa(){
+  if (a.a == q.mantissa && a.b == q.base){
+    itscorrect();
+    createmf(`${q.value} = ${q.ans}`,"mf");
+  } else {
+    itsincorrect();
+    createmf(`${q.value} = ${q.placeholder}`,"mf");
+  }
+}
 
 function createmf(value,id){
   const mathField = document.createElement('math-field');
