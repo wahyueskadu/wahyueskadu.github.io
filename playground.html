@@ -1,128 +1,131 @@
-<html>
-  <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-         <title>Working Title</title>
-    <link rel="stylesheet" href="styles.css"> 
-</head>    
+<html></html>
+<body>
+  <button onclick="test()" id="btn-test">lalala</button>
+  <div id="container">tester</div>
+  <math-field readonly id="q">
+    2 \times 2 \times 2 \times 2 \times 2 = \placeholder[x]{ } ^
+    \placeholder[y]{y}
+  </math-field>
+  <math-field readonly id="a">
+  </math-field>
 
-    <body>
-        <select id="lala"></select>
-    </br>
-<div id="test"></div>
+  <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
 
-        <table border="5" cellpadding="8" cellspacing="10">
-          <thead>
-            <tr>
-              <th>Sub-chapter</th>
-              <th>PDF Material</th>
-              <th>Exercises</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Introduction</td>
-              <td><a href="materials/introduction.pdf" target="_blank">View PDF</a></td>
-              <td>
-                <a href="exercises/intro-ex1.pdf" target="_blank">Exercise 1</a><br>
-                <a href="exercises/intro-ex2.pdf" target="_blank">Exercise 2</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Chapter 1: Basics</td>
-              <td><a href="materials/chapter1.pdf" target="_blank">View PDF</a></td>
-              <td>
-                <a href="exercises/ch1-ex1.pdf" target="_blank">Exercise 1</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Chapter 2: Advanced Topics</td>
-              <td><a href="materials/chapter2.pdf" target="_blank">View PDF</a></td>
-              <td>
-                <a href="exercises/ch2-ex1.pdf" target="_blank">Exercise 1</a><br>
-                <a href="exercises/ch2-ex2.pdf" target="_blank">Exercise 2</a><br>
-                <a href="exercises/ch2-ex3.pdf" target="_blank">Exercise 3</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <script>
+    const btn = document.getElementById("btn-test");
+    const container = document.getElementById("container");
+
+    const q = document.getElementById("q");
+
+    const a = document.getElementById("a");
+    const list = {};
+
+    function getInteger(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function test() {
+      question = generateMix();
+      q.value = question;
+    //  a.value = question.answer;
+    }
 
 
+    function generateMix(){
+      list.base = getInteger(2,9);
+      const questiontype = getInteger(1,1);
+      let parts = []
 
+      switch (questiontype){
+        case 1: //bagi pangkat
+          list.a = getInteger(2,9);
+          list.b = getInteger(2,9);
+          list.p = getInteger(2,9);
+          list.q = getInteger(2,9);
 
-      <script src="https://cdn.jsdelivr.net/npm/mathlive"></script>
-<script>
-
-console.log('haha');
-  const mySelect = document.getElementById("lala");
-const options = ["Apple", "Banana", "Cherry"];
-
-const myArr = ["Orange", "Banana", "Mango", "Kiwi"];
-
-
-const chapterlist=[
-  {
-    "subchapter": "2.1",
-    "activity": [
-      {
-        "title": "Bilangan Berpangkat",
-        "function": "BBPengertian"
-      },
-      {
-        "title": "Perkalian Bilangan Berpangkat",
-        "function": "BBKali"
-      },
-      {
-        "title": "Pembagian Bilangan Berpangkat",
-        "function": "BBBagi"
+          value = `\\frac{({${list.base}}^{${list.a}})^{${list.b}}}{({${list.base}}^{${list.p}})^{${list.q}}}}`;
+          break;
       }
-    ]
-  },
-  {
-    "subchapter": "2.2",
-    "activity": [
-      {
-        "title": "Akar Kuadrat",
-        "function": "BBAkar"
-      },
-      {
-        "title": "Penjumlahan & pengurangan Bentuk Akar",
-        "function": "BBJumlahAkar"
-      },
-      {
-        "title": "Perkalian Bentuk Akar",
-        "function": "BBKaliAkar"
-      },
-      {
-        "title": "Pembagian Bentuk Akar",
-        "function": "BBBagiAkar"
-      },
-      {
-        "title": "Kelipatan Bilangan Kuadrat",
-        "function": "BBKelipatan"
+
+      return value;
+    }
+    function generateMixedExponentiationQuestion() {
+      const base = getInteger(2, 5); // main base
+      const numOps = getInteger(2, 2); // number of operations
+
+      let parts = []; // LaTeX expression parts
+      let exponentSum = 0; // net exponent for the main base
+      let extras = []; // terms with different bases
+
+      for (let i = 0; i < numOps; i++) {
+        const opType = getInteger(1, 3);
+        let exp1, exp2, a, b;
+
+        switch (opType) {
+          case 1: // multiplication
+            exp1 = getInteger(2, 6);
+            exp2 = getInteger(2, 6);
+            parts.push(`${base}^{${exp1}} \\times ${base}^{${exp2}}`);
+            exponentSum += exp1 + exp2;
+            break;
+
+          case 2: // division
+            exp1 = getInteger(2, 6);
+            exp2 = getInteger(1, 5);
+            parts.push(`\\dfrac{${base}^{${exp1}}}{${base}^{${exp2}}}`);
+            exponentSum += exp1 - exp2;
+            break;
+
+          case 3: // (base^exp1)^exp2
+            exp1 = getInteger(2, 4);
+            exp2 = getInteger(2, 4);
+            parts.push(`\\left(${base}^{${exp1}}\\right)^{${exp2}}`);
+            exponentSum += exp1 * exp2;
+            break;
+
+          case 4: // (a*b)^exp
+            a = getInteger(2, 5);
+            b = getInteger(2, 5);
+            exp1 = getInteger(2, 4);
+            parts.push(`\\left(${a}\\times${b}\\right)^{${exp1}}`);
+            extras.push(`\\left(${a}\\times${b}\\right)^{${exp1}}`);
+            break;
+
+          case 5: // (a/b)^exp
+            a = getInteger(2, 5);
+            b = getInteger(2, 5);
+            exp1 = getInteger(2, 4);
+            parts.push(`\\left(\\dfrac{${a}}{${b}}\\right)^{${exp1}}`);
+            extras.push(`\\left(\\dfrac{${a}}{${b}}\\right)^{${exp1}}`);
+            break;
+        }
       }
-    ]
-  }
-]
 
-const accordionData = chapterlist.flatMap(sub => sub.activity);
+      // Question string
+      const question = parts.join(" \\times ");
 
+      // Simplified answer for the main base
+      let answerParts = [];
+      if (exponentSum !== 0) {
+        answerParts.push(`${base}^{${exponentSum}}`);
+      }
+      if (extras.length > 0) {
+        answerParts = answerParts.concat(extras);
+      }
 
-const test = document.getElementById("test");
-test.innerHTML="lplplp";
-test.innerHTML+=JSON.stringify(accordionData);
+      const answer = answerParts.join(" \\times ") || "1"; // if nothing, it's 1
 
+      return {
+        question: "$$" + question + "$$",
+        answer: "$$" + answer + "$$",
+      };
+    }
 
-  activities.forEach(item => {
-  const option = document.createElement("option");
-  option.value = item.title.toLowerCase();
-  option.textContent = item.title;
-  mySelect.appendChild(option);
-
-
-});
-
-
-
-        </script>
-    </body>
-</html>
+    // Example run
+    for (let i = 0; i < 5; i++) {
+      const qa = generateMixedExponentiationQuestion();
+      console.log("Q: " + qa.question);
+      console.log("A: " + qa.answer);
+    }
+  </script>
+</body>
