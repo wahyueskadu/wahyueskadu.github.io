@@ -1,0 +1,105 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>Working Title</title>
+<link rel="stylesheet" href="styles.css"> 
+</head>    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    .itemsHeader{
+        font-size: 30px;
+        text-align: left;
+        margin-left: 0px;
+        margin-top: 10px
+    }
+    .itemsContainer{
+        margin-left: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px; /* Adjust the gap here */
+        width: 100%;
+
+    }
+    .itemsContainer button{
+        flex-grow: 1;
+        font-size: 18px;
+        text-align: center;
+        font-variation-settings: 'wght' 500;
+        background-color: var(--accent-color);
+        color: var(--secondtext-color);
+        /*margin: 5px 10px 10px 5px;*/
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        box-shadow: 4px 4px 0px var(--secondtext-color); /* Add drop shadow */
+    
+    }
+
+    .mainContainer {
+        width: 100%
+    }
+</style>
+<body>
+    <h1>LATIHAN MATEMATIKA</h1>
+    <div class="mainContainer"></div>
+    <div id="toast" class="toast"></div>
+
+<script>
+    const mainContainer = document.querySelector(".mainContainer"); 
+
+    const linkList = [
+        {
+            Title : `Bilangan`,
+            Code : `BB`,
+            SubChapter : ['Penjumlahan dan Pengurangan','Pembagian','KPK','FPB'],
+        }
+        
+        /*,{
+            Title : `Aljabar`,
+            Code : 'ALJ',
+            SubChapter: ['Penjumlahan dan Pengurangan Aljabar']
+        },{
+            Title : `Garis dan Sudut`,
+            Code: `GDS`,
+            SubChapter : ['Pelurus dan Penyiku','Hubungan Sudut','Besar Sudut']
+        }
+        */    
+        ]
+
+    for (const key in linkList){
+        const p = document.createElement('p')
+        p.classList.add('itemsHeader')
+        p.textContent = linkList[key].Title;
+        mainContainer.append(p);
+        code = linkList[key].Code;
+        const buttonContainer = document.createElement('div')
+        buttonContainer.classList.add('itemsContainer')
+        for (const itemkey in linkList[key].SubChapter){
+            const p = document.createElement('button')
+            SubChapterText = linkList[key].SubChapter[itemkey];
+            p.name = `${code}.${SubChapterText}`
+            p.textContent = SubChapterText
+            p.addEventListener('click',() => {testLink(p.name)});
+            buttonContainer.append(p)
+        }
+        mainContainer.appendChild(buttonContainer)
+    }
+
+    function testLink(text){
+        const url = `chat.html?q=${text}`;
+        window.location.href = url;
+    }
+    
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+        toast.classList.add('toastshow');
+
+      setTimeout(() => {
+        toast.classList.remove('toastshow');
+      }, 3000); // Hide toast after 3 seconds
+    }
+</script>
+</body>
