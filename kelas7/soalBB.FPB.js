@@ -1,4 +1,42 @@
 questionCount = 15;
+
+// CHANGE: ensure multipliers are coprime so gcd(a,b) === f
+function makeFPBQuestion() {
+    // choose the FPB (answer) small and simple
+    let f = getInteger(2, 10);
+
+    // gcd helper
+    function gcd(a, b) {
+        a = Math.abs(a); b = Math.abs(b);
+        while (b !== 0) {
+            let t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
+    }
+
+    // pick multipliers until they are coprime and not identical
+    let m1, m2;
+    do {
+        m1 = getInteger(2, 9); // you can adjust ranges
+        m2 = getInteger(2, 9);
+    } while (gcd(m1, m2) !== 1 || m1 === m2);
+
+    // build the actual numbers
+    let a = f * m1;
+    let b = f * m2;
+
+    return {
+        question: `FPB dari ${a} dan ${b} = …`,
+        num1: a,
+        num2: b,
+        correctAnswer: f
+    };
+}
+
+
+
 function getSoal(questionKind){
     if (questionProgress == 1){
         startTime = Date.now(); 
@@ -6,27 +44,11 @@ function getSoal(questionKind){
     attemptAnswer = 0;
     emptyObject(qArray);
     makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
-    x1 = getNumber(1);
-    x2 = getNumber(2);
 
-    // CHANGE: randomly choose operator (+ or -)
-    let ops = ["+", "-"];
-    let chosenOp = ops[Math.floor(Math.random() * ops.length)];
 
-    // CHANGE: compute displayAnswer based on chosen operator
-    if (chosenOp === "+") {
-        displayAnswer = x1 + x2;
-    } else {
-        displayAnswer = x1 - x2;
-    }
- 
-
-    // CHANGE: display the correct symbol in the question
-    // If x1 or x2 is negative, surround with brackets
-    const x1Display = x1 < 0 ? `(${x1})` : x1;
-    const x2Display = x2 < 0 ? `(${x2})` : x2;
-    makeBubbleBot(`${x1Display} ${chosenOp} ${x2Display} = …`);
-    qArray.displayAnswer = displayAnswer;
+    let q = makeFPBQuestion();
+    makeBubbleBot(`FPB dari ${q.num1} dan ${q.num2} adalah …`);
+    qArray.displayAnswer = q.correctAnswer;
 }
 
 function getNumber(x){

@@ -1,4 +1,43 @@
 questionCount = 15;
+
+function makeKPKQuestion() {
+  // Step 1: choose an LCM answer with many factors
+  const possibleLCMs = [12, 24, 36, 48, 60, 72];
+  const lcmAnswer = possibleLCMs[Math.floor(Math.random() * possibleLCMs.length)];
+
+  // Step 2: list factors of the chosen LCM
+  const factors = [];
+  for (let i = 2; i < lcmAnswer; i++) {
+    if (lcmAnswer % i === 0) {
+      factors.push(i);
+    }
+  }
+
+  // Step 3: pick two different factors
+  let a = factors[Math.floor(Math.random() * factors.length)];
+  let b = factors[Math.floor(Math.random() * factors.length)];
+  while (b === a) {
+    b = factors[Math.floor(Math.random() * factors.length)];
+  }
+
+  // Step 4: sometimes multiply b by a small number (to avoid overlap)
+  if (Math.random() < 0.5) {
+    const k = [2, 3][Math.floor(Math.random() * 2)];
+    if (b * k <= lcmAnswer && lcmAnswer % (b * k) === 0) {
+      b = b * k;
+    }
+  }
+
+  const question = `Find the KPK (LCM) of ${a} and ${b}`;
+  return { a, b, answer: lcmAnswer };
+}
+
+
+
+
+
+
+
 function getSoal(questionKind){
     if (questionProgress == 1){
         startTime = Date.now(); 
@@ -6,27 +45,11 @@ function getSoal(questionKind){
     attemptAnswer = 0;
     emptyObject(qArray);
     makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
-    x1 = getNumber(1);
-    x2 = getNumber(2);
 
-    // CHANGE: randomly choose operator (+ or -)
-    let ops = ["+", "-"];
-    let chosenOp = ops[Math.floor(Math.random() * ops.length)];
 
-    // CHANGE: compute displayAnswer based on chosen operator
-    if (chosenOp === "+") {
-        displayAnswer = x1 + x2;
-    } else {
-        displayAnswer = x1 - x2;
-    }
- 
-
-    // CHANGE: display the correct symbol in the question
-    // If x1 or x2 is negative, surround with brackets
-    const x1Display = x1 < 0 ? `(${x1})` : x1;
-    const x2Display = x2 < 0 ? `(${x2})` : x2;
-    makeBubbleBot(`${x1Display} ${chosenOp} ${x2Display} = …`);
-    qArray.displayAnswer = displayAnswer;
+    let q = makeKPKQuestion();
+    makeBubbleBot(`KPK dari ${q.a} dan ${q.b} adalah …`);
+    qArray.displayAnswer = q.answer;
 }
 
 function getNumber(x){
