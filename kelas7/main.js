@@ -323,7 +323,7 @@ function replaceChar(str, index, replacement) {
         makeDivider('Hasil Pekerjaan Kamu');
 
         resultTime = printTime();
-        submitForm();
+        //submitForm();
         if (firstTry == 0) {
             makeBubbleBot (`Yah, kamu belum bisa mengerjakan tanpa bantuan 😢🥺`);
             makeBubbleBot('Yuk, coba lagi dengan menekan enter');
