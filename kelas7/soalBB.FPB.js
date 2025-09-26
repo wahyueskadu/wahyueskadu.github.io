@@ -1,31 +1,16 @@
-questionCount = 15;
+questionCount = 10;
+
+const fpbSet = [ [8, 12, 4], [12, 18, 6], [14, 28, 14], [16, 24, 8], [18, 30, 6], [20, 40, 20], [9, 27, 9], [15, 45, 15], [12, 30, 6], [24, 36, 12], [16, 40, 8], [10, 30, 10], [18, 24, 6], [27, 54, 27], [28, 84, 28], [30, 45, 15], [40, 60, 20], [36, 48, 12], [21, 42, 21], [22, 44, 22], [8, 20, 4], [12, 16, 4], [14, 21, 7], [18, 27, 9], [20, 28, 4], [24, 30, 6], [25, 35, 5], [26, 39, 13], [28, 36, 4], [30, 50, 10] ];
 
 // CHANGE: ensure multipliers are coprime so gcd(a,b) === f
 function makeFPBQuestion() {
-    // choose the FPB (answer) small and simple
-    let f = getInteger(2, 10);
+    // pick a random question from fpbSet
+    const item = fpbSet[getInteger(0, fpbSet.length - 1)];
 
-    // gcd helper
-    function gcd(a, b) {
-        a = Math.abs(a); b = Math.abs(b);
-        while (b !== 0) {
-            let t = b;
-            b = a % b;
-            a = t;
-        }
-        return a;
-    }
-
-    // pick multipliers until they are coprime and not identical
-    let m1, m2;
-    do {
-        m1 = getInteger(2, 9); // you can adjust ranges
-        m2 = getInteger(2, 9);
-    } while (gcd(m1, m2) !== 1 || m1 === m2);
-
-    // build the actual numbers
-    let a = f * m1;
-    let b = f * m2;
+    // unpack values
+    let a = item[0];
+    let b = item[1];
+    let f = item[2];
 
     return {
         question: `FPB dari ${a} dan ${b} = …`,
@@ -43,11 +28,11 @@ function getSoal(questionKind){
     }
     attemptAnswer = 0;
     emptyObject(qArray);
-    makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
+    makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
 
 
     let q = makeFPBQuestion();
-    makeBubbleBot(`FPB dari ${q.num1} dan ${q.num2} adalah …`);
+    makeBubbleBot(`FPB dari ${q.num1} dan ${q.num2} adalah\u00A0…`);
     qArray.displayAnswer = q.correctAnswer;
 }
 
@@ -82,7 +67,7 @@ function getHelp(){
         attemptAnswer += 1;
     } else if (attemptAnswer == 1){
         makeBubbleBot('Jawaban kamu belum benar, coba lagi.')
-    } else if (Math.abs(qArray.displayAnswer) == Math.abs(input)) {
+    /*} else if (Math.abs(qArray.displayAnswer) == Math.abs(input)) {
         if (qArray.bedatanda === undefined) { qArray.bedatanda = -1 };
         qArray.bedatanda += 1;
         if (qArray.displayAnswer < 0 ) {
@@ -104,7 +89,7 @@ function getHelp(){
         makeBubbleBot(`${input} itu ${input/x2} × ${x2}, jadi jawaban kamu belum benar`)
         makeBubbleBot('Coba lagi')
     } else {
-        makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)
+        makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)*/
     }
 }
 

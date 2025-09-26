@@ -6,7 +6,7 @@ function getSoal(questionKind){
     }
     attemptAnswer = 0;
     emptyObject(qArray);
-    makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
+    makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
     x1 = getNumber(1);
     x2 = getNumber(2);
     displayAnswer = x1 * x2;

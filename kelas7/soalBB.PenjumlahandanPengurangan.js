@@ -5,7 +5,7 @@ function getSoal(questionKind){
     }
     attemptAnswer = 0;
     emptyObject(qArray);
-    makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
+    makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
     x1 = getNumber(1);
     x2 = getNumber(2);
 
@@ -60,6 +60,7 @@ function getHelp(){
         attemptAnswer += 1;
     } else if (attemptAnswer == 1){
         makeBubbleBot('Jawaban kamu belum benar, coba lagi.')
+    /*
     } else if (Math.abs(qArray.displayAnswer) == Math.abs(input)) {
         if (qArray.bedatanda === undefined) { qArray.bedatanda = -1 };
         qArray.bedatanda += 1;
@@ -83,6 +84,7 @@ function getHelp(){
         makeBubbleBot('Coba lagi')
     } else {
         makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)
+    */
     }
 }
 

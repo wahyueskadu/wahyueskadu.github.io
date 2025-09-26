@@ -1,41 +1,56 @@
-questionCount = 15;
+questionCount = 10;
 
+// KPK practice (30 items, no primes)
+const kpkSet = [
+  [4, 6, 12],
+  [4, 8, 8],
+  [4, 10, 20],
+  [6, 8, 24],
+  [6, 9, 18],
+  [6, 12, 12],
+  [8, 12, 24],
+  [8, 14, 56],
+  [8, 16, 16],
+  [9, 12, 36],
+  [9, 15, 45],
+  [10, 12, 60],
+  [10, 20, 20],
+  [12, 14, 84],
+  [12, 16, 48],
+  [12, 18, 36],
+  [12, 20, 60],
+  [14, 16, 112],
+  [14, 18, 126],
+  [15, 18, 90],
+  [15, 20, 60],
+  [16, 18, 144],
+  [16, 20, 80],
+  [18, 20, 180],
+  [18, 24, 72],
+  [20, 24, 120],
+  [20, 28, 140],
+  [20, 30, 60],
+  [24, 28, 168],
+  [24, 30, 120]
+];
+
+// CHANGE: ensure multipliers are coprime so gcd(a,b) === f
 function makeKPKQuestion() {
-  // Step 1: choose an LCM answer with many factors
-  const possibleLCMs = [12, 24, 36, 48, 60, 72];
-  const lcmAnswer = possibleLCMs[Math.floor(Math.random() * possibleLCMs.length)];
+    // pick a random question from fpbSet
+    const item = kpkSet[getInteger(0, kpkSet.length - 1)];
 
-  // Step 2: list factors of the chosen LCM
-  const factors = [];
-  for (let i = 2; i < lcmAnswer; i++) {
-    if (lcmAnswer % i === 0) {
-      factors.push(i);
-    }
-  }
+    // unpack values
+    let a = item[0];
+    let b = item[1];
+    let f = item[2];
 
-  // Step 3: pick two different factors
-  let a = factors[Math.floor(Math.random() * factors.length)];
-  let b = factors[Math.floor(Math.random() * factors.length)];
-  while (b === a) {
-    b = factors[Math.floor(Math.random() * factors.length)];
-  }
-
-  // Step 4: sometimes multiply b by a small number (to avoid overlap)
-  if (Math.random() < 0.5) {
-    const k = [2, 3][Math.floor(Math.random() * 2)];
-    if (b * k <= lcmAnswer && lcmAnswer % (b * k) === 0) {
-      b = b * k;
-    }
-  }
-
-  const question = `Find the KPK (LCM) of ${a} and ${b}`;
-  return { a, b, answer: lcmAnswer };
+    return {
+        question: `KPK dari ${a} dan ${b} = …`,
+        num1: a,
+        num2: b,
+        correctAnswer: f
+    };
 }
-
-
-
-
-
 
 
 function getSoal(questionKind){
@@ -44,12 +59,12 @@ function getSoal(questionKind){
     }
     attemptAnswer = 0;
     emptyObject(qArray);
-    makeDivider(`Soal ${questionProgress} dari ${questionCount} benar ${firstTry}`);
+    makeDivider(`Soal ${questionProgress} dari ${questionCount}`);
 
 
     let q = makeKPKQuestion();
-    makeBubbleBot(`KPK dari ${q.a} dan ${q.b} adalah …`);
-    qArray.displayAnswer = q.answer;
+    makeBubbleBot(`KPK dari ${q.num1} dan ${q.num2} adalah\u00A0…`);
+    qArray.displayAnswer = q.correctAnswer;
 }
 
 function getNumber(x){
@@ -83,7 +98,7 @@ function getHelp(){
         attemptAnswer += 1;
     } else if (attemptAnswer == 1){
         makeBubbleBot('Jawaban kamu belum benar, coba lagi.')
-    } else if (Math.abs(qArray.displayAnswer) == Math.abs(input)) {
+    /*} else if (Math.abs(qArray.displayAnswer) == Math.abs(input)) {
         if (qArray.bedatanda === undefined) { qArray.bedatanda = -1 };
         qArray.bedatanda += 1;
         if (qArray.displayAnswer < 0 ) {
@@ -105,7 +120,7 @@ function getHelp(){
         makeBubbleBot(`${input} itu ${input/x2} × ${x2}, jadi jawaban kamu belum benar`)
         makeBubbleBot('Coba lagi')
     } else {
-        makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)
+        makeBubbleBot(`Jawaban kamu belum benar, coba lagi`)*/
     }
 }
 
