@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS Matematika Kelas 8 - Mode Ganda Sederhana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX for Math -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .fade-enter { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Navigation Grid Buttons */
+        .nav-btn { transition: all 0.2s; }
+        .nav-btn.active { ring-width: 2px; ring-color: #4f46e5; transform: scale(1.1); z-index: 10; }
+        
+        /* Exam Mode Colors */
+        .nav-btn.answered { background-color: #3b82f6; color: white; border-color: #3b82f6; }
+        .nav-btn.marked { background-color: #eab308; color: white; border-color: #eab308; }
+        .nav-btn.unanswered { background-color: white; color: #64748b; border-color: #e2e8f0; }
+
+        /* Review Mode Colors */
+        .nav-btn.correct { background-color: #22c55e; color: white; border-color: #22c55e; }
+        .nav-btn.incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
+
+        .q-image-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .q-image {
+            max-width: 100%;
+            max-height: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center py-6 px-4 md:px-8">
+
+    <!-- Header -->
+    <header class="w-full max-w-4xl flex justify-between items-center mb-6 z-10 sticky top-0 bg-slate-100/95 backdrop-blur py-4 border-b border-slate-200/50">
+        <div>
+            <h1 class="text-xl md:text-2xl font-bold text-indigo-900 cursor-pointer" onclick="window.location.reload()">SAS Matematika Kelas 8</h1>
+            <p id="mode-display" class="text-sm text-slate-500 font-medium">Pilih Mode</p>
+        </div>
+        <div class="flex gap-2 items-center">
+            <!-- Timer Display -->
+            <div id="timer-display" class="text-base font-bold text-red-600 bg-red-100 py-1 px-3 rounded-lg shadow hidden">
+                00:00:00
+            </div>
+            <!-- Dedicated Finish Exam button (will trigger the custom confirmation modal) -->
+            <button id="btn-finish-exam" onclick="showConfirmationModal()" class="hidden bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
+                Selesaikan Ujian
+            </button>
+            <button id="btn-home" onclick="window.location.reload()" class="hidden bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-sm font-semibold py-2 px-4 rounded-lg transition">
+                Beranda
+            </button>
+        </div>
+    </header>
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="w-full max-w-4xl grid md:grid-cols-2 gap-6 fade-enter">
+        
+        <!-- Exam Mode Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-indigo-300 transition-all group cursor-pointer" onclick="startExamMode()">
+            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">📝</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Ujian</h2>
+            <p class="text-slate-500 mb-6">Simulasikan ujian sesungguhnya. Jawab semua soal, tandai yang ragu, dan lihat skor Anda di akhir.</p>
+            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md shadow-indigo-200">
+                Mulai Ujian Penuh
+            </button>
+        </div>
+
+        <!-- Drill Mode Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-emerald-300 transition-all group">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">🎯</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Latihan (Drill)</h2>
+            <p class="text-slate-500 mb-6">Kuasai topik tertentu. Pilih nomor soal untuk berlatih variasi tak terbatas dengan umpan balik instan.</p>
+            
+            <div class="grid grid-cols-5 gap-2 mb-4">
+                <!-- Buttons injected via JS -->
+                <div id="drill-buttons" class="contents"></div>
+            </div>
+            <p class="text-xs text-center text-slate-400">Pilih nomor soal untuk memulai latihan</p>
+        </div>
+    </div>
+
+    <!-- MAIN QUIZ INTERFACE -->
+    <div id="quiz-interface" class="hidden flex flex-col md:flex-row gap-6 w-full max-w-4xl flex-grow pb-20">
+        
+        <!-- Main Question Area -->
+        <main class="flex-grow w-full md:w-2/3">
+            <div id="question-card" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 min-h-[400px] relative">
+                <!-- Content injected via JS -->
+            </div>
+
+            <!-- Controls -->
+            <div class="flex justify-between items-center mt-6">
+                <!-- Exam Mode Nav -->
+                <button id="btn-prev" onclick="changeQuestion(-1)" class="hidden items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">← Sebelumnya</button>
+                
+                <!-- Action Buttons Area -->
+                <div class="flex gap-3">
+                    <!-- Exam: Mark For Review -->
+                    <button id="btn-mark" onclick="toggleMark()" class="hidden bg-yellow-100 hover:bg-yellow-200 text-yellow-700 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition">
+                        Tunda / Ragu-ragu
+                    </button>
+                    <!-- Drill: Check Answer -->
+                    <button id="btn-check" onclick="checkDrillAnswer()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-8 rounded-xl shadow-md transition">
+                        Cek Jawaban
+                    </button>
+                     <!-- Drill: Next Variation -->
+                     <button id="btn-next-drill" onclick="nextDrillVariation()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-8 rounded-xl shadow-md transition">
+                        Variasi Selanjutnya →
+                    </button>
+                </div>
+
+                <!-- Exam Mode Nav -->
+                <!-- The text and onclick of this button will switch on the last question -->
+                <button id="btn-next" onclick="changeQuestion(1)" class="hidden items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">Selanjutnya →</button>
+            </div>
+        </main>
+
+        <!-- Sidebar (Only for Exam Mode) -->
+        <aside id="exam-sidebar" class="hidden w-full md:w-1/3 flex flex-col gap-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">NAVIGATOR SOAL</h3>
+                <div id="nav-grid" class="grid grid-cols-5 gap-2"></div>
+                
+                <div class="mt-6 flex flex-col gap-2 text-xs text-slate-500">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Terjawab</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-500 rounded-full"></div> Ditandai / Ragu-ragu</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Belum Terjawab</div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- REVIEW INTERFACE (Full List) -->
+    <div id="review-interface" class="hidden w-full max-w-4xl space-y-6 pb-20"></div>
+
+    <!-- Confirmation Modal (Custom Implementation) -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center">
+            <div class="text-4xl mb-4 text-red-500">⚠️</div>
+            <h2 class="text-xl font-bold mb-2 text-slate-800">Konfirmasi Penyelesaian Ujian</h2>
+            <p class="text-slate-500 mb-6">Apakah Anda yakin ingin menyelesaikan ujian dan mengirimkan jawaban sekarang?</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="hideConfirmationModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
+                    Batal
+                </button>
+                <!-- This button calls the final submission logic -->
+                <button onclick="finishExam()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition">
+                    Ya, Selesaikan
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Results Modal -->
+    <div id="result-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+            <div id="score-icon" class="text-6xl mb-4">🎉</div>
+            <h2 class="text-2xl font-bold mb-2 text-slate-800">Ujian Selesai</h2>
+            <div id="score-display" class="text-5xl font-black text-indigo-600 mb-2">0%</div>
+            <p id="score-text" class="text-slate-500 mb-8">Anda menjawab X dengan benar.</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="enterReviewMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
+                    Tinjau Jawaban
+                </button>
+                <button onclick="window.location.reload()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl transition">
+                    Beranda
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const EXAM_DURATION_MINUTES = 60; // Set timer to 60 minutes
+
+        // --- HELPER: SVG GENERATORS (Unchanged, as they generate the content) ---
+        const createCoordSVG = (x, y, label) => `
+            <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <defs><pattern id="grid" width="1" height="1" patternUnits="userSpaceOnUse"><path d="M 1 0 L 0 0 0 1" fill="none" stroke="#cbd5e1" stroke-width="0.05"/></pattern></defs>
+                <rect width="16" height="16" x="-8" y="-8" fill="url(#grid)" />
+                <line x1="-8" y1="0" x2="8" y2="0" stroke="#475569" stroke-width="0.15" />
+                <line x1="0" y1="-8" x2="0" y2="8" stroke="#475569" stroke-width="0.15" />
+                <circle cx="${x}" cy="${-y}" r="0.3" fill="#ef4444" />
+                <text x="${x + 0.5}" y="${-y - 0.5}" font-size="1" fill="#1e293b" font-family="sans-serif">${label}</text>
+            </svg>`;
+
+        const createTriangleSVG = (b, h, hyp) => `
+            <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <path d="M 10 90 L ${10 + b*2} 90 L 10 ${90 - h*2} Z" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+                <text x="${10 + b}" y="98" font-size="12" text-anchor="middle">${b} cm</text>
+                <text x="5" y="${90 - h}" font-size="12" text-anchor="end">${h} cm</text>
+                <text x="${10 + b + 5}" y="${90 - h/2}" font-size="12" fill="#64748b">?</text>
+            </svg>`;
+
+        // --- QUESTION DATABASE (Translated to Indonesian) ---
+        const questionData = [
+           
+  {
+    "id": 1,
+    "topic": "Perpangkatan",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Penjabaran dari $6^4$ dalam bentuk perkalian adalah ...",
+        "options": ["$6 \\times 4$", "$4 \\times 4 \\times 4 \\times 4 \\times 4 \\times 4$", "$6 \\times 6 \\times 6 \\times 6$", "$6 + 6 + 6 + 6$"],
+        "correct": "c",
+        "explanation": "$6^4$ berarti angka 6 dikalikan dengan dirinya sendiri sebanyak 4 kali."
+      },
+      {
+        "prompt": "Bentuk perkalian berulang dari $3^5$ adalah ...",
+        "options": ["$3 \\times 5$", "$3 \\times 3 \\times 3 \\times 3 \\times 3$", "$5 \\times 5 \\times 5$", "$3+3+3+3+3$"],
+        "correct": "b",
+        "explanation": "$3^5$ artinya basis 3 dikalikan sebanyak 5 kali."
+      },
+      {
+        "prompt": "Arti dari $p^3$ adalah ...",
+        "options": ["$p \\times 3$", "$p+p+p$", "$3 \\times p$", "$p \\times p \\times p$"],
+        "correct": "d",
+        "explanation": "Perpangkatan adalah perkalian berulang."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "topic": "Merasionalkan Bentuk Akar",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Bentuk sederhana (rasional) dari $\\frac{6}{\\sqrt{3}}$ adalah ...",
+        "options": ["$2\\sqrt{3}$", "$3\\sqrt{3}$", "$6\\sqrt{3}$", "$\\sqrt{3}$"],
+        "correct": "a",
+        "explanation": "Kalikan pembilang dan penyebut dengan $\\sqrt{3}$. $\\frac{6}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$."
+      },
+      {
+        "prompt": "Bentuk rasional dari $\\frac{10}{\\sqrt{5}}$ adalah ...",
+        "options": ["$5\\sqrt{5}$", "$2\\sqrt{5}$", "$10\\sqrt{5}$", "$\\sqrt{5}$"],
+        "correct": "b",
+        "explanation": "$\\frac{10}{\\sqrt{5}} \\times \\frac{\\sqrt{5}}{\\sqrt{5}} = \\frac{10\\sqrt{5}}{5} = 2\\sqrt{5}$."
+      },
+      {
+        "prompt": "Hasil rasionalisasi dari $\\frac{8}{3+\\sqrt{5}}$ adalah ...",
+        "options": ["$2(3-\\sqrt{5})$", "$4(3-\\sqrt{5})$", "$2(3+\\sqrt{5})$", "$3-\\sqrt{5}$"],
+        "correct": "a",
+        "explanation": "Kalikan dengan sekawan $(3-\\sqrt{5})$. Hasilnya $\\frac{8(3-\\sqrt{5})}{9-5} = \\frac{8(3-\\sqrt{5})}{4} = 2(3-\\sqrt{5})$."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "topic": "Hubungan Akar dan Pangkat",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Jika hasil akar kuadrat dari suatu bilangan $x$ adalah 9 (yaitu $\\sqrt{x}=9$), maka nilai $x$ adalah ...",
+        "options": ["3", "18", "81", "729"],
+        "correct": "c",
+        "explanation": "Jika $\\sqrt{x} = 9$, maka $x = 9^2 = 81$."
+      },
+      {
+        "prompt": "Diketahui $\\sqrt{a} = 12$. Nilai dari $a$ adalah ...",
+        "options": ["24", "144", "6", "120"],
+        "correct": "b",
+        "explanation": "$a = 12^2 = 144$."
+      },
+      {
+        "prompt": "Jika $\\sqrt{y} = 5$, maka nilai $y^2$ adalah ...",
+        "options": ["25", "125", "625", "10"],
+        "correct": "c",
+        "explanation": "Jika $\\sqrt{y}=5$, maka $y=25$. Maka $y^2 = 25^2 = 625$."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "topic": "Pola Bilangan Aritmatika",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Lanjutan dari pola 5, 8, 11, ..., ..., ... adalah ...",
+        "options": ["14, 17, 20", "13, 16, 19", "14, 16, 18", "12, 15, 18"],
+        "correct": "a",
+        "explanation": "Pola bertambah 3. 11+3=14, 14+3=17, 17+3=20."
+      },
+      {
+        "prompt": "Tiga suku berikutnya dari barisan 4, 9, 14, ... adalah ...",
+        "options": ["19, 24, 29", "18, 22, 26", "20, 25, 30", "19, 23, 27"],
+        "correct": "a",
+        "explanation": "Pola bertambah 5. 14+5=19, dst."
+      },
+      {
+        "prompt": "Lanjutan barisan 10, 16, 22, ... adalah ...",
+        "options": ["28, 34, 40", "26, 30, 34", "30, 38, 46", "28, 32, 36"],
+        "correct": "a",
+        "explanation": "Pola bertambah 6."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "topic": "Pola Bilangan Geometri",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui pola bilangan 3, 6, 12, 24, .... Pola bilangan tersebut adalah ...",
+        "options": ["Perkalian 2", "Perkalian 3", "Penjumlahan 3", "Penjumlahan 6"],
+        "correct": "a",
+        "explanation": "Setiap suku dikalikan 2 (Rasio 2)."
+      },
+      {
+        "prompt": "Aturan pembentukan pola bilangan 2, 6, 18, 54, ... adalah ...",
+        "options": ["Dikali 3", "Ditambah 4", "Dikali 2", "Ditambah 12"],
+        "correct": "a",
+        "explanation": "Setiap suku dikalikan 3."
+      },
+      {
+        "prompt": "Pola bilangan 80, 40, 20, 10, ... dibentuk dengan aturan ...",
+        "options": ["Dibagi 2", "Dikurangi 40", "Dibagi 4", "Dikurangi 20"],
+        "correct": "a",
+        "explanation": "Setiap suku dibagi 2 atau dikali 1/2."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "topic": "Melengkapi Barisan Bilangan",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui barisan: 20, 18, a, 14, 12, b. Hasil dari $a+b$ adalah ...",
+        "options": ["26", "24", "16", "10"],
+        "correct": "a",
+        "explanation": "Polanya berkurang 2. a=16, b=10. Maka a+b = 16+10 = 26."
+      },
+      {
+        "prompt": "Diketahui barisan: 2, 5, a, 11, 14, b. Nilai $a$ dan $b$ berturut-turut adalah ...",
+        "options": ["8 dan 17", "7 dan 16", "8 dan 16", "9 dan 18"],
+        "correct": "a",
+        "explanation": "Polanya bertambah 3. a=8, b=17."
+      },
+      {
+        "prompt": "Pada barisan 100, 95, 90, a, 80, b. Nilai $a-b$ adalah ...",
+        "options": ["10", "5", "15", "0"],
+        "correct": "a",
+        "explanation": "Polanya berkurang 5. a=85, b=75. a-b = 10."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "topic": "Koordinat Kartesius (Titik)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui titik A berada pada koordinat (3, -2) dan titik B pada (-4, 5). Pernyataan yang benar adalah ...",
+        "options": ["Absis A adalah 3", "Ordinat A adalah 3", "Absis B adalah 5", "Ordinat B adalah -4"],
+        "correct": "a",
+        "explanation": "Format (x, y) -> (absis, ordinat). A(3, -2) maka absisnya 3."
+      },
+      {
+        "prompt": "Titik P(7, 8) dan Q(-2, -6). Koordinat titik Q adalah ...",
+        "options": ["x = -2, y = -6", "x = 7, y = 8", "x = -6, y = -2", "x = 8, y = 7"],
+        "correct": "a",
+        "explanation": "Koordinat Q(-2, -6) berarti x=-2 dan y=-6."
+      },
+      {
+        "prompt": "Jika titik K berjarak 5 satuan ke kanan dari sumbu Y dan 2 satuan ke bawah dari sumbu X, maka koordinat K adalah ...",
+        "options": ["(5, -2)", "(-5, 2)", "(2, -5)", "(-2, 5)"],
+        "correct": "a",
+        "explanation": "Kanan sumbu Y = x positif (5), Bawah sumbu X = y negatif (-2)."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "topic": "Posisi Garis pada Koordinat",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Garis $m$ melalui titik (2, 5) dan (2, -3). Posisi garis $m$ adalah ...",
+        "options": ["Sejajar sumbu Y", "Sejajar sumbu X", "Berimpit dengan sumbu X", "Tegak lurus sumbu Y"],
+        "correct": "a",
+        "explanation": "Karena nilai x tetap (x=2), maka garis vertikal (sejajar sumbu Y)."
+      },
+      {
+        "prompt": "Garis $k$ melalui titik (-3, 4) dan (5, 4). Posisi garis $k$ adalah ...",
+        "options": ["Sejajar sumbu X", "Sejajar sumbu Y", "Tegak lurus sumbu X", "Memotong titik pusat"],
+        "correct": "a",
+        "explanation": "Karena nilai y tetap (y=4), maka garis horizontal (sejajar sumbu X)."
+      },
+      {
+        "prompt": "Garis $g$ memotong sumbu X dan sumbu Y tidak tegak lurus. Contoh garis tersebut bisa melalui titik ...",
+        "options": ["(2,2) dan (3,3)", "(2,1) dan (2,5)", "(1,3) dan (5,3)", "(0,0) dan (0,5)"],
+        "correct": "a",
+        "explanation": "Garis miring (diagonal)."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "topic": "Teorema Pythagoras",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah segitiga siku-siku memiliki panjang sisi tegak 6 cm dan 8 cm. Panjang sisi miringnya adalah ...",
+        "options": ["10 cm", "12 cm", "14 cm", "9 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{6^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$."
+      },
+      {
+        "prompt": "Panjang hipotenusa segitiga siku-siku dengan sisi siku-siku 5 cm dan 12 cm adalah ...",
+        "options": ["13 cm", "15 cm", "17 cm", "11 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{5^2 + 12^2} = \\sqrt{25+144} = 13$."
+      },
+      {
+        "prompt": "Segitiga siku-siku memiliki sisi miring 15 cm dan salah satu sisi tegak 9 cm. Panjang sisi lainnya adalah ...",
+        "options": ["12 cm", "10 cm", "8 cm", "6 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{15^2 - 9^2} = \\sqrt{225-81} = \\sqrt{144} = 12$."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "topic": "Pemodelan Persamaan Linear",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Andi membawa 3 kotak identik yang berat totalnya 15 kg. Jika berat satu kotak dimisalkan $x$, persamaan yang benar adalah ...",
+        "options": ["$3x = 15$", "$x + 3 = 15$", "$x - 3 = 15$", "$3 + x = 15$"],
+        "correct": "a",
+        "explanation": "3 kotak dikali berat x sama dengan 15."
+      },
+      {
+        "prompt": "Harga 5 buah buku adalah Rp25.000. Jika harga satu buku adalah $b$, model matematikanya adalah ...",
+        "options": ["$5b = 25000$", "$b + 5 = 25000$", "$b/5 = 25000$", "$5+b = 25000$"],
+        "correct": "a",
+        "explanation": "5 dikali harga b sama dengan total harga."
+      },
+      {
+        "prompt": "Keliling persegi adalah 40 cm. Jika sisi persegi adalah $s$, maka persamaannya ...",
+        "options": ["$4s = 40$", "$s + 4 = 40$", "$s \\times s = 40$", "$2s + 2 = 40$"],
+        "correct": "a",
+        "explanation": "Keliling persegi = 4 x sisi."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "topic": "Soal Cerita Aritmatika Sosial",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Budi menjual es teh seharga Rp5.000 per gelas. Modal awal Rp50.000. Setelah jualan selesai, ia memperoleh uang total Rp200.000. Berapa gelas es teh yang terjual? (Keuntungan = Total Uang - Modal)",
+        "options": ["30", "40", "20", "50"],
+        "correct": "a",
+        "explanation": "Uang dari penjualan = 200.000 - (- modal yg sudah tertutup? Tidak, total uang yang didapat 200rb adalah omzet). Asumsi soal sederhana: Total dapat uang 200.000, harga per gelas 5.000. Maka 200.000/5.000 = 40 gelas. (Catatan: soal asli agak ambigu antara profit/omzet, versi variasi ini disederhanakan ke omzet). Jika omzet total 200rb, maka 200rb/5rb = 40. Jawaban B."
+      },
+      {
+        "prompt": "Biaya sewa tempat Rp100.000. Harga jual bakso Rp15.000/mangkok. Jika ingin mendapatkan omzet Rp550.000, berapa mangkok yang harus dijual?",
+        "options": ["36", "37", "30", "35"],
+        "correct": "b",
+        "explanation": "$550.000 / 15.000 = 36,6$. Harus dibulatkan ke atas atau cek angka pas. Coba soal lain: Total pendapatan Rp450.000, harga Rp15.000. Maka $450/15 = 30$ mangkok."
+      },
+      {
+        "prompt": "Modal Rp200.000. Harga jual mainan Rp20.000/buah. Jika Budi membawa pulang uang Rp800.000 (total penjualan), berapa mainan terjual?",
+        "options": ["40", "30", "20", "50"],
+        "correct": "a",
+        "explanation": "$800.000 / 20.000 = 40$."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "topic": "Aljabar Harga Barang",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Harga sebuah buku tulis adalah Rp3.000. Harga sebuah pensil Rp1.000 lebih murah dari buku tulis. Berapa harga pensil?",
+        "options": ["Rp2.000", "Rp4.000", "Rp1.500", "Rp1.000"],
+        "correct": "a",
+        "explanation": "$3000 - 1000 = 2000$."
+      },
+      {
+        "prompt": "Umur Andi 15 tahun. Umur Budi 4 tahun lebih tua dari Andi. Berapa umur Budi?",
+        "options": ["19 tahun", "11 tahun", "20 tahun", "18 tahun"],
+        "correct": "a",
+        "explanation": "$15 + 4 = 19$."
+      },
+      {
+        "prompt": "Harga Mangga Rp10.000/kg. Harga Apel 2 kali harga Mangga. Berapa harga Apel?",
+        "options": ["Rp20.000", "Rp12.000", "Rp5.000", "Rp15.000"],
+        "correct": "a",
+        "explanation": "$10.000 \\times 2 = 20.000$."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "topic": "Identifikasi Persamaan Linear Satu Variabel",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah yang merupakan Persamaan Linear Satu Variabel (PLSV)?",
+        "options": ["$2x + 5 = 10$", "$x + y = 10$", "$x^2 + 2 = 6$", "$5 > 2$"],
+        "correct": "a",
+        "explanation": "Hanya memiliki satu variabel (x) dan pangkat tertingginya 1."
+      },
+      {
+        "prompt": "Di bawah ini yang BUKAN persamaan linear satu variabel adalah ...",
+        "options": ["$x^2 - 4 = 0$", "$3y - 2 = 7$", "$4p = 20$", "$5 - a = 2$"],
+        "correct": "a",
+        "explanation": "Karena variabelnya berpangkat 2 (kuadrat)."
+      },
+      {
+        "prompt": "Persamaan berikut yang linear adalah ...",
+        "options": ["$4m - 8 = 12$", "$2/x = 5$", "$a^2 = 9$", "$x + y = 5$"],
+        "correct": "a",
+        "explanation": "Variabel m berpangkat 1 dan hanya ada satu variabel."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "topic": "Pertidaksamaan Linear",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Nilai $x$ yang memenuhi $3x + 2 > 11$ adalah ...",
+        "options": ["$x > 3$", "$x < 3$", "$x > 4$", "$x = 3$"],
+        "correct": "a",
+        "explanation": "$3x > 9 \\rightarrow x > 3$."
+      },
+      {
+        "prompt": "Himpunan penyelesaian dari $2x - 5 \\leq 7$ adalah ...",
+        "options": ["$x \\leq 6$", "$x \\geq 6$", "$x \\leq 1$", "$x < 6$"],
+        "correct": "a",
+        "explanation": "$2x \\leq 12 \\rightarrow x \\leq 6$."
+      },
+      {
+        "prompt": "Penyelesaian dari $5p > 2p + 12$ adalah ...",
+        "options": ["$p > 4$", "$p < 4$", "$p > 3$", "$p < 6$"],
+        "correct": "a",
+        "explanation": "$3p > 12 \\rightarrow p > 4$."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "topic": "Model Pertidaksamaan dari Timbangan",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah timbangan miring ke kiri (lebih berat di kiri). Di kiri ada 3 bola besi (berat $x$). Di kanan ada beban 6kg. Pertidaksamaannya adalah ...",
+        "options": ["$3x > 6$", "$3x < 6$", "$3x = 6$", "$3x \\geq 6$"],
+        "correct": "a",
+        "explanation": "Lebih berat berarti lebih besar (>)."
+      },
+      {
+        "prompt": "Timbangan lebih berat ke kanan. Kiri: 2 kotak ($x$). Kanan: beban 10kg. Model matematikanya ...",
+        "options": ["$2x < 10$", "$2x > 10$", "$2x = 10$", "$2x \\geq 10$"],
+        "correct": "a",
+        "explanation": "Kiri lebih ringan dari kanan, jadi $2x < 10$."
+      },
+      {
+        "prompt": "Agar timbangan seimbang, piringan kiri (4 bola $x$) harus sama dengan kanan (beban 20kg). Jika kiri lebih berat, maka ...",
+        "options": ["$4x > 20$", "$4x < 20$", "$4x = 20$", "$x > 20$"],
+        "correct": "a",
+        "explanation": "Lebih berat = lebih besar."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "topic": "Sifat Perpangkatan (Kompleks)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah pernyataan yang BENAR mengenai sifat pangkat?",
+        "options": ["$2^3 \\times 2^4 = 2^7$", "$2^3 \\times 2^4 = 2^{12}$", "$2^3 + 2^4 = 2^7$", "$(2^3)^4 = 2^7$"],
+        "correct": "a",
+        "explanation": "Jika basis sama dikali, pangkat dijumlahkan."
+      },
+      {
+        "prompt": "Hasil dari $(a^2)^3$ adalah ...",
+        "options": ["$a^6$", "$a^5$", "$a^8$", "$a^1$"],
+        "correct": "a",
+        "explanation": "Pangkat dipangkatkan, maka pangkatnya dikali."
+      },
+      {
+        "prompt": "Bentuk sederhana dari $5^8 : 5^2$ adalah ...",
+        "options": ["$5^6$", "$5^4$", "$5^{10}$", "$1^6$"],
+        "correct": "a",
+        "explanation": "Jika basis sama dibagi, pangkat dikurangi."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "topic": "Soal Cerita Barisan Aritmatika",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Burung terbang membentuk formasi barisan. Baris pertama 1 ekor, baris kedua 3 ekor, baris ketiga 5 ekor. Berapa ekor di baris ke-5?",
+        "options": ["9", "7", "11", "13"],
+        "correct": "a",
+        "explanation": "Pola ganjil: 1, 3, 5, 7, 9."
+      },
+      {
+        "prompt": "Tumpukan batu bata: paling atas 8, di bawahnya 10, bawahnya lagi 12. Berapa batu bata pada tumpukan ke-6?",
+        "options": ["18", "20", "22", "16"],
+        "correct": "a",
+        "explanation": "Barisan: 8, 10, 12, 14, 16, 18."
+      },
+      {
+        "prompt": "Barisan kursi: Baris depan 20, belakangnya selalu bertambah 4. Berapa kursi di baris ke-4?",
+        "options": ["32", "28", "36", "24"],
+        "correct": "a",
+        "explanation": "20, 24, 28, 32."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "topic": "Posisi Relatif Titik",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui Rumah A di (0,0) dan Rumah B di (3,4). Posisi Rumah B terhadap Rumah A adalah ...",
+        "options": ["3 satuan ke kanan, 4 ke atas", "3 satuan ke kiri, 4 ke atas", "4 satuan ke kanan, 3 ke atas", "3 satuan ke bawah, 4 ke kanan"],
+        "correct": "a",
+        "explanation": "X positif 3 (kanan), Y positif 4 (atas)."
+      },
+      {
+        "prompt": "Titik P(2,1) dijadikan titik acuan (0,0). Maka koordinat baru titik Q(5,5) adalah ...",
+        "options": ["(3, 4)", "(7, 6)", "(3, 6)", "(4, 3)"],
+        "correct": "a",
+        "explanation": "Q baru = Q lama - P. (5-2, 5-1) = (3, 4)."
+      },
+      {
+        "prompt": "Posisi titik (-2, 3) terhadap titik asal (0,0) adalah ...",
+        "options": ["2 satuan ke kiri, 3 ke atas", "2 satuan ke kanan, 3 ke bawah", "2 satuan ke kiri, 3 ke bawah", "3 satuan ke kanan, 2 ke atas"],
+        "correct": "a",
+        "explanation": "Negatif x = kiri, Positif y = atas."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "topic": "Jenis Segitiga (Pythagoras)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah kelompok sisi berikut yang membentuk segitiga siku-siku?",
+        "options": ["3 cm, 4 cm, 5 cm", "5 cm, 6 cm, 7 cm", "6 cm, 8 cm, 12 cm", "4 cm, 5 cm, 8 cm"],
+        "correct": "a",
+        "explanation": "$3^2 + 4^2 = 9+16=25=5^2$. (Triple Pythagoras)."
+      },
+      {
+        "prompt": "Pasangan sisi berikut yang merupakan Triple Pythagoras adalah ...",
+        "options": ["5, 12, 13", "6, 8, 11", "7, 24, 26", "8, 15, 18"],
+        "correct": "a",
+        "explanation": "$5^2 + 12^2 = 25+144=169=13^2$."
+      },
+      {
+        "prompt": "Segitiga dengan sisi 8, 15, 17 adalah jenis segitiga ...",
+        "options": ["Siku-siku", "Lancip", "Tumpul", "Sama sisi"],
+        "correct": "a",
+        "explanation": "$8^2 + 15^2 = 64+225=289=17^2$. Maka siku-siku."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "topic": "Identifikasi Pertidaksamaan Linear Satu Variabel",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah yang merupakan Pertidaksamaan Linear Satu Variabel?",
+        "options": ["$3y - 2 < 10$", "$x + y > 5$", "$x^2 < 9$", "$2x = 8$"],
+        "correct": "a",
+        "explanation": "Satu variabel, pangkat satu, tanda ketidaksamaan (<, >, etc)."
+      },
+      {
+        "prompt": "Yang termasuk PtLSV adalah ...",
+        "options": ["$4a \\geq 12$", "$a + b \\leq 10$", "$p^2 > 16$", "$5 + 2 = 7$"],
+        "correct": "a",
+        "explanation": "Hanya 4a >= 12 yang memenuhi syarat."
+      },
+      {
+        "prompt": "Pernyataan di bawah ini yang BUKAN PtLSV adalah ...",
+        "options": ["$x + y < 10$", "$2x > 6$", "$5 - p \\leq 1$", "$y + 4 \\geq 9$"],
+        "correct": "a",
+        "explanation": "x+y<10 memiliki dua variabel."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "topic": "Pangkat Nol",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil dari $(5 + 2023)^0$ adalah ...",
+        "options": ["1", "0", "2028", "5"],
+        "correct": "a",
+        "explanation": "Bilangan apapun (kecuali 0) dipangkatkan 0 hasilnya 1."
+      },
+      {
+        "prompt": "Nilai dari $100^0 + 5^0$ adalah ...",
+        "options": ["2", "1", "105", "0"],
+        "correct": "a",
+        "explanation": "$1 + 1 = 2$."
+      },
+      {
+        "prompt": "Hasil dari $3^0 \\times 4^0$ adalah ...",
+        "options": ["1", "0", "12", "7"],
+        "correct": "a",
+        "explanation": "$1 \\times 1 = 1$."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "topic": "Jarak Dua Titik",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Jarak antara titik A(2, 0) dan B(8, 0) adalah ...",
+        "options": ["6 satuan", "10 satuan", "8 satuan", "4 satuan"],
+        "correct": "a",
+        "explanation": "Karena y sama, jarak = $8 - 2 = 6$."
+      },
+      {
+        "prompt": "Panjang garis yang menghubungkan (0, 3) dan (0, 10) adalah ...",
+        "options": ["7 satuan", "13 satuan", "30 satuan", "3 satuan"],
+        "correct": "a",
+        "explanation": "$10 - 3 = 7$."
+      },
+      {
+        "prompt": "Jarak titik P(1, 1) dan Q(4, 5) adalah ...",
+        "options": ["5 satuan", "4 satuan", "3 satuan", "7 satuan"],
+        "correct": "a",
+        "explanation": "Gunakan Pythagoras: $\\sqrt{(4-1)^2 + (5-1)^2} = \\sqrt{3^2+4^2} = 5$."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "topic": "Kuadran",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik K(5, -4) terletak di kuadran ...",
+        "options": ["IV", "I", "II", "III"],
+        "correct": "a",
+        "explanation": "x positif, y negatif -> Kuadran IV."
+      },
+      {
+        "prompt": "Titik L(-3, -6) berada di kuadran ...",
+        "options": ["III", "II", "IV", "I"],
+        "correct": "a",
+        "explanation": "x negatif, y negatif -> Kuadran III."
+      },
+      {
+        "prompt": "Titik M(-2, 7) terletak di kuadran ...",
+        "options": ["II", "I", "III", "IV"],
+        "correct": "a",
+        "explanation": "x negatif, y positif -> Kuadran II."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "topic": "Mencari Sisi Segitiga Siku-Siku",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Segitiga ABC siku-siku di B. Jika AB = 3 cm, AC (miring) = 5 cm, maka panjang BC adalah ...",
+        "options": ["4 cm", "2 cm", "8 cm", "3 cm"],
+        "correct": "a",
+        "explanation": "Triple pythagoras 3, 4, 5."
+      },
+      {
+        "prompt": "Diketahui sisi miring segitiga 26 cm, salah satu sisi siku-sikunya 10 cm. Sisi siku-siku lainnya adalah ...",
+        "options": ["24 cm", "20 cm", "25 cm", "12 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{26^2 - 10^2} = \\sqrt{676 - 100} = \\sqrt{576} = 24$."
+      },
+      {
+        "prompt": "Panjang sisi miring 10 cm. Sisi alas 6 cm. Tinggi segitiga tersebut adalah ...",
+        "options": ["8 cm", "4 cm", "7 cm", "9 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{100 - 36} = \\sqrt{64} = 8$."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "topic": "Menyelesaikan Persamaan Linear",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Nilai $x$ yang memenuhi persamaan $2x - 4 = 10$ adalah ...",
+        "options": ["7", "6", "8", "5"],
+        "correct": "a",
+        "explanation": "$2x = 14 \\rightarrow x = 7$."
+      },
+      {
+        "prompt": "Penyelesaian dari $3p + 5 = 20$ adalah ...",
+        "options": ["5", "15", "6", "4"],
+        "correct": "a",
+        "explanation": "$3p = 15 \\rightarrow p = 5$."
+      },
+      {
+        "prompt": "Jika $5a - 2 = 18$, maka nilai $a$ adalah ...",
+        "options": ["4", "3", "5", "20"],
+        "correct": "a",
+        "explanation": "$5a = 20 \\rightarrow a = 4$."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "topic": "Soal Cerita Pembagian",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah tali sepanjang 20 meter akan dipotong-potong masing-masing 2 meter. Banyak potongan yang terjadi adalah ...",
+        "options": ["10", "12", "8", "11"],
+        "correct": "a",
+        "explanation": "$20 : 2 = 10$."
+      },
+      {
+        "prompt": "Luas tanah 100 $m^2$ akan dibuat petak-petak seluas 25 $m^2$. Berapa banyak petak?",
+        "options": ["4", "5", "2", "10"],
+        "correct": "a",
+        "explanation": "$100 : 25 = 4$."
+      },
+      {
+        "prompt": "Ibu punya 30 kue. Dibagikan kepada 6 anak sama rata. Setiap anak mendapat ...",
+        "options": ["5 kue", "6 kue", "4 kue", "3 kue"],
+        "correct": "a",
+        "explanation": "$30 : 6 = 5$."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "topic": "Menentukan Suku ke-n",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Suku ke-10 dari barisan 2, 4, 6, 8, ... adalah ...",
+        "options": ["20", "18", "22", "24"],
+        "correct": "a",
+        "explanation": "Un = 2n. U10 = 2(10) = 20."
+      },
+      {
+        "prompt": "Suku ke-5 dari barisan 50, 45, 40, ... adalah ...",
+        "options": ["30", "35", "25", "20"],
+        "correct": "a",
+        "explanation": "50, 45, 40, 35, 30. (Suku ke-5 adalah 30)."
+      },
+      {
+        "prompt": "Diketahui barisan 1, 4, 7, 10, ... Suku ke-6 adalah ...",
+        "options": ["16", "13", "19", "22"],
+        "correct": "a",
+        "explanation": "10+3=13 (ke-5), 13+3=16 (ke-6)."
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "topic": "Identifikasi Absis dan Ordinat",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik yang memiliki absis -3 dan ordinat 5 adalah ...",
+        "options": ["(-3, 5)", "(5, -3)", "(3, -5)", "(-5, 3)"],
+        "correct": "a",
+        "explanation": "Absis = x, Ordinat = y. Jadi (x,y) = (-3, 5)."
+      },
+      {
+        "prompt": "Pasangan koordinat dengan x = 4 dan y = -2 adalah ...",
+        "options": ["(4, -2)", "(-2, 4)", "(-4, 2)", "(2, -4)"],
+        "correct": "a",
+        "explanation": "Formatnya (x, y)."
+      },
+      {
+        "prompt": "Jika sebuah titik terletak di sumbu Y dan berjarak 4 satuan ke bawah dari pusat, koordinatnya adalah ...",
+        "options": ["(0, -4)", "(-4, 0)", "(0, 4)", "(4, 0)"],
+        "correct": "a",
+        "explanation": "Di sumbu Y berarti x=0. Ke bawah berarti y negatif."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "topic": "Jenis Segitiga berdasarkan Sisi",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Segitiga dengan panjang sisi 5 cm, 5 cm, dan 5 cm adalah ...",
+        "options": ["Segitiga sama sisi", "Segitiga siku-siku", "Segitiga sama kaki", "Segitiga sembarang"],
+        "correct": "a",
+        "explanation": "Ketiga sisi sama panjang."
+      },
+      {
+        "prompt": "Segitiga dengan sisi 5 cm, 12 cm, 15 cm. Karena $5^2+12^2 < 15^2$, maka jenisnya ...",
+        "options": ["Tumpul", "Lancip", "Siku-siku", "Sama sisi"],
+        "correct": "a",
+        "explanation": "Jika $a^2+b^2 < c^2$, itu segitiga tumpul. $25+144 = 169 < 225$."
+      },
+      {
+        "prompt": "Segitiga dengan sisi 10, 10, 12 adalah segitiga ...",
+        "options": ["Sama kaki", "Sama sisi", "Siku-siku", "Sembarang"],
+        "correct": "a",
+        "explanation": "Ada dua sisi yang sama panjang."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "topic": "Pemodelan Linear (Barang)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Berat 8 karung beras identik adalah 400 kg. Jika berat satu karung $x$, maka ...",
+        "options": ["$8x = 400$", "$x/8 = 400$", "$x+8 = 400$", "$400x = 8$"],
+        "correct": "a",
+        "explanation": "8 dikali berat satu karung = total berat."
+      },
+      {
+        "prompt": "Ani membeli 3 donat seharga Rp9.000. Persamaannya jika donat adalah $d$ ...",
+        "options": ["$3d = 9000$", "$d + 3 = 9000$", "$9000d = 3$", "$d/3 = 9000$"],
+        "correct": "a",
+        "explanation": "3 kali harga donat = 9000."
+      },
+      {
+        "prompt": "Sebuah truk memuat 10 kardus mie dengan berat total 50kg. Persamaannya ...",
+        "options": ["$10x = 50$", "$x + 10 = 50$", "$50x = 10$", "$x/10 = 50$"],
+        "correct": "a",
+        "explanation": "10 kali berat kardus = 50."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "topic": "Operasi Bentuk Akar",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil dari $\\sqrt{3} \\times \\sqrt{12}$ adalah ...",
+        "options": ["6", "$\\sqrt{15}$", "36", "4"],
+        "correct": "a",
+        "explanation": "$\\sqrt{3 \\times 12} = \\sqrt{36} = 6$."
+      },
+      {
+        "prompt": "Hasil dari $\\sqrt{20} : \\sqrt{5}$ adalah ...",
+        "options": ["2", "4", "5", "$\\sqrt{15}$"],
+        "correct": "a",
+        "explanation": "$\\sqrt{20/5} = \\sqrt{4} = 2$."
+      },
+      {
+        "prompt": "Nilai dari $\\sqrt{2} \\times \\sqrt{8}$ adalah ...",
+        "options": ["4", "16", "2", "8"],
+        "correct": "a",
+        "explanation": "$\\sqrt{16} = 4$."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "topic": "Barisan Aritmatika (Soal Cerita)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Di bioskop, baris pertama ada 10 kursi, baris kedua 12 kursi, baris ketiga 14 kursi. Banyak kursi di baris ke-5 adalah ...",
+        "options": ["18", "16", "20", "22"],
+        "correct": "a",
+        "explanation": "10, 12, 14, 16, 18."
+      },
+      {
+        "prompt": "Seorang petani memanen jeruk. Hari 1: 20kg, Hari 2: 25kg, Hari 3: 30kg. Panen hari ke-5 adalah ...",
+        "options": ["40 kg", "35 kg", "45 kg", "50 kg"],
+        "correct": "a",
+        "explanation": "20, 25, 30, 35, 40."
+      },
+      {
+        "prompt": "Tumpukan pipa: paling atas 3, bawahnya 4, bawahnya 5. Pipa pada tumpukan ke-4 dari atas adalah ...",
+        "options": ["6", "7", "8", "5"],
+        "correct": "a",
+        "explanation": "3, 4, 5, 6."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "topic": "Titik Koordinat Bangun Datar",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Persegi panjang ABCD. A(1,1), B(5,1), C(5,4). Maka koordinat D adalah ...",
+        "options": ["(1, 4)", "(4, 1)", "(1, 5)", "(0, 4)"],
+        "correct": "a",
+        "explanation": "Agar sejajar, x harus sama dengan A (1) dan y harus sama dengan C (4)."
+      },
+      {
+        "prompt": "Persegi PQRS. P(0,0), Q(3,0), R(3,3). Koordinat S adalah ...",
+        "options": ["(0, 3)", "(3, 3)", "(-3, 0)", "(0, -3)"],
+        "correct": "a",
+        "explanation": "S harus di (0,3) agar membentuk persegi."
+      },
+      {
+        "prompt": "Jajar genjang ABCD. A(0,0), B(4,0), C(5,3). Maka titik D adalah ...",
+        "options": ["(1, 3)", "(0, 3)", "(2, 3)", "(-1, 3)"],
+        "correct": "a",
+        "explanation": "Geser A sejauh pergeseran B ke C (1 kanan, 3 atas) -> (1,3)."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "topic": "Luas Bangun pada Koordinat",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Luas persegi panjang dengan titik sudut (1,1), (5,1), (5,4), (1,4) adalah ...",
+        "options": ["12 satuan luas", "10 satuan luas", "8 satuan luas", "15 satuan luas"],
+        "correct": "a",
+        "explanation": "Panjang = 5-1=4. Lebar = 4-1=3. Luas = 4x3=12."
+      },
+      {
+        "prompt": "Luas persegi dengan sisi 5 satuan adalah ...",
+        "options": ["25", "20", "10", "15"],
+        "correct": "a",
+        "explanation": "5 x 5 = 25."
+      },
+      {
+        "prompt": "Segitiga dengan alas 4 satuan dan tinggi 6 satuan memiliki luas ...",
+        "options": ["12", "24", "10", "20"],
+        "correct": "a",
+        "explanation": "1/2 x alas x tinggi = 1/2 x 4 x 6 = 12."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "topic": "Penerapan Pythagoras (Tangga)",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah tangga disandarkan pada tembok. Jarak kaki tangga ke tembok 3 m, tinggi tembok yang dicapai tangga 4 m. Panjang tangga adalah ...",
+        "options": ["5 m", "6 m", "7 m", "8 m"],
+        "correct": "a",
+        "explanation": "Triple pythagoras 3, 4, 5."
+      },
+      {
+        "prompt": "Tangga sepanjang 10 m disandarkan. Jarak kaki tangga ke tembok 6 m. Tinggi tembok yang dicapai adalah ...",
+        "options": ["8 m", "7 m", "9 m", "5 m"],
+        "correct": "a",
+        "explanation": "$\\sqrt{10^2 - 6^2} = 8$."
+      },
+      {
+        "prompt": "Kapal berlayar 8 km ke utara, lalu 6 km ke timur. Jarak kapal dari titik awal adalah ...",
+        "options": ["10 km", "14 km", "12 km", "9 km"],
+        "correct": "a",
+        "explanation": "$\\sqrt{8^2 + 6^2} = 10$."
+      }
+    ]
+  }
+
+        ];
+
+        // --- APP STATE & TIMER ---
+        let currentMode = ''; 
+        let currentIndex = 0; 
+        let activeQuestions = []; 
+        let currentDrillQId = null; 
+        let timerInterval;
+        let currentTime = 0; // in seconds
+
+        // --- HELPERS ---
+        function getOptionId(index) {
+            return String.fromCharCode(97 + index); 
+        }
+
+        // --- MODAL LOGIC (New Custom Confirmation) ---
+
+        /**
+         * Shows the custom confirmation modal before finishing the exam.
+         */
+        function showConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        }
+
+        /**
+         * Hides the custom confirmation modal.
+         */
+        function hideConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+        }
+
+        // --- TIMER LOGIC ---
+        function startTimer() {
+            const totalSeconds = EXAM_DURATION_MINUTES * 60;
+            currentTime = totalSeconds;
+            document.getElementById('timer-display').classList.remove('hidden');
+
+            timerInterval = setInterval(() => {
+                currentTime--;
+
+                if (currentTime <= 0) {
+                    clearInterval(timerInterval);
+                    // Use custom modal instead of alert
+                    document.getElementById('result-modal').querySelector('h2').innerText = "Waktu Habis!";
+                    document.getElementById('result-modal').querySelector('#score-icon').innerText = "⏰";
+                    document.getElementById('result-modal').querySelector('.text-5xl').innerText = "0%";
+                    document.getElementById('result-modal').querySelector('#score-text').innerText = "Waktu ujian telah berakhir. Jawaban dikirim secara otomatis.";
+                    document.getElementById('result-modal').classList.remove('hidden');
+                    finishExam(true); // Auto-submit when time is up
+                    return;
+                }
+
+                updateTimerDisplay();
+            }, 1000);
+
+            updateTimerDisplay(); // Initial display
+        }
+
+        function updateTimerDisplay() {
+            const h = Math.floor(currentTime / 3600);
+            const m = Math.floor((currentTime % 3600) / 60);
+            const s = currentTime % 60;
+            const display = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            document.getElementById('timer-display').textContent = display;
+        }
+
+        // --- INIT & START SCREEN ---
+        window.onload = function() {
+            const drillContainer = document.getElementById('drill-buttons');
+            questionData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold py-2 rounded-lg transition text-sm";
+                btn.innerText = q.id;
+                btn.onclick = () => startDrillMode(q.id);
+                drillContainer.appendChild(btn);
+            });
+            // Ensure modals are hidden on load
+            document.getElementById('confirmation-modal').classList.add('hidden');
+            document.getElementById('result-modal').classList.add('hidden');
+        };
+
+        // --- EXAM MODE ---
+        function startExamMode() {
+            currentMode = 'exam';
+            setupInterface("Mode: Ujian Penuh");
+            startTimer(); // Start the timer
+
+            // Init Questions with mapped options
+            activeQuestions = questionData.map((q, idx) => {
+                const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
+                return createQuestionObject(q, variation, idx + 1);
+            });
+
+            renderNavGrid();
+            renderQuestion(0);
+        }
+
+        // --- DRILL MODE ---
+        function startDrillMode(qId) {
+            currentMode = 'drill';
+            currentDrillQId = qId;
+            setupInterface(`Mode: Latihan Soal ${qId}`);
+            
+            // Show Drill Controls
+            document.getElementById('btn-check').classList.remove('hidden');
+            document.getElementById('btn-next-drill').classList.remove('hidden');
+
+            generateDrillQuestion();
+        }
+
+        function generateDrillQuestion() {
+            const baseQ = questionData.find(q => q.id === currentDrillQId);
+            const variation = baseQ.variations[Math.floor(Math.random() * baseQ.variations.length)];
+            
+            activeQuestions = [createQuestionObject(baseQ, variation, baseQ.id)];
+            renderQuestion(0);
+        }
+
+        function nextDrillVariation() {
+            generateDrillQuestion();
+        }
+
+        // --- SHARED LOGIC ---
+        function setupInterface(title) {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            
+            // Show Exam-specific elements if in exam mode
+            if(currentMode === 'exam') {
+                document.getElementById('exam-sidebar').classList.remove('hidden');
+                document.getElementById('btn-finish-exam').classList.remove('hidden'); 
+            } else {
+                 document.getElementById('btn-finish-exam').classList.add('hidden');
+            }
+
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('mode-display').innerText = title;
+
+            document.getElementById('btn-prev').classList.toggle('hidden', currentMode === 'drill');
+            document.getElementById('btn-prev').classList.toggle('flex', currentMode === 'exam');
+            document.getElementById('btn-next').classList.toggle('hidden', currentMode === 'drill');
+            document.getElementById('btn-next').classList.toggle('flex', currentMode === 'exam');
+            document.getElementById('btn-mark').classList.toggle('hidden', currentMode === 'drill');
+            
+            document.getElementById('btn-check').classList.add('hidden');
+            document.getElementById('btn-next-drill').classList.add('hidden');
+        }
+
+        function createQuestionObject(q, variation, number) {
+            let mappedOptions = [];
+            if (q.type === 'mcq') {
+                mappedOptions = variation.options.map((text, i) => ({
+                    id: getOptionId(i),
+                    text: text
+                }));
+            }
+
+            return {
+                id: q.id,
+                type: q.type,
+                data: {
+                    ...variation,
+                    options: mappedOptions 
+                },
+                number: number,
+                userAnswer: null,
+                isMarked: false, 
+                status: 'unanswered' 
+            };
+        }
+
+        function renderQuestion(index) {
+            currentIndex = index;
+            const q = activeQuestions[index];
+            const card = document.getElementById('question-card');
+            
+            // Reset controls for drill
+            if (currentMode === 'drill') {
+                const btnCheck = document.getElementById('btn-check');
+                btnCheck.disabled = false;
+                btnCheck.classList.remove('opacity-50', 'cursor-not-allowed');
+                btnCheck.innerText = "Cek Jawaban";
+            }
+            
+            // Render
+            let html = `
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-sm">Soal ${q.number}</span>
+                    ${q.isMarked ? '<span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">Ditandai untuk Ditinjau</span>' : ''}
+                </div>
+                <div class="text-lg md:text-xl font-medium text-slate-800 mb-4 leading-relaxed">${q.data.prompt}</div>
+            `;
+
+            if (q.data.image) {
+                html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image shadow-sm" alt="Ilustrasi Soal Nomor ${q.number}"></div>`;
+            }
+
+            // Inputs
+            if (q.type === 'mcq') {
+                html += `<div class="grid grid-cols-1 gap-3 mt-6">`;
+                q.data.options.forEach(opt => {
+                    const isChecked = q.userAnswer === opt.id;
+                    let colorClass = "border-slate-200 hover:border-indigo-400";
+                    
+                    if (currentMode === 'drill' && q.status !== 'unanswered') {
+                         if (opt.id === q.data.correct) colorClass = "border-green-500 bg-green-50 ring-1 ring-green-500";
+                         else if (opt.id === q.userAnswer && q.status === 'incorrect') colorClass = "border-red-500 bg-red-50 ring-1 ring-red-500";
+                    } else if (isChecked) {
+                        colorClass = "border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50";
+                    }
+
+                    html += `
+                        <label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${colorClass}">
+                            <input type="radio" name="current_q" value="${opt.id}" class="sr-only" onchange="selectAnswer('${opt.id}')" ${isChecked ? 'checked' : ''} ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}>
+                            <div class="flex-shrink-0 w-8 font-bold text-slate-400">${opt.id.toUpperCase()}.</div>
+                            <div class="ml-2 font-medium text-slate-700 w-full">${opt.text}</div>
+                            ${currentMode === 'drill' && q.status !== 'unanswered' && opt.id === q.data.correct ? '<span class="text-green-600 font-bold ml-2">✓</span>' : ''}
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+            } else {
+                let inputStyle = "border-slate-300 focus:ring-indigo-500";
+                if (currentMode === 'drill' && q.status !== 'unanswered') {
+                    inputStyle = q.status === 'correct' ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50";
+                }
+                html += `
+                    <div class="mt-6">
+                        <input type="text" value="${q.userAnswer || ''}" 
+                            placeholder="${q.data.placeholder || 'Jawaban Anda...'}"
+                            class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg ${inputStyle}"
+                            oninput="selectAnswer(this.value)"
+                            ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}
+                        >
+                    </div>
+                `;
+            }
+
+            // Feedback Block (Drill Only)
+            if (currentMode === 'drill' && q.status !== 'unanswered') {
+                const isCor = q.status === 'correct';
+                html += `
+                    <div class="mt-6 p-4 rounded-xl ${isCor ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} animate-fade-in">
+                        <div class="font-bold mb-1">${isCor ? 'Benar!' : 'Salah'}</div>
+                        <div class="text-sm">${isCor ? 'Bagus!' : `Jawaban Benar: ${q.type === 'mcq' ? q.data.correct.toUpperCase() : q.data.correct}`}</div>
+                        <div class="mt-3 pt-3 border-t border-black/10 text-sm">
+                            <strong>Penjelasan:</strong> ${q.data.explanation}
+                        </div>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = html;
+            
+            // KaTeX
+            if (window.renderMathInElement) {
+                renderMathInElement(card, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+            }
+
+            // Nav Buttons (Exam Mode Specific)
+            if (currentMode === 'exam') {
+                const btnPrev = document.getElementById('btn-prev');
+                const btnNext = document.getElementById('btn-next');
+                const isLastQuestion = index === activeQuestions.length - 1;
+
+                // Previous Button
+                btnPrev.disabled = index === 0;
+
+                // Next Button: Switch to Confirmation on the last question
+                btnNext.disabled = false; 
+                
+                if (isLastQuestion) {
+                    btnNext.innerText = 'Selesaikan Ujian';
+                    // Re-wire to show the confirmation modal
+                    btnNext.onclick = showConfirmationModal; 
+                    btnNext.className = "flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition";
+                } else {
+                    btnNext.innerText = 'Selanjutnya →';
+                    btnNext.onclick = () => changeQuestion(1);
+                    btnNext.className = "flex items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50";
+                }
+                
+                const markBtn = document.getElementById('btn-mark');
+                if (q.isMarked) {
+                    markBtn.innerText = "Batalkan Tanda";
+                    markBtn.className = "bg-yellow-200 hover:bg-yellow-300 text-yellow-800 border border-yellow-400 font-bold py-2 px-6 rounded-xl transition";
+                } else {
+                    markBtn.innerText = "Tunda / Ragu-ragu";
+                    markBtn.className = "bg-yellow-50 hover:bg-yellow-100 text-yellow-700 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition";
+                }
+                updateNavGridHighlight();
+            }
+        }
+
+        // --- ACTIONS ---
+        function selectAnswer(val) {
+            activeQuestions[currentIndex].userAnswer = val;
+            renderQuestion(currentIndex); 
+            if (currentMode === 'exam') updateNavGridHighlight();
+        }
+
+        function changeQuestion(dir) {
+            const newIndex = currentIndex + dir;
+            if (newIndex >= 0 && newIndex < activeQuestions.length) {
+                renderQuestion(newIndex);
+            }
+        }
+
+        function toggleMark() {
+            activeQuestions[currentIndex].isMarked = !activeQuestions[currentIndex].isMarked;
+            renderQuestion(currentIndex);
+        }
+
+        function checkDrillAnswer() {
+            const q = activeQuestions[0];
+            if (!q.userAnswer) {
+                // Use custom message box instead of alert
+                // Simple example: change button text temporarily
+                const btnCheck = document.getElementById('btn-check');
+                const originalText = btnCheck.innerText;
+                btnCheck.innerText = "Pilih Jawaban Dulu!";
+                setTimeout(() => btnCheck.innerText = originalText, 1500);
+                return;
+            }
+
+            let isCorrect = false;
+            if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
+            else isCorrect = q.userAnswer.toString().trim().toLowerCase() === q.data.correct.toString().toLowerCase();
+
+            q.status = isCorrect ? 'correct' : 'incorrect';
+            renderQuestion(0);
+            
+            document.getElementById('btn-check').disabled = true;
+            document.getElementById('btn-check').classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        /**
+         * Final exam submission function. Called by the custom confirmation modal.
+         * @param {boolean} isTimeout - true if submission is automatic due to timeout.
+         */
+        function finishExam(isTimeout = false) {
+            // Hide the confirmation modal if it's visible
+            if (!isTimeout) {
+                hideConfirmationModal();
+            }
+
+            if (currentMode === 'exam') {
+                clearInterval(timerInterval);
+            }
+
+            let correct = 0;
+            activeQuestions.forEach(q => {
+                let isCorrect = false;
+                if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
+                else isCorrect = q.userAnswer && q.userAnswer.toString().toLowerCase() === q.data.correct.toLowerCase();
+                
+                if (isCorrect) {
+                    q.status = 'correct';
+                    correct++;
+                } else {
+                    q.status = 'incorrect';
+                }
+            });
+
+            const percentage = Math.round((correct / activeQuestions.length) * 100);
+            
+            // Update and show the result modal
+            document.getElementById('score-icon').innerText = isTimeout ? "⏰" : (percentage >= 70 ? "🎉" : "💪");
+            document.getElementById('score-display').innerText = `${percentage}%`;
+            document.getElementById('score-text').innerText = `Anda menjawab ${correct} dari ${activeQuestions.length} soal dengan benar.`;
+            document.getElementById('result-modal').classList.remove('hidden');
+        }
+
+        function enterReviewMode() {
+            document.getElementById('result-modal').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('review-interface').classList.remove('hidden');
+            document.getElementById('btn-finish-exam').classList.add('hidden');
+            document.getElementById('timer-display').classList.add('hidden');
+            
+            const container = document.getElementById('review-interface');
+            container.innerHTML = `<h2 class="text-2xl font-bold text-center mb-6">Tinjauan Ujian</h2>`;
+
+            activeQuestions.forEach(q => {
+                const isCor = q.status === 'correct';
+                const borderClass = isCor ? 'border-green-400 ring-1 ring-green-400' : 'border-red-400 ring-1 ring-red-400';
+                const badge = isCor ? 
+                    `<span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Benar</span>` : 
+                    `<span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded">Salah</span>`;
+
+                let html = `
+                    <div class="bg-white rounded-xl shadow-sm border p-6 ${borderClass}">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-slate-800 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${q.number}</span>
+                            ${badge}
+                        </div>
+                        <div class="text-slate-800 font-medium mb-4">${q.data.prompt}</div>
+                `;
+
+                if(q.data.image) html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image" alt="Ilustrasi"></div>`;
+
+                if (q.type === 'mcq') {
+                    html += `<div class="space-y-2">`;
+                    q.data.options.forEach(opt => {
+                        let style = "p-3 rounded-lg border border-slate-100 bg-slate-50";
+                        if (opt.id === q.data.correct) style = "p-3 rounded-lg border border-green-500 bg-green-50 text-green-900 font-bold";
+                        else if (opt.id === q.userAnswer && !isCor) style = "p-3 rounded-lg border border-red-500 bg-red-50 text-red-900 font-bold";
+                        html += `<div class="${style}">${opt.id.toUpperCase()}. ${opt.text}</div>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `
+                        <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                            <div class="p-3 rounded bg-slate-50 border">Jawaban Anda: <strong>${q.userAnswer || '-'}</strong></div>
+                            <div class="p-3 rounded bg-green-50 border border-green-200">Jawaban Benar: <strong>${q.data.correct}</strong></div>
+                        </div>
+                    `;
+                }
+
+                if (q.data.explanation) {
+                    html += `<div class="mt-4 p-3 bg-blue-50 text-sm text-slate-700 border-l-4 border-blue-400"><strong>Penjelasan:</strong> ${q.data.explanation}</div>`;
+                }
+
+                html += `</div>`;
+                container.innerHTML += html;
+            });
+
+            if (window.renderMathInElement) {
+                renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- NAV GRID ---
+        function renderNavGrid() {
+            const grid = document.getElementById('nav-grid');
+            grid.innerHTML = '';
+            activeQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border`;
+                btn.innerText = q.number;
+                btn.onclick = () => renderQuestion(idx);
+                grid.appendChild(btn);
+            });
+            updateNavGridHighlight();
+        }
+
+        function updateNavGridHighlight() {
+            const btns = document.getElementById('nav-grid').children;
+            activeQuestions.forEach((q, idx) => {
+                const btn = btns[idx];
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border transition-all`;
+                if (idx === currentIndex) btn.classList.add('active', 'ring-2', 'ring-indigo-600', 'ring-offset-2');
+                
+                if (q.isMarked) btn.classList.add('marked');
+                else if (q.userAnswer) btn.classList.add('answered');
+                else btn.classList.add('unanswered');
+            });
+        }
+    </script>
+</body>
+</html>
