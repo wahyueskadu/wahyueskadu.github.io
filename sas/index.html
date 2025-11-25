@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS Matematika Kelas 8 - Mode Ganda Sederhana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX for Math -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .fade-enter { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Navigation Grid Buttons */
+        .nav-btn { transition: all 0.2s; }
+        .nav-btn.active { ring-width: 2px; ring-color: #4f46e5; transform: scale(1.1); z-index: 10; }
+        
+        /* Exam Mode Colors */
+        .nav-btn.exam-answered { background-color: #3b82f6; color: white; border-color: #3b82f6; }
+        .nav-btn.exam-marked { background-color: #eab308; color: white; border-color: #eab308; }
+        
+        /* Drill Mode Colors (Instant Feedback) */
+        .nav-btn.drill-correct { background-color: #22c55e; color: white; border-color: #22c55e; }
+        .nav-btn.drill-incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
+        
+        .nav-btn.unanswered { background-color: white; color: #64748b; border-color: #e2e8f0; }
+
+        .q-image-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .q-image {
+            max-width: 100%;
+            max-height: 200px;
+            height: auto;
+        }
+        
+        /* Debug Nav Button */
+        .debug-nav-btn {
+            transition: all 0.15s;
+            text-align: left;
+            padding: 8px 12px;
+        }
+        .debug-nav-btn.debug-active {
+            background-color: #4f46e5;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center py-6 px-4 md:px-8">
+
+    <!-- Header -->
+    <header class="w-full max-w-4xl flex justify-between items-center mb-6 z-50 sticky top-0 bg-slate-100/95 backdrop-blur py-4 border-b border-slate-200/50">
+        <div>
+            <h1 class="text-xl md:text-2xl font-bold text-indigo-900 cursor-pointer" onclick="goToStartScreen()">SAS Matematika Kelas 8</h1>
+            <p id="mode-display" class="text-sm text-slate-500 font-medium">Pilih Mode</p>
+        </div>
+        <div class="flex gap-2 items-center">
+            <!-- Timer Display -->
+            <div id="timer-display" class="text-base font-bold text-red-600 bg-red-100 py-1 px-3 rounded-lg shadow hidden">
+                00:00:00
+            </div>
+            <!-- Dedicated Finish Exam button (hidden in drill mode) -->
+            <button id="btn-finish-exam" onclick="showConfirmationModal()" class="hidden bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
+                Selesaikan Ujian
+            </button>
+            <button id="btn-home" onclick="goToStartScreen()" class="hidden bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-sm font-semibold py-2 px-4 rounded-lg transition">
+                Beranda
+            </button>
+        </div>
+    </header>
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="w-full max-w-4xl grid md:grid-cols-2 gap-6 fade-enter">
+        
+        <!-- Exam Mode Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-indigo-300 transition-all group cursor-pointer" onclick="startExamMode()">
+            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">📝</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Ujian</h2>
+            <p class="text-slate-500 mb-6">Simulasikan ujian sesungguhnya. Jawab semua soal, tandai yang ragu, dan lihat skor Anda di akhir.</p>
+            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md shadow-indigo-200">
+                Mulai Ujian Penuh
+            </button>
+        </div>
+
+        <!-- Drill Mode Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-emerald-300 transition-all group">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">🎯</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Latihan (Drill)</h2>
+            <p class="text-slate-500 mb-6">Kuasai topik tertentu. Pilih nomor soal untuk berlatih variasi tak terbatas dengan umpan balik instan.</p>
+            
+            <div class="grid grid-cols-5 gap-2 mb-4">
+                <!-- Buttons injected via JS -->
+                <div id="drill-buttons" class="contents"></div>
+            </div>
+            <p class="text-xs text-center text-slate-400">Pilih nomor soal untuk memulai latihan</p>
+        </div>
+        
+        <!-- Debug Mode Section (Conditional Display) -->
+        <div id="debug-section" class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mt-4">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">Mode Utilitas</h3>
+            <div class="flex flex-wrap gap-4">
+                <button onclick="startDebugMode()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-xl transition shadow-md">
+                    🔧 Tampilkan Semua Soal (Debug Mode)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN QUIZ INTERFACE -->
+    <div id="quiz-interface" class="hidden flex flex-col md:flex-row gap-6 w-full max-w-4xl flex-grow pb-20">
+        
+        <!-- Main Question Area -->
+        <main class="flex-grow w-full md:w-2/3">
+            <div id="question-card" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 min-h-[400px] relative">
+                <!-- Content injected via JS -->
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-3 mt-6">
+                <!-- Previous Button -->
+                <button id="btn-prev" onclick="changeQuestion(-1)" class="hidden w-full md:w-auto items-center justify-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">← Sebelumnya</button>
+                
+                <!-- Action Buttons Area (Center) -->
+                <div class="flex flex-wrap justify-center gap-3 w-full md:w-auto">
+                    <!-- Exam: Mark For Review -->
+                    <button id="btn-mark" onclick="toggleMark()" class="hidden bg-yellow-100 hover:bg-yellow-200 text-yellow-700 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition">
+                        Tunda / Ragu-ragu
+                    </button>
+                    
+                    <!-- Drill: Check Answer -->
+                    <button id="btn-check" onclick="checkDrillAnswer()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition">
+                        Cek Jawaban
+                    </button>
+                    
+                     <!-- Drill: Next Variation -->
+                     <button id="btn-next-drill" onclick="nextDrillVariation()" class="hidden flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 font-bold py-2 px-4 rounded-xl transition" title="Buat variasi soal baru untuk nomor ini">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                        Variasi Baru
+                    </button>
+                </div>
+
+                <!-- Next Button -->
+                <button id="btn-next" onclick="changeQuestion(1)" class="hidden w-full md:w-auto items-center justify-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">Selanjutnya →</button>
+            </div>
+        </main>
+
+        <!-- Sidebar (Now visible in both modes) -->
+        <aside id="sidebar" class="hidden w-full md:w-1/3 flex flex-col gap-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">NAVIGATOR SOAL</h3>
+                <div id="nav-grid" class="grid grid-cols-5 gap-2"></div>
+                
+                <!-- Legend changes based on mode -->
+                <div id="legend-exam" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Terjawab</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-500 rounded-full"></div> Ditandai</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Belum</div>
+                </div>
+                
+                <div id="legend-drill" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-green-500 rounded-full"></div> Benar</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-red-500 rounded-full"></div> Salah</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Belum</div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- REVIEW INTERFACE (Full List) -->
+    <div id="review-interface" class="hidden w-full max-w-4xl space-y-6 pb-20"></div>
+
+    <!-- DEBUG INTERFACE (Scrollable List with Sidebar) -->
+    <div id="debug-interface" class="hidden w-full max-w-4xl flex flex-col md:flex-row gap-6 pb-20">
+        <!-- Sidebar Navigation for Debug -->
+        <aside class="w-full md:w-1/4">
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 sticky top-24">
+                <h3 class="text-sm font-bold text-indigo-700 uppercase tracking-wider mb-3 border-b pb-2">Navigasi Debug</h3>
+                <div id="debug-nav-sidebar" class="space-y-1 max-h-[80vh] overflow-y-auto">
+                    <!-- Nav buttons injected here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content for Debug -->
+        <main class="w-full md:w-3/4">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-2">Debug Mode</h2>
+            <p class="text-slate-600 mb-6">Menampilkan semua variasi soal secara linear.</p>
+            <div id="debug-list-container" class="space-y-6">
+                <!-- Question cards injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center">
+            <div class="text-4xl mb-4 text-red-500">⚠️</div>
+            <h2 class="text-xl font-bold mb-2 text-slate-800">Selesaikan Ujian?</h2>
+            <p class="text-slate-500 mb-6">Jawaban Anda akan dikirim dan tidak dapat diubah lagi.</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="hideConfirmationModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
+                    Batal
+                </button>
+                <button onclick="finishExam()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition">
+                    Ya
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="result-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+            <div id="score-icon" class="text-6xl mb-4">🎉</div>
+            <h2 class="text-2xl font-bold mb-2 text-slate-800">Ujian Selesai</h2>
+            <div id="score-display" class="text-5xl font-black text-indigo-600 mb-2">0%</div>
+            <p id="score-text" class="text-slate-500 mb-8">Anda menjawab X dengan benar.</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="enterReviewMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
+                    Tinjau
+                </button>
+                <button onclick="goToStartScreen()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl transition">
+                    Beranda
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // *** GLOBAL TOGGLE VARIABLE ***
+        const SHOW_DEBUG_MODE = true; 
+        // Set to 'false' to hide the 'Debug Mode' button on the start screen.
+
+        const EXAM_DURATION_MINUTES = 60;
+
+        // --- FALLBACK DATA (Used if questions.json fetch fails) ---
+        const fallbackQuestionData = [
+            {
+                "id": 1,
+                "type": "mcq",
+                "variations": [
+                    { "prompt": "$5^3$ dalam bentuk perkalian:", "options": ["$5\\times3$", "$5\\times5\\times5$", "$3\\times3\\times3\\times3\\times3$", "$5+5+5$"], "correct": "b", "explanation": "$5^3$ artinya 5 dikalikan 3 kali." },
+                    { "prompt": "$2^4$ dalam bentuk perkalian:", "options": ["$2\\times4$", "$2\\times2\\times2\\times2$", "$4\\times4$", "$4\\times2$"], "correct": "b", "explanation": "$2^4$ artinya 2 dikalikan 4 kali." }
+                ]
+            },
+            {
+                "id": 2,
+                "type": "mcq",
+                "variations": [
+                    { "prompt": "Jika $\\sqrt{x} = 7$, berapakah nilai $x$?", "options": ["14", "49", "21", "3.5"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 7^2 = 49$." },
+                    { "prompt": "Jika $\\sqrt{x} = 9$, berapakah nilai $x$?", "options": ["18", "81", "3", "27"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 9^2 = 81$." }
+                ]
+            },
+            {
+                "id": 3,
+                "type": "mcq",
+                "variations": [
+                    { "prompt": "Lanjutan pola bilangan 6, 9, 12, ... adalah?", "options": ["15, 18", "15, 21", "13, 14", "18, 24"], "correct": "a", "explanation": "Pola ini adalah barisan aritmatika dengan beda +3." }
+                ]
+            }
+        ];
+
+        // --- HELPER: SVG GENERATORS ---
+        const createCoordSVG = (x, y, label) => {
+            return `
+            <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <defs><pattern id="grid" width="1" height="1" patternUnits="userSpaceOnUse"><path d="M 1 0 L 0 0 0 1" fill="none" stroke="#cbd5e1" stroke-width="0.05"/></pattern></defs>
+                <rect width="16" height="16" x="-8" y="-8" fill="url(#grid)" />
+                <line x1="-8" y1="0" x2="8" y2="0" stroke="#475569" stroke-width="0.15" />
+                <line x1="0" y1="-8" x2="0" y2="8" stroke="#475569" stroke-width="0.15" />
+                <circle cx="${x}" cy="${-y}" r="0.3" fill="#ef4444" />
+                <text x="${x + 0.5}" y="${-y - 0.5}" font-size="1" fill="#1e293b" font-family="sans-serif">${label}</text>
+            </svg>`;
+        };
+
+        const createTriangleSVG = (b, h, hyp) => {
+            // Scale factors applied to make it look decent and fill the viewBox without relying on complex calculations
+            const scale = 80 / Math.max(b, h);
+            const scaledB = b * scale;
+            const scaledH = h * scale;
+
+            // Offset to ensure the triangle is visible and centered roughly
+            const offsetX = 10;
+            const offsetY = 90;
+
+            return `
+            <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <path d="M ${offsetX} ${offsetY} L ${offsetX + scaledB} ${offsetY} L ${offsetX} ${offsetY - scaledH} Z" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+                <!-- Labels -->
+                <text x="${offsetX + scaledB / 2}" y="${offsetY + 8}" font-size="8" text-anchor="middle">${b} cm</text>
+                <text x="${offsetX - 5}" y="${offsetY - scaledH / 2}" font-size="8" text-anchor="end">${h} cm</text>
+                <!-- Hypotenuse label -->
+                <text x="${offsetX + scaledB / 2 + 5}" y="${offsetY - scaledH / 2 + 5}" font-size="8" fill="#64748b">${hyp} cm</text>
+            </svg>`;
+        };
+
+        // --- APP STATE ---
+        let questionData = []; // Will be loaded from JSON or Fallback
+        let currentMode = ''; 
+        let currentIndex = 0; 
+        let activeQuestions = []; 
+        let currentDrillQId = null; 
+        let timerInterval;
+        let currentTime = 0;
+
+        function getOptionId(index) { return String.fromCharCode(97 + index); }
+
+        // --- NAVIGATION AND MODE UTILITY ---
+        function hideAllSections() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('review-interface').classList.add('hidden');
+            document.getElementById('debug-interface').classList.add('hidden');
+            document.getElementById('btn-home').classList.add('hidden');
+            document.getElementById('timer-display').classList.add('hidden');
+            document.getElementById('btn-finish-exam').classList.add('hidden');
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function goToStartScreen() {
+            hideAllSections();
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('mode-display').innerText = "Pilih Mode";
+            currentMode = '';
+        }
+
+        // --- MODAL LOGIC ---
+        function showConfirmationModal() { document.getElementById('confirmation-modal').classList.remove('hidden'); }
+        function hideConfirmationModal() { document.getElementById('confirmation-modal').classList.add('hidden'); }
+
+        // --- TIMER LOGIC ---
+        function startTimer() {
+            const totalSeconds = EXAM_DURATION_MINUTES * 60;
+            currentTime = totalSeconds;
+            document.getElementById('timer-display').classList.remove('hidden');
+
+            timerInterval = setInterval(() => {
+                currentTime--;
+                if (currentTime <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('result-modal').querySelector('h2').innerText = "Waktu Habis!";
+                    finishExam(true);
+                    return;
+                }
+                updateTimerDisplay();
+            }, 1000);
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const h = Math.floor(currentTime / 3600);
+            const m = Math.floor((currentTime % 3600) / 60);
+            const s = currentTime % 60;
+            document.getElementById('timer-display').textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        // --- INIT & LOAD DATA ---
+        window.onload = async function() {
+            // 1. Try to fetch JSON
+            try {
+                const response = await fetch('questions.json');
+                if (!response.ok) throw new Error("Failed to fetch");
+                questionData = await response.json();
+                console.log("Loaded questions from JSON");
+            } catch (e) {
+                console.warn("Could not load questions.json (likely due to local file CORS). Using embedded fallback data.");
+                questionData = fallbackQuestionData;
+            }
+
+            // 2. Render Start Screen
+            renderStartScreen();
+            
+            document.getElementById('confirmation-modal').classList.add('hidden');
+            document.getElementById('result-modal').classList.add('hidden');
+            
+            // 3. Control Debug Button Visibility
+            if (!SHOW_DEBUG_MODE) {
+                document.getElementById('debug-section').classList.add('hidden');
+            }
+        };
+
+        function renderStartScreen() {
+            const drillContainer = document.getElementById('drill-buttons');
+            drillContainer.innerHTML = ''; // Clear
+            
+            questionData.forEach((q) => {
+                const btn = document.createElement('button');
+                btn.className = "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold py-2 rounded-lg transition text-sm";
+                btn.innerText = q.id;
+                btn.onclick = () => startDrillMode(q.id);
+                drillContainer.appendChild(btn);
+            });
+            goToStartScreen(); // Show start screen after rendering buttons
+        }
+
+        // --- SETUP INTERFACE ---
+        function setupInterface(title) {
+            hideAllSections();
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            document.getElementById('sidebar').classList.remove('hidden'); // Sidebar visible in both
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('mode-display').innerText = title;
+
+            // Show nav buttons in both modes
+            document.getElementById('btn-prev').classList.remove('hidden');
+            document.getElementById('btn-prev').classList.add('flex');
+            document.getElementById('btn-next').classList.remove('hidden');
+            document.getElementById('btn-next').classList.add('flex');
+
+            if(currentMode === 'exam') {
+                document.getElementById('btn-finish-exam').classList.remove('hidden'); 
+                document.getElementById('btn-mark').classList.remove('hidden');
+                document.getElementById('btn-check').classList.add('hidden');
+                document.getElementById('btn-next-drill').classList.add('hidden');
+                document.getElementById('legend-exam').classList.remove('hidden');
+                document.getElementById('legend-drill').classList.add('hidden');
+            } else {
+                document.getElementById('btn-finish-exam').classList.add('hidden');
+                document.getElementById('btn-mark').classList.add('hidden');
+                document.getElementById('btn-check').classList.remove('hidden');
+                document.getElementById('btn-next-drill').classList.remove('hidden');
+                document.getElementById('legend-exam').classList.add('hidden');
+                document.getElementById('legend-drill').classList.remove('hidden');
+            }
+        }
+
+        // --- DATA INIT ---
+        function initQuestions() {
+            activeQuestions = questionData.map((q, idx) => {
+                const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
+                return createQuestionObject(q, variation, idx + 1);
+            });
+        }
+
+        function createQuestionObject(q, variation, number) {
+            let mappedOptions = [];
+            if (q.type === 'mcq') {
+                mappedOptions = variation.options.map((text, i) => ({ id: getOptionId(i), text: text }));
+            }
+            
+            // Check if image is a special code "svg:type:args"
+            let img = variation.image;
+            if(img && img.startsWith("svg:")) {
+                const parts = img.split(":");
+                let svgData = '';
+                if (parts[1] === "coord") {
+                    const args = parts[2].split(","); // x,y,label
+                    svgData = createCoordSVG(args[0], args[1], args[2]);
+                } else if (parts[1] === "tri") {
+                    const args = parts[2].split(","); // b,h,hyp
+                    svgData = createTriangleSVG(args[0], args[1], args[2]);
+                }
+                
+                if (svgData) {
+                    img = `data:image/svg+xml;base64,${btoa(svgData)}`;
+                }
+            }
+
+            return {
+                id: q.id, type: q.type,
+                data: { ...variation, options: mappedOptions, image: img },
+                number: number,
+                userAnswer: null, isMarked: false, status: 'unanswered' 
+            };
+        }
+
+        // --- MODES ---
+        function startExamMode() {
+            currentMode = 'exam';
+            initQuestions();
+            setupInterface("Mode: Ujian Penuh");
+            startTimer();
+            renderNavGrid();
+            renderQuestion(0);
+        }
+
+        function startDrillMode(qId) {
+            currentMode = 'drill';
+            initQuestions(); // Load all questions for nav context
+            
+            // Find index based on ID
+            const startIndex = activeQuestions.findIndex(q => q.id === qId);
+            const safeIndex = startIndex >= 0 ? startIndex : 0;
+
+            setupInterface("Mode: Latihan (Drill)");
+            renderNavGrid();
+            renderQuestion(safeIndex);
+        }
+        
+        // --- NEW DEBUG MODE ---
+        let allDebugQuestions = [];
+        let debugCounter = 0; // Global counter for all variations
+
+        function startDebugMode() {
+            hideAllSections();
+            
+            // Show debug interface
+            document.getElementById('debug-interface').classList.remove('hidden');
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('mode-display').innerText = "Mode: Debug Semua Soal";
+            
+            prepareDebugData();
+            renderDebugList();
+            renderDebugNav();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prepareDebugData() {
+            allDebugQuestions = [];
+            debugCounter = 0;
+            questionData.forEach(q => {
+                q.variations.forEach((v, vIdx) => {
+                    debugCounter++;
+                    allDebugQuestions.push({
+                        globalIndex: debugCounter,
+                        qId: q.id,
+                        vId: vIdx + 1,
+                        type: q.type,
+                        data: v // raw variation data
+                    });
+                });
+            });
+        }
+
+        function renderDebugNav() {
+            const navSidebar = document.getElementById('debug-nav-sidebar');
+            navSidebar.innerHTML = '';
+
+            allDebugQuestions.forEach(q => {
+                const btn = document.createElement('button');
+                const targetId = `debug-q-${q.globalIndex}`;
+                
+                btn.className = `debug-nav-btn w-full rounded-lg text-sm text-slate-700 hover:bg-indigo-100/50`;
+                btn.innerText = `Soal ${q.qId} (Var ${q.vId})`;
+                
+                btn.onclick = () => {
+                    document.querySelectorAll('.debug-nav-btn').forEach(b => b.classList.remove('debug-active'));
+                    btn.classList.add('debug-active');
+                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                navSidebar.appendChild(btn);
+            });
+            // Highlight the first element after rendering
+            if (navSidebar.children.length > 0) {
+                 navSidebar.children[0].classList.add('debug-active');
+            }
+        }
+
+        function renderDebugList() {
+            const container = document.getElementById('debug-list-container');
+            container.innerHTML = '';
+            
+            allDebugQuestions.forEach(q => {
+                const v = q.data;
+
+                // 1. Handle Image/SVG
+                let imgHtml = '';
+                let img = v.image;
+                let svgData = '';
+                if(img && img.startsWith("svg:")) {
+                    const parts = img.split(":");
+                    if (parts[1] === "coord") {
+                        const args = parts[2].split(","); // x,y,label
+                        svgData = createCoordSVG(args[0], args[1], args[2]);
+                    } else if (parts[1] === "tri") {
+                        const args = parts[2].split(","); // b,h,hyp
+                        svgData = createTriangleSVG(args[0], args[1], args[2]);
+                    }
+                    if (svgData) {
+                         imgHtml = `<div class="q-image-container p-4 bg-slate-50 border border-slate-200 rounded-lg shadow-inner">${svgData}</div>`;
+                    }
+                }
+
+                // 2. Handle Options
+                let optionsHtml = '';
+                if (q.type === 'mcq') {
+                    optionsHtml = `<div class="space-y-1 mt-4">`;
+                    v.options.forEach((opt, optIdx) => {
+                        const id = getOptionId(optIdx);
+                        const isCorrect = id === v.correct;
+                        const style = isCorrect ? 'bg-green-100 text-green-800 font-semibold border-green-300' : 'bg-white text-slate-700 border-slate-200';
+                        optionsHtml += `<div class="p-2 rounded ${style} border">${id.toUpperCase()}. ${opt} ${isCorrect ? '(<span class="font-black">BENAR</span>)' : ''}</div>`;
+                    });
+                    optionsHtml += `</div>`;
+                } else if (q.type === 'text') {
+                     optionsHtml = `<div class="mt-4 p-3 bg-blue-100 border border-blue-300 rounded text-blue-900 font-bold">Jawaban Teks (Correct): ${v.correct}</div>`;
+                }
+
+
+                const card = document.createElement('div');
+                card.id = `debug-q-${q.globalIndex}`;
+                card.className = "bg-white p-6 rounded-xl shadow-lg border border-slate-300 transition-all hover:shadow-xl fade-enter";
+                card.innerHTML = `
+                    <div class="flex items-center gap-3 mb-4 border-b pb-3">
+                        <span class="bg-indigo-800 text-white font-bold w-10 h-10 flex items-center justify-center rounded-full text-lg">${q.globalIndex}</span>
+                        <span class="text-sm font-semibold text-slate-500">ID Soal: ${q.qId} | Variasi: ${q.vId} | Tipe: ${q.type.toUpperCase()}</span>
+                    </div>
+                    <div class="text-xl font-bold text-slate-800 mb-4 leading-relaxed">${v.prompt}</div>
+                    ${imgHtml}
+                    ${optionsHtml}
+                    <div class="mt-4 p-4 bg-yellow-50 text-sm text-slate-700 border-l-4 border-yellow-400 rounded">
+                        <strong>Penjelasan:</strong> ${v.explanation}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Re-render math after injecting all HTML
+            if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+        }
+
+
+        function nextDrillVariation() {
+            // Regenerate ONLY the current question
+            const q = activeQuestions[currentIndex];
+            const baseData = questionData.find(data => data.id === q.id);
+            const newVar = baseData.variations[Math.floor(Math.random() * baseData.variations.length)];
+            
+            // Replace in array
+            activeQuestions[currentIndex] = createQuestionObject(baseData, newVar, q.number);
+            renderQuestion(currentIndex);
+            updateNavGridHighlight();
+        }
+
+        // --- RENDER (Quiz Interface) ---
+        function renderQuestion(index) {
+            currentIndex = index;
+            const q = activeQuestions[index];
+            const card = document.getElementById('question-card');
+            
+            // Logic to reset check button if reusing it in drill
+            if (currentMode === 'drill' && q.status === 'unanswered') {
+                const btnCheck = document.getElementById('btn-check');
+                btnCheck.disabled = false;
+                btnCheck.classList.remove('opacity-50', 'cursor-not-allowed');
+                btnCheck.innerText = "Cek Jawaban";
+            }
+
+            // HTML Generation
+            let html = `
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-sm">Soal ${q.number}</span>
+                    ${q.isMarked ? '<span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">Ditandai</span>' : ''}
+                </div>
+                <div class="text-lg md:text-xl font-medium text-slate-800 mb-4 leading-relaxed">${q.data.prompt}</div>
+            `;
+
+            if (q.data.image) {
+                html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image shadow-sm"></div>`;
+            }
+
+            // Inputs
+            if (q.type === 'mcq') {
+                html += `<div class="grid grid-cols-1 gap-3 mt-6">`;
+                q.data.options.forEach(opt => {
+                    const isChecked = q.userAnswer === opt.id;
+                    let colorClass = "border-slate-200 hover:border-indigo-400";
+                    
+                    // Drill Feedback Colors
+                    if (currentMode === 'drill' && q.status !== 'unanswered') {
+                         if (opt.id === q.data.correct) colorClass = "border-green-500 bg-green-50 ring-1 ring-green-500";
+                         else if (opt.id === q.userAnswer && q.status === 'incorrect') colorClass = "border-red-500 bg-red-50 ring-1 ring-red-500";
+                    } else if (isChecked) {
+                        colorClass = "border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50";
+                    }
+
+                    html += `
+                        <label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${colorClass}">
+                            <input type="radio" name="current_q" value="${opt.id}" class="sr-only" onchange="selectAnswer('${opt.id}')" ${isChecked ? 'checked' : ''} ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}>
+                            <div class="flex-shrink-0 w-8 font-bold text-slate-400">${opt.id.toUpperCase()}.</div>
+                            <div class="ml-2 font-medium text-slate-700 w-full">${opt.text}</div>
+                            ${currentMode === 'drill' && q.status !== 'unanswered' && opt.id === q.data.correct ? '<span class="text-green-600 font-bold ml-2">✓</span>' : ''}
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+            } else {
+                let inputStyle = "border-slate-300 focus:ring-indigo-500";
+                if (currentMode === 'drill' && q.status !== 'unanswered') {
+                    inputStyle = q.status === 'correct' ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50";
+                }
+                html += `
+                    <div class="mt-6">
+                        <input type="text" value="${q.userAnswer || ''}" 
+                            placeholder="Jawaban Anda..."
+                            class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg ${inputStyle}"
+                            oninput="selectAnswer(this.value)"
+                            ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}
+                        >
+                    </div>
+                `;
+            }
+
+            // Feedback (Drill Only)
+            if (currentMode === 'drill' && q.status !== 'unanswered') {
+                const isCor = q.status === 'correct';
+                html += `
+                    <div class="mt-6 p-4 rounded-xl ${isCor ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} animate-fade-in">
+                        <div class="font-bold mb-1">${isCor ? 'Benar!' : 'Salah'}</div>
+                        <div class="text-sm">${isCor ? 'Bagus!' : `Jawaban Benar: ${q.type === 'mcq' ? q.data.correct.toUpperCase() : q.data.correct}`}</div>
+                        <div class="mt-3 pt-3 border-t border-black/10 text-sm">
+                            <strong>Penjelasan:</strong> ${q.data.explanation}
+                        </div>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = html;
+            if (window.renderMathInElement) renderMathInElement(card, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+
+            // Logic for Nav Buttons (Enable/Disable)
+            document.getElementById('btn-prev').disabled = index === 0;
+            
+            // Next Button Logic
+            const btnNext = document.getElementById('btn-next');
+            const isLast = index === activeQuestions.length - 1;
+            
+            if (currentMode === 'exam' && isLast) {
+                btnNext.innerText = 'Selesaikan Ujian';
+                btnNext.onclick = showConfirmationModal;
+                btnNext.className = "flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition";
+            } else {
+                btnNext.innerText = 'Selanjutnya →';
+                btnNext.onclick = () => changeQuestion(1);
+                btnNext.className = "flex items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50";
+            }
+            // In drill mode, always allow cycling next, but maybe stop at last? 
+            // User requested nav, so we enable next unless it's last q
+            btnNext.disabled = isLast; 
+
+            updateNavGridHighlight();
+        }
+
+        // --- ACTIONS ---
+        function selectAnswer(val) {
+            activeQuestions[currentIndex].userAnswer = val;
+            renderQuestion(currentIndex);
+            updateNavGridHighlight();
+        }
+
+        function changeQuestion(dir) {
+            const newIndex = currentIndex + dir;
+            if (newIndex >= 0 && newIndex < activeQuestions.length) {
+                renderQuestion(newIndex);
+            }
+        }
+
+        function toggleMark() {
+            activeQuestions[currentIndex].isMarked = !activeQuestions[currentIndex].isMarked;
+            renderQuestion(currentIndex);
+        }
+
+        function checkDrillAnswer() {
+            const q = activeQuestions[currentIndex];
+            if (!q.userAnswer) return alert("Masukkan jawaban terlebih dahulu!");
+
+            let isCorrect = false;
+            if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
+            // For text input, trim whitespace and ignore case for simple comparison
+            else isCorrect = q.userAnswer.toString().trim().toLowerCase() === q.data.correct.toString().toLowerCase();
+
+            q.status = isCorrect ? 'correct' : 'incorrect';
+            renderQuestion(currentIndex);
+            updateNavGridHighlight();
+        }
+
+        function finishExam(isTimeout = false) {
+            if (!isTimeout) hideConfirmationModal();
+            if (currentMode === 'exam') clearInterval(timerInterval);
+
+            let correct = 0;
+            activeQuestions.forEach(q => {
+                let isCorrect = false;
+                if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
+                else isCorrect = q.userAnswer && q.userAnswer.toString().toLowerCase() === q.data.correct.toLowerCase();
+                
+                if (isCorrect) { q.status = 'correct'; correct++; } 
+                else { q.status = 'incorrect'; }
+            });
+
+            const percentage = Math.round((correct / activeQuestions.length) * 100);
+            document.getElementById('score-icon').innerText = isTimeout ? "⏰" : (percentage >= 70 ? "🎉" : "💪");
+            document.getElementById('score-display').innerText = `${percentage}%`;
+            document.getElementById('score-text').innerText = `Anda menjawab ${correct} dari ${activeQuestions.length} soal dengan benar.`;
+            document.getElementById('result-modal').classList.remove('hidden');
+        }
+
+        function enterReviewMode() {
+            document.getElementById('result-modal').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('review-interface').classList.remove('hidden');
+            document.getElementById('btn-finish-exam').classList.add('hidden');
+            
+            const container = document.getElementById('review-interface');
+            container.innerHTML = `<h2 class="text-2xl font-bold text-center mb-6">Tinjauan Ujian</h2>`;
+
+            activeQuestions.forEach(q => {
+                const isCor = q.status === 'correct';
+                const borderClass = isCor ? 'border-green-400 ring-1 ring-green-400' : 'border-red-400 ring-1 ring-red-400';
+                let html = `
+                    <div class="bg-white rounded-xl shadow-sm border p-6 ${borderClass}">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-slate-800 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${q.number}</span>
+                            <span class="${isCor ? 'text-green-600' : 'text-red-600'} font-bold text-sm">${isCor ? 'Benar' : 'Salah'}</span>
+                        </div>
+                        <div class="text-slate-800 font-medium mb-4">${q.data.prompt}</div>
+                `;
+                if(q.data.image) html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image"></div>`;
+                
+                if (q.type === 'mcq') {
+                    html += `<div class="space-y-2">`;
+                    q.data.options.forEach(opt => {
+                        let style = "p-3 rounded-lg border border-slate-100 bg-slate-50";
+                        if (opt.id === q.data.correct) style = "p-3 rounded-lg border border-green-500 bg-green-50 text-green-900 font-bold";
+                        else if (opt.id === q.userAnswer && !isCor) style = "p-3 rounded-lg border border-red-500 bg-red-50 text-red-900 font-bold";
+                        html += `<div class="${style}">${opt.id.toUpperCase()}. ${opt.text}</div>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<div class="p-3 rounded bg-slate-50 border mt-2">Jawaban: <strong>${q.userAnswer || '-'}</strong> (Benar: ${q.data.correct})</div>`;
+                }
+                if (q.data.explanation) html += `<div class="mt-4 p-3 bg-blue-50 text-sm text-slate-700 border-l-4 border-blue-400"><strong>Penjelasan:</strong> ${q.data.explanation}</div>`;
+                html += `</div>`;
+                container.innerHTML += html;
+            });
+            if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderNavGrid() {
+            const grid = document.getElementById('nav-grid');
+            grid.innerHTML = '';
+            activeQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border`;
+                btn.innerText = q.number;
+                btn.onclick = () => renderQuestion(idx);
+                grid.appendChild(btn);
+            });
+            updateNavGridHighlight();
+        }
+
+        function updateNavGridHighlight() {
+            const btns = document.getElementById('nav-grid').children;
+            activeQuestions.forEach((q, idx) => {
+                const btn = btns[idx];
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border transition-all`;
+                if (idx === currentIndex) btn.classList.add('active', 'ring-2', 'ring-indigo-600', 'ring-offset-2');
+                
+                // Color logic depends on mode
+                if (currentMode === 'drill') {
+                    if (q.status === 'correct') btn.classList.add('drill-correct');
+                    else if (q.status === 'incorrect') btn.classList.add('drill-incorrect');
+                    else btn.classList.add('unanswered');
+                } else {
+                    if (q.isMarked) btn.classList.add('exam-marked');
+                    else if (q.userAnswer) btn.classList.add('exam-answered');
+                    else btn.classList.add('unanswered');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
