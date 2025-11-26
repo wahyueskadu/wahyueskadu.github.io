@@ -138,7 +138,7 @@
         "explanation": "Hati-hati dengan bilangan negatif. $-5 - (-8) = 3$. Polanya ditambah 3. \n$1+3=4$, $4+3=7$."
       },
       {
-        "prompt": "Diketahui barisan: 2, 4, 8, ...$. Suku ke-5 adalah ...",
+        "prompt": "Diketahui barisan: 2, 4, 8, .... Suku ke-5 adalah ...",
         "options": ["12", "16", "20", "32"],
         "correct": "b",
         "explanation": "Polanya adalah dikali 2. Suku ke-4: $8 \\times 2 = 16$, suku ke-5: $16 \\times 2 = 32$"
@@ -159,33 +159,33 @@
     "variations": [
       {
         "prompt": "Diketahui pola bilangan 3, 6, 12, 24, .... Pola tersebut terbentuk dengan aturan ...",
-        "options": ["Dikalikan 2", "Ditambah 3", "Dikalikan 3", "Ditambah bilangan genap"],
+        "options": ["dikali 2", "ditambah 3", "dikalikan 3", "ditambah bilangan genap"],
         "correct": "a",
         "explanation": "Cek rasio: $6/3 = 2$, $12/6 = 2$. Aturannya adalah perkalian 2."
       },
       {
-        "prompt": "Suku berikutnya dari barisan 80, 40, 20, 10, ... adalah ...",
-        "options": ["5", "0", "4", "2"],
+        "prompt": "Aturan pada pola barisan 80, 40, 20, 10, ... adalah ...",
+        "options": ["dikurangi 2", "dibagi 2", "dikurangi 10", "dibagi 10"],
         "correct": "a",
-        "explanation": "Setiap suku dibagi 2 (atau dikali 1/2). $10 : 2 = 5$."
+        "explanation": "Setiap suku dibagi 2 (atau dikali 1/2).$."
       },
       {
-        "prompt": "Barisan 1, 3, 9, 27, .... Dua suku berikutnya adalah ...",
-        "options": ["81, 243", "54, 108", "36, 45", "30, 33"],
-        "correct": "a",
-        "explanation": "Rasio adalah 3 (dikali 3). \n$27 \\times 3 = 81$. \n$81 \\times 3 = 243$."
+        "prompt": "Barisan 1, 3, 9, 27, .... memiliki aturan",
+        "options": ["ditambah 2", "dikali 3", "ditambah 6", "dikali 6"],
+        "correct": "b",
+        "explanation": "Rasio adalah 3 (dikali 3)."
       },
       {
-        "prompt": "Barisan geometri: 2, -4, 8, -16, .... Suku ke-5 adalah ...",
-        "options": ["32", "-32", "24", "-24"],
-        "correct": "a",
-        "explanation": "Rasio adalah $-4 / 2 = -2$. \nSuku ke-5 = $(-16) \\times (-2) = 32$. (Tanda berganti-ganti positif negatif)."
+        "prompt": "Barisan geometri 2, -4, 8, -16, .... memiliki aturan",
+        "options": ["dikali 2", "dikali -2", "ditambah 2", "dikurangi 2"],
+        "correct": "b",
+        "explanation": "Rasio adalah $-4 / 2 = -2$. (Tanda berganti-ganti positif negatif)."
       },
       {
-        "prompt": "Amoeba membelah diri menjadi 2 setiap 15 menit. Jika mula-mula ada 5 amoeba, setelah 45 menit (3 kali pembelahan) jumlahnya menjadi ...",
-        "options": ["40", "30", "20", "80"],
-        "correct": "a",
-        "explanation": "Mula-mula (0 mnt): 5. \n15 mnt: $5 \\times 2 = 10$. \n30 mnt: $10 \\times 2 = 20$. \n45 mnt: $20 \\times 2 = 40$."
+        "prompt": "Amoeba berkembang biak. Jika pada menit pertama terdapat 10 amoeba, menit ke dua terdapat 20 amoeba, dan menit ketiga teradpat 40 amoeba, maka pola yang terbentuk adalah ....",
+        "options": ["ditambah 10", "ditambah 20", "dikali 2", "dikali 5"],
+        "correct": "c",
+        "explanation":""
       }
     ]
   },
@@ -196,22 +196,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Lengkapilah barisan berikut: 4, 7, ..., 13, 16.",
-        "options": ["10", "9", "11", "12"],
-        "correct": "a",
-        "explanation": "Cek beda dari suku yang berdekatan yang diketahui: $16-13=3$ dan $7-4=3$. \nMaka suku yang hilang adalah $7+3=10$. Cek kebenaran: $10+3=13$ (Cocok)."
+        "prompt": "Diketahui barisan berikut: 4, 7, a, 13, b, .... Hasil dari a+b adalah",
+        "options": ["10", "13", "16", "19"],
+        "correct": "c",
+        "explanation": "Pola tersebut adalah pola ditambah 3, sehingga a = 7 + 3 = 10, dan b = 13 + 3 = 16. Maka a + b = 26  "
       },
       {
-        "prompt": "Diketahui barisan 2, 6, ..., 54, 162. Bilangan yang tepat mengisi titik-titik adalah ...",
-        "options": ["18", "12", "36", "24"],
-        "correct": "a",
-        "explanation": "Cek rasio: $6:2=3$. Coba kalikan 6 dengan 3 = 18. \nCek apakah $18 \\times 3 = 54$? Ya, benar. Jadi bilangan tersebut 18."
+        "prompt": "Diketahui barisan 1, 2, p, 8, q, 32, .... Hasil dari q-p adalah ....",
+        "options": ["10", "12", "36", "24"],
+        "correct": "b",
+        "explanation": "Aturan pola bilangan tersebuyt adalah dikali dua. sehingga $p = 2 \\times 2 = 4$ dan $q = 8 \\times 2 = 16$ sehingga $q - p = 16 - 4 = 12"
       },
       {
-        "prompt": "Nilai $a$ dan $b$ pada barisan 100, 95, 90, $a$, 80, $b$ adalah ...",
-        "options": ["85 dan 75", "85 dan 70", "90 dan 80", "75 dan 65"],
-        "correct": "a",
-        "explanation": "Pola berkurang 5. \n$a = 90-5 = 85$. \n$b = 80-5 = 75$."
+        "prompt": "Nilai $a - b$ pada barisan 100, 95, 90, $a$, 80, $b$ adalah ...",
+        "options": ["5", "10", "15", "20"],
+        "correct": "b",
+        "explanation": "Pola berkurang 5. \n$a = 90-5 = 85$. \n$b = 80-5 = 75$. $a - b = 85 - 75 = 10$"
       },
       {
         "prompt": "Barisan Fibbonaci: 1, 1, 2, 3, 5, $x$, 13. Nilai $x$ adalah ...",
@@ -220,10 +220,10 @@
         "explanation": "Pola Fibonacci: suku diperoleh dari penjumlahan dua suku sebelumnya. \n$x = 3 + 5 = 8$. Cek: $5 + 8 = 13$ (Benar)."
       },
       {
-        "prompt": "Barisan 1, 4, 9, 16, $m$, 36. Nilai $m$ adalah ...",
-        "options": ["25", "20", "24", "30"],
+        "prompt": "Barisan 1, 4, 9, 16, $m$, $n$. Nilai $n-m$ adalah ...",
+        "options": ["11", "19", "21", "23"],
         "correct": "a",
-        "explanation": "Ini adalah barisan bilangan kuadrat (persegi). \n$1^2, 2^2, 3^2, 4^2, 5^2$. \nJadi $m = 5^2 = 25$."
+        "explanation": "Ini adalah barisan bilangan kuadrat (persegi). \n$1^2, 2^2, 3^2, 4^2, 5^2$. \nJadi $m = 5^2 = 25$. dan $n=6^2 = 36. Sehingga $n-m = 36 - 25 = 11"
       }
     ]
   },
@@ -354,10 +354,10 @@
         "explanation": "Ada 3 karung, masing-masing beratnya $x$. Total berat adalah penjumlahan ketiganya: $x+x+x$ atau $3 \\times x$. \nJadi $3x = 150$."
       },
       {
-        "prompt": "Umur Budi ($B$) adalah 5 tahun lebih tua dari umur Andi ($A$). Model matematikanya adalah ...",
-        "options": ["$B = A + 5$", "$B = A - 5$", "$B = 5A$", "$A = B + 5$"],
-        "correct": "a",
-        "explanation": "Budi lebih tua, artinya umur Budi lebih besar. \nJadi Umur Budi = Umur Andi ditambah 5. ($B = A + 5$)."
+        "prompt": "Umur Budi ($B$) dikali 6 ditambah 5 sama dengan 30. Model matematikanya adalah ...",
+        "options": ["$B = 6 \\times 5+30$", "$6B + 5= 30$", "$6B = 5 + 30$", "$B = 30 \\times 6 + 5$"],
+        "correct": "b",
+        "explanation": ""
       },
       {
         "prompt": "Keliling sebuah persegi adalah 60 cm. Jika panjang sisinya $s$, persamaannya adalah ...",
@@ -372,10 +372,10 @@
         "explanation": "Uang awal dikurangi harga beli sama dengan sisa. \n$50.000 - m = 15.000$. \n(Catatan: Pilihan C juga secara logika benar $m+15000=50000$, tapi A lebih menggambarkan proses pengurangan)."
       },
       {
-        "prompt": "Setengah dari jumlah siswa ($n$) di kelas adalah 16 orang. Persamaannya ...",
-        "options": ["$\\frac{1}{2}n = 16$", "$2n = 16$", "$n - 2 = 16$", "$n + 2 = 16$"],
-        "correct": "a",
-        "explanation": "Kata \"dari\" dalam pecahan matematika biasanya berarti perkalian. \nSetengah dari $n$ berarti $\\frac{1}{2} \\times n$. \nJadi $\\frac{1}{2}n = 16$."
+        "prompt": "Dua kali dari jumlah siswa ($n$) di kelas adalah 50 orang. Persamaannya ...",
+        "options": ["$\\frac{1}{2}n = 50$", "$2n = 50$", "$n - 2 = 50$", "$n + 2 = 50$"],
+        "correct": "b",
+        "explanation": "Kata \"dari\" dalam pecahan matematika biasanya berarti perkalian. \nSetengah dari $n$ berarti $2 \\times n$. \nJadi $2n = 16$."
       }
     ]
   },
@@ -486,7 +486,7 @@
         "explanation": "Memiliki dua variabel berbeda ($x$ dan $y$)."
       },
       {
-        "prompt": "Manakah yang merupakan PLSV?",
+        "prompt": "Manakah yang merupakan persmaaan linier satu variabel?",
         "options": ["$m + 8 = 12$", "$5 + 3 = 8$", "$k > 10$", "$a^3 = 27$"],
         "correct": "a",
         "explanation": "Hanya $m+8=12$ yang memuat variabel berpangkat satu dan tanda sama dengan."
@@ -708,7 +708,7 @@
         "explanation": "Ada dua sisi yang sama panjang (10 dan 10), maka disebut segitiga sama kaki."
       },
       {
-        "prompt": "Manakah yang merupakan Triple Pythagoras?",
+        "prompt": "Manakah yang merupakan meupakan sisi segitga siku-siku?",
         "options": ["6, 8, 10", "5, 10, 12", "3, 4, 6", "7, 8, 9"],
         "correct": "a",
         "explanation": "$6^2 + 8^2 = 36 + 64 = 100$. \n$10^2 = 100$. \nCocok."
@@ -740,7 +740,7 @@
         "explanation": "Kata \"Linear\" berarti pangkat variabelnya harus 1. Di sini pangkat 2."
       },
       {
-        "prompt": "Yang termasuk PtLSV adalah ...",
+        "prompt": "Yang termasuk pertidaksamaan linier satu variabel adalah adalah ...",
         "options": ["$4a \\geq 12$", "$a + b \\leq 10$", "$p^2 > 16$", "$5 + 2 = 7$"],
         "correct": "a",
         "explanation": "Hanya $4a \\geq 12$ yang memiliki satu variabel berpangkat satu."
@@ -758,5 +758,575 @@
         "explanation": "Pilihan A: Satu variabel $x$, linear, tanda $>$."
       }
     ]
-}
+  },
+  {
+    "id": 21,
+    "topic": "Sistem Persamaan Linear Dua Variabel (SPtLDV)",
+    "kisi_kisi": "Siswa dapat membuat model matematika (persamaan) dari soal cerita yang melibatkan dua variabel.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Harga 3 pensil ($P$) dan 2 pulpen ($Q$) adalah Rp14.000. Model matematikanya adalah ...",
+        "options": ["$3P + 2Q = 14000$", "$3P + 2Q > 14000$", "$2P + 3Q = 14000$", "$5PQ = 14000$"],
+        "correct": "a",
+        "explanation": "Kalimat 'Harga 3 pensil dan 2 pulpen adalah Rp14.000' diterjemahkan menjadi penjumlahan. \n3 dikali harga pensil ($3P$) ditambah 2 dikali harga pulpen ($2Q$) sama dengan 14.000.\nJadi: $3P + 2Q = 14.000$."
+      },
+      {
+        "prompt": "Andi membeli 1 kg mangga ($M$) dan 4 kg jeruk ($J$) dengan total bayar Rp50.000. Persamaan yang benar adalah ...",
+        "options": ["$M + 4J = 50000$", "$4M + J = 50000$", "$M \\times J = 50000$", "$5(M+J) = 50000$"],
+        "correct": "a",
+        "explanation": "1 kg mangga = $1M$ atau $M$. \n4 kg jeruk = $4J$. \nTotal harga adalah penjumlahan keduanya: $M + 4J = 50.000$."
+      },
+      {
+        "prompt": "Selisih umur Ayah ($A$) dan Ibu ($I$) adalah 5 tahun. Jika Ayah lebih tua, model yang benar adalah ...",
+        "options": ["$A - I = 5$", "$I - A = 5$", "$A + I = 5$", "$5A = I$"],
+        "correct": "a",
+        "explanation": "Selisih menunjukkan operasi pengurangan. \nKarena Ayah lebih tua, maka umur Ayah ($A$) dikurangi umur Ibu ($I$) hasilnya 5.\nPersamaan: $A - I = 5$."
+      },
+      {
+        "prompt": "Dua kali bilangan pertama ($x$) ditambah bilangan kedua ($y$) hasilnya 20. Persamaan tersebut adalah ...",
+        "options": ["$2x + y = 20$", "$x + 2y = 20$", "$2(x+y) = 20$", "$x^2 + y = 20$"],
+        "correct": "a",
+        "explanation": "Terjemahkan kata per kata: \n'Dua kali bilangan pertama' $\\rightarrow 2x$. \n'Ditambah bilangan kedua' $\\rightarrow + y$. \n'Hasilnya 20' $\\rightarrow = 20$. \nGabungan: $2x + y = 20$."
+      },
+      {
+        "prompt": "Di parkiran terdapat motor ($M$) dan mobil ($L$). Jumlah total kendaraan adalah 10. Model matematikanya adalah ...",
+        "options": ["$M + L = 10$", "$M + 4L = 10$", "$2M + 4L = 10$", "$10(M+L)$"],
+        "correct": "a",
+        "explanation": "Soal ini menanyakan jumlah unit kendaraan, bukan jumlah roda. \nJadi, banyaknya motor ($M$) ditambah banyaknya mobil ($L$) adalah 10.\n$M + L = 10$."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "topic": "Hubungan Garis pada Koordinat",
+    "kisi_kisi": "Siswa dapat menentukan hubungan dua garis (sejajar/tegak lurus) berdasarkan koordinat titik yang dilalui.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Garis $g$ melalui $(3, 2)$ dan $(3, -1)$. Garis $h$ melalui $(-4, 5)$ dan $(1, 5)$. Hubungan garis $g$ dan $h$ adalah ...",
+        "options": ["Tegak Lurus", "Sejajar", "Berimpit", "Berpotongan tidak tegak lurus"],
+        "correct": "a",
+        "explanation": "Analisis koordinat: \nGaris $g$: Nilai $x$ selalu 3 (tetap). Ini adalah garis vertikal (sejajar sumbu Y). \nGaris $h$: Nilai $y$ selalu 5 (tetap). Ini adalah garis horizontal (sejajar sumbu X). \nGaris vertikal dan horizontal pasti saling **Tegak Lurus**."
+      },
+      {
+        "prompt": "Garis $k$ melalui $(0, -5)$ dan $(4, -5)$. Garis $l$ melalui $(-2, 1)$ dan $(5, 1)$. Hubungan $k$ dan $l$ adalah ...",
+        "options": ["Sejajar", "Tegak Lurus", "Berpotongan", "Berimpit"],
+        "correct": "a",
+        "explanation": "Garis $k$: Nilai $y = -5$ (Horizontal). \nGaris $l$: Nilai $y = 1$ (Horizontal). \nDua garis yang sama-sama horizontal adalah **Sejajar**."
+      },
+      {
+        "prompt": "Garis $m$ adalah garis $x=4$. Garis $n$ adalah garis $y=-2$. Hubungan $m$ dan $n$ adalah ...",
+        "options": ["Tegak Lurus", "Sejajar", "Berimpit", "Miring"],
+        "correct": "a",
+        "explanation": "$x=4$ adalah garis vertikal. \n$y=-2$ adalah garis horizontal. \nVertikal bertemu horizontal membentuk sudut 90 derajat (**Tegak Lurus**)."
+      },
+      {
+        "prompt": "Garis $p$ melalui $(1, 2)$ dan $(1, 8)$. Garis $q$ melalui $(3, 0)$ dan $(3, 6)$. Hubungan $p$ dan $q$ adalah ...",
+        "options": ["Sejajar", "Tegak Lurus", "Berpotongan", "Berimpit"],
+        "correct": "a",
+        "explanation": "Garis $p$: Nilai $x=1$ (Vertikal). \nGaris $q$: Nilai $x=3$ (Vertikal). \nDua garis yang sama-sama vertikal adalah **Sejajar**."
+      },
+      {
+        "prompt": "Dua garis saling tegak lurus. Jika salah satu garis sejajar sumbu X, maka garis yang lain harus ...",
+        "options": ["Sejajar sumbu Y", "Miring ke kanan", "Miring ke kiri", "Berpotongan dengan titik asal"],
+        "correct": "a",
+        "explanation": "Garis sejajar sumbu X itu mendatar (horizontal). \nAgar tegak lurus dengan garis mendatar, garis lainnya harus tegak (vertikal). \nGaris vertikal itu sejajar dengan sumbu Y."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "topic": "Tripel Pythagoras",
+    "kisi_kisi": "Siswa dapat mengidentifikasi kelompok tiga bilangan yang memenuhi teorema Pythagoras ($a^2 + b^2 = c^2$).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah kelompok bilangan di bawah ini yang BUKAN Tripel Pythagoras?",
+        "options": ["(5, 12, 14)", "(6, 8, 10)", "(7, 24, 25)", "(9, 12, 15)"],
+        "correct": "a",
+        "explanation": "Periksa opsi A: \n$5^2 + 12^2 = 25 + 144 = 169$. \n$14^2 = 196$. \nKarena $169 \\neq 196$, maka (5, 12, 14) **bukan** Tripel Pythagoras. \n(Opsi lain benar: $6^2+8^2=10^2$, dst)."
+      },
+      {
+        "prompt": "Jika 8, 15, $x$ adalah Tripel Pythagoras, maka nilai $x$ (sisi terpanjang) adalah ...",
+        "options": ["17", "16", "18", "19"],
+        "correct": "a",
+        "explanation": "Gunakan rumus Pythagoras: $c = \\sqrt{a^2 + b^2}$. \n$x = \\sqrt{8^2 + 15^2} = \\sqrt{64 + 225} = \\sqrt{289}$. \n$x = 17$."
+      },
+      {
+        "prompt": "Perhatikan kelompok bilangan: I. (3, 4, 5); II. (9, 12, 16); III. (5, 12, 13). Yang merupakan Tripel Pythagoras adalah ...",
+        "options": ["I dan III", "I dan II", "II dan III", "Hanya I"],
+        "correct": "a",
+        "explanation": "I: $3^2+4^2 = 9+16 = 25 = 5^2$ (Benar). \nII: $9^2+12^2 = 81+144 = 225$. $16^2=256$. (Salah, karena $225 \\neq 256$). \nIII: $5^2+12^2 = 25+144 = 169 = 13^2$ (Benar)."
+      },
+      {
+        "prompt": "Kelompok sisi 20, 21, dan $y$ membentuk segitiga siku-siku. Nilai $y$ yang paling mungkin (sisi miring) adalah ...",
+        "options": ["29", "25", "30", "28"],
+        "correct": "a",
+        "explanation": "$y = \\sqrt{20^2 + 21^2} = \\sqrt{400 + 441} = \\sqrt{841}$. \n$\\sqrt{841} = 29$."
+      },
+      {
+        "prompt": "Manakah pernyataan yang benar tentang Tripel Pythagoras?",
+        "options": ["Kuadrat sisi miring sama dengan jumlah kuadrat sisi lainnya", "Jumlah ketiga sisinya selalu genap", "Sisi miring adalah hasil kali dua sisi lainnya", "Selisih kuadrat sisi tegak adalah sisi miring"],
+        "correct": "a",
+        "explanation": "Definisi utama: Pada segitiga siku-siku, kuadrat sisi miring ($c^2$) sama dengan jumlah kuadrat sisi-sisi penyikunya ($a^2 + b^2$)."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "topic": "Aplikasi Sistem Persamaan Linear",
+    "kisi_kisi": "Siswa dapat menyelesaikan masalah sehari-hari dengan memodelkan dan menghitung nilai variabel dari SPLDV.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Keliling persegi panjang adalah 40 cm. Panjangnya 4 cm lebih dari lebarnya. Jika panjang = $P$ dan lebar = $L$, tentukan panjangnya ($P$)!",
+        "options": ["12 cm", "8 cm", "10 cm", "14 cm"],
+        "correct": "a",
+        "explanation": "1. Persamaan dari soal: $P = L + 4$. \n2. Rumus Keliling: $2(P+L) = 40 \\rightarrow P+L = 20$. \n3. Substitusi $P$: $(L+4) + L = 20 \\rightarrow 2L = 16 \\rightarrow L = 8$. \n4. Cari $P$: $P = 8 + 4 = 12$ cm."
+      },
+      {
+        "prompt": "Harga total 3 buku dan 1 pulpen adalah Rp11.000. Harga 1 pulpen adalah Rp2.000. Berapa harga 1 buku?",
+        "options": ["Rp3.000", "Rp4.000", "Rp2.500", "Rp3.500"],
+        "correct": "a",
+        "explanation": "Misal buku ($B$). \nPersamaan: $3B + 2.000 = 11.000$. \n$3B = 11.000 - 2.000 = 9.000$. \n$B = 9.000 / 3 = 3.000$."
+      },
+      {
+        "prompt": "Jumlah dua bilangan adalah 24. Bilangan pertama 2 kali bilangan kedua. Berapakah bilangan kedua?",
+        "options": ["8", "16", "12", "10"],
+        "correct": "a",
+        "explanation": "Misal bilangan itu $x$ dan $y$. \n1. $x + y = 24$. \n2. $x = 2y$. \nSubstitusi: $2y + y = 24 \\rightarrow 3y = 24 \\rightarrow y = 8$. \nBilangan kedua adalah 8."
+      },
+      {
+        "prompt": "Harga 4 kg apel ($A$) adalah Rp100.000. Berapakah harga 1 kg apel?",
+        "options": ["Rp25.000", "Rp20.000", "Rp30.000", "Rp40.000"],
+        "correct": "a",
+        "explanation": "Persamaan sederhana: $4A = 100.000$. \n$A = 100.000 / 4 = 25.000$."
+      },
+      {
+        "prompt": "Pak Ali memetik 15 buah mangga. Jumlah ini adalah 3 buah lebih sedikit dari jumlah mangga yang dipetik Pak Budi ($B$). Berapa jumlah mangga Pak Budi?",
+        "options": ["18", "12", "5", "15"],
+        "correct": "a",
+        "explanation": "Mangga Ali = Mangga Budi - 3. \n$15 = B - 3$. \n$B = 15 + 3 = 18$."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "topic": "Sifat Perpangkatan dan Eksponen Negatif",
+    "kisi_kisi": "Siswa dapat mengubah bentuk pangkat negatif menjadi pangkat positif dan sebaliknya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Bentuk $5^{-2}$ jika diubah menjadi pangkat positif adalah ...",
+        "options": ["$\\frac{1}{25}$", "$5^2$", "$-25$", "$\\frac{1}{5^{-2}}$"],
+        "correct": "a",
+        "explanation": "Sifat pangkat negatif: $a^{-n} = \\frac{1}{a^n}$. \nJadi, $5^{-2} = \\frac{1}{5^2} = \\frac{1}{25}$."
+      },
+      {
+        "prompt": "Hasil dari $\\frac{1}{3^3}$ jika ditulis dalam bentuk pangkat negatif adalah ...",
+        "options": ["$3^{-3}$", "$-3^3$", "$(-3)^3$", "$3^{-1/3}$"],
+        "correct": "a",
+        "explanation": "Kebalikan dari sifat sebelumnya: $\\frac{1}{a^n} = a^{-n}$. \n$\\frac{1}{3^3} = 3^{-3}$."
+      },
+      {
+        "prompt": "Nilai dari $4^{-1}$ adalah ...",
+        "options": ["$\\frac{1}{4}$", "$-4$", "$-1/4$", "$4$"],
+        "correct": "a",
+        "explanation": "$4^{-1} = \\frac{1}{4^1} = \\frac{1}{4}$."
+      },
+      {
+        "prompt": "Bentuk $k^{-5}$ sama dengan ...",
+        "options": ["$\\frac{1}{k^5}$", "$-k^5$", "$\\frac{5}{k}$", "$5^{-k}$"],
+        "correct": "a",
+        "explanation": "Pangkat negatif pada pembilang menjadi pangkat positif pada penyebut. \n$k^{-5} = \\frac{1}{k^5}$."
+      },
+      {
+        "prompt": "Hasil dari $\\frac{1}{2^{-3}}$ adalah ...",
+        "options": ["$8$", "$-8$", "$\\frac{1}{8}$", "$\\frac{1}{6}$"],
+        "correct": "a",
+        "explanation": "Jika pangkat negatif ada di penyebut, ia pindah ke pembilang menjadi positif. \n$\\frac{1}{2^{-3}} = 2^3 = 8$."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "topic": "Operasi Bentuk Akar",
+    "kisi_kisi": "Siswa dapat melakukan operasi penjumlahan dan pengurangan pada bentuk akar.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil dari $3\\sqrt{5} + 2\\sqrt{5}$ adalah ...",
+        "options": ["$5\\sqrt{5}$", "$6\\sqrt{5}$", "$5\\sqrt{10}$", "$5\\sqrt{25}$"],
+        "correct": "a",
+        "explanation": "Karena akarnya sejenis ($\\sqrt{5}$), cukup jumlahkan koefisiennya. \n$3 + 2 = 5$. Hasil akhirnya $5\\sqrt{5}$."
+      },
+      {
+        "prompt": "Hasil dari $7\\sqrt{3} - \\sqrt{3}$ adalah ...",
+        "options": ["$6\\sqrt{3}$", "$7$", "$6$", "$7\\sqrt{0}$"],
+        "correct": "a",
+        "explanation": "Ingat, $\\sqrt{3}$ memiliki koefisien 1. \nJadi $7\\sqrt{3} - 1\\sqrt{3} = (7-1)\\sqrt{3} = 6\\sqrt{3}$."
+      },
+      {
+        "prompt": "Sederhanakan $2\\sqrt{7} + 3\\sqrt{7} - 4\\sqrt{7}$!",
+        "options": ["$\\sqrt{7}$", "$5\\sqrt{7}$", "$-\\sqrt{7}$", "$1\\sqrt{21}$"],
+        "correct": "a",
+        "explanation": "Operasikan koefisien: $2 + 3 - 4 = 1$. \nHasilnya $1\\sqrt{7}$ atau ditulis $\\sqrt{7}$."
+      },
+      {
+        "prompt": "Bentuk sederhana dari $\\sqrt{20} + \\sqrt{5}$ adalah ...",
+        "options": ["$3\\sqrt{5}$", "$2\\sqrt{5}$", "$\\sqrt{25}$", "$3\\sqrt{20}$"],
+        "correct": "a",
+        "explanation": "Ubah $\\sqrt{20}$ menjadi bentuk sederhana: $\\sqrt{4 \\times 5} = 2\\sqrt{5}$. \nSekarang jumlahkan: $2\\sqrt{5} + 1\\sqrt{5} = 3\\sqrt{5}$."
+      },
+      {
+        "prompt": "Hasil dari $\\sqrt{18} - \\sqrt{8}$ adalah ...",
+        "options": ["$\\sqrt{2}$", "$2\\sqrt{2}$", "$3\\sqrt{2}$", "$\\sqrt{10}$"],
+        "correct": "a",
+        "explanation": "Sederhanakan dulu masing-masing akar: \n$\\sqrt{18} = \\sqrt{9 \\times 2} = 3\\sqrt{2}$. \n$\\sqrt{8} = \\sqrt{4 \\times 2} = 2\\sqrt{2}$. \nKurangkan: $3\\sqrt{2} - 2\\sqrt{2} = 1\\sqrt{2} = \\sqrt{2}$."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "topic": "Barisan Geometri (Soal Cerita)",
+    "kisi_kisi": "Siswa dapat menyelesaikan masalah pertumbuhan atau pembagian yang mengikuti pola barisan geometri.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Seutas tali dipotong menjadi 5 bagian yang membentuk barisan geometri. Jika potongan terpendek 4 cm dan potongan terpanjang 64 cm. Panjang tali semula adalah ...",
+        "options": ["124 cm", "128 cm", "120 cm", "100 cm"],
+        "correct": "a",
+        "explanation": "Diketahui: $n=5$, $U_1=4$, $U_5=64$. \nCari rasio ($r$): $4 \\times r^4 = 64 \\rightarrow r^4 = 16 \\rightarrow r=2$. \nBarisannya: 4, 8, 16, 32, 64. \nPanjang tali total = Jumlah semua potongan = $4+8+16+32+64 = 124$ cm."
+      },
+      {
+        "prompt": "Suku ke-2 barisan geometri adalah 6 dan suku ke-3 adalah 18. Suku ke-4 adalah ...",
+        "options": ["54", "30", "36", "48"],
+        "correct": "a",
+        "explanation": "Rasio ($r$) = $U_3 / U_2 = 18 / 6 = 3$. \nSuku ke-4 = $U_3 \\times r = 18 \\times 3 = 54$."
+      },
+      {
+        "prompt": "Populasi bakteri berlipat ganda (dikali 2) setiap jam. Jika mula-mula ada 10 bakteri, setelah 3 jam jumlahnya adalah ...",
+        "options": ["80", "40", "20", "160"],
+        "correct": "a",
+        "explanation": "Jam 0: 10. \nJam 1: $10 \\times 2 = 20$. \nJam 2: $20 \\times 2 = 40$. \nJam 3: $40 \\times 2 = 80$."
+      },
+      {
+        "prompt": "Barisan geometri 1, $\\frac{1}{2}, \\frac{1}{4}, ...$ Rasio barisan ini adalah ...",
+        "options": ["$\\frac{1}{2}$", "$2$", "$-1/2$", "$1$"],
+        "correct": "a",
+        "explanation": "Rasio = Suku ke-2 dibagi Suku ke-1. \n$r = \\frac{1}{2} : 1 = \\frac{1}{2}$."
+      },
+      {
+        "prompt": "Suku pertama barisan geometri adalah 3. Rasio adalah 4. Suku ke-4 adalah ...",
+        "options": ["192", "48", "64", "12"],
+        "correct": "a",
+        "explanation": "Rumus: $U_n = a \\times r^{n-1}$. \n$U_4 = 3 \\times 4^3 = 3 \\times 64 = 192$."
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "topic": "Jarak Titik ke Sumbu Koordinat",
+    "kisi_kisi": "Siswa dapat menentukan jarak sebuah titik terhadap sumbu X dan sumbu Y.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik $P(-5, 7)$. Jarak titik $P$ terhadap sumbu Y adalah ...",
+        "options": ["5 satuan", "7 satuan", "12 satuan", "-5 satuan"],
+        "correct": "a",
+        "explanation": "Jarak ke Sumbu Y ditentukan oleh nilai mutlak absis ($x$). \n$|-5| = 5$ satuan. (Jarak selalu positif)."
+      },
+      {
+        "prompt": "Jarak titik $Q(10, -3)$ terhadap sumbu X adalah ...",
+        "options": ["3 satuan", "10 satuan", "7 satuan", "-3 satuan"],
+        "correct": "a",
+        "explanation": "Jarak ke Sumbu X ditentukan oleh nilai mutlak ordinat ($y$). \n$|-3| = 3$ satuan."
+      },
+      {
+        "prompt": "Sebuah titik berjarak 4 satuan dari sumbu X dan 6 satuan dari sumbu Y. Titik yang mungkin adalah ...",
+        "options": ["(6, 4)", "(4, 6)", "(4, -6)", "(-4, -6)"],
+        "correct": "a",
+        "explanation": "Jarak ke sumbu X = 4 $\\rightarrow y = 4$ atau $-4$. \nJarak ke sumbu Y = 6 $\\rightarrow x = 6$ atau $-6$. \nKombinasi yang mungkin adalah (6, 4), (6, -4), (-6, 4), atau (-6, -4). Pilihan A benar."
+      },
+      {
+        "prompt": "Titik $R(a, b)$ berjarak 8 satuan dari sumbu X dan 3 satuan dari sumbu Y. Nilai $a$ yang mungkin adalah ...",
+        "options": ["3", "8", "-8", "11"],
+        "correct": "a",
+        "explanation": "Jarak ke sumbu Y adalah mutlak dari $a$ ($x$). \n$|a| = 3$, jadi $a$ bisa 3 atau -3."
+      },
+      {
+        "prompt": "Titik $S$ terletak pada kuadran III. Jika jaraknya ke sumbu X adalah 1, dan ke sumbu Y adalah 2, koordinat $S$ adalah ...",
+        "options": ["(-2, -1)", "(-1, -2)", "(2, -1)", "(-2, 1)"],
+        "correct": "a",
+        "explanation": "Kuadran III: $x$ negatif, $y$ negatif. \nJarak ke sumbu Y = 2 $\\rightarrow x = -2$. \nJarak ke sumbu X = 1 $\\rightarrow y = -1$. \nKoordinat: $(-2, -1)$."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "topic": "Jarak Antara Dua Titik",
+    "kisi_kisi": "Siswa dapat menghitung jarak antara dua titik pada bidang kartesius menggunakan rumus jarak.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Jarak antara titik $A(2, 1)$ dan $B(5, 5)$ adalah ...",
+        "options": ["5 satuan", "4 satuan", "7 satuan", "6 satuan"],
+        "correct": "a",
+        "explanation": "Gunakan rumus jarak: $\\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$. \n$\\sqrt{(5-2)^2 + (5-1)^2} = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$."
+      },
+      {
+        "prompt": "Jarak antara titik $P(-1, 3)$ dan $Q(2, 3)$ adalah ...",
+        "options": ["3 satuan", "4 satuan", "5 satuan", "6 satuan"],
+        "correct": "a",
+        "explanation": "Karena $y$ sama (sejajar sumbu X), cukup hitung selisih $x$. \n$2 - (-1) = 2 + 1 = 3$ satuan."
+      },
+      {
+        "prompt": "Jarak antara titik $K(0, 0)$ dan $L(-6, 8)$ adalah ...",
+        "options": ["10 satuan", "14 satuan", "12 satuan", "9 satuan"],
+        "correct": "a",
+        "explanation": "Jarak dari pusat $(0,0) = \\sqrt{x^2 + y^2}$. \n$\\sqrt{(-6)^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$."
+      },
+      {
+        "prompt": "Sebuah layangan berada di koordinat $(8, 12)$. Pemainnya berdiri di $(2, 4)$. Panjang benang layangan (jarak lurus) adalah ...",
+        "options": ["10 satuan", "14 satuan", "20 satuan", "15 satuan"],
+        "correct": "a",
+        "explanation": "Selisih $x = 8-2 = 6$. \nSelisih $y = 12-4 = 8$. \nJarak = $\\sqrt{6^2 + 8^2} = 10$."
+      },
+      {
+        "prompt": "Jika jarak titik $A(4, 5)$ dan $B(x, 5)$ adalah 7 satuan, maka nilai $x$ yang mungkin adalah ...",
+        "options": ["11", "12", "10", "13"],
+        "correct": "a",
+        "explanation": "Karena $y$ sama, jarak adalah selisih $x$. \n$x - 4 = 7 \\rightarrow x = 11$. \n(Atau bisa juga $x = 4 - 7 = -3$, tapi 11 ada di pilihan)."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "topic": "Notasi Ilmiah (Bentuk Baku)",
+    "kisi_kisi": "Siswa dapat mengubah bilangan biasa ke dalam bentuk baku (notasi ilmiah) dan sebaliknya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Bentuk baku dari $5.600.000$ adalah ...",
+        "options": ["$5,6 \\times 10^6$", "$56 \\times 10^5$", "$5,6 \\times 10^{-6}$", "$5,60 \\times 10^7$"],
+        "correct": "a",
+        "explanation": "Letakkan koma di antara 5 dan 6 agar hasilnya antara 1 dan 10. \nHitung jumlah angka di belakang koma baru tersebut (ada 6 angka). \nJadi $5,6 \\times 10^6$."
+      },
+      {
+        "prompt": "Notasi ilmiah dari $0,0000078$ adalah ...",
+        "options": ["$7,8 \\times 10^{-6}$", "$7,8 \\times 10^{6}$", "$78 \\times 10^{-7}$", "$0,78 \\times 10^{-5}$"],
+        "correct": "a",
+        "explanation": "Geser koma ke kanan sampai angka bukan nol pertama ($7,8$). \nPergeseran sebanyak 6 kali. Karena desimal kecil, pangkatnya negatif. \n$7,8 \\times 10^{-6}$."
+      },
+      {
+        "prompt": "Nilai dari $1,25 \\times 10^4$ adalah ...",
+        "options": ["$12.500$", "$125.000$", "$1.250$", "$0,000125$"],
+        "correct": "a",
+        "explanation": "Pangkat positif 4 berarti geser koma 4 kali ke kanan. \n$1,25 \\rightarrow 12,5 \\rightarrow 125 \\rightarrow 1250 \\rightarrow 12500$."
+      },
+      {
+        "prompt": "Tuliskan $0,000405$ dalam bentuk baku!",
+        "options": ["$4,05 \\times 10^{-4}$", "$4,05 \\times 10^4$", "$40,5 \\times 10^{-5}$", "$4,5 \\times 10^{-4}$"],
+        "correct": "a",
+        "explanation": "Geser koma 4 kali ke kanan agar menjadi 4,05. \nKarena bilangan kecil, pangkat negatif. \n$4,05 \\times 10^{-4}$."
+      },
+      {
+        "prompt": "Jarak bumi ke matahari sekitar $150.000.000$ km. Notasi ilmiahnya adalah ...",
+        "options": ["$1,5 \\times 10^8$", "$1,5 \\times 10^9$", "$15 \\times 10^7$", "$1,5 \\times 10^{-8}$"],
+        "correct": "a",
+        "explanation": "Geser koma ke kiri sebanyak 8 kali (sampai 1,5). \nJadi $1,5 \\times 10^8$."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "topic": "Suku ke-n Barisan Aritmetika",
+    "kisi_kisi": "Siswa dapat menentukan suku ke-n dari suatu barisan aritmetika.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Suku ke-10 dari barisan 5, 8, 11, 14, ... adalah ...",
+        "options": ["32", "30", "35", "29"],
+        "correct": "a",
+        "explanation": "Diketahui $a=5$, beda ($b$) = 3. \nRumus: $U_n = a + (n-1)b$. \n$U_{10} = 5 + (9 \\times 3) = 5 + 27 = 32$."
+      },
+      {
+        "prompt": "Diketahui barisan 20, 16, 12, 8, ... Suku ke-15 adalah ...",
+        "options": ["-36", "-40", "36", "40"],
+        "correct": "a",
+        "explanation": "Diketahui $a=20$, beda ($b$) = -4 (menurun). \n$U_{15} = 20 + (14 \\times -4) = 20 + (-56) = -36$."
+      },
+      {
+        "prompt": "Rumus suku ke-n dari barisan 2, 4, 6, 8, ... adalah ...",
+        "options": ["$2n$", "$n+2$", "$2n-2$", "$n^2$"],
+        "correct": "a",
+        "explanation": "Barisan bilangan genap rumusnya $2n$. \nCek: $n=1 \\rightarrow 2(1)=2$. $n=2 \\rightarrow 2(2)=4$. (Benar)."
+      },
+      {
+        "prompt": "Barisan aritmetika dengan suku pertama 7 dan beda 5. Suku ke-20 adalah ...",
+        "options": ["102", "100", "107", "98"],
+        "correct": "a",
+        "explanation": "$U_{20} = 7 + (19 \\times 5) = 7 + 95 = 102$."
+      },
+      {
+        "prompt": "Pada barisan 4, 11, 18, 25, ..., angka 74 adalah suku ke ...",
+        "options": ["11", "10", "12", "13"],
+        "correct": "a",
+        "explanation": "$U_n = 74$, $a=4$, $b=7$. \n$74 = 4 + (n-1)7$. \n$70 = (n-1)7$. \n$10 = n-1 \\rightarrow n = 11$."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "topic": "Pembuat Nol Fungsi Kuadrat",
+    "kisi_kisi": "Siswa dapat menentukan pembuat nol (akar-akar persamaan) dari fungsi kuadrat.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Pembuat nol dari fungsi $f(x) = x^2 - 5x + 6$ adalah ...",
+        "options": ["$x=2$ dan $x=3$", "$x=-2$ dan $x=-3$", "$x=1$ dan $x=6$", "$x=-1$ dan $x=-6$"],
+        "correct": "a",
+        "explanation": "Cari faktor dari 6 yang jika dijumlah hasilnya -5 (yaitu -2 dan -3). \n$(x-2)(x-3)=0$. \n$x=2$ atau $x=3$."
+      },
+      {
+        "prompt": "Salah satu pembuat nol fungsi $y = x^2 - 9$ adalah ...",
+        "options": ["3", "9", "0", "1"],
+        "correct": "a",
+        "explanation": "$x^2 - 9 = 0 \\rightarrow (x-3)(x+3) = 0$. \nAkar-akarnya adalah 3 dan -3. Pilihan yang tersedia adalah 3."
+      },
+      {
+        "prompt": "Grafik fungsi $y = x^2 - 4x$ memotong sumbu X di titik ...",
+        "options": ["(0,0) dan (4,0)", "(0,0) dan (-4,0)", "(2,0) dan (-2,0)", "(4,0) dan (-4,0)"],
+        "correct": "a",
+        "explanation": "Pembuat nol: $x(x-4) = 0$. \n$x=0$ atau $x=4$. \nTitik potongnya (0,0) dan (4,0)."
+      },
+      {
+        "prompt": "Akar-akar dari persamaan $2x^2 + 5x - 3 = 0$ adalah ...",
+        "options": ["$1/2$ dan $-3$", "$-1/2$ dan $3$", "$1$ dan $-3$", "$2$ dan $-3$"],
+        "correct": "a",
+        "explanation": "Faktorkan: $(2x-1)(x+3) = 0$. \n$2x=1 \\rightarrow x=1/2$. \n$x+3=0 \\rightarrow x=-3$."
+      },
+      {
+        "prompt": "Pembuat nol fungsi $f(x) = x^2 + 6x + 9$ adalah ...",
+        "options": ["-3", "3", "9", "-9"],
+        "correct": "a",
+        "explanation": "Faktorkan: $(x+3)(x+3) = 0$. \nHanya ada satu akar kembar, yaitu $x = -3$."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "topic": "Penyelesaian SPLDV (Eliminasi/Substitusi)",
+    "kisi_kisi": "Siswa dapat menentukan himpunan penyelesaian dari dua persamaan linear.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Himpunan penyelesaian dari $x + y = 5$ dan $x - y = 1$ adalah ...",
+        "options": ["{(3, 2)}", "{(2, 3)}", "{(4, 1)}", "{(5, 0)}"],
+        "correct": "a",
+        "explanation": "Eliminasi: Jumlahkan kedua persamaan. \n$2x = 6 \\rightarrow x = 3$. \nSubstitusi $x=3$ ke $x+y=5$: \n$3 + y = 5 \\rightarrow y = 2$. \nHP = {(3, 2)}."
+      },
+      {
+        "prompt": "Jika $2x + y = 8$ dan $x = 2$, maka nilai $y$ adalah ...",
+        "options": ["4", "2", "6", "3"],
+        "correct": "a",
+        "explanation": "Substitusi langsung $x=2$ ke persamaan pertama. \n$2(2) + y = 8$. \n$4 + y = 8 \\rightarrow y = 4$."
+      },
+      {
+        "prompt": "Nilai $x$ dan $y$ yang memenuhi $3x + y = 7$ dan $x + y = 3$ berturut-turut adalah ...",
+        "options": ["2 dan 1", "1 dan 2", "3 dan 0", "0 dan 3"],
+        "correct": "a",
+        "explanation": "Kurangkan persamaan atas dengan bawah: \n$2x = 4 \\rightarrow x = 2$. \nSubstitusi ke $x+y=3$: \n$2 + y = 3 \\rightarrow y = 1$."
+      },
+      {
+        "prompt": "Titik potong antara garis $2x - y = 4$ dan $x + y = 5$ adalah ...",
+        "options": ["(3, 2)", "(2, 3)", "(3, -2)", "(4, 1)"],
+        "correct": "a",
+        "explanation": "Jumlahkan kedua persamaan: \n$3x = 9 \\rightarrow x = 3$. \nSubstitusi ke $x+y=5$: \n$3 + y = 5 \\rightarrow y = 2$."
+      },
+      {
+        "prompt": "Diketahui $y = 2x$ dan $x + y = 12$. Nilai $x$ adalah ...",
+        "options": ["4", "6", "3", "8"],
+        "correct": "a",
+        "explanation": "Substitusi $y$ dengan $2x$: \n$x + (2x) = 12$. \n$3x = 12 \\rightarrow x = 4$."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "topic": "Sifat Grafik Fungsi Kuadrat",
+    "kisi_kisi": "Siswa dapat menentukan arah bukaan grafik (parabola) berdasarkan nilai koefisien a.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Grafik fungsi kuadrat $f(x) = x^2 + 5x + 6$ akan membuka ke arah ...",
+        "options": ["Atas", "Bawah", "Kanan", "Kiri"],
+        "correct": "a",
+        "explanation": "Lihat koefisien $x^2$ ($a$). Di sini $a = 1$ (positif). \nJika $a > 0$, grafik terbuka ke **Atas** (seperti huruf U)."
+      },
+      {
+        "prompt": "Fungsi $y = -2x^2 + 3x - 1$ memiliki grafik yang terbuka ke ...",
+        "options": ["Bawah", "Atas", "Kanan", "Kiri"],
+        "correct": "a",
+        "explanation": "Koefisien $x^2$ adalah -2 (negatif). \nJika $a < 0$, grafik terbuka ke **Bawah** (seperti huruf n)."
+      },
+      {
+        "prompt": "Manakah fungsi berikut yang grafiknya terbuka ke bawah?",
+        "options": ["$y = 5 - x^2$", "$y = x^2 - 5$", "$y = 2x^2 + 3$", "$y = (x+1)^2$"],
+        "correct": "a",
+        "explanation": "Cari yang koefisien $x^2$-nya negatif. \nPilihan A: $y = -x^2 + 5$. ($a = -1$). Benar."
+      },
+      {
+        "prompt": "Jika grafik fungsi kuadrat terbuka ke atas dan memotong sumbu Y negatif, contoh fungsinya adalah ...",
+        "options": ["$y = x^2 - 4$", "$y = -x^2 - 4$", "$y = x^2 + 4$", "$y = -x^2 + 4$"],
+        "correct": "a",
+        "explanation": "Terbuka ke atas $\\rightarrow a > 0$. (Opsi A dan C). \nMemotong Y negatif $\\rightarrow c < 0$. (Opsi A, $c=-4$). \nJadi jawabannya A."
+      },
+      {
+        "prompt": "Fungsi $f(x) = ax^2 + bx + c$ memiliki nilai minimum jika ...",
+        "options": ["$a > 0$", "$a < 0$", "$a = 0$", "$c > 0$"],
+        "correct": "a",
+        "explanation": "Nilai minimum terjadi di titik puncak lembah, yang berarti grafik harus terbuka ke **Atas**. \nSyaratnya $a > 0$."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "topic": "Menghitung Sisi Segitiga Siku-siku",
+    "kisi_kisi": "Siswa dapat menghitung panjang sisi segitiga siku-siku yang belum diketahui menggunakan teorema Pythagoras.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah segitiga siku-siku memiliki alas 6 cm dan tinggi 8 cm. Panjang sisi miringnya adalah ...",
+        "options": ["10 cm", "14 cm", "12 cm", "9 cm"],
+        "correct": "a",
+        "explanation": "Rumus: $c = \\sqrt{a^2 + b^2}$. \n$c = \\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$."
+      },
+      {
+        "prompt": "Sisi miring sebuah segitiga adalah 13 cm. Salah satu sisi siku-sikunya 12 cm. Panjang sisi siku-siku lainnya adalah ...",
+        "options": ["5 cm", "6 cm", "7 cm", "8 cm"],
+        "correct": "a",
+        "explanation": "Rumus sisi tegak: $a = \\sqrt{c^2 - b^2}$. \n$a = \\sqrt{13^2 - 12^2} = \\sqrt{169 - 144} = \\sqrt{25} = 5$."
+      },
+      {
+        "prompt": "Sebuah tangga panjangnya 10 m disandarkan ke tembok. Jarak kaki tangga ke tembok 6 m. Tinggi tembok yang dicapai ujung tangga adalah ...",
+        "options": ["8 m", "7 m", "9 m", "5 m"],
+        "correct": "a",
+        "explanation": "Tinggi = $\\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8$ m."
+      },
+      {
+        "prompt": "Kapal berlayar 15 km ke Utara, lalu 8 km ke Timur. Jarak kapal dari titik awal adalah ...",
+        "options": ["17 km", "23 km", "20 km", "16 km"],
+        "correct": "a",
+        "explanation": "Sisi miring = $\\sqrt{15^2 + 8^2} = \\sqrt{225 + 64} = \\sqrt{289} = 17$ km."
+      },
+      {
+        "prompt": "Diagonal sebuah persegi panjang dengan panjang 12 cm dan lebar 9 cm adalah ...",
+        "options": ["15 cm", "13 cm", "21 cm", "18 cm"],
+        "correct": "a",
+        "explanation": "Diagonal = $\\sqrt{12^2 + 9^2} = \\sqrt{144 + 81} = \\sqrt{225} = 15$ cm."
+      }
+    ]
+  }
 ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAS Matematika Kelas 8 - Mode Ganda Sederhana</title>
+    <title>SAS Matematika Kelas 8</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,71 +17,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         
         .fade-enter { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Navigation Grid Buttons */
         .nav-btn { transition: all 0.2s; }
-        .nav-btn.active { ring-width: 2px; ring-color: #4f46e5; transform: scale(1.1); z-index: 10; }
+        .nav-btn.active { ring-width: 3px; ring-offset-width: 2px; transform: scale(1.1); z-index: 10; }
         
-        /* Exam Mode Colors */
-        .nav-btn.exam-answered { background-color: #3b82f6; color: white; border-color: #3b82f6; }
-        .nav-btn.exam-marked { background-color: #eab308; color: white; border-color: #eab308; }
-        
-        /* Drill Mode Colors (Instant Feedback) */
-        .nav-btn.drill-correct { background-color: #22c55e; color: white; border-color: #22c55e; }
-        .nav-btn.drill-incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
-        
-        .nav-btn.unanswered { background-color: white; color: #64748b; border-color: #e2e8f0; }
+        /* Mode Scrollbars */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
 
+        /* --- THEME OVERRIDES (Warm Theme) --- */
+        body.theme-warm { background-color: #fffde7; color: #3e2723; } /* Yellow-50 bg, Brown text */
+        
+        /* Header & Cards */
+        .theme-warm header { background-color: rgba(255, 253, 231, 0.95); border-bottom-color: #ffe082; }
+        .theme-warm .bg-white { background-color: #ffffff; border-color: #ffe0b2; }
+        .theme-warm .bg-slate-100 { background-color: #fff9c4; } /* Lighter yellow for overall bg */
+        
+        /* Text Colors */
+        .theme-warm .text-indigo-900 { color: #3e2723; } /* Dark Brown */
+        .theme-warm .text-indigo-700 { color: #5d4037; } /* Medium Brown */
+        .theme-warm .text-slate-800 { color: #4e342e; }
+        .theme-warm .text-slate-600 { color: #795548; }
+        .theme-warm .text-slate-500 { color: #8d6e63; }
+
+        /* Primary Actions (Indigo -> Orange/Amber) */
+        .theme-warm .bg-indigo-600 { background-color: #fb8c00; } /* Orange 600 */
+        .theme-warm .bg-indigo-600:hover { background-color: #f57c00; }
+        .theme-warm .bg-indigo-100 { background-color: #ffe0b2; color: #e65100; }
+        .theme-warm .text-indigo-600 { color: #e65100; }
+        .theme-warm .border-indigo-200 { border-color: #ffcc80; }
+        .theme-warm .ring-indigo-600 { --tw-ring-color: #fb8c00; }
+        .theme-warm .hover\:bg-indigo-100:hover { background-color: #ffe0b2; }
+
+        /* Secondary Actions (Emerald -> Green/Olive) - Keep similar or adjust to match warm tone */
+        .theme-warm .bg-emerald-50 { background-color: #f1f8e9; color: #33691e; border-color: #c5e1a5; }
+        .theme-warm .bg-emerald-100 { background-color: #dcedc8; }
+        .theme-warm .bg-emerald-600 { background-color: #7cb342; } /* Light Green 600 */
+        
+        /* Nav Grid in Warm Theme */
+        .theme-warm .nav-btn.active { ring-color: #fb8c00; }
+        .theme-warm .nav-btn.exam-answered { background-color: #ffb74d; border-color: #ffb74d; color: #3e2723; } /* Orange 300 */
+        
+        /* Inputs */
+        .theme-warm input[type="text"] { background-color: #fffdf5; border-color: #ffe0b2; }
+        .theme-warm input[type="text"]:focus { border-color: #fb8c00; --tw-ring-color: #fb8c00; }
+
+        /* SVG Icons Styling Fix for Theme */
         .q-image-container {
             display: flex;
             justify-content: center;
             margin: 1rem 0;
-            background: #f8fafc;
+            background: #f8fafc; /* Default */
             padding: 1rem;
             border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
         }
-        .q-image {
-            max-width: 100%;
-            max-height: 200px;
-            height: auto;
-        }
-        
+        .theme-warm .q-image-container { background-color: #fffdeb; border-color: #fff9c4; }
+        .q-image { max-width: 100%; max-height: 200px; height: auto; }
+
         /* Debug Nav Button */
-        .debug-nav-btn {
-            transition: all 0.15s;
-            text-align: left;
-            padding: 8px 12px;
-        }
-        .debug-nav-btn.debug-active {
-            background-color: #4f46e5;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        }
+        .debug-nav-btn { transition: all 0.15s; text-align: left; padding: 8px 12px; }
+        .debug-nav-btn.debug-active { background-color: #4f46e5; color: white; font-weight: 600; }
+        
+        /* Debug Nav Theme Warm */
+        .theme-warm .debug-nav-btn.debug-active { background-color: #fb8c00; color: white; }
+        .theme-warm .debug-nav-btn:hover:not(.debug-active) { background-color: #ffe0b2; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center py-6 px-4 md:px-8">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center py-6 px-4 md:px-8 transition-colors">
 
     <!-- Header -->
-    <header class="w-full max-w-4xl flex justify-between items-center mb-6 z-50 sticky top-0 bg-slate-100/95 backdrop-blur py-4 border-b border-slate-200/50">
-        <div>
-            <h1 class="text-xl md:text-2xl font-bold text-indigo-900 cursor-pointer" onclick="goToStartScreen()">SAS Matematika Kelas 8</h1>
-            <p id="mode-display" class="text-sm text-slate-500 font-medium">Pilih Mode</p>
+    <header class="w-full max-w-4xl flex flex-wrap justify-between items-center mb-6 z-50 sticky top-0 bg-slate-100/95 backdrop-blur py-4 border-b border-slate-200/50 transition-colors">
+        <div class="flex items-center gap-4">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-indigo-900 cursor-pointer hover:opacity-80" onclick="goToStartScreen()">SAS Matematika</h1>
+                <p id="mode-display" class="text-sm text-slate-500 font-medium">Pilih Mode</p>
+            </div>
         </div>
-        <div class="flex gap-2 items-center">
+        
+        <div class="flex gap-2 items-center mt-2 md:mt-0">
+            <!-- Theme Switcher -->
+            <button onclick="toggleTheme()" class="p-2 rounded-full bg-white border border-slate-300 shadow-sm hover:bg-slate-50 text-xl" title="Ganti Tema">
+                🎨
+            </button>
+
             <!-- Timer Display -->
-            <div id="timer-display" class="text-base font-bold text-red-600 bg-red-100 py-1 px-3 rounded-lg shadow hidden">
+            <div id="timer-display" class="text-base font-bold text-red-600 bg-red-100 py-2 px-3 rounded-lg shadow hidden">
                 00:00:00
             </div>
-            <!-- Dedicated Finish Exam button (hidden in drill mode) -->
+            
+            <!-- Dedicated Finish Exam button -->
             <button id="btn-finish-exam" onclick="showConfirmationModal()" class="hidden bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
-                Selesaikan Ujian
+                Selesai
             </button>
+            
             <button id="btn-home" onclick="goToStartScreen()" class="hidden bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-sm font-semibold py-2 px-4 rounded-lg transition">
                 Beranda
             </button>
@@ -92,36 +127,37 @@
     <div id="start-screen" class="w-full max-w-4xl grid md:grid-cols-2 gap-6 fade-enter">
         
         <!-- Exam Mode Card -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-indigo-300 transition-all group cursor-pointer" onclick="startExamMode()">
-            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">📝</div>
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-indigo-300 transition-all group cursor-pointer transform hover:-translate-y-1" onclick="startExamMode()">
+            <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">📝</div>
             <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Ujian</h2>
-            <p class="text-slate-500 mb-6">Simulasikan ujian sesungguhnya. Jawab semua soal, tandai yang ragu, dan lihat skor Anda di akhir.</p>
+            <p class="text-slate-500 mb-6 text-sm leading-relaxed">Simulasikan ujian sesungguhnya. Jawab semua soal, tandai yang ragu, dan lihat skor Anda di akhir.</p>
             <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md shadow-indigo-200">
-                Mulai Ujian Penuh
+                Mulai Ujian
             </button>
         </div>
 
         <!-- Drill Mode Card -->
         <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-emerald-300 transition-all group">
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition-transform">🎯</div>
-            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Latihan (Drill)</h2>
-            <p class="text-slate-500 mb-6">Kuasai topik tertentu. Pilih nomor soal untuk berlatih variasi tak terbatas dengan umpan balik instan.</p>
+            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">🎯</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Latihan</h2>
+            <p class="text-slate-500 mb-6 text-sm leading-relaxed">Kuasai topik tertentu. Pilih nomor soal untuk berlatih variasi tak terbatas dengan umpan balik instan.</p>
             
             <div class="grid grid-cols-5 gap-2 mb-4">
                 <!-- Buttons injected via JS -->
                 <div id="drill-buttons" class="contents"></div>
             </div>
-            <p class="text-xs text-center text-slate-400">Pilih nomor soal untuk memulai latihan</p>
+            <p class="text-xs text-center text-slate-400 font-medium">Pilih nomor soal untuk mulai</p>
         </div>
         
-        <!-- Debug Mode Section (Conditional Display) -->
-        <div id="debug-section" class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mt-4">
-            <h3 class="text-xl font-bold text-slate-800 mb-4">Mode Utilitas</h3>
-            <div class="flex flex-wrap gap-4">
-                <button onclick="startDebugMode()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-xl transition shadow-md">
-                    🔧 Tampilkan Semua Soal (Debug Mode)
-                </button>
+        <!-- Debug Mode Section -->
+        <div id="debug-section" class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mt-2 flex justify-between items-center">
+            <div>
+                <h3 class="text-lg font-bold text-slate-800">Mode Utilitas</h3>
+                <p class="text-xs text-slate-500">Alat untuk guru/pengembang memeriksa konten.</p>
             </div>
+            <button onclick="startDebugMode()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-xl transition shadow-md text-sm">
+                🔧 Debug Mode
+            </button>
         </div>
     </div>
 
@@ -129,8 +165,8 @@
     <div id="quiz-interface" class="hidden flex flex-col md:flex-row gap-6 w-full max-w-4xl flex-grow pb-20">
         
         <!-- Main Question Area -->
-        <main class="flex-grow w-full md:w-2/3">
-            <div id="question-card" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 min-h-[400px] relative">
+        <main class="flex-grow w-full md:w-3/4">
+            <div id="question-card" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 min-h-[400px] relative transition-colors">
                 <!-- Content injected via JS -->
             </div>
 
@@ -139,11 +175,11 @@
                 <!-- Previous Button -->
                 <button id="btn-prev" onclick="changeQuestion(-1)" class="hidden w-full md:w-auto items-center justify-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">← Sebelumnya</button>
                 
-                <!-- Action Buttons Area (Center) -->
-                <div class="flex flex-wrap justify-center gap-3 w-full md:w-auto">
+                <!-- Action Buttons Area -->
+                <div class="flex flex-wrap justify-center gap-3 w-full md:w-auto order-first md:order-none mb-2 md:mb-0">
                     <!-- Exam: Mark For Review -->
-                    <button id="btn-mark" onclick="toggleMark()" class="hidden bg-yellow-100 hover:bg-yellow-200 text-yellow-700 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition">
-                        Tunda / Ragu-ragu
+                    <button id="btn-mark" onclick="toggleMark()" class="hidden bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition">
+                        Tunda / Ragu
                     </button>
                     
                     <!-- Drill: Check Answer -->
@@ -163,40 +199,38 @@
             </div>
         </main>
 
-        <!-- Sidebar (Now visible in both modes) -->
-        <aside id="sidebar" class="hidden w-full md:w-1/3 flex flex-col gap-4">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">NAVIGATOR SOAL</h3>
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="hidden w-full md:w-1/4 flex flex-col gap-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sticky top-24 transition-colors max-h-[80vh] overflow-y-auto custom-scroll">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">NAVIGATOR</h3>
                 <div id="nav-grid" class="grid grid-cols-5 gap-2"></div>
                 
-                <!-- Legend changes based on mode -->
+                <!-- Legends -->
                 <div id="legend-exam" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Terjawab</div>
-                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-500 rounded-full"></div> Ditandai</div>
-                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Belum</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-500 rounded-full"></div> Ragu-ragu</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Kosong</div>
                 </div>
-                
                 <div id="legend-drill" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-green-500 rounded-full"></div> Benar</div>
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-red-500 rounded-full"></div> Salah</div>
-                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Belum</div>
                 </div>
             </div>
         </aside>
 
     </div>
 
-    <!-- REVIEW INTERFACE (Full List) -->
+    <!-- REVIEW INTERFACE -->
     <div id="review-interface" class="hidden w-full max-w-4xl space-y-6 pb-20"></div>
 
-    <!-- DEBUG INTERFACE (Scrollable List with Sidebar) -->
-    <div id="debug-interface" class="hidden w-full max-w-4xl flex flex-col md:flex-row gap-6 pb-20">
+    <!-- DEBUG INTERFACE -->
+    <div id="debug-interface" class="hidden w-full max-w-5xl flex flex-col md:flex-row gap-6 pb-20">
         <!-- Sidebar Navigation for Debug -->
         <aside class="w-full md:w-1/4">
-            <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 sticky top-24">
-                <h3 class="text-sm font-bold text-indigo-700 uppercase tracking-wider mb-3 border-b pb-2">Navigasi Debug</h3>
-                <div id="debug-nav-sidebar" class="space-y-1 max-h-[80vh] overflow-y-auto">
-                    <!-- Nav buttons injected here -->
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 sticky top-24 max-h-[80vh] overflow-y-auto custom-scroll">
+                <h3 class="text-sm font-bold text-indigo-700 uppercase tracking-wider mb-3 border-b pb-2">Daftar Soal</h3>
+                <div id="debug-nav-sidebar" class="space-y-1">
+                    <!-- Simplified Nav buttons (Question level) -->
                 </div>
             </div>
         </aside>
@@ -204,8 +238,8 @@
         <!-- Main Content for Debug -->
         <main class="w-full md:w-3/4">
             <h2 class="text-3xl font-bold text-indigo-700 mb-2">Debug Mode</h2>
-            <p class="text-slate-600 mb-6">Menampilkan semua variasi soal secara linear.</p>
-            <div id="debug-list-container" class="space-y-6">
+            <p class="text-slate-600 mb-6">Menampilkan semua variasi soal.</p>
+            <div id="debug-list-container" class="space-y-8">
                 <!-- Question cards injected here -->
             </div>
         </main>
@@ -213,109 +247,58 @@
 
     <!-- Confirmation Modal -->
     <div id="confirmation-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center">
-            <div class="text-4xl mb-4 text-red-500">⚠️</div>
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center border-t-4 border-red-500">
             <h2 class="text-xl font-bold mb-2 text-slate-800">Selesaikan Ujian?</h2>
-            <p class="text-slate-500 mb-6">Jawaban Anda akan dikirim dan tidak dapat diubah lagi.</p>
+            <p class="text-slate-500 mb-6">Jawaban akan dikirim dan waktu akan berhenti.</p>
             <div class="flex gap-3 justify-center">
-                <button onclick="hideConfirmationModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
-                    Batal
-                </button>
-                <button onclick="finishExam()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition">
-                    Ya
-                </button>
+                <button onclick="hideConfirmationModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">Batal</button>
+                <button onclick="finishExam()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-md">Ya, Kirim</button>
             </div>
         </div>
     </div>
 
     <!-- Results Modal -->
     <div id="result-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transform scale-100 transition-all">
             <div id="score-icon" class="text-6xl mb-4">🎉</div>
             <h2 class="text-2xl font-bold mb-2 text-slate-800">Ujian Selesai</h2>
             <div id="score-display" class="text-5xl font-black text-indigo-600 mb-2">0%</div>
-            <p id="score-text" class="text-slate-500 mb-8">Anda menjawab X dengan benar.</p>
+            <p id="score-text" class="text-slate-500 mb-8">Hasil Anda.</p>
             <div class="flex gap-3 justify-center">
-                <button onclick="enterReviewMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">
-                    Tinjau
-                </button>
-                <button onclick="goToStartScreen()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl transition">
-                    Beranda
-                </button>
+                <button onclick="enterReviewMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">Tinjau</button>
+                <button onclick="goToStartScreen()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl transition">Beranda</button>
             </div>
         </div>
     </div>
 
     <script>
-        // *** GLOBAL TOGGLE VARIABLE ***
-        const SHOW_DEBUG_MODE = true; 
-        // Set to 'false' to hide the 'Debug Mode' button on the start screen.
-
+        // *** CONFIGURATION ***
+        const SHOW_DEBUG_MODE = true; // Set to false to hide debug button in production
         const EXAM_DURATION_MINUTES = 60;
 
-        // --- FALLBACK DATA (Used if questions.json fetch fails) ---
-        const fallbackQuestionData = [
-            {
-                "id": 1,
-                "type": "mcq",
-                "variations": [
-                    { "prompt": "$5^3$ dalam bentuk perkalian:", "options": ["$5\\times3$", "$5\\times5\\times5$", "$3\\times3\\times3\\times3\\times3$", "$5+5+5$"], "correct": "b", "explanation": "$5^3$ artinya 5 dikalikan 3 kali." },
-                    { "prompt": "$2^4$ dalam bentuk perkalian:", "options": ["$2\\times4$", "$2\\times2\\times2\\times2$", "$4\\times4$", "$4\\times2$"], "correct": "b", "explanation": "$2^4$ artinya 2 dikalikan 4 kali." }
-                ]
-            },
-            {
-                "id": 2,
-                "type": "mcq",
-                "variations": [
-                    { "prompt": "Jika $\\sqrt{x} = 7$, berapakah nilai $x$?", "options": ["14", "49", "21", "3.5"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 7^2 = 49$." },
-                    { "prompt": "Jika $\\sqrt{x} = 9$, berapakah nilai $x$?", "options": ["18", "81", "3", "27"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 9^2 = 81$." }
-                ]
-            },
-            {
-                "id": 3,
-                "type": "mcq",
-                "variations": [
-                    { "prompt": "Lanjutan pola bilangan 6, 9, 12, ... adalah?", "options": ["15, 18", "15, 21", "13, 14", "18, 24"], "correct": "a", "explanation": "Pola ini adalah barisan aritmatika dengan beda +3." }
-                ]
+        // --- THEME LOGIC ---
+        let isWarmTheme = false;
+        function toggleTheme() {
+            isWarmTheme = !isWarmTheme;
+            if (isWarmTheme) {
+                document.body.classList.add('theme-warm');
+            } else {
+                document.body.classList.remove('theme-warm');
             }
+        }
+
+        // --- FALLBACK DATA ---
+        const fallbackQuestionData = [
+            { id: 1, type: "mcq", variations: [{ "prompt": "$5^3$ dalam bentuk perkalian:", "options": ["$5\\times3$", "$5\\times5\\times5$", "$3\\times3\\times3\\times3\\times3$", "$5+5+5$"], "correct": "b", "explanation": "$5^3$ artinya 5 dikalikan 3 kali." }, { "prompt": "$2^4$ dalam bentuk perkalian:", "options": ["$2\\times4$", "$2\\times2\\times2\\times2$", "$4\\times4$", "$4\\times2$"], "correct": "b", "explanation": "$2^4$ artinya 2 dikalikan 4 kali." }] },
+            { id: 2, type: "mcq", variations: [{ "prompt": "Jika $\\sqrt{x} = 7$, berapakah nilai $x$?", "options": ["14", "49", "21", "3.5"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 7^2 = 49$." }] }
         ];
 
-        // --- HELPER: SVG GENERATORS ---
-        const createCoordSVG = (x, y, label) => {
-            return `
-            <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-                <defs><pattern id="grid" width="1" height="1" patternUnits="userSpaceOnUse"><path d="M 1 0 L 0 0 0 1" fill="none" stroke="#cbd5e1" stroke-width="0.05"/></pattern></defs>
-                <rect width="16" height="16" x="-8" y="-8" fill="url(#grid)" />
-                <line x1="-8" y1="0" x2="8" y2="0" stroke="#475569" stroke-width="0.15" />
-                <line x1="0" y1="-8" x2="0" y2="8" stroke="#475569" stroke-width="0.15" />
-                <circle cx="${x}" cy="${-y}" r="0.3" fill="#ef4444" />
-                <text x="${x + 0.5}" y="${-y - 0.5}" font-size="1" fill="#1e293b" font-family="sans-serif">${label}</text>
-            </svg>`;
-        };
-
-        const createTriangleSVG = (b, h, hyp) => {
-            // Scale factors applied to make it look decent and fill the viewBox without relying on complex calculations
-            const scale = 80 / Math.max(b, h);
-            const scaledB = b * scale;
-            const scaledH = h * scale;
-
-            // Offset to ensure the triangle is visible and centered roughly
-            const offsetX = 10;
-            const offsetY = 90;
-
-            return `
-            <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-                <path d="M ${offsetX} ${offsetY} L ${offsetX + scaledB} ${offsetY} L ${offsetX} ${offsetY - scaledH} Z" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
-                <!-- Labels -->
-                <text x="${offsetX + scaledB / 2}" y="${offsetY + 8}" font-size="8" text-anchor="middle">${b} cm</text>
-                <text x="${offsetX - 5}" y="${offsetY - scaledH / 2}" font-size="8" text-anchor="end">${h} cm</text>
-                <!-- Hypotenuse label -->
-                <text x="${offsetX + scaledB / 2 + 5}" y="${offsetY - scaledH / 2 + 5}" font-size="8" fill="#64748b">${hyp} cm</text>
-            </svg>`;
-        };
+        // --- SVG HELPERS ---
+        const createCoordSVG = (x, y, label) => `<svg viewBox="-8 -8 16 16" style="width:100%;height:100%;"><defs><pattern id="grid" width="1" height="1" patternUnits="userSpaceOnUse"><path d="M 1 0 L 0 0 0 1" fill="none" stroke="#cbd5e1" stroke-width="0.05"/></pattern></defs><rect width="16" height="16" x="-8" y="-8" fill="url(#grid)" /><line x1="-8" y1="0" x2="8" y2="0" stroke="#475569" stroke-width="0.15" /><line x1="0" y1="-8" x2="0" y2="8" stroke="#475569" stroke-width="0.15" /><circle cx="${x}" cy="${-y}" r="0.3" fill="#ef4444" /><text x="${Number(x)+0.5}" y="${-y-0.5}" font-size="1" fill="#1e293b">${label}</text></svg>`;
+        const createTriangleSVG = (b, h, hyp) => `<svg viewBox="0 0 120 100" style="width:100%;height:100%;"><path d="M 10 90 L ${10 + b*1.5} 90 L 10 ${90 - h*1.5} Z" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/><text x="${10 + b*0.75}" y="98" font-size="10" text-anchor="middle">${b}</text><text x="5" y="${90 - h*0.75}" font-size="10" text-anchor="end">${h}</text><text x="${10 + b*0.75}" y="${90 - h*0.75}" font-size="10" fill="#64748b">${hyp}</text></svg>`;
 
         // --- APP STATE ---
-        let questionData = []; // Will be loaded from JSON or Fallback
+        let questionData = [];
         let currentMode = ''; 
         let currentIndex = 0; 
         let activeQuestions = []; 
@@ -325,7 +308,7 @@
 
         function getOptionId(index) { return String.fromCharCode(97 + index); }
 
-        // --- NAVIGATION AND MODE UTILITY ---
+        // --- NAVIGATION ---
         function hideAllSections() {
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('quiz-interface').classList.add('hidden');
@@ -344,21 +327,19 @@
             currentMode = '';
         }
 
-        // --- MODAL LOGIC ---
+        // --- MODALS ---
         function showConfirmationModal() { document.getElementById('confirmation-modal').classList.remove('hidden'); }
         function hideConfirmationModal() { document.getElementById('confirmation-modal').classList.add('hidden'); }
 
-        // --- TIMER LOGIC ---
+        // --- TIMER ---
         function startTimer() {
             const totalSeconds = EXAM_DURATION_MINUTES * 60;
             currentTime = totalSeconds;
             document.getElementById('timer-display').classList.remove('hidden');
-
             timerInterval = setInterval(() => {
                 currentTime--;
                 if (currentTime <= 0) {
                     clearInterval(timerInterval);
-                    document.getElementById('result-modal').querySelector('h2').innerText = "Waktu Habis!";
                     finishExam(true);
                     return;
                 }
@@ -374,35 +355,24 @@
             document.getElementById('timer-display').textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        // --- INIT & LOAD DATA ---
+        // --- INITIALIZATION ---
         window.onload = async function() {
-            // 1. Try to fetch JSON
             try {
                 const response = await fetch('questions.json');
-                if (!response.ok) throw new Error("Failed to fetch");
+                if (!response.ok) throw new Error("Failed");
                 questionData = await response.json();
-                console.log("Loaded questions from JSON");
             } catch (e) {
-                console.warn("Could not load questions.json (likely due to local file CORS). Using embedded fallback data.");
                 questionData = fallbackQuestionData;
             }
-
-            // 2. Render Start Screen
             renderStartScreen();
-            
             document.getElementById('confirmation-modal').classList.add('hidden');
             document.getElementById('result-modal').classList.add('hidden');
-            
-            // 3. Control Debug Button Visibility
-            if (!SHOW_DEBUG_MODE) {
-                document.getElementById('debug-section').classList.add('hidden');
-            }
+            if (!SHOW_DEBUG_MODE) document.getElementById('debug-section').classList.add('hidden');
         };
 
         function renderStartScreen() {
             const drillContainer = document.getElementById('drill-buttons');
-            drillContainer.innerHTML = ''; // Clear
-            
+            drillContainer.innerHTML = ''; 
             questionData.forEach((q) => {
                 const btn = document.createElement('button');
                 btn.className = "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold py-2 rounded-lg transition text-sm";
@@ -410,18 +380,16 @@
                 btn.onclick = () => startDrillMode(q.id);
                 drillContainer.appendChild(btn);
             });
-            goToStartScreen(); // Show start screen after rendering buttons
         }
 
-        // --- SETUP INTERFACE ---
+        // --- INTERFACE SETUP ---
         function setupInterface(title) {
             hideAllSections();
             document.getElementById('quiz-interface').classList.remove('hidden');
-            document.getElementById('sidebar').classList.remove('hidden'); // Sidebar visible in both
+            document.getElementById('sidebar').classList.remove('hidden');
             document.getElementById('btn-home').classList.remove('hidden');
             document.getElementById('mode-display').innerText = title;
 
-            // Show nav buttons in both modes
             document.getElementById('btn-prev').classList.remove('hidden');
             document.getElementById('btn-prev').classList.add('flex');
             document.getElementById('btn-next').classList.remove('hidden');
@@ -444,50 +412,28 @@
             }
         }
 
-        // --- DATA INIT ---
-        function initQuestions() {
-            activeQuestions = questionData.map((q, idx) => {
-                const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
-                return createQuestionObject(q, variation, idx + 1);
-            });
-        }
-
         function createQuestionObject(q, variation, number) {
             let mappedOptions = [];
             if (q.type === 'mcq') {
                 mappedOptions = variation.options.map((text, i) => ({ id: getOptionId(i), text: text }));
             }
-            
-            // Check if image is a special code "svg:type:args"
             let img = variation.image;
             if(img && img.startsWith("svg:")) {
                 const parts = img.split(":");
                 let svgData = '';
-                if (parts[1] === "coord") {
-                    const args = parts[2].split(","); // x,y,label
-                    svgData = createCoordSVG(args[0], args[1], args[2]);
-                } else if (parts[1] === "tri") {
-                    const args = parts[2].split(","); // b,h,hyp
-                    svgData = createTriangleSVG(args[0], args[1], args[2]);
-                }
-                
-                if (svgData) {
-                    img = `data:image/svg+xml;base64,${btoa(svgData)}`;
-                }
+                if (parts[1] === "coord") svgData = createCoordSVG(...parts[2].split(","));
+                else if (parts[1] === "tri") svgData = createTriangleSVG(...parts[2].split(","));
+                if (svgData) img = `data:image/svg+xml;base64,${btoa(svgData)}`;
             }
-
-            return {
-                id: q.id, type: q.type,
-                data: { ...variation, options: mappedOptions, image: img },
-                number: number,
-                userAnswer: null, isMarked: false, status: 'unanswered' 
-            };
+            return { id: q.id, type: q.type, data: { ...variation, options: mappedOptions, image: img }, number: number, userAnswer: null, isMarked: false, status: 'unanswered' };
         }
 
-        // --- MODES ---
         function startExamMode() {
             currentMode = 'exam';
-            initQuestions();
+            activeQuestions = questionData.map((q, idx) => {
+                const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
+                return createQuestionObject(q, variation, idx + 1);
+            });
             setupInterface("Mode: Ujian Penuh");
             startTimer();
             renderNavGrid();
@@ -496,167 +442,118 @@
 
         function startDrillMode(qId) {
             currentMode = 'drill';
-            initQuestions(); // Load all questions for nav context
-            
-            // Find index based on ID
+            activeQuestions = questionData.map((q, idx) => {
+                const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
+                return createQuestionObject(q, variation, idx + 1);
+            });
             const startIndex = activeQuestions.findIndex(q => q.id === qId);
-            const safeIndex = startIndex >= 0 ? startIndex : 0;
-
-            setupInterface("Mode: Latihan (Drill)");
+            setupInterface(`Mode: Latihan (Soal ${qId})`);
             renderNavGrid();
-            renderQuestion(safeIndex);
+            renderQuestion(startIndex >= 0 ? startIndex : 0);
         }
-        
-        // --- NEW DEBUG MODE ---
-        let allDebugQuestions = [];
-        let debugCounter = 0; // Global counter for all variations
 
+        function nextDrillVariation() {
+            const q = activeQuestions[currentIndex];
+            const baseData = questionData.find(data => data.id === q.id);
+            const newVar = baseData.variations[Math.floor(Math.random() * baseData.variations.length)];
+            activeQuestions[currentIndex] = createQuestionObject(baseData, newVar, q.number);
+            renderQuestion(currentIndex);
+            updateNavGridHighlight();
+        }
+
+        // --- NEW DEBUG MODE ---
         function startDebugMode() {
             hideAllSections();
-            
-            // Show debug interface
             document.getElementById('debug-interface').classList.remove('hidden');
             document.getElementById('btn-home').classList.remove('hidden');
-            document.getElementById('mode-display').innerText = "Mode: Debug Semua Soal";
+            document.getElementById('mode-display').innerText = "Mode: Debug";
             
-            prepareDebugData();
-            renderDebugList();
-            renderDebugNav();
+            renderDebugContent();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function prepareDebugData() {
-            allDebugQuestions = [];
-            debugCounter = 0;
-            questionData.forEach(q => {
-                q.variations.forEach((v, vIdx) => {
-                    debugCounter++;
-                    allDebugQuestions.push({
-                        globalIndex: debugCounter,
-                        qId: q.id,
-                        vId: vIdx + 1,
-                        type: q.type,
-                        data: v // raw variation data
-                    });
-                });
-            });
-        }
-
-        function renderDebugNav() {
+        function renderDebugContent() {
             const navSidebar = document.getElementById('debug-nav-sidebar');
+            const container = document.getElementById('debug-list-container');
             navSidebar.innerHTML = '';
+            container.innerHTML = '';
 
-            allDebugQuestions.forEach(q => {
+            questionData.forEach((q, idx) => {
+                // 1. Navigation Button (Per Question)
                 const btn = document.createElement('button');
-                const targetId = `debug-q-${q.globalIndex}`;
-                
+                const targetId = `debug-q-group-${q.id}`;
                 btn.className = `debug-nav-btn w-full rounded-lg text-sm text-slate-700 hover:bg-indigo-100/50`;
-                btn.innerText = `Soal ${q.qId} (Var ${q.vId})`;
-                
+                btn.innerText = `Soal ${q.id} (${q.variations.length} var)`;
                 btn.onclick = () => {
                     document.querySelectorAll('.debug-nav-btn').forEach(b => b.classList.remove('debug-active'));
                     btn.classList.add('debug-active');
                     document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
                 };
                 navSidebar.appendChild(btn);
-            });
-            // Highlight the first element after rendering
-            if (navSidebar.children.length > 0) {
-                 navSidebar.children[0].classList.add('debug-active');
-            }
-        }
 
-        function renderDebugList() {
-            const container = document.getElementById('debug-list-container');
-            container.innerHTML = '';
+                // 2. Question Group Container
+                const groupDiv = document.createElement('div');
+                groupDiv.id = targetId;
+                groupDiv.className = "bg-slate-50 p-4 rounded-2xl border border-slate-200";
+                groupDiv.innerHTML = `<h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2">Master Soal ID: ${q.id}</h3>`;
+
+                // 3. Render Each Variation Card
+                q.variations.forEach((v, vIdx) => {
+                    // Process SVG
+                    let imgHtml = '';
+                    let img = v.image;
+                    if(img && img.startsWith("svg:")) {
+                        const parts = img.split(":");
+                        let svgData = '';
+                        if (parts[1] === "coord") svgData = createCoordSVG(...parts[2].split(","));
+                        else if (parts[1] === "tri") svgData = createTriangleSVG(...parts[2].split(","));
+                        if (svgData) imgHtml = `<div class="q-image-container max-w-xs mx-auto my-4">${svgData}</div>`;
+                    }
+
+                    let optionsHtml = '';
+                    if (q.type === 'mcq') {
+                        optionsHtml = `<div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">`;
+                        v.options.forEach((opt, optIdx) => {
+                            const id = getOptionId(optIdx);
+                            const isCorrect = id === v.correct;
+                            const style = isCorrect ? 'bg-green-100 text-green-800 border-green-400 font-bold' : 'bg-white text-slate-600 border-slate-200';
+                            optionsHtml += `<div class="p-2 rounded border text-sm ${style}">${id.toUpperCase()}. ${opt} ${isCorrect?'(✓)':''}</div>`;
+                        });
+                        optionsHtml += `</div>`;
+                    } else {
+                        optionsHtml = `<div class="mt-3 p-2 bg-blue-50 text-blue-800 border border-blue-200 rounded text-sm"><strong>Jawaban:</strong> ${v.correct}</div>`;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-5 rounded-xl shadow-sm border border-slate-200 mb-4";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded">Variasi ${vIdx+1}</span>
+                        </div>
+                        <div class="text-lg font-medium text-slate-800 mt-2">${v.prompt}</div>
+                        ${imgHtml}
+                        ${optionsHtml}
+                        <div class="mt-3 text-sm text-slate-500 italic bg-yellow-50 p-2 rounded border border-yellow-100">💡 ${v.explanation}</div>
+                    `;
+                    groupDiv.appendChild(card);
+                });
+                container.appendChild(groupDiv);
+            });
             
-            allDebugQuestions.forEach(q => {
-                const v = q.data;
-
-                // 1. Handle Image/SVG
-                let imgHtml = '';
-                let img = v.image;
-                let svgData = '';
-                if(img && img.startsWith("svg:")) {
-                    const parts = img.split(":");
-                    if (parts[1] === "coord") {
-                        const args = parts[2].split(","); // x,y,label
-                        svgData = createCoordSVG(args[0], args[1], args[2]);
-                    } else if (parts[1] === "tri") {
-                        const args = parts[2].split(","); // b,h,hyp
-                        svgData = createTriangleSVG(args[0], args[1], args[2]);
-                    }
-                    if (svgData) {
-                         imgHtml = `<div class="q-image-container p-4 bg-slate-50 border border-slate-200 rounded-lg shadow-inner">${svgData}</div>`;
-                    }
-                }
-
-                // 2. Handle Options
-                let optionsHtml = '';
-                if (q.type === 'mcq') {
-                    optionsHtml = `<div class="space-y-1 mt-4">`;
-                    v.options.forEach((opt, optIdx) => {
-                        const id = getOptionId(optIdx);
-                        const isCorrect = id === v.correct;
-                        const style = isCorrect ? 'bg-green-100 text-green-800 font-semibold border-green-300' : 'bg-white text-slate-700 border-slate-200';
-                        optionsHtml += `<div class="p-2 rounded ${style} border">${id.toUpperCase()}. ${opt} ${isCorrect ? '(<span class="font-black">BENAR</span>)' : ''}</div>`;
-                    });
-                    optionsHtml += `</div>`;
-                } else if (q.type === 'text') {
-                     optionsHtml = `<div class="mt-4 p-3 bg-blue-100 border border-blue-300 rounded text-blue-900 font-bold">Jawaban Teks (Correct): ${v.correct}</div>`;
-                }
-
-
-                const card = document.createElement('div');
-                card.id = `debug-q-${q.globalIndex}`;
-                card.className = "bg-white p-6 rounded-xl shadow-lg border border-slate-300 transition-all hover:shadow-xl fade-enter";
-                card.innerHTML = `
-                    <div class="flex items-center gap-3 mb-4 border-b pb-3">
-                        <span class="bg-indigo-800 text-white font-bold w-10 h-10 flex items-center justify-center rounded-full text-lg">${q.globalIndex}</span>
-                        <span class="text-sm font-semibold text-slate-500">ID Soal: ${q.qId} | Variasi: ${q.vId} | Tipe: ${q.type.toUpperCase()}</span>
-                    </div>
-                    <div class="text-xl font-bold text-slate-800 mb-4 leading-relaxed">${v.prompt}</div>
-                    ${imgHtml}
-                    ${optionsHtml}
-                    <div class="mt-4 p-4 bg-yellow-50 text-sm text-slate-700 border-l-4 border-yellow-400 rounded">
-                        <strong>Penjelasan:</strong> ${v.explanation}
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            // Re-render math after injecting all HTML
             if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
         }
 
-
-        function nextDrillVariation() {
-            // Regenerate ONLY the current question
-            const q = activeQuestions[currentIndex];
-            const baseData = questionData.find(data => data.id === q.id);
-            const newVar = baseData.variations[Math.floor(Math.random() * baseData.variations.length)];
-            
-            // Replace in array
-            activeQuestions[currentIndex] = createQuestionObject(baseData, newVar, q.number);
-            renderQuestion(currentIndex);
-            updateNavGridHighlight();
-        }
-
-        // --- RENDER (Quiz Interface) ---
+        // --- RENDER QUIZ ---
         function renderQuestion(index) {
             currentIndex = index;
             const q = activeQuestions[index];
             const card = document.getElementById('question-card');
             
-            // Logic to reset check button if reusing it in drill
             if (currentMode === 'drill' && q.status === 'unanswered') {
-                const btnCheck = document.getElementById('btn-check');
-                btnCheck.disabled = false;
-                btnCheck.classList.remove('opacity-50', 'cursor-not-allowed');
-                btnCheck.innerText = "Cek Jawaban";
+                document.getElementById('btn-check').disabled = false;
+                document.getElementById('btn-check').classList.remove('opacity-50', 'cursor-not-allowed');
             }
 
-            // HTML Generation
             let html = `
                 <div class="flex items-center gap-3 mb-4">
                     <span class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-sm">Soal ${q.number}</span>
@@ -665,33 +562,23 @@
                 <div class="text-lg md:text-xl font-medium text-slate-800 mb-4 leading-relaxed">${q.data.prompt}</div>
             `;
 
-            if (q.data.image) {
-                html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image shadow-sm"></div>`;
-            }
+            if (q.data.image) html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image shadow-sm"></div>`;
 
-            // Inputs
             if (q.type === 'mcq') {
                 html += `<div class="grid grid-cols-1 gap-3 mt-6">`;
                 q.data.options.forEach(opt => {
                     const isChecked = q.userAnswer === opt.id;
-                    let colorClass = "border-slate-200 hover:border-indigo-400";
-                    
-                    // Drill Feedback Colors
+                    let colorClass = "border-slate-200 hover:border-indigo-400 bg-white";
                     if (currentMode === 'drill' && q.status !== 'unanswered') {
                          if (opt.id === q.data.correct) colorClass = "border-green-500 bg-green-50 ring-1 ring-green-500";
                          else if (opt.id === q.userAnswer && q.status === 'incorrect') colorClass = "border-red-500 bg-red-50 ring-1 ring-red-500";
-                    } else if (isChecked) {
-                        colorClass = "border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50";
-                    }
+                    } else if (isChecked) colorClass = "border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50";
 
-                    html += `
-                        <label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${colorClass}">
+                    html += `<label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${colorClass}">
                             <input type="radio" name="current_q" value="${opt.id}" class="sr-only" onchange="selectAnswer('${opt.id}')" ${isChecked ? 'checked' : ''} ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}>
-                            <div class="flex-shrink-0 w-8 font-bold text-slate-400">${opt.id.toUpperCase()}.</div>
-                            <div class="ml-2 font-medium text-slate-700 w-full">${opt.text}</div>
-                            ${currentMode === 'drill' && q.status !== 'unanswered' && opt.id === q.data.correct ? '<span class="text-green-600 font-bold ml-2">✓</span>' : ''}
-                        </label>
-                    `;
+                            <div class="flex-shrink-0 w-8 font-bold opacity-50">${opt.id.toUpperCase()}.</div>
+                            <div class="ml-2 font-medium w-full">${opt.text}</div>
+                        </label>`;
                 });
                 html += `</div>`;
             } else {
@@ -699,44 +586,27 @@
                 if (currentMode === 'drill' && q.status !== 'unanswered') {
                     inputStyle = q.status === 'correct' ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50";
                 }
-                html += `
-                    <div class="mt-6">
-                        <input type="text" value="${q.userAnswer || ''}" 
-                            placeholder="Jawaban Anda..."
-                            class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg ${inputStyle}"
-                            oninput="selectAnswer(this.value)"
-                            ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}
-                        >
-                    </div>
-                `;
+                html += `<div class="mt-6"><input type="text" value="${q.userAnswer || ''}" class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg ${inputStyle}" oninput="selectAnswer(this.value)" ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}></div>`;
             }
 
-            // Feedback (Drill Only)
             if (currentMode === 'drill' && q.status !== 'unanswered') {
                 const isCor = q.status === 'correct';
-                html += `
-                    <div class="mt-6 p-4 rounded-xl ${isCor ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} animate-fade-in">
+                html += `<div class="mt-6 p-4 rounded-xl ${isCor ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} animate-fade-in">
                         <div class="font-bold mb-1">${isCor ? 'Benar!' : 'Salah'}</div>
-                        <div class="text-sm">${isCor ? 'Bagus!' : `Jawaban Benar: ${q.type === 'mcq' ? q.data.correct.toUpperCase() : q.data.correct}`}</div>
-                        <div class="mt-3 pt-3 border-t border-black/10 text-sm">
-                            <strong>Penjelasan:</strong> ${q.data.explanation}
-                        </div>
-                    </div>
-                `;
+                        <div class="mt-1 text-sm"><strong>Penjelasan:</strong> ${q.data.explanation}</div>
+                    </div>`;
             }
 
             card.innerHTML = html;
             if (window.renderMathInElement) renderMathInElement(card, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
 
-            // Logic for Nav Buttons (Enable/Disable)
+            // Buttons Logic
             document.getElementById('btn-prev').disabled = index === 0;
-            
-            // Next Button Logic
             const btnNext = document.getElementById('btn-next');
             const isLast = index === activeQuestions.length - 1;
             
             if (currentMode === 'exam' && isLast) {
-                btnNext.innerText = 'Selesaikan Ujian';
+                btnNext.innerText = 'Selesaikan';
                 btnNext.onclick = showConfirmationModal;
                 btnNext.className = "flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition";
             } else {
@@ -744,14 +614,10 @@
                 btnNext.onclick = () => changeQuestion(1);
                 btnNext.className = "flex items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50";
             }
-            // In drill mode, always allow cycling next, but maybe stop at last? 
-            // User requested nav, so we enable next unless it's last q
-            btnNext.disabled = isLast; 
-
+            btnNext.disabled = isLast && currentMode === 'drill';
             updateNavGridHighlight();
         }
 
-        // --- ACTIONS ---
         function selectAnswer(val) {
             activeQuestions[currentIndex].userAnswer = val;
             renderQuestion(currentIndex);
@@ -760,9 +626,7 @@
 
         function changeQuestion(dir) {
             const newIndex = currentIndex + dir;
-            if (newIndex >= 0 && newIndex < activeQuestions.length) {
-                renderQuestion(newIndex);
-            }
+            if (newIndex >= 0 && newIndex < activeQuestions.length) renderQuestion(newIndex);
         }
 
         function toggleMark() {
@@ -772,13 +636,10 @@
 
         function checkDrillAnswer() {
             const q = activeQuestions[currentIndex];
-            if (!q.userAnswer) return alert("Masukkan jawaban terlebih dahulu!");
-
+            if (!q.userAnswer) return; // Simple ignore if empty
             let isCorrect = false;
             if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
-            // For text input, trim whitespace and ignore case for simple comparison
             else isCorrect = q.userAnswer.toString().trim().toLowerCase() === q.data.correct.toString().toLowerCase();
-
             q.status = isCorrect ? 'correct' : 'incorrect';
             renderQuestion(currentIndex);
             updateNavGridHighlight();
@@ -787,64 +648,36 @@
         function finishExam(isTimeout = false) {
             if (!isTimeout) hideConfirmationModal();
             if (currentMode === 'exam') clearInterval(timerInterval);
-
             let correct = 0;
             activeQuestions.forEach(q => {
                 let isCorrect = false;
                 if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
                 else isCorrect = q.userAnswer && q.userAnswer.toString().toLowerCase() === q.data.correct.toLowerCase();
-                
-                if (isCorrect) { q.status = 'correct'; correct++; } 
-                else { q.status = 'incorrect'; }
+                if (isCorrect) { q.status = 'correct'; correct++; } else { q.status = 'incorrect'; }
             });
-
             const percentage = Math.round((correct / activeQuestions.length) * 100);
-            document.getElementById('score-icon').innerText = isTimeout ? "⏰" : (percentage >= 70 ? "🎉" : "💪");
             document.getElementById('score-display').innerText = `${percentage}%`;
-            document.getElementById('score-text').innerText = `Anda menjawab ${correct} dari ${activeQuestions.length} soal dengan benar.`;
+            document.getElementById('score-text').innerText = `Benar: ${correct} dari ${activeQuestions.length}`;
             document.getElementById('result-modal').classList.remove('hidden');
         }
 
         function enterReviewMode() {
-            document.getElementById('result-modal').classList.add('hidden');
-            document.getElementById('quiz-interface').classList.add('hidden');
+            hideAllSections();
             document.getElementById('review-interface').classList.remove('hidden');
-            document.getElementById('btn-finish-exam').classList.add('hidden');
-            
+            document.getElementById('btn-home').classList.remove('hidden');
             const container = document.getElementById('review-interface');
-            container.innerHTML = `<h2 class="text-2xl font-bold text-center mb-6">Tinjauan Ujian</h2>`;
-
+            container.innerHTML = `<h2 class="text-2xl font-bold text-center mb-6">Tinjauan</h2>`;
+            
             activeQuestions.forEach(q => {
                 const isCor = q.status === 'correct';
                 const borderClass = isCor ? 'border-green-400 ring-1 ring-green-400' : 'border-red-400 ring-1 ring-red-400';
-                let html = `
-                    <div class="bg-white rounded-xl shadow-sm border p-6 ${borderClass}">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="bg-slate-800 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${q.number}</span>
-                            <span class="${isCor ? 'text-green-600' : 'text-red-600'} font-bold text-sm">${isCor ? 'Benar' : 'Salah'}</span>
-                        </div>
-                        <div class="text-slate-800 font-medium mb-4">${q.data.prompt}</div>
-                `;
-                if(q.data.image) html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image"></div>`;
-                
-                if (q.type === 'mcq') {
-                    html += `<div class="space-y-2">`;
-                    q.data.options.forEach(opt => {
-                        let style = "p-3 rounded-lg border border-slate-100 bg-slate-50";
-                        if (opt.id === q.data.correct) style = "p-3 rounded-lg border border-green-500 bg-green-50 text-green-900 font-bold";
-                        else if (opt.id === q.userAnswer && !isCor) style = "p-3 rounded-lg border border-red-500 bg-red-50 text-red-900 font-bold";
-                        html += `<div class="${style}">${opt.id.toUpperCase()}. ${opt.text}</div>`;
-                    });
-                    html += `</div>`;
-                } else {
-                    html += `<div class="p-3 rounded bg-slate-50 border mt-2">Jawaban: <strong>${q.userAnswer || '-'}</strong> (Benar: ${q.data.correct})</div>`;
-                }
-                if (q.data.explanation) html += `<div class="mt-4 p-3 bg-blue-50 text-sm text-slate-700 border-l-4 border-blue-400"><strong>Penjelasan:</strong> ${q.data.explanation}</div>`;
+                let html = `<div class="bg-white rounded-xl shadow-sm border p-6 ${borderClass} mb-4"><div class="flex justify-between mb-2"><span class="font-bold">Soal ${q.number}</span><span class="${isCor?'text-green-600':'text-red-600'} font-bold">${isCor?'Benar':'Salah'}</span></div><div class="text-lg mb-4">${q.data.prompt}</div>`;
+                if (q.data.explanation) html += `<div class="p-3 bg-blue-50 text-sm text-slate-700 border-l-4 border-blue-400"><strong>Penjelasan:</strong> ${q.data.explanation}</div>`;
                 html += `</div>`;
                 container.innerHTML += html;
             });
+            document.getElementById('result-modal').classList.add('hidden');
             if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function renderNavGrid() {
@@ -866,8 +699,6 @@
                 const btn = btns[idx];
                 btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border transition-all`;
                 if (idx === currentIndex) btn.classList.add('active', 'ring-2', 'ring-indigo-600', 'ring-offset-2');
-                
-                // Color logic depends on mode
                 if (currentMode === 'drill') {
                     if (q.status === 'correct') btn.classList.add('drill-correct');
                     else if (q.status === 'incorrect') btn.classList.add('drill-incorrect');
