@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="default">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,280 +17,302 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
-        
-        .fade-enter { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- CSS VARIABLES FOR THEMES --- */
+        :root {
+            --bg-app: #f1f5f9;          /* Slate-100 */
+            --bg-card: #ffffff;         /* White */
+            --text-main: #1e293b;       /* Slate-800 */
+            --text-sub: #64748b;        /* Slate-500 */
+            --border-color: #e2e8f0;    /* Slate-200 */
+            --primary: #4f46e5;         /* Indigo-600 */
+            --primary-hover: #4338ca;   /* Indigo-700 */
+            --primary-light: #e0e7ff;   /* Indigo-100 */
+            --primary-text: #ffffff;    /* White */
+            --accent: #10b981;          /* Emerald-500 */
+            --danger: #ef4444;          /* Red-500 */
+            --nav-answered: #3b82f6;    /* Blue-500 */
+            --nav-marked: #eab308;      /* Yellow-500 */
+            --nav-unanswered: #ffffff;  /* White */
+            --nav-text-unanswered: #64748b;
+        }
 
-        /* Navigation Grid Buttons */
-        .nav-btn { transition: all 0.2s; }
-        .nav-btn.active { ring-width: 3px; ring-offset-width: 2px; transform: scale(1.1); z-index: 10; }
+        /* Warm Theme (Kuning/Coklat) */
+        [data-theme="warm"] {
+            --bg-app: #fffde7;          /* Yellow-50 */
+            --bg-card: #ffffff;
+            --text-main: #3e2723;       /* Brown-900 */
+            --text-sub: #5d4037;        /* Brown-700 */
+            --border-color: #ffe0b2;    /* Orange-200 */
+            --primary: #fb8c00;         /* Orange-600 */
+            --primary-hover: #ef6c00;   /* Orange-700 */
+            --primary-light: #fff3e0;   /* Orange-50 */
+            --primary-text: #ffffff;
+            --accent: #558b2f;          /* Light Green-800 */
+            --nav-answered: #ff9800;    /* Orange-500 */
+            --nav-marked: #ffca28;      /* Amber-400 */
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-app: #0f172a;          /* Slate-900 */
+            --bg-card: #1e293b;         /* Slate-800 */
+            --text-main: #f8fafc;       /* Slate-50 */
+            --text-sub: #94a3b8;        /* Slate-400 */
+            --border-color: #334155;    /* Slate-700 */
+            --primary: #6366f1;         /* Indigo-500 */
+            --primary-hover: #818cf8;   /* Indigo-400 */
+            --primary-light: #312e81;   /* Indigo-900 */
+            --primary-text: #ffffff;
+            --nav-answered: #3b82f6;
+            --nav-marked: #eab308;
+            --nav-unanswered: #334155;  /* Slate-700 */
+            --nav-text-unanswered: #cbd5e1;
+        }
+
+        /* Nature Theme (Hijau) */
+        [data-theme="nature"] {
+            --bg-app: #f0fdf4;          /* Green-50 */
+            --bg-card: #ffffff;
+            --text-main: #14532d;       /* Green-900 */
+            --text-sub: #166534;        /* Green-800 */
+            --border-color: #bbf7d0;    /* Green-200 */
+            --primary: #16a34a;         /* Green-600 */
+            --primary-hover: #15803d;   /* Green-700 */
+            --primary-light: #dcfce7;   /* Green-100 */
+            --nav-answered: #16a34a;
+            --nav-marked: #ca8a04;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        /* Component Classes using CSS Variables */
+        .app-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
         
-        /* Mode Scrollbars */
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-text);
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        
+        .text-sub { color: var(--text-sub); }
+
+        /* Navigation Buttons */
+        .nav-btn { 
+            transition: all 0.2s; 
+            border: 1px solid var(--border-color);
+            cursor: pointer; /* Ensure pointer cursor */
+        }
+        .nav-btn.active { 
+            ring-width: 3px; 
+            ring-color: var(--primary); 
+            border-color: var(--primary);
+            transform: scale(1.1); 
+            z-index: 10; 
+            font-weight: bold;
+        }
+        
+        .nav-btn.exam-answered { background-color: var(--nav-answered); color: white; border-color: var(--nav-answered); }
+        .nav-btn.exam-marked { background-color: var(--nav-marked); color: white; border-color: var(--nav-marked); }
+        .nav-btn.unanswered { background-color: var(--nav-unanswered); color: var(--nav-text-unanswered); }
+        
+        .nav-btn.drill-correct { background-color: #22c55e; color: white; border-color: #22c55e; }
+        .nav-btn.drill-incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
+
+        /* Scrollbar */
         .custom-scroll::-webkit-scrollbar { width: 6px; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--text-sub); opacity: 0.3; border-radius: 10px; }
 
-        /* --- THEME OVERRIDES (Warm Theme) --- */
-        body.theme-warm { background-color: #fffde7; color: #3e2723; } /* Yellow-50 bg, Brown text */
-        
-        /* Header & Cards */
-        .theme-warm header { background-color: rgba(255, 253, 231, 0.95); border-bottom-color: #ffe082; }
-        .theme-warm .bg-white { background-color: #ffffff; border-color: #ffe0b2; }
-        .theme-warm .bg-slate-100 { background-color: #fff9c4; } /* Lighter yellow for overall bg */
-        
-        /* Text Colors */
-        .theme-warm .text-indigo-900 { color: #3e2723; } /* Dark Brown */
-        .theme-warm .text-indigo-700 { color: #5d4037; } /* Medium Brown */
-        .theme-warm .text-slate-800 { color: #4e342e; }
-        .theme-warm .text-slate-600 { color: #795548; }
-        .theme-warm .text-slate-500 { color: #8d6e63; }
-
-        /* Primary Actions (Indigo -> Orange/Amber) */
-        .theme-warm .bg-indigo-600 { background-color: #fb8c00; } /* Orange 600 */
-        .theme-warm .bg-indigo-600:hover { background-color: #f57c00; }
-        .theme-warm .bg-indigo-100 { background-color: #ffe0b2; color: #e65100; }
-        .theme-warm .text-indigo-600 { color: #e65100; }
-        .theme-warm .border-indigo-200 { border-color: #ffcc80; }
-        .theme-warm .ring-indigo-600 { --tw-ring-color: #fb8c00; }
-        .theme-warm .hover\:bg-indigo-100:hover { background-color: #ffe0b2; }
-
-        /* Secondary Actions (Emerald -> Green/Olive) - Keep similar or adjust to match warm tone */
-        .theme-warm .bg-emerald-50 { background-color: #f1f8e9; color: #33691e; border-color: #c5e1a5; }
-        .theme-warm .bg-emerald-100 { background-color: #dcedc8; }
-        .theme-warm .bg-emerald-600 { background-color: #7cb342; } /* Light Green 600 */
-        
-        /* Nav Grid in Warm Theme */
-        .theme-warm .nav-btn.active { ring-color: #fb8c00; }
-        .theme-warm .nav-btn.exam-answered { background-color: #ffb74d; border-color: #ffb74d; color: #3e2723; } /* Orange 300 */
-        
-        /* Inputs */
-        .theme-warm input[type="text"] { background-color: #fffdf5; border-color: #ffe0b2; }
-        .theme-warm input[type="text"]:focus { border-color: #fb8c00; --tw-ring-color: #fb8c00; }
-
-        /* SVG Icons Styling Fix for Theme */
+        /* Images */
         .q-image-container {
-            display: flex;
-            justify-content: center;
-            margin: 1rem 0;
-            background: #f8fafc; /* Default */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #e2e8f0;
+            display: flex; justify-content: center; margin: 1rem 0;
+            background-color: var(--bg-app);
+            padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color);
         }
-        .theme-warm .q-image-container { background-color: #fffdeb; border-color: #fff9c4; }
-        .q-image { max-width: 100%; max-height: 200px; height: auto; }
+        .q-image { max-width: 100%; max-height: 250px; height: auto; border-radius: 4px; }
 
-        /* Debug Nav Button */
-        .debug-nav-btn { transition: all 0.15s; text-align: left; padding: 8px 12px; }
-        .debug-nav-btn.debug-active { background-color: #4f46e5; color: white; font-weight: 600; }
-        
-        /* Debug Nav Theme Warm */
-        .theme-warm .debug-nav-btn.debug-active { background-color: #fb8c00; color: white; }
-        .theme-warm .debug-nav-btn:hover:not(.debug-active) { background-color: #ffe0b2; }
+        /* Fade Animation */
+        .fade-enter { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center py-6 px-4 md:px-8 transition-colors">
+<body class="min-h-screen flex flex-col items-center py-4 px-4 md:px-8 transition-colors duration-300">
 
     <!-- Header -->
-    <header class="w-full max-w-4xl flex flex-wrap justify-between items-center mb-6 z-50 sticky top-0 bg-slate-100/95 backdrop-blur py-4 border-b border-slate-200/50 transition-colors">
+    <header class="w-full max-w-5xl flex flex-wrap justify-between items-center mb-6 z-50 sticky top-0 app-card backdrop-blur-md bg-opacity-95 py-4 px-6 rounded-xl shadow-sm">
         <div class="flex items-center gap-4">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold text-indigo-900 cursor-pointer hover:opacity-80" onclick="goToStartScreen()">SAS Matematika</h1>
-                <p id="mode-display" class="text-sm text-slate-500 font-medium">Pilih Mode</p>
+                <h1 class="text-xl md:text-2xl font-bold cursor-pointer hover:opacity-80" style="color: var(--primary);" onclick="goToStartScreen()">SAS Matematika</h1>
+                <p class="text-sm text-sub font-medium" id="mode-display">Pilih Mode</p>
             </div>
         </div>
         
         <div class="flex gap-2 items-center mt-2 md:mt-0">
-            <!-- Theme Switcher -->
-            <button onclick="toggleTheme()" class="p-2 rounded-full bg-white border border-slate-300 shadow-sm hover:bg-slate-50 text-xl" title="Ganti Tema">
-                🎨
-            </button>
+            <!-- Theme Selector -->
+            <select onchange="changeTheme(this.value)" class="p-2 rounded-lg text-sm border shadow-sm outline-none cursor-pointer app-card focus:ring-2 focus:ring-indigo-500">
+                <option value="default">🔵 Standar</option>
+                <option value="warm">🟠 Hangat</option>
+                <option value="nature">🟢 Alam</option>
+                <option value="dark">⚫ Gelap</option>
+            </select>
 
-            <!-- Timer Display -->
-            <div id="timer-display" class="text-base font-bold text-red-600 bg-red-100 py-2 px-3 rounded-lg shadow hidden">
+            <!-- Timer -->
+            <div id="timer-display" class="text-base font-bold text-red-500 bg-red-50 py-2 px-3 rounded-lg shadow-sm border border-red-100 hidden">
                 00:00:00
             </div>
             
-            <!-- Dedicated Finish Exam button -->
-            <button id="btn-finish-exam" onclick="showConfirmationModal()" class="hidden bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
+            <!-- Main Action Buttons -->
+            <button id="btn-finish-exam" onclick="showConfirmationModal()" class="hidden bg-red-600 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-lg shadow transition">
                 Selesai
             </button>
             
-            <button id="btn-home" onclick="goToStartScreen()" class="hidden bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-sm font-semibold py-2 px-4 rounded-lg transition">
+            <button id="btn-home" onclick="goToStartScreen()" class="hidden app-card hover:brightness-95 border text-sm font-semibold py-2 px-4 rounded-lg transition">
                 Beranda
             </button>
         </div>
     </header>
 
     <!-- START SCREEN -->
-    <div id="start-screen" class="w-full max-w-4xl grid md:grid-cols-2 gap-6 fade-enter">
-        
-        <!-- Exam Mode Card -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-indigo-300 transition-all group cursor-pointer transform hover:-translate-y-1" onclick="startExamMode()">
-            <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">📝</div>
-            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Ujian</h2>
-            <p class="text-slate-500 mb-6 text-sm leading-relaxed">Simulasikan ujian sesungguhnya. Jawab semua soal, tandai yang ragu, dan lihat skor Anda di akhir.</p>
-            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md shadow-indigo-200">
+    <div id="start-screen" class="w-full max-w-5xl grid md:grid-cols-2 gap-6 fade-enter">
+        <!-- Exam Card -->
+        <div class="app-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all group cursor-pointer transform hover:-translate-y-1" onclick="startExamMode()">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform" style="background-color: var(--primary-light); color: var(--primary);">📝</div>
+            <h2 class="text-2xl font-bold mb-2">Mode Ujian</h2>
+            <p class="text-sub mb-6 text-sm leading-relaxed">Simulasi ujian dengan waktu. Jawab semua soal dan kumpulkan di akhir.</p>
+            <button class="w-full btn-primary font-bold py-3 px-6 rounded-xl transition shadow-md">
                 Mulai Ujian
             </button>
         </div>
 
-        <!-- Drill Mode Card -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:border-emerald-300 transition-all group">
+        <!-- Drill Card -->
+        <div class="app-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all group">
             <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">🎯</div>
-            <h2 class="text-2xl font-bold text-slate-800 mb-2">Mode Latihan</h2>
-            <p class="text-slate-500 mb-6 text-sm leading-relaxed">Kuasai topik tertentu. Pilih nomor soal untuk berlatih variasi tak terbatas dengan umpan balik instan.</p>
+            <h2 class="text-2xl font-bold mb-2">Mode Latihan</h2>
+            <p class="text-sub mb-6 text-sm leading-relaxed">Latihan per topik. Cek jawaban langsung dan coba variasi soal.</p>
             
             <div class="grid grid-cols-5 gap-2 mb-4">
                 <!-- Buttons injected via JS -->
                 <div id="drill-buttons" class="contents"></div>
             </div>
-            <p class="text-xs text-center text-slate-400 font-medium">Pilih nomor soal untuk mulai</p>
+            <p class="text-xs text-center text-sub font-medium">Pilih nomor soal</p>
         </div>
         
-        <!-- Debug Mode Section -->
-        <div id="debug-section" class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mt-2 flex justify-between items-center">
+        <!-- Debug/Utility -->
+        <div id="debug-section" class="md:col-span-2 app-card p-6 rounded-2xl shadow-md mt-2 flex justify-between items-center">
             <div>
-                <h3 class="text-lg font-bold text-slate-800">Mode Utilitas</h3>
-                <p class="text-xs text-slate-500">Alat untuk guru/pengembang memeriksa konten.</p>
+                <h3 class="text-lg font-bold">Mode Debug</h3>
+                <p class="text-xs text-sub">Lihat semua soal dan jawaban (Untuk Guru/Pengembang).</p>
             </div>
             <button onclick="startDebugMode()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-xl transition shadow-md text-sm">
-                🔧 Debug Mode
+                Buka Debug
             </button>
         </div>
     </div>
 
-    <!-- MAIN QUIZ INTERFACE -->
-    <div id="quiz-interface" class="hidden flex flex-col md:flex-row gap-6 w-full max-w-4xl flex-grow pb-20">
+    <!-- QUIZ / DRILL INTERFACE -->
+    <div id="quiz-interface" class="hidden flex flex-col md:flex-row gap-6 w-full max-w-5xl flex-grow pb-20">
         
         <!-- Main Question Area -->
         <main class="flex-grow w-full md:w-3/4">
-            <div id="question-card" class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 min-h-[400px] relative transition-colors">
+            <div id="question-card" class="app-card rounded-2xl shadow-lg p-6 md:p-8 min-h-[400px] relative transition-colors">
                 <!-- Content injected via JS -->
             </div>
 
             <!-- Controls -->
             <div class="flex flex-col md:flex-row justify-between items-center gap-3 mt-6">
-                <!-- Previous Button -->
-                <button id="btn-prev" onclick="changeQuestion(-1)" class="hidden w-full md:w-auto items-center justify-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">← Sebelumnya</button>
+                <button id="btn-prev" onclick="changeQuestion(-1)" class="hidden w-full md:w-auto items-center justify-center gap-2 app-card hover:brightness-95 border font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">← Sebelumnya</button>
                 
-                <!-- Action Buttons Area -->
                 <div class="flex flex-wrap justify-center gap-3 w-full md:w-auto order-first md:order-none mb-2 md:mb-0">
-                    <!-- Exam: Mark For Review -->
                     <button id="btn-mark" onclick="toggleMark()" class="hidden bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border border-yellow-300 font-bold py-2 px-6 rounded-xl transition">
                         Tunda / Ragu
                     </button>
-                    
-                    <!-- Drill: Check Answer -->
-                    <button id="btn-check" onclick="checkDrillAnswer()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition">
+                    <button id="btn-check" onclick="checkDrillAnswer()" class="hidden btn-primary font-bold py-2 px-6 rounded-xl shadow-md transition">
                         Cek Jawaban
                     </button>
-                    
-                     <!-- Drill: Next Variation -->
-                     <button id="btn-next-drill" onclick="nextDrillVariation()" class="hidden flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 font-bold py-2 px-4 rounded-xl transition" title="Buat variasi soal baru untuk nomor ini">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                        Variasi Baru
+                     <button id="btn-next-drill" onclick="nextDrillVariation()" class="hidden flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 font-bold py-2 px-4 rounded-xl transition">
+                        Variasi Baru ↻
                     </button>
                 </div>
 
-                <!-- Next Button -->
-                <button id="btn-next" onclick="changeQuestion(1)" class="hidden w-full md:w-auto items-center justify-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">Selanjutnya →</button>
+                <button id="btn-next" onclick="changeQuestion(1)" class="hidden w-full md:w-auto items-center justify-center gap-2 app-card hover:brightness-95 border font-medium py-2 px-6 rounded-xl transition disabled:opacity-50">Selanjutnya →</button>
             </div>
         </main>
 
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar Navigation (Used for Exam, Drill, AND Debug now) -->
         <aside id="sidebar" class="hidden w-full md:w-1/4 flex flex-col gap-4">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sticky top-24 transition-colors max-h-[80vh] overflow-y-auto custom-scroll">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">NAVIGATOR</h3>
+            <div class="app-card rounded-2xl shadow-sm p-4 sticky top-24 transition-colors max-h-[80vh] overflow-y-auto custom-scroll">
+                <h3 class="text-xs font-bold text-sub uppercase tracking-wider mb-4">NAVIGATOR</h3>
                 <div id="nav-grid" class="grid grid-cols-5 gap-2"></div>
                 
                 <!-- Legends -->
-                <div id="legend-exam" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
+                <div id="legend-exam" class="mt-6 flex flex-col gap-2 text-xs text-sub hidden">
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Terjawab</div>
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yellow-500 rounded-full"></div> Ragu-ragu</div>
-                    <div class="flex items-center gap-2"><div class="w-3 h-3 bg-white border border-slate-300 rounded-full"></div> Kosong</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 app-card border rounded-full"></div> Kosong</div>
                 </div>
-                <div id="legend-drill" class="mt-6 flex flex-col gap-2 text-xs text-slate-500 hidden">
+                <div id="legend-drill" class="mt-6 flex flex-col gap-2 text-xs text-sub hidden">
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-green-500 rounded-full"></div> Benar</div>
                     <div class="flex items-center gap-2"><div class="w-3 h-3 bg-red-500 rounded-full"></div> Salah</div>
                 </div>
             </div>
         </aside>
-
     </div>
 
     <!-- REVIEW INTERFACE -->
-    <div id="review-interface" class="hidden w-full max-w-4xl space-y-6 pb-20"></div>
+    <div id="review-interface" class="hidden w-full max-w-5xl space-y-6 pb-20"></div>
 
-    <!-- DEBUG INTERFACE -->
-    <div id="debug-interface" class="hidden w-full max-w-5xl flex flex-col md:flex-row gap-6 pb-20">
-        <!-- Sidebar Navigation for Debug -->
-        <aside class="w-full md:w-1/4">
-            <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-4 sticky top-24 max-h-[80vh] overflow-y-auto custom-scroll">
-                <h3 class="text-sm font-bold text-indigo-700 uppercase tracking-wider mb-3 border-b pb-2">Daftar Soal</h3>
-                <div id="debug-nav-sidebar" class="space-y-1">
-                    <!-- Simplified Nav buttons (Question level) -->
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content for Debug -->
-        <main class="w-full md:w-3/4">
-            <h2 class="text-3xl font-bold text-indigo-700 mb-2">Debug Mode</h2>
-            <p class="text-slate-600 mb-6">Menampilkan semua variasi soal.</p>
-            <div id="debug-list-container" class="space-y-8">
-                <!-- Question cards injected here -->
-            </div>
-        </main>
+    <!-- DEBUG INTERFACE (Now uses Main Interface Layout but shows list) -->
+    <div id="debug-interface" class="hidden w-full max-w-5xl space-y-6 pb-20">
+        <!-- Content injected via JS -->
     </div>
 
-    <!-- Confirmation Modal -->
-    <div id="confirmation-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center border-t-4 border-red-500">
-            <h2 class="text-xl font-bold mb-2 text-slate-800">Selesaikan Ujian?</h2>
-            <p class="text-slate-500 mb-6">Jawaban akan dikirim dan waktu akan berhenti.</p>
+    <!-- Modals -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+        <div class="app-card rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center border-t-4 border-red-500">
+            <h2 class="text-xl font-bold mb-2">Selesaikan Ujian?</h2>
+            <p class="text-sub mb-6">Jawaban akan dikirim dan waktu akan berhenti.</p>
             <div class="flex gap-3 justify-center">
-                <button onclick="hideConfirmationModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">Batal</button>
+                <button onclick="hideConfirmationModal()" class="app-card border hover:brightness-95 font-bold py-2 px-6 rounded-xl transition">Batal</button>
                 <button onclick="finishExam()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl transition shadow-md">Ya, Kirim</button>
             </div>
         </div>
     </div>
 
-    <!-- Results Modal -->
-    <div id="result-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="z-index: 60;">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transform scale-100 transition-all">
+    <div id="result-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+        <div class="app-card rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
             <div id="score-icon" class="text-6xl mb-4">🎉</div>
-            <h2 class="text-2xl font-bold mb-2 text-slate-800">Ujian Selesai</h2>
-            <div id="score-display" class="text-5xl font-black text-indigo-600 mb-2">0%</div>
-            <p id="score-text" class="text-slate-500 mb-8">Hasil Anda.</p>
+            <h2 class="text-2xl font-bold mb-2">Ujian Selesai</h2>
+            <div id="score-display" class="text-5xl font-black mb-2" style="color: var(--primary);">0%</div>
+            <p id="score-text" class="text-sub mb-8">Hasil Anda.</p>
             <div class="flex gap-3 justify-center">
-                <button onclick="enterReviewMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-xl transition">Tinjau</button>
-                <button onclick="goToStartScreen()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl transition">Beranda</button>
+                <button onclick="enterReviewMode()" class="app-card border hover:brightness-95 font-bold py-2 px-6 rounded-xl transition">Tinjau</button>
+                <button onclick="goToStartScreen()" class="btn-primary font-bold py-2 px-6 rounded-xl transition">Beranda</button>
             </div>
         </div>
     </div>
 
     <script>
         // *** CONFIGURATION ***
-        const SHOW_DEBUG_MODE = true; // Set to false to hide debug button in production
+        const SHOW_DEBUG_MODE = true;
         const EXAM_DURATION_MINUTES = 60;
 
         // --- THEME LOGIC ---
-        let isWarmTheme = false;
-        function toggleTheme() {
-            isWarmTheme = !isWarmTheme;
-            if (isWarmTheme) {
-                document.body.classList.add('theme-warm');
-            } else {
-                document.body.classList.remove('theme-warm');
-            }
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
         }
 
         // --- FALLBACK DATA ---
         const fallbackQuestionData = [
-            { id: 1, type: "mcq", variations: [{ "prompt": "$5^3$ dalam bentuk perkalian:", "options": ["$5\\times3$", "$5\\times5\\times5$", "$3\\times3\\times3\\times3\\times3$", "$5+5+5$"], "correct": "b", "explanation": "$5^3$ artinya 5 dikalikan 3 kali." }, { "prompt": "$2^4$ dalam bentuk perkalian:", "options": ["$2\\times4$", "$2\\times2\\times2\\times2$", "$4\\times4$", "$4\\times2$"], "correct": "b", "explanation": "$2^4$ artinya 2 dikalikan 4 kali." }] },
-            { id: 2, type: "mcq", variations: [{ "prompt": "Jika $\\sqrt{x} = 7$, berapakah nilai $x$?", "options": ["14", "49", "21", "3.5"], "correct": "b", "explanation": "Kuadratkan kedua sisi: $x = 7^2 = 49$." }] }
+            { id: 1, type: "mcq", variations: [{ "prompt": "$5^3$ dalam bentuk perkalian:", "options": ["$5\\times3$", "$5\\times5\\times5$", "$3\\times3\\times3\\times3\\times3$", "$5+5+5$"], "correct": "b", "explanation": "$5^3$ artinya 5 dikalikan 3 kali." }, { "prompt": "$2^4$ dalam bentuk perkalian:", "options": ["$2\\times4$", "$2\\times2\\times2\\times2$", "$4\\times4$", "$4\\times2$"], "correct": "b", "explanation": "$2^4$ artinya 2 dikalikan 4 kali." }] }
         ];
 
         // --- SVG HELPERS ---
@@ -302,13 +324,12 @@
         let currentMode = ''; 
         let currentIndex = 0; 
         let activeQuestions = []; 
-        let currentDrillQId = null; 
         let timerInterval;
         let currentTime = 0;
 
         function getOptionId(index) { return String.fromCharCode(97 + index); }
 
-        // --- NAVIGATION ---
+        // --- UI CONTROL ---
         function hideAllSections() {
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('quiz-interface').classList.add('hidden');
@@ -327,7 +348,6 @@
             currentMode = '';
         }
 
-        // --- MODALS ---
         function showConfirmationModal() { document.getElementById('confirmation-modal').classList.remove('hidden'); }
         function hideConfirmationModal() { document.getElementById('confirmation-modal').classList.add('hidden'); }
 
@@ -355,18 +375,15 @@
             document.getElementById('timer-display').textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        // --- INITIALIZATION ---
+        // --- INIT ---
         window.onload = async function() {
             try {
                 const response = await fetch('questions.json');
                 if (!response.ok) throw new Error("Failed");
                 questionData = await response.json();
-            } catch (e) {
-                questionData = fallbackQuestionData;
-            }
+            } catch (e) { questionData = fallbackQuestionData; }
+            
             renderStartScreen();
-            document.getElementById('confirmation-modal').classList.add('hidden');
-            document.getElementById('result-modal').classList.add('hidden');
             if (!SHOW_DEBUG_MODE) document.getElementById('debug-section').classList.add('hidden');
         };
 
@@ -375,51 +392,26 @@
             drillContainer.innerHTML = ''; 
             questionData.forEach((q) => {
                 const btn = document.createElement('button');
-                btn.className = "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold py-2 rounded-lg transition text-sm";
+                btn.className = "btn-primary bg-opacity-10 text-opacity-100 border border-opacity-20 font-bold py-2 rounded-lg transition text-sm";
+                // Styling override for drill buttons specifically
+                btn.style.backgroundColor = "var(--bg-card)";
+                btn.style.color = "var(--primary)";
+                btn.style.borderColor = "var(--primary)";
                 btn.innerText = q.id;
                 btn.onclick = () => startDrillMode(q.id);
                 drillContainer.appendChild(btn);
             });
         }
 
-        // --- INTERFACE SETUP ---
-        function setupInterface(title) {
-            hideAllSections();
-            document.getElementById('quiz-interface').classList.remove('hidden');
-            document.getElementById('sidebar').classList.remove('hidden');
-            document.getElementById('btn-home').classList.remove('hidden');
-            document.getElementById('mode-display').innerText = title;
-
-            document.getElementById('btn-prev').classList.remove('hidden');
-            document.getElementById('btn-prev').classList.add('flex');
-            document.getElementById('btn-next').classList.remove('hidden');
-            document.getElementById('btn-next').classList.add('flex');
-
-            if(currentMode === 'exam') {
-                document.getElementById('btn-finish-exam').classList.remove('hidden'); 
-                document.getElementById('btn-mark').classList.remove('hidden');
-                document.getElementById('btn-check').classList.add('hidden');
-                document.getElementById('btn-next-drill').classList.add('hidden');
-                document.getElementById('legend-exam').classList.remove('hidden');
-                document.getElementById('legend-drill').classList.add('hidden');
-            } else {
-                document.getElementById('btn-finish-exam').classList.add('hidden');
-                document.getElementById('btn-mark').classList.add('hidden');
-                document.getElementById('btn-check').classList.remove('hidden');
-                document.getElementById('btn-next-drill').classList.remove('hidden');
-                document.getElementById('legend-exam').classList.add('hidden');
-                document.getElementById('legend-drill').classList.remove('hidden');
-            }
-        }
-
+        // --- LOGIC ---
         function createQuestionObject(q, variation, number) {
             let mappedOptions = [];
             if (q.type === 'mcq') {
                 mappedOptions = variation.options.map((text, i) => ({ id: getOptionId(i), text: text }));
             }
-            let img = variation.image;
-            if(img && img.startsWith("svg:")) {
-                const parts = img.split(":");
+            let img = variation.image || variation.imgUrl; // Support generated image or URL
+            if(variation.image && variation.image.startsWith("svg:")) {
+                const parts = variation.image.split(":");
                 let svgData = '';
                 if (parts[1] === "coord") svgData = createCoordSVG(...parts[2].split(","));
                 else if (parts[1] === "tri") svgData = createTriangleSVG(...parts[2].split(","));
@@ -434,7 +426,7 @@
                 const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
                 return createQuestionObject(q, variation, idx + 1);
             });
-            setupInterface("Mode: Ujian Penuh");
+            setupQuizInterface("Mode: Ujian Penuh");
             startTimer();
             renderNavGrid();
             renderQuestion(0);
@@ -442,12 +434,13 @@
 
         function startDrillMode(qId) {
             currentMode = 'drill';
+            // Load ALL questions so we can navigate between them, but jump to selected
             activeQuestions = questionData.map((q, idx) => {
                 const variation = q.variations[Math.floor(Math.random() * q.variations.length)];
                 return createQuestionObject(q, variation, idx + 1);
             });
             const startIndex = activeQuestions.findIndex(q => q.id === qId);
-            setupInterface(`Mode: Latihan (Soal ${qId})`);
+            setupQuizInterface(`Mode: Latihan (Soal ${qId})`);
             renderNavGrid();
             renderQuestion(startIndex >= 0 ? startIndex : 0);
         }
@@ -461,105 +454,48 @@
             updateNavGridHighlight();
         }
 
-        // --- NEW DEBUG MODE ---
-        function startDebugMode() {
+        function setupQuizInterface(title) {
             hideAllSections();
-            document.getElementById('debug-interface').classList.remove('hidden');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            document.getElementById('sidebar').classList.remove('hidden');
             document.getElementById('btn-home').classList.remove('hidden');
-            document.getElementById('mode-display').innerText = "Mode: Debug";
+            document.getElementById('mode-display').innerText = title;
+
+            // Show nav buttons based on mode
+            const isExam = currentMode === 'exam';
             
-            renderDebugContent();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('btn-prev').classList.remove('hidden');
+            document.getElementById('btn-next').classList.remove('hidden');
+            document.getElementById('btn-prev').classList.add('flex'); // ensure flex layout
+            
+            document.getElementById('btn-finish-exam').classList.toggle('hidden', !isExam);
+            document.getElementById('btn-mark').classList.toggle('hidden', !isExam);
+            document.getElementById('legend-exam').classList.toggle('hidden', !isExam);
+            
+            document.getElementById('btn-check').classList.toggle('hidden', isExam);
+            document.getElementById('btn-next-drill').classList.toggle('hidden', isExam);
+            document.getElementById('legend-drill').classList.toggle('hidden', isExam);
         }
 
-        function renderDebugContent() {
-            const navSidebar = document.getElementById('debug-nav-sidebar');
-            const container = document.getElementById('debug-list-container');
-            navSidebar.innerHTML = '';
-            container.innerHTML = '';
-
-            questionData.forEach((q, idx) => {
-                // 1. Navigation Button (Per Question)
-                const btn = document.createElement('button');
-                const targetId = `debug-q-group-${q.id}`;
-                btn.className = `debug-nav-btn w-full rounded-lg text-sm text-slate-700 hover:bg-indigo-100/50`;
-                btn.innerText = `Soal ${q.id} (${q.variations.length} var)`;
-                btn.onclick = () => {
-                    document.querySelectorAll('.debug-nav-btn').forEach(b => b.classList.remove('debug-active'));
-                    btn.classList.add('debug-active');
-                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
-                };
-                navSidebar.appendChild(btn);
-
-                // 2. Question Group Container
-                const groupDiv = document.createElement('div');
-                groupDiv.id = targetId;
-                groupDiv.className = "bg-slate-50 p-4 rounded-2xl border border-slate-200";
-                groupDiv.innerHTML = `<h3 class="text-xl font-bold text-slate-700 mb-4 border-b pb-2">Master Soal ID: ${q.id}</h3>`;
-
-                // 3. Render Each Variation Card
-                q.variations.forEach((v, vIdx) => {
-                    // Process SVG
-                    let imgHtml = '';
-                    let img = v.image;
-                    if(img && img.startsWith("svg:")) {
-                        const parts = img.split(":");
-                        let svgData = '';
-                        if (parts[1] === "coord") svgData = createCoordSVG(...parts[2].split(","));
-                        else if (parts[1] === "tri") svgData = createTriangleSVG(...parts[2].split(","));
-                        if (svgData) imgHtml = `<div class="q-image-container max-w-xs mx-auto my-4">${svgData}</div>`;
-                    }
-
-                    let optionsHtml = '';
-                    if (q.type === 'mcq') {
-                        optionsHtml = `<div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">`;
-                        v.options.forEach((opt, optIdx) => {
-                            const id = getOptionId(optIdx);
-                            const isCorrect = id === v.correct;
-                            const style = isCorrect ? 'bg-green-100 text-green-800 border-green-400 font-bold' : 'bg-white text-slate-600 border-slate-200';
-                            optionsHtml += `<div class="p-2 rounded border text-sm ${style}">${id.toUpperCase()}. ${opt} ${isCorrect?'(✓)':''}</div>`;
-                        });
-                        optionsHtml += `</div>`;
-                    } else {
-                        optionsHtml = `<div class="mt-3 p-2 bg-blue-50 text-blue-800 border border-blue-200 rounded text-sm"><strong>Jawaban:</strong> ${v.correct}</div>`;
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-5 rounded-xl shadow-sm border border-slate-200 mb-4";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded">Variasi ${vIdx+1}</span>
-                        </div>
-                        <div class="text-lg font-medium text-slate-800 mt-2">${v.prompt}</div>
-                        ${imgHtml}
-                        ${optionsHtml}
-                        <div class="mt-3 text-sm text-slate-500 italic bg-yellow-50 p-2 rounded border border-yellow-100">💡 ${v.explanation}</div>
-                    `;
-                    groupDiv.appendChild(card);
-                });
-                container.appendChild(groupDiv);
-            });
-            
-            if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
-        }
-
-        // --- RENDER QUIZ ---
         function renderQuestion(index) {
             currentIndex = index;
             const q = activeQuestions[index];
             const card = document.getElementById('question-card');
             
+            // Enable check button for new drill questions
             if (currentMode === 'drill' && q.status === 'unanswered') {
-                document.getElementById('btn-check').disabled = false;
-                document.getElementById('btn-check').classList.remove('opacity-50', 'cursor-not-allowed');
+                const btnCheck = document.getElementById('btn-check');
+                btnCheck.disabled = false;
+                btnCheck.classList.remove('opacity-50', 'cursor-not-allowed');
+                btnCheck.innerText = "Cek Jawaban";
             }
 
             let html = `
                 <div class="flex items-center gap-3 mb-4">
-                    <span class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-sm">Soal ${q.number}</span>
+                    <span class="px-3 py-1 rounded-full text-sm font-bold" style="background-color: var(--primary-light); color: var(--primary);">Soal ${q.number}</span>
                     ${q.isMarked ? '<span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">Ditandai</span>' : ''}
                 </div>
-                <div class="text-lg md:text-xl font-medium text-slate-800 mb-4 leading-relaxed">${q.data.prompt}</div>
+                <div class="text-lg md:text-xl font-medium mb-4 leading-relaxed">${q.data.prompt}</div>
             `;
 
             if (q.data.image) html += `<div class="q-image-container"><img src="${q.data.image}" class="q-image shadow-sm"></div>`;
@@ -568,30 +504,39 @@
                 html += `<div class="grid grid-cols-1 gap-3 mt-6">`;
                 q.data.options.forEach(opt => {
                     const isChecked = q.userAnswer === opt.id;
-                    let colorClass = "border-slate-200 hover:border-indigo-400 bg-white";
+                    let borderColor = "var(--border-color)";
+                    let bgColor = "var(--bg-card)";
+                    
+                    // Colors logic
                     if (currentMode === 'drill' && q.status !== 'unanswered') {
-                         if (opt.id === q.data.correct) colorClass = "border-green-500 bg-green-50 ring-1 ring-green-500";
-                         else if (opt.id === q.userAnswer && q.status === 'incorrect') colorClass = "border-red-500 bg-red-50 ring-1 ring-red-500";
-                    } else if (isChecked) colorClass = "border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50";
+                         if (opt.id === q.data.correct) { borderColor = "#22c55e"; bgColor = "#f0fdf4"; } // Green
+                         else if (opt.id === q.userAnswer && q.status === 'incorrect') { borderColor = "#ef4444"; bgColor = "#fef2f2"; } // Red
+                    } else if (isChecked) {
+                        borderColor = "var(--primary)"; bgColor = "var(--bg-app)";
+                    }
 
-                    html += `<label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${colorClass}">
+                    html += `
+                        <label class="flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all" style="border-color: ${borderColor}; background-color: ${bgColor}">
                             <input type="radio" name="current_q" value="${opt.id}" class="sr-only" onchange="selectAnswer('${opt.id}')" ${isChecked ? 'checked' : ''} ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}>
                             <div class="flex-shrink-0 w-8 font-bold opacity-50">${opt.id.toUpperCase()}.</div>
                             <div class="ml-2 font-medium w-full">${opt.text}</div>
-                        </label>`;
+                        </label>
+                    `;
                 });
                 html += `</div>`;
             } else {
-                let inputStyle = "border-slate-300 focus:ring-indigo-500";
+                // Text input
+                let borderColor = "var(--border-color)";
                 if (currentMode === 'drill' && q.status !== 'unanswered') {
-                    inputStyle = q.status === 'correct' ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50";
+                    borderColor = q.status === 'correct' ? "#22c55e" : "#ef4444";
                 }
-                html += `<div class="mt-6"><input type="text" value="${q.userAnswer || ''}" class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg ${inputStyle}" oninput="selectAnswer(this.value)" ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}></div>`;
+                html += `<div class="mt-6"><input type="text" value="${q.userAnswer || ''}" class="w-full p-4 border-2 rounded-xl outline-none transition-all font-bold text-lg app-card" style="border-color: ${borderColor}" oninput="selectAnswer(this.value)" ${currentMode === 'drill' && q.status !== 'unanswered' ? 'disabled' : ''}></div>`;
             }
 
             if (currentMode === 'drill' && q.status !== 'unanswered') {
                 const isCor = q.status === 'correct';
-                html += `<div class="mt-6 p-4 rounded-xl ${isCor ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} animate-fade-in">
+                const color = isCor ? "text-green-800 bg-green-100" : "text-red-800 bg-red-100";
+                html += `<div class="mt-6 p-4 rounded-xl animate-fade-in ${color}">
                         <div class="font-bold mb-1">${isCor ? 'Benar!' : 'Salah'}</div>
                         <div class="mt-1 text-sm"><strong>Penjelasan:</strong> ${q.data.explanation}</div>
                     </div>`;
@@ -600,21 +545,22 @@
             card.innerHTML = html;
             if (window.renderMathInElement) renderMathInElement(card, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
 
-            // Buttons Logic
+            // Button Logic
             document.getElementById('btn-prev').disabled = index === 0;
+            
             const btnNext = document.getElementById('btn-next');
             const isLast = index === activeQuestions.length - 1;
             
             if (currentMode === 'exam' && isLast) {
                 btnNext.innerText = 'Selesaikan';
                 btnNext.onclick = showConfirmationModal;
-                btnNext.className = "flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition";
+                btnNext.className = "w-full md:w-auto items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition";
             } else {
                 btnNext.innerText = 'Selanjutnya →';
                 btnNext.onclick = () => changeQuestion(1);
-                btnNext.className = "flex items-center gap-2 bg-white text-slate-600 border border-slate-300 hover:bg-slate-50 font-medium py-2 px-6 rounded-xl transition disabled:opacity-50";
+                btnNext.className = "w-full md:w-auto items-center justify-center gap-2 app-card hover:brightness-95 border font-medium py-2 px-6 rounded-xl transition disabled:opacity-50";
             }
-            btnNext.disabled = isLast && currentMode === 'drill';
+            
             updateNavGridHighlight();
         }
 
@@ -636,7 +582,7 @@
 
         function checkDrillAnswer() {
             const q = activeQuestions[currentIndex];
-            if (!q.userAnswer) return; // Simple ignore if empty
+            if (!q.userAnswer) return;
             let isCorrect = false;
             if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
             else isCorrect = q.userAnswer.toString().trim().toLowerCase() === q.data.correct.toString().toLowerCase();
@@ -647,17 +593,17 @@
 
         function finishExam(isTimeout = false) {
             if (!isTimeout) hideConfirmationModal();
-            if (currentMode === 'exam') clearInterval(timerInterval);
+            clearInterval(timerInterval);
             let correct = 0;
             activeQuestions.forEach(q => {
                 let isCorrect = false;
                 if (q.type === 'mcq') isCorrect = q.userAnswer === q.data.correct;
                 else isCorrect = q.userAnswer && q.userAnswer.toString().toLowerCase() === q.data.correct.toLowerCase();
-                if (isCorrect) { q.status = 'correct'; correct++; } else { q.status = 'incorrect'; }
+                q.status = isCorrect ? 'correct' : 'incorrect';
+                if (isCorrect) correct++;
             });
             const percentage = Math.round((correct / activeQuestions.length) * 100);
             document.getElementById('score-display').innerText = `${percentage}%`;
-            document.getElementById('score-text').innerText = `Benar: ${correct} dari ${activeQuestions.length}`;
             document.getElementById('result-modal').classList.remove('hidden');
         }
 
@@ -670,22 +616,103 @@
             
             activeQuestions.forEach(q => {
                 const isCor = q.status === 'correct';
-                const borderClass = isCor ? 'border-green-400 ring-1 ring-green-400' : 'border-red-400 ring-1 ring-red-400';
-                let html = `<div class="bg-white rounded-xl shadow-sm border p-6 ${borderClass} mb-4"><div class="flex justify-between mb-2"><span class="font-bold">Soal ${q.number}</span><span class="${isCor?'text-green-600':'text-red-600'} font-bold">${isCor?'Benar':'Salah'}</span></div><div class="text-lg mb-4">${q.data.prompt}</div>`;
-                if (q.data.explanation) html += `<div class="p-3 bg-blue-50 text-sm text-slate-700 border-l-4 border-blue-400"><strong>Penjelasan:</strong> ${q.data.explanation}</div>`;
-                html += `</div>`;
+                const color = isCor ? "border-green-400" : "border-red-400";
+                let html = `<div class="app-card rounded-xl shadow-sm border p-6 mb-4" style="border-color: ${isCor ? '#4ade80' : '#f87171'}">
+                        <div class="flex justify-between mb-2"><span class="font-bold">Soal ${q.number}</span><span class="${isCor?'text-green-600':'text-red-600'} font-bold">${isCor?'Benar':'Salah'}</span></div>
+                        <div class="text-lg mb-4">${q.data.prompt}</div>`;
+                
+                if (q.type === 'mcq') {
+                    html += `<div class="space-y-2">`;
+                    q.data.options.forEach(opt => {
+                        let style = "border-color: var(--border-color); background-color: var(--bg-app)";
+                        if (opt.id === q.data.correct) style = "border-color: #22c55e; background-color: #f0fdf4; color: #15803d; font-weight: bold;"; // Green
+                        else if (opt.id === q.userAnswer && !isCor) style = "border-color: #ef4444; background-color: #fef2f2; color: #991b1b; font-weight: bold;"; // Red
+                        
+                        html += `<div class="p-3 rounded-lg border ${style}">${opt.id.toUpperCase()}. ${opt.text}</div>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<div class="p-3 rounded border mt-2">Jawaban: <strong>${q.userAnswer || '-'}</strong> (Benar: ${q.data.correct})</div>`;
+                }
+                html += `<div class="mt-2 p-3 text-sm bg-blue-50 text-slate-700 border-l-4 border-blue-400 rounded"><strong>Penjelasan:</strong> ${q.data.explanation}</div></div>`;
                 container.innerHTML += html;
             });
             document.getElementById('result-modal').classList.add('hidden');
             if (window.renderMathInElement) renderMathInElement(container, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
         }
 
+        // --- DEBUG MODE ---
+        function startDebugMode() {
+            hideAllSections();
+            // Using the Quiz Layout structure for Debug Mode now (Sidebar + Content)
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            document.getElementById('sidebar').classList.remove('hidden');
+            document.getElementById('btn-home').classList.remove('hidden');
+            document.getElementById('mode-display').innerText = "Mode: Debug";
+            
+            // Hide quiz controls, we just want to scroll
+            document.getElementById('btn-prev').classList.add('hidden');
+            document.getElementById('btn-next').classList.add('hidden');
+            document.getElementById('btn-check').classList.add('hidden');
+            document.getElementById('btn-mark').classList.add('hidden');
+            document.getElementById('btn-next-drill').classList.add('hidden');
+            
+            // Setup Navigation for Debug (Jump to Question Block)
+            const navGrid = document.getElementById('nav-grid');
+            navGrid.innerHTML = '';
+            questionData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    document.getElementById(`debug-q-${q.id}`).scrollIntoView({ behavior: 'smooth' });
+                };
+                navGrid.appendChild(btn);
+            });
+
+            // Render All Questions Linearly in the main card area
+            const card = document.getElementById('question-card');
+            card.innerHTML = `<h2 class="text-xl font-bold mb-6 border-b pb-2">Daftar Semua Soal & Variasi</h2>`;
+            
+            questionData.forEach(q => {
+                let qBlock = `<div id="debug-q-${q.id}" class="mb-8 p-4 border rounded-xl bg-slate-50/50"><h3 class="font-bold text-lg mb-4 text-indigo-600">Master Soal ID: ${q.id}</h3>`;
+                q.variations.forEach((v, vIdx) => {
+                    let imgHtml = '';
+                    // ... (Image logic reuse) ...
+                    let img = v.image || v.imgUrl;
+                    if(img && img.startsWith("svg:")) {
+                        const parts = img.split(":");
+                        let svgData = '';
+                        if (parts[1] === "coord") svgData = createCoordSVG(...parts[2].split(","));
+                        else if (parts[1] === "tri") svgData = createTriangleSVG(...parts[2].split(","));
+                        if (svgData) img = `data:image/svg+xml;base64,${btoa(svgData)}`;
+                    }
+                    if (img) imgHtml = `<div class="my-2"><img src="${img}" class="h-32 rounded border"></div>`;
+
+                    qBlock += `
+                        <div class="mb-4 p-4 bg-white rounded shadow-sm border border-slate-200">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-1">Variasi ${vIdx + 1}</div>
+                            <div class="font-medium mb-2">${v.prompt}</div>
+                            ${imgHtml}
+                            <div class="text-sm text-green-700 bg-green-50 p-2 rounded mt-2"><strong>Jawaban:</strong> ${v.correct}</div>
+                            <div class="text-sm text-slate-500 mt-1 italic">${v.explanation}</div>
+                        </div>
+                    `;
+                });
+                qBlock += `</div>`;
+                card.innerHTML += qBlock;
+            });
+            
+            if (window.renderMathInElement) renderMathInElement(card, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });
+        }
+
+        // --- NAV RENDERING ---
         function renderNavGrid() {
             const grid = document.getElementById('nav-grid');
             grid.innerHTML = '';
             activeQuestions.forEach((q, idx) => {
                 const btn = document.createElement('button');
-                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border`;
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm`;
                 btn.innerText = q.number;
                 btn.onclick = () => renderQuestion(idx);
                 grid.appendChild(btn);
@@ -695,10 +722,18 @@
 
         function updateNavGridHighlight() {
             const btns = document.getElementById('nav-grid').children;
+            // Fix bug: Ensure btns match activeQuestions length
+            if (btns.length !== activeQuestions.length) return;
+
             activeQuestions.forEach((q, idx) => {
                 const btn = btns[idx];
-                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm border transition-all`;
-                if (idx === currentIndex) btn.classList.add('active', 'ring-2', 'ring-indigo-600', 'ring-offset-2');
+                // Reset basics
+                btn.className = `nav-btn w-full aspect-square flex items-center justify-center rounded-lg font-bold text-sm`;
+                
+                // Active State
+                if (idx === currentIndex) btn.classList.add('active');
+
+                // Color State
                 if (currentMode === 'drill') {
                     if (q.status === 'correct') btn.classList.add('drill-correct');
                     else if (q.status === 'incorrect') btn.classList.add('drill-incorrect');
