@@ -766,34 +766,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Harga 3 pensil ($P$) dan 2 pulpen ($Q$) adalah Rp14.000. Model matematikanya adalah ...",
-        "options": ["$3P + 2Q = 14000$", "$3P + 2Q > 14000$", "$2P + 3Q = 14000$", "$5PQ = 14000$"],
-        "correct": "a",
-        "explanation": "Kalimat 'Harga 3 pensil dan 2 pulpen adalah Rp14.000' diterjemahkan menjadi penjumlahan. \n3 dikali harga pensil ($3P$) ditambah 2 dikali harga pulpen ($2Q$) sama dengan 14.000.\nJadi: $3P + 2Q = 14.000$."
+        "prompt": "Hasil dari $6^0+7^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
+        "correct": "c",
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $6^0+7^0=1+1=2$."
       },
       {
-        "prompt": "Andi membeli 1 kg mangga ($M$) dan 4 kg jeruk ($J$) dengan total bayar Rp50.000. Persamaan yang benar adalah ...",
-        "options": ["$M + 4J = 50000$", "$4M + J = 50000$", "$M \\times J = 50000$", "$5(M+J) = 50000$"],
-        "correct": "a",
-        "explanation": "1 kg mangga = $1M$ atau $M$. \n4 kg jeruk = $4J$. \nTotal harga adalah penjumlahan keduanya: $M + 4J = 50.000$."
+        "prompt": "Hasil dari $(13+7)^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
+        "correct": "b",
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $(13+7)^0=1$."
       },
       {
-        "prompt": "Selisih umur Ayah ($A$) dan Ibu ($I$) adalah 5 tahun. Jika Ayah lebih tua, model yang benar adalah ...",
-        "options": ["$A - I = 5$", "$I - A = 5$", "$A + I = 5$", "$5A = I$"],
+        "prompt": "Hasil dari $8^0-6^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
         "correct": "a",
-        "explanation": "Selisih menunjukkan operasi pengurangan. \nKarena Ayah lebih tua, maka umur Ayah ($A$) dikurangi umur Ibu ($I$) hasilnya 5.\nPersamaan: $A - I = 5$."
-      },
-      {
-        "prompt": "Dua kali bilangan pertama ($x$) ditambah bilangan kedua ($y$) hasilnya 20. Persamaan tersebut adalah ...",
-        "options": ["$2x + y = 20$", "$x + 2y = 20$", "$2(x+y) = 20$", "$x^2 + y = 20$"],
-        "correct": "a",
-        "explanation": "Terjemahkan kata per kata: \n'Dua kali bilangan pertama' $\\rightarrow 2x$. \n'Ditambah bilangan kedua' $\\rightarrow + y$. \n'Hasilnya 20' $\\rightarrow = 20$. \nGabungan: $2x + y = 20$."
-      },
-      {
-        "prompt": "Di parkiran terdapat motor ($M$) dan mobil ($L$). Jumlah total kendaraan adalah 10. Model matematikanya adalah ...",
-        "options": ["$M + L = 10$", "$M + 4L = 10$", "$2M + 4L = 10$", "$10(M+L)$"],
-        "correct": "a",
-        "explanation": "Soal ini menanyakan jumlah unit kendaraan, bukan jumlah roda. \nJadi, banyaknya motor ($M$) ditambah banyaknya mobil ($L$) adalah 10.\n$M + L = 10$."
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $8^0+6^0=1-1=0$."
       }
     ]
   },
@@ -842,34 +830,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Manakah kelompok bilangan di bawah ini yang BUKAN Tripel Pythagoras?",
-        "options": ["(5, 12, 14)", "(6, 8, 10)", "(7, 24, 25)", "(9, 12, 15)"],
+        "prompt": "Titik A(9,5) terletak pada kuadran ....",
+        "options": ["$I$", "$II$", "$III$", "$IV$"],
         "correct": "a",
-        "explanation": "Periksa opsi A: \n$5^2 + 12^2 = 25 + 144 = 169$. \n$14^2 = 196$. \nKarena $169 \\neq 196$, maka (5, 12, 14) **bukan** Tripel Pythagoras. \n(Opsi lain benar: $6^2+8^2=10^2$, dst)."
+        "explanation": "Perhatikan A memiliki absis positif dan ordinat positif, maka A terletak pada kuadran I"
       },
       {
-        "prompt": "Jika 8, 15, $x$ adalah Tripel Pythagoras, maka nilai $x$ (sisi terpanjang) adalah ...",
-        "options": ["17", "16", "18", "19"],
-        "correct": "a",
-        "explanation": "Gunakan rumus Pythagoras: $c = \\sqrt{a^2 + b^2}$. \n$x = \\sqrt{8^2 + 15^2} = \\sqrt{64 + 225} = \\sqrt{289}$. \n$x = 17$."
+        "prompt": "Titik P(9,-5) terletak pada kuadran ....",
+        "options": ["$I$", "$II$", "$III$", "$IV$"],
+        "correct": "d",
+        "explanation": "Perhatikan P memiliki absis positif dan ordinat negatif, maka P terletak pada kuadran IV"
       },
       {
-        "prompt": "Perhatikan kelompok bilangan: I. (3, 4, 5); II. (9, 12, 16); III. (5, 12, 13). Yang merupakan Tripel Pythagoras adalah ...",
-        "options": ["I dan III", "I dan II", "II dan III", "Hanya I"],
-        "correct": "a",
-        "explanation": "I: $3^2+4^2 = 9+16 = 25 = 5^2$ (Benar). \nII: $9^2+12^2 = 81+144 = 225$. $16^2=256$. (Salah, karena $225 \\neq 256$). \nIII: $5^2+12^2 = 25+144 = 169 = 13^2$ (Benar)."
-      },
-      {
-        "prompt": "Kelompok sisi 20, 21, dan $y$ membentuk segitiga siku-siku. Nilai $y$ yang paling mungkin (sisi miring) adalah ...",
-        "options": ["29", "25", "30", "28"],
-        "correct": "a",
-        "explanation": "$y = \\sqrt{20^2 + 21^2} = \\sqrt{400 + 441} = \\sqrt{841}$. \n$\\sqrt{841} = 29$."
-      },
-      {
-        "prompt": "Manakah pernyataan yang benar tentang Tripel Pythagoras?",
-        "options": ["Kuadrat sisi miring sama dengan jumlah kuadrat sisi lainnya", "Jumlah ketiga sisinya selalu genap", "Sisi miring adalah hasil kali dua sisi lainnya", "Selisih kuadrat sisi tegak adalah sisi miring"],
-        "correct": "a",
-        "explanation": "Definisi utama: Pada segitiga siku-siku, kuadrat sisi miring ($c^2$) sama dengan jumlah kuadrat sisi-sisi penyikunya ($a^2 + b^2$)."
+        "prompt": "Titik yang terletak pada kuadran II adalah ... ",
+        "options": ["A(2,3)","B(-4,-6)","C(2,-4)","D(-9,3)"],
+        "correct": "c",
+        "explanation": "Kuadran II memiliki absis(angka pertama) negatif dan ordinat(angka kedua) positif, maka yang sesuai adalah C(2,4)"
       }
     ]
   },
@@ -880,34 +856,16 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Keliling persegi panjang adalah 40 cm. Panjangnya 4 cm lebih dari lebarnya. Jika panjang = $P$ dan lebar = $L$, tentukan panjangnya ($P$)!",
-        "options": ["12 cm", "8 cm", "10 cm", "14 cm"],
-        "correct": "a",
-        "explanation": "1. Persamaan dari soal: $P = L + 4$. \n2. Rumus Keliling: $2(P+L) = 40 \\rightarrow P+L = 20$. \n3. Substitusi $P$: $(L+4) + L = 20 \\rightarrow 2L = 16 \\rightarrow L = 8$. \n4. Cari $P$: $P = 8 + 4 = 12$ cm."
+        "prompt": "Diketahui segitiga ABC siku-siku di C. Jika panjang AB = 20 cm dan panjang AC = 16 cm, maka panjang BC ....",
+        "options": ["10 cm", "12 cm", "15 cm", "25 cm"],
+        "correct": "b",
+        "explanation": "Gunakan rumus sisi tegak. $BC = \\sqrt{AB^-AC^2}=\\sqrt{20^2-16^2}=\\sqrt{400-264}=\\sqrt{144}=12$"
       },
       {
-        "prompt": "Harga total 3 buku dan 1 pulpen adalah Rp11.000. Harga 1 pulpen adalah Rp2.000. Berapa harga 1 buku?",
-        "options": ["Rp3.000", "Rp4.000", "Rp2.500", "Rp3.500"],
-        "correct": "a",
-        "explanation": "Misal buku ($B$). \nPersamaan: $3B + 2.000 = 11.000$. \n$3B = 11.000 - 2.000 = 9.000$. \n$B = 9.000 / 3 = 3.000$."
-      },
-      {
-        "prompt": "Jumlah dua bilangan adalah 24. Bilangan pertama 2 kali bilangan kedua. Berapakah bilangan kedua?",
-        "options": ["8", "16", "12", "10"],
-        "correct": "a",
-        "explanation": "Misal bilangan itu $x$ dan $y$. \n1. $x + y = 24$. \n2. $x = 2y$. \nSubstitusi: $2y + y = 24 \\rightarrow 3y = 24 \\rightarrow y = 8$. \nBilangan kedua adalah 8."
-      },
-      {
-        "prompt": "Harga 4 kg apel ($A$) adalah Rp100.000. Berapakah harga 1 kg apel?",
-        "options": ["Rp25.000", "Rp20.000", "Rp30.000", "Rp40.000"],
-        "correct": "a",
-        "explanation": "Persamaan sederhana: $4A = 100.000$. \n$A = 100.000 / 4 = 25.000$."
-      },
-      {
-        "prompt": "Pak Ali memetik 15 buah mangga. Jumlah ini adalah 3 buah lebih sedikit dari jumlah mangga yang dipetik Pak Budi ($B$). Berapa jumlah mangga Pak Budi?",
-        "options": ["18", "12", "5", "15"],
-        "correct": "a",
-        "explanation": "Mangga Ali = Mangga Budi - 3. \n$15 = B - 3$. \n$B = 15 + 3 = 18$."
+        "prompt": "Diketahui segitiga PQR siku-siku di Q. Jika panjang PQ = 9 cm dan panjang QR = 12 cm, maka panjang PR ....",
+        "options": ["10 cm", "12 cm", "15 cm", "25 cm"],
+        "correct": "c",
+        "explanation": "GGunakan rumus sisi miring. $BPR= \\sqrt{PQ^+QR^2}=\\sqrt{9^2+12^2}=\\sqrt{81+144}=\\sqrt{255}=15"
       }
     ]
   },
@@ -918,34 +876,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Bentuk $5^{-2}$ jika diubah menjadi pangkat positif adalah ...",
-        "options": ["$\\frac{1}{25}$", "$5^2$", "$-25$", "$\\frac{1}{5^{-2}}$"],
-        "correct": "a",
-        "explanation": "Sifat pangkat negatif: $a^{-n} = \\frac{1}{a^n}$. \nJadi, $5^{-2} = \\frac{1}{5^2} = \\frac{1}{25}$."
+        "prompt": "Nilai $x$ dari persamaan $3x+5=23$ adalah ....",
+        "options": ["4","5","6","7"],
+        "correct": "c",
+        "explanation": ""
       },
-      {
-        "prompt": "Hasil dari $\\frac{1}{3^3}$ jika ditulis dalam bentuk pangkat negatif adalah ...",
-        "options": ["$3^{-3}$", "$-3^3$", "$(-3)^3$", "$3^{-1/3}$"],
-        "correct": "a",
-        "explanation": "Kebalikan dari sifat sebelumnya: $\\frac{1}{a^n} = a^{-n}$. \n$\\frac{1}{3^3} = 3^{-3}$."
+       {
+        "prompt": "Nilai $x$ dari persamaan $8x-4=68$ adalah ....",
+        "options": ["3","6","9","12"],
+        "correct": "c",
+        "explanation": ""
       },
-      {
-        "prompt": "Nilai dari $4^{-1}$ adalah ...",
-        "options": ["$\\frac{1}{4}$", "$-4$", "$-1/4$", "$4$"],
-        "correct": "a",
-        "explanation": "$4^{-1} = \\frac{1}{4^1} = \\frac{1}{4}$."
-      },
-      {
-        "prompt": "Bentuk $k^{-5}$ sama dengan ...",
-        "options": ["$\\frac{1}{k^5}$", "$-k^5$", "$\\frac{5}{k}$", "$5^{-k}$"],
-        "correct": "a",
-        "explanation": "Pangkat negatif pada pembilang menjadi pangkat positif pada penyebut. \n$k^{-5} = \\frac{1}{k^5}$."
-      },
-      {
-        "prompt": "Hasil dari $\\frac{1}{2^{-3}}$ adalah ...",
-        "options": ["$8$", "$-8$", "$\\frac{1}{8}$", "$\\frac{1}{6}$"],
-        "correct": "a",
-        "explanation": "Jika pangkat negatif ada di penyebut, ia pindah ke pembilang menjadi positif. \n$\\frac{1}{2^{-3}} = 2^3 = 8$."
+       {
+        "prompt": "Nilai $x$ dari persamaan $2x=42$ adalah ....",
+        "options": ["12","15","18","21"],
+        "correct": "d",
+        "explanation": ""
       }
     ]
   },
@@ -956,34 +902,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Hasil dari $3\\sqrt{5} + 2\\sqrt{5}$ adalah ...",
-        "options": ["$5\\sqrt{5}$", "$6\\sqrt{5}$", "$5\\sqrt{10}$", "$5\\sqrt{25}$"],
-        "correct": "a",
-        "explanation": "Karena akarnya sejenis ($\\sqrt{5}$), cukup jumlahkan koefisiennya. \n$3 + 2 = 5$. Hasil akhirnya $5\\sqrt{5}$."
+        "prompt": "Seorang petani memiliki sebuah lahan kebun dengan luas $2^8$ meter persegi. Petani tersebut ingin membagi kebun tersebut untuk menanam buah yang berbeda. Jika tiap kebun memiliki ukuran $2^4$, banyak jenis buah yang bisa ditanami oleh petani adalah ....",
+        "options": ["$2^2$", "$2^4$", "$2^6$", "$2^8$"],
+        "correct": "b",
+        "explanation": "$2^8:2^4=2^{8-4}=2^4$."
       },
       {
-        "prompt": "Hasil dari $7\\sqrt{3} - \\sqrt{3}$ adalah ...",
-        "options": ["$6\\sqrt{3}$", "$7$", "$6$", "$7\\sqrt{0}$"],
-        "correct": "a",
-        "explanation": "Ingat, $\\sqrt{3}$ memiliki koefisien 1. \nJadi $7\\sqrt{3} - 1\\sqrt{3} = (7-1)\\sqrt{3} = 6\\sqrt{3}$."
+        "prompt": "Seseorang memiliki lahan seluas $5^4$ meter persegi. Jika tanah tersebut akan dibagi menjadi petak dengan ukuran $5^3$ meter persegi, maka banyak petak yang dibuat adalah... ",
+        "options": ["5^1", "5^2", "5^4", "5^5"],
+        "correct": "",
+        "explanation": "."
       },
       {
-        "prompt": "Sederhanakan $2\\sqrt{7} + 3\\sqrt{7} - 4\\sqrt{7}$!",
-        "options": ["$\\sqrt{7}$", "$5\\sqrt{7}$", "$-\\sqrt{7}$", "$1\\sqrt{21}$"],
-        "correct": "a",
-        "explanation": "Operasikan koefisien: $2 + 3 - 4 = 1$. \nHasilnya $1\\sqrt{7}$ atau ditulis $\\sqrt{7}$."
-      },
-      {
-        "prompt": "Bentuk sederhana dari $\\sqrt{20} + \\sqrt{5}$ adalah ...",
-        "options": ["$3\\sqrt{5}$", "$2\\sqrt{5}$", "$\\sqrt{25}$", "$3\\sqrt{20}$"],
-        "correct": "a",
-        "explanation": "Ubah $\\sqrt{20}$ menjadi bentuk sederhana: $\\sqrt{4 \\times 5} = 2\\sqrt{5}$. \nSekarang jumlahkan: $2\\sqrt{5} + 1\\sqrt{5} = 3\\sqrt{5}$."
-      },
-      {
-        "prompt": "Hasil dari $\\sqrt{18} - \\sqrt{8}$ adalah ...",
-        "options": ["$\\sqrt{2}$", "$2\\sqrt{2}$", "$3\\sqrt{2}$", "$\\sqrt{10}$"],
-        "correct": "a",
-        "explanation": "Sederhanakan dulu masing-masing akar: \n$\\sqrt{18} = \\sqrt{9 \\times 2} = 3\\sqrt{2}$. \n$\\sqrt{8} = \\sqrt{4 \\times 2} = 2\\sqrt{2}$. \nKurangkan: $3\\sqrt{2} - 2\\sqrt{2} = 1\\sqrt{2} = \\sqrt{2}$."
+        "prompt": "Seorang petani memiliki sebuah lahan kebun dengan luas $2^8$ meter persegi. Petani tersebut ingin membagi kebun tersebut untuk menanam buah yang berbeda. Jika tiap kebun memiliki ukuran $2^4$, banyak jenis buah yang bisa ditanami oleh petani adalah ....",
+        "options": ["$2^2$", "$2^4$", "$2^6$", "$2^8$"],
+        "correct": "b",
+        "explanation": "$2^8:2^4=2^{8-4}=2^4$."
       }
     ]
   },

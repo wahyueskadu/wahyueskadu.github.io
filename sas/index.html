@@ -194,7 +194,7 @@
         </div>
 
         <!-- Drill Card -->
-        <div class="app-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all group">
+        <div class="app-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all group cursor-pointer transform hover:-translate-y-1">
             <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">🎯</div>
             <h2 class="text-2xl font-bold mb-2">Mode Latihan</h2>
             <p class="text-sub mb-6 text-sm leading-relaxed">Latihan per topik. Cek jawaban langsung dan coba variasi soal.</p>
@@ -207,7 +207,7 @@
         </div>
         
         <!-- Debug/Utility -->
-        <div id="debug-section" class="md:col-span-2 app-card p-6 rounded-2xl shadow-md mt-2 flex justify-between items-center">
+        <div id="debug-section" class="md:col-span-2 app-card p-6 rounded-2xl shadow-md mt-2 flex justify-between items-center transform hover:-translate-y-1">
             <div>
                 <h3 class="text-lg font-bold">Mode Debug</h3>
                 <p class="text-xs text-sub">Lihat semua soal dan jawaban (Untuk Guru/Pengembang).</p>
@@ -384,6 +384,7 @@
             } catch (e) { questionData = fallbackQuestionData; }
             
             renderStartScreen();
+            startDrillMode(26);
             if (!SHOW_DEBUG_MODE) document.getElementById('debug-section').classList.add('hidden');
         };
 
@@ -392,7 +393,7 @@
             drillContainer.innerHTML = ''; 
             questionData.forEach((q) => {
                 const btn = document.createElement('button');
-                btn.className = "btn-primary bg-opacity-10 text-opacity-100 border border-opacity-20 font-bold py-2 rounded-lg transition text-sm";
+                btn.className = "btn-primary bg-opacity-10 text-opacity-100 border border-opacity-20 font-bold py-2 rounded-lg transition text-sm transform hover:-translate-y-1 -bg-pink-100 ";
                 // Styling override for drill buttons specifically
                 btn.style.backgroundColor = "var(--bg-card)";
                 btn.style.color = "var(--primary)";
