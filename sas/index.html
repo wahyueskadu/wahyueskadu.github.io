@@ -384,8 +384,10 @@
             } catch (e) { questionData = fallbackQuestionData; }
             
             renderStartScreen();
-           // startDrillMode(26);
+            
+            //startDebugMode();
             if (!SHOW_DEBUG_MODE) document.getElementById('debug-section').classList.add('hidden');
+            //startDrillMode(33);
         };
 
         function renderStartScreen() {
