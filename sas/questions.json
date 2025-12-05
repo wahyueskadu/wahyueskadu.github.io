@@ -1088,34 +1088,22 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Grafik fungsi kuadrat $f(x) = x^2 + 5x + 6$ akan membuka ke arah ...",
-        "options": ["Atas", "Bawah", "Kanan", "Kiri"],
-        "correct": "a",
-        "explanation": "Lihat koefisien $x^2$ ($a$). Di sini $a = 1$ (positif). \nJika $a > 0$, grafik terbuka ke **Atas** (seperti huruf U)."
+        "prompt": "Sebuah tiang bendera berdiri tegak di lapangan. Pak Rudi ingin mengikatkan tali dari ujung atas tiang ke tanah. Jarak antara titik di tanah tempat tali diikatkan ke dasar tiang adalah $9$ meter. Panjang tali yang digunakan (dari ujung atas tiang ke tanah) adalah $15$ meter. Tinggi tiang tersebut adalah ....",
+        "options": ["6", "9", "12", "24"],
+        "correct": "b",
+        "explanation": ""
       },
-      {
-        "prompt": "Fungsi $y = -2x^2 + 3x - 1$ memiliki grafik yang terbuka ke ...",
-        "options": ["Bawah", "Atas", "Kanan", "Kiri"],
-        "correct": "a",
-        "explanation": "Koefisien $x^2$ adalah -2 (negatif). \nJika $a < 0$, grafik terbuka ke **Bawah** (seperti huruf n)."
+       {
+        "prompt": "Sebuah tangga disandarkan pada dinding yang tegak lurus dengan lantai. Ujung bawah tangga diletakkan $7$ meter dari kaki dinding. Jika tinggi dinding yang dicapai oleh tangga adalah $24$ meter,Panjang tangga tersebut adalah ....",
+        "options": ["17", "25", "31", "32"],
+        "correct": "b",
+        "explanation": ""
       },
-      {
-        "prompt": "Manakah fungsi berikut yang grafiknya terbuka ke bawah?",
-        "options": ["$y = 5 - x^2$", "$y = x^2 - 5$", "$y = 2x^2 + 3$", "$y = (x+1)^2$"],
-        "correct": "a",
-        "explanation": "Cari yang koefisien $x^2$-nya negatif. \nPilihan A: $y = -x^2 + 5$. ($a = -1$). Benar."
-      },
-      {
-        "prompt": "Jika grafik fungsi kuadrat terbuka ke atas dan memotong sumbu Y negatif, contoh fungsinya adalah ...",
-        "options": ["$y = x^2 - 4$", "$y = -x^2 - 4$", "$y = x^2 + 4$", "$y = -x^2 + 4$"],
-        "correct": "a",
-        "explanation": "Terbuka ke atas $\\rightarrow a > 0$. (Opsi A dan C). \nMemotong Y negatif $\\rightarrow c < 0$. (Opsi A, $c=-4$). \nJadi jawabannya A."
-      },
-      {
-        "prompt": "Fungsi $f(x) = ax^2 + bx + c$ memiliki nilai minimum jika ...",
-        "options": ["$a > 0$", "$a < 0$", "$a = 0$", "$c > 0$"],
-        "correct": "a",
-        "explanation": "Nilai minimum terjadi di titik puncak lembah, yang berarti grafik harus terbuka ke **Atas**. \nSyaratnya $a > 0$."
+       {
+        "prompt": "Andi bersepeda dari rumah menuju taman. Ia tidak mengambil jalan lurus, melainkan berbelok siku-siku. Pertama, ia bergerak ke arah timur sejauh $8$ km. Kemudian, ia berbelok ke utara dan bergerak sejauh $6$ km untuk sampai di taman. Jarak terpendek (garis lurus) dari rumah Andi ke taman adalah ....",
+        "options": ["10", "13", "14", "16"],
+        "correct": "b",
+        "explanation": ""
       }
     ]
   },
@@ -1126,35 +1114,24 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Sebuah segitiga siku-siku memiliki alas 6 cm dan tinggi 8 cm. Panjang sisi miringnya adalah ...",
-        "options": ["10 cm", "14 cm", "12 cm", "9 cm"],
+        "prompt": "Sentukan himpunan penyelesaian dari pertidaksamaan berikut: $x + 5 < 12$",
+        "options": ["$x<7$", "$x>7$", "$x>17$", "$x<17$"],
         "correct": "a",
-        "explanation": "Rumus: $c = \\sqrt{a^2 + b^2}$. \n$c = \\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$."
+        "explanation": ""
       },
       {
-        "prompt": "Sisi miring sebuah segitiga adalah 13 cm. Salah satu sisi siku-sikunya 12 cm. Panjang sisi siku-siku lainnya adalah ...",
-        "options": ["5 cm", "6 cm", "7 cm", "8 cm"],
-        "correct": "a",
-        "explanation": "Rumus sisi tegak: $a = \\sqrt{c^2 - b^2}$. \n$a = \\sqrt{13^2 - 12^2} = \\sqrt{169 - 144} = \\sqrt{25} = 5$."
+        "prompt": "Selesaikan pertidaksamaan berikut dan tunjukkan himpunan penyelesaiannya: $3y - 4 > 8$",
+        "options": ["$y<4$", "$y>4$", "$y>12$", "$y<12$"],
+        "correct": "b",
+        "explanation": ""
       },
       {
-        "prompt": "Sebuah tangga panjangnya 10 m disandarkan ke tembok. Jarak kaki tangga ke tembok 6 m. Tinggi tembok yang dicapai ujung tangga adalah ...",
-        "options": ["8 m", "7 m", "9 m", "5 m"],
+        "prompt": "Tentukan himpunan penyelesaian untuk pertidaksamaan:$10 - 2p > 4$",
+        "options": ["$p < 3$", "$p > 3$", "$p < 6$", "$p > 6$"],
         "correct": "a",
-        "explanation": "Tinggi = $\\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8$ m."
-      },
-      {
-        "prompt": "Kapal berlayar 15 km ke Utara, lalu 8 km ke Timur. Jarak kapal dari titik awal adalah ...",
-        "options": ["17 km", "23 km", "20 km", "16 km"],
-        "correct": "a",
-        "explanation": "Sisi miring = $\\sqrt{15^2 + 8^2} = \\sqrt{225 + 64} = \\sqrt{289} = 17$ km."
-      },
-      {
-        "prompt": "Diagonal sebuah persegi panjang dengan panjang 12 cm dan lebar 9 cm adalah ...",
-        "options": ["15 cm", "13 cm", "21 cm", "18 cm"],
-        "correct": "a",
-        "explanation": "Diagonal = $\\sqrt{12^2 + 9^2} = \\sqrt{144 + 81} = \\sqrt{225} = 15$ cm."
+        "explanation": ""
       }
+      
     ]
   }
 ]
