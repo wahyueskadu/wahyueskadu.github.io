@@ -1,0 +1,1045 @@
+[
+  {
+    "id": 1,
+    "topic": "Bilangan Berpangkat",
+    "kisi_kisi": "Siswa dapat menjabarkan bentuk perpangkatan menjadi bentuk perkalian berulang.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Penjabaran dari $5^4$ dalam bentuk perkalian adalah ...",
+        "options": ["$5 \\times 4$", "$5 \\times 5 \\times 5 \\times 5$", "$4 \\times 4 \\times 4 \\times 4 \\times 4$", "$5+5+5+5$"],
+        "correct": "b",
+        "explanation": "Definisi perpangkatan $a^n$ adalah perkalian bilangan $a$ sebanyak $n$ kali. Jadi, $5^4$ berarti angka 5 dikalikan sebanyak 4 kali: $5 \\times 5 \\times 5 \\times 5$."
+      },
+      {
+        "prompt": "Bentuk perkalian berulang dari $(-3)^3$ adalah ...",
+        "options": ["$3 \\times 3 \\times 3$", "$-3 \\times 3 \\times 3$", "$(-3) \\times (-3) \\times (-3)$", "$-(3 \\times 3 \\times 3)$"],
+        "correct": "c",
+        "explanation": "Basisnya adalah $(-3)$. Pangkatnya 3. Maka $(-3)$ dikalikan dengan dirinya sendiri sebanyak 3 kali."
+      },
+      {
+        "prompt": "Arti dari $(2p)^3$ adalah ...",
+        "options": ["$2p \\times 3$", "$2 \\times p \\times p \\times p$", "$2p \\times 2p \\times 2p$", "$2+p+2+p+2+p$"],
+        "correct": "c",
+        "explanation": "Tanda kurung $(2p)$ menunjukkan bahwa basisnya adalah satu kesatuan $2p$. Maka $(2p)^3$ artinya $2p$ dikali $2p$ dikali $2p$."
+      },
+      {
+        "prompt": "Bentuk $(-6)^4$ jika dijabarkan adalah ... (Perhatikan tanda negatifnya)",
+        "options": ["$(-6) \\times (-6) \\times (-6) \\times (-6)$", "$-(6 \\times 6 \\times 6 \\times 6)$", "$6 \\times 6 \\times 6 \\times 6$", "$(-1) \\times 6$"],
+        "correct": "a",
+        "explanation": "Basisnya adalah $(-6)$. Pangkatnya 4. Maka $(-6)$ dikalikan dengan dirinya sendiri sebanyak 4 kali."
+      },
+      {
+        "prompt": "Bentuk perpangkatan dari $k \\times k \\times k \\times k \\times k$ adalah ...",
+        "options": ["$5k$", "$k^5$", "$k+5$", "$5^k$"],
+        "correct": "b",
+        "explanation": "Variabel $k$ dikalikan berulang sebanyak 5 kali, sehingga ditulis sebagai $k^5$."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "topic": "Bentuk Akar",
+    "kisi_kisi": "Siswa dapat merasionalkan penyebut pecahan bentuk akar (tipe a/√b).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Bentuk dengan penyebut rasional dari $\\frac{3}{5+\\sqrt{7}}$ adalah ...",
+        "options": ["$\\frac{5-\\sqrt{7}}{11}$", "$\\frac{5+\\sqrt{7}}{11}$","$\\frac{5-\\sqrt{7}}{6}$", "$\\frac{5+\\sqrt{7}}{6}$"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "topic": "Hubungan Akar dan Pangkat",
+    "kisi_kisi": "Siswa dapat menentukan nilai suatu bilangan jika diketahui nilai akarnya (Invers Akar).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Jika $\\sqrt{x} = 5$, maka nilai $x$ adalah ...",
+        "options": ["10", "25", "5", "125"],
+        "correct": "b",
+        "explanation": "Akar adalah kebalikan kuadrat. Jika $\\sqrt{x} = 5$, maka $x = 5^2 = 25$."
+      },
+      {
+        "prompt": "Diketahui $\\sqrt{a} = 13$. Nilai $a$ adalah ...",
+        "options": ["26", "169", "144", "130"],
+        "correct": "b",
+        "explanation": "Kuadratkan kedua ruas. $a = 13^2$. $13 \\times 13 = 169$."
+      },
+      {
+        "prompt": "Jika $\\sqrt{y} = 12$, maka nilai $y$ adalah ...",
+        "options": ["6", "36", "144", "12"],
+        "correct": "c",
+        "explanation": "Kuadratkan kedua ruas. $y = 12^2$. $12 \\times 12 = 144$."
+      },
+      {
+        "prompt": "Bilangan $p$ jika diakar pangkat dua hasilnya 15. Berapakah $p$?",
+        "options": ["225", "300", "250", "150"],
+        "correct": "a",
+        "explanation": "$p = (15)^2 = 15 \\times 15 = 225$."
+      },
+      {
+        "prompt": "Diketahui $\\sqrt{x} = 5$. Nilai $x$ adalah ...",
+        "options": ["23", "27", "25", "3"],
+        "correct": "c",
+        "explanation": "Kuadratkan kedua ruas: $x = 5^2 \\rightarrow x = 25$."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "topic": "Pola Bilangan Aritmatika",
+    "kisi_kisi": "Siswa dapat menentukan suku berikutnya dari barisan bilangan.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Tiga suku berikutnya dari barisan 5, 9, 13, 17, ... adalah ...",
+        "options": ["21, 25, 29", "20, 24, 28", "19, 21, 23", "22, 27, 32"],
+        "correct": "a",
+        "explanation": "Cek selisih antar suku (beda). $9-5=4$, $13-9=4$. Polanya ditambah 4. \n$17+4=21$, $21+4=25$, $25+4=29$."
+      },
+      {
+        "prompt": "Lanjutan dari barisan turun: 50, 45, 40, 35, ... adalah ...",
+        "options": ["30, 25, 20", "25, 20, 15", "30, 20, 10", "34, 33, 32"],
+        "correct": "a",
+        "explanation": "Pola dikurangi 5. \n$35-5=30$, $30-5=25$, $25-5=20$."
+      },
+      {
+        "prompt": "Barisan -8, -5, -2, 1, ... suku berikutnya adalah ...",
+        "options": ["4, 7", "3, 6", "2, 5", "4, 8"],
+        "correct": "a",
+        "explanation": "Hati-hati dengan bilangan negatif. $-5 - (-8) = 3$. Polanya ditambah 3. \n$1+3=4$, $4+3=7$."
+      },
+      {
+        "prompt": "Diketahui barisan: 2, 4, 8, .... Suku ke-5 adalah ...",
+        "options": ["12", "16", "20", "32"],
+        "correct": "b",
+        "explanation": "Polanya adalah dikali 2. Suku ke-4: $8 \\times 2 = 16$, suku ke-5: $16 \\times 2 = 32$"
+      },
+      {
+        "prompt": "Suatu barisan memiliki suku pertama 2 dan pola polanya ditambah 3. Suku ke-6 adalah ...",
+        "options": ["15", "17", "18", "20"],
+        "correct": "b",
+        "explanation": "Substitusi $n=6$. \n$U_{6} = 3(6-1) + 2 = 3 \\times 5 + 2 = 15 + 2 = 17$."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "topic": "Pola Bilangan Geometri",
+    "kisi_kisi": "Siswa dapat mengidentifikasi rasio dan menentukan suku berikutnya pada barisan geometri (perkalian/pembagian).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui pola bilangan 3, 6, 12, 24, .... Pola tersebut terbentuk dengan aturan ...",
+        "options": ["dikali 2", "ditambah 3", "dikalikan 3", "ditambah bilangan genap"],
+        "correct": "a",
+        "explanation": "Cek rasio: $6/3 = 2$, $12/6 = 2$. Aturannya adalah perkalian 2."
+      },
+      {
+        "prompt": "Aturan pada pola barisan 80, 40, 20, 10, ... adalah ...",
+        "options": ["dikurangi 2", "dibagi 2", "dikurangi 10", "dibagi 10"],
+        "correct": "a",
+        "explanation": "Setiap suku dibagi 2 (atau dikali 1/2).$."
+      },
+      {
+        "prompt": "Barisan 1, 3, 9, 27, .... memiliki aturan",
+        "options": ["ditambah 2", "dikali 3", "ditambah 6", "dikali 6"],
+        "correct": "b",
+        "explanation": "Rasio adalah 3 (dikali 3)."
+      },
+      {
+        "prompt": "Barisan geometri 2, -4, 8, -16, .... memiliki aturan",
+        "options": ["dikali 2", "dikali -2", "ditambah 2", "dikurangi 2"],
+        "correct": "b",
+        "explanation": "Rasio adalah $-4 / 2 = -2$. (Tanda berganti-ganti positif negatif)."
+      },
+      {
+        "prompt": "Amoeba berkembang biak. Jika pada menit pertama terdapat 10 amoeba, menit ke dua terdapat 20 amoeba, dan menit ketiga teradpat 40 amoeba, maka pola yang terbentuk adalah ....",
+        "options": ["ditambah 10", "ditambah 20", "dikali 2", "dikali 5"],
+        "correct": "c",
+        "explanation":""
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "topic": "Melengkapi Barisan Bilangan",
+    "kisi_kisi": "Siswa dapat menemukan nilai suku yang hilang (rumpang) di tengah atau akhir barisan.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui barisan berikut: 4, 7, a, 13, b, .... Hasil dari a+b adalah",
+        "options": ["10", "13", "16", "19"],
+        "correct": "c",
+        "explanation": "Pola tersebut adalah pola ditambah 3, sehingga a = 7 + 3 = 10, dan b = 13 + 3 = 16. Maka a + b = 26  "
+      },
+      {
+        "prompt": "Diketahui barisan 1, 2, p, 8, q, 32, .... Hasil dari q-p adalah ....",
+        "options": ["10", "12", "36", "24"],
+        "correct": "b",
+        "explanation": "Aturan pola bilangan tersebuyt adalah dikali dua. sehingga $p = 2 \\times 2 = 4$ dan $q = 8 \\times 2 = 16$ sehingga $q - p = 16 - 4 = 12"
+      },
+      {
+        "prompt": "Nilai $a - b$ pada barisan 100, 95, 90, $a$, 80, $b$ adalah ...",
+        "options": ["5", "10", "15", "20"],
+        "correct": "b",
+        "explanation": "Pola berkurang 5. \n$a = 90-5 = 85$. \n$b = 80-5 = 75$. $a - b = 85 - 75 = 10$"
+      },
+      {
+        "prompt": "Barisan Fibbonaci: 1, 1, 2, 3, 5, $x$, 13. Nilai $x$ adalah ...",
+        "options": ["8", "7", "6", "9"],
+        "correct": "a",
+        "explanation": "Pola Fibonacci: suku diperoleh dari penjumlahan dua suku sebelumnya. \n$x = 3 + 5 = 8$. Cek: $5 + 8 = 13$ (Benar)."
+      },
+      {
+        "prompt": "Barisan 1, 4, 9, 16, $m$, $n$. Nilai $n-m$ adalah ...",
+        "options": ["11", "19", "21", "23"],
+        "correct": "a",
+        "explanation": "Ini adalah barisan bilangan kuadrat (persegi). \n$1^2, 2^2, 3^2, 4^2, 5^2$. \nJadi $m = 5^2 = 25$. dan $n=6^2 = 36. Sehingga $n-m = 36 - 25 = 11"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "topic": "Koordinat Kartesius",
+    "kisi_kisi": "Siswa dapat mengidentifikasi komponen titik (absis/ordinat) dan letak kuadran.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik B terletak pada koordinat ...",
+        "image": "img/no7.jpg",
+        "options": ["$B(3,4)$","$B(-3,-4)$","$B(4,3)$","$B(-4,-3)$"],
+        "correct": "c",
+        "explanation": ""
+      },
+      {
+        "prompt": "Titik C terletak pada koordinat ...",
+        "image": "img/no7.jpg",
+        "options": ["$B(4,4)$","$B(-4,-4)$","$B(4,-4)$","$B(-4,4)$"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "topic": "Posisi Garis",
+    "kisi_kisi": "Siswa dapat menentukan posisi garis (sejajar/tegak lurus sumbu) berdasarkan koordinat yang dilalui.",
+    "type": "mcq",
+    "variations": [
+     {
+        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "image": "img/no8sejajarx.png",
+        "options": ["memotong sumbu x","tegak lurus sumbu x","sejajar sumbu x","sejajar sumbu y"],
+        "correct": "c",
+        "explanation": ""
+      },
+     {
+        "prompt": "Posisi garis n pada bidang kartesius adalah ....",
+        "image": "img/no8sejajary.png",
+        "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
+        "correct": "c",
+        "explanation": ""
+      }
+      ,
+     {
+        "prompt": "Posisi garis p pada bidang kartesius adalah ....",
+        "image": "img/no8memotong.png",
+        "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
+        "correct": "a",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "topic": "Teorema Pythagoras",
+    "kisi_kisi": "Siswa dapat menghitung panjang sisi segitiga siku-siku yang belum diketahui.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Segitiga siku-siku memiliki alas 6 cm dan tinggi 8 cm. Panjang sisi miringnya adalah ...",
+        "options": ["10 cm", "14 cm", "12 cm", "9 cm"],
+        "correct": "a",
+        "explanation": "Gunakan rumus: $c = \\sqrt{a^2 + b^2}$. \n$c = \\sqrt{6^2 + 8^2} = \\sqrt{36+64} = \\sqrt{100} = 10$."
+      },
+      {
+        "prompt": "Diketahui sisi miring segitiga adalah 13 cm, dan alasnya 5 cm. Tinggi segitiga tersebut adalah ...",
+        "options": ["12 cm", "10 cm", "8 cm", "11 cm"],
+        "correct": "a",
+        "explanation": "Mencari sisi tegak: $b = \\sqrt{c^2 - a^2}$. \n$b = \\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12$."
+      },
+      {
+        "prompt": "Sebuah tangga sepanjang 5 meter disandarkan ke tembok. Jarak kaki tangga ke tembok 3 meter. Tinggi tembok yang dicapai tangga adalah ...",
+        "options": ["4 meter", "2 meter", "3,5 meter", "5 meter"],
+        "correct": "a",
+        "explanation": "Tangga adalah sisi miring ($c=5$). Jarak adalah alas ($a=3$). \nTinggi = $\\sqrt{5^2 - 3^2} = \\sqrt{25-9} = \\sqrt{16} = 4$ meter."
+      },
+      {
+        "prompt": "Kapal berlayar ke Utara sejauh 8 km, lalu belok ke Timur sejauh 6 km. Jarak terpendek kapal dari titik keberangkatan adalah ...",
+        "options": ["10 km", "14 km", "100 km", "7 km"],
+        "correct": "a",
+        "explanation": "Pergerakan membentuk siku-siku. Cari sisi miring. \n$\\sqrt{8^2 + 6^2} = \\sqrt{64+36} = \\sqrt{100} = 10$ km."
+      },
+      {
+        "prompt": "Segitiga siku-siku memiliki sisi tegak 9 cm dan 12 cm. Hipotenusanya adalah ...",
+        "options": ["15 cm", "13 cm", "21 cm", "18 cm"],
+        "correct": "a",
+        "explanation": "$\\sqrt{9^2 + 12^2} = \\sqrt{81 + 144} = \\sqrt{225} = 15$."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "topic": "Pemodelan Persamaan Linear",
+    "kisi_kisi": "Siswa dapat menerjemahkan soal cerita (konteks nyata) menjadi kalimat matematika (Persamaan Linear Satu Variabel).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Tiga karung beras memiliki berat total 150 kg. Jika berat satu karung adalah $x$, maka persamaan yang benar adalah ...",
+        "options": ["$3x = 150$", "$x + 3 = 150$", "$150x = 3$", "$x - 3 = 150$"],
+        "correct": "a",
+        "explanation": "Ada 3 karung, masing-masing beratnya $x$. Total berat adalah penjumlahan ketiganya: $x+x+x$ atau $3 \\times x$. \nJadi $3x = 150$."
+      },
+      {
+        "prompt": "Umur Budi ($B$) dikali 6 ditambah 5 sama dengan 30. Model matematikanya adalah ...",
+        "options": ["$B = 6 \\times 5+30$", "$6B + 5= 30$", "$6B = 5 + 30$", "$B = 30 \\times 6 + 5$"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Keliling sebuah persegi adalah 60 cm. Jika panjang sisinya $s$, persamaannya adalah ...",
+        "options": ["$4s = 60$", "$s + 4 = 60$", "$s \\times s = 60$", "$2s + 2 = 60$"],
+        "correct": "a",
+        "explanation": "Rumus keliling persegi adalah $4 \\times \\text{sisi}$. Diketahui keliling 60. \nJadi $4s = 60$."
+      },
+      {
+        "prompt": "Saya membawa uang Rp50.000. Setelah membeli mainan seharga $m$, sisa uang saya Rp15.000. Persamaannya adalah ...",
+        "options": ["$50000 - m = 15000$", "$m - 50000 = 15000$", "$m + 15000 = 50000$", "$50000 + m = 15000$"],
+        "correct": "a",
+        "explanation": "Uang awal dikurangi harga beli sama dengan sisa. \n$50.000 - m = 15.000$. \n(Catatan: Pilihan C juga secara logika benar $m+15000=50000$, tapi A lebih menggambarkan proses pengurangan)."
+      },
+      {
+        "prompt": "Dua kali dari jumlah siswa ($n$) di kelas adalah 50 orang. Persamaannya ...",
+        "options": ["$\\frac{1}{2}n = 50$", "$2n = 50$", "$n - 2 = 50$", "$n + 2 = 50$"],
+        "correct": "b",
+        "explanation": "Kata \"dari\" dalam pecahan matematika biasanya berarti perkalian. \nSetengah dari $n$ berarti $2 \\times n$. \nJadi $2n = 16$."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "topic": "Aritmatika Sosial (Soal Cerita)",
+    "kisi_kisi": "Siswa dapat menyelesaikan masalah sehari-hari yang berkaitan dengan pendapatan, keuntungan, atau biaya total dalam bentuk aljabar sederhana.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Pada acara bazar, kelas 8A menjual es buah. Biaya menghias stan adalah Rp50.000. Setelah acara selesai, total uang yang terkumpul adalah Rp350.000. Jika keuntungan bersih dihitung dari (Total Uang - Biaya Hias), berapakah keuntungannya?",
+        "options": ["Rp300.000", "Rp400.000", "Rp250.000", "Rp350.000"],
+        "correct": "a",
+        "explanation": "Keuntungan = Pemasukan Total - Pengeluaran. \nKeuntungan = 350.000 - 50.000 = Rp300.000."
+      },
+      {
+        "prompt": "Seorang pedagang bakso mengeluarkan modal Rp800.000 hari ini. Ia menjual bakso seharga Rp10.000 per mangkok. Jika hari ini laku 90 mangkok, maka pedagang tersebut mengalami ...",
+        "options": ["Untung Rp100.000", "Rugi Rp100.000", "Untung Rp900.000", "Impas"],
+        "correct": "a",
+        "explanation": "Pemasukan = 90 mangkok x Rp10.000 = Rp900.000. \nModal = Rp800.000. \nKarena Pemasukan > Modal, ia untung. \nUntung = 900.000 - 800.000 = Rp100.000."
+      },
+      {
+        "prompt": "Biaya sewa tempat adalah Rp100.000. Agar mendapatkan keuntungan bersih Rp200.000 dari penjualan tiket seharga Rp20.000 per tiket, berapa tiket yang harus terjual?",
+        "options": ["15 tiket", "10 tiket", "20 tiket", "5 tiket"],
+        "correct": "a",
+        "explanation": "Target Pemasukan Total = Biaya + Keuntungan yang diinginkan = 100.000 + 200.000 = 300.000. \nBanyak tiket = 300.000 / 20.000 = 15 tiket."
+      },
+      {
+        "prompt": "Pak Budi membeli 10 kg apel dengan total harga Rp200.000. Ia menjualnya kembali dengan harga Rp25.000 per kg. Berapa total keuntungan Pak Budi jika semua apel terjual?",
+        "options": ["Rp50.000", "Rp25.000", "Rp250.000", "Rp20.000"],
+        "correct": "a",
+        "explanation": "Total Penjualan = 10 kg x 25.000 = 250.000. \nKeuntungan = Penjualan - Modal = 250.000 - 200.000 = Rp50.000."
+      },
+      {
+        "prompt": "Sebuah toko memberikan diskon Rp2.000 untuk setiap pembelian buku seharga $x$. Jika Andi membayar Rp18.000, model matematikanya adalah ...",
+        "options": ["$x - 2000 = 18000$", "$x + 2000 = 18000$", "$18000 - x = 2000$", "$2000x = 18000$"],
+        "correct": "a",
+        "explanation": "Harga asli dikurangi diskon sama dengan harga bayar. \n$x - 2.000 = 18.000$."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "topic": "Aljabar Harga Barang",
+    "kisi_kisi": "Siswa dapat menentukan harga suatu barang jika diketahui hubungannya dengan harga barang lain (Substitusi Sederhana).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Harga sebuah buku tulis (B) adalah Rp3.000. Harga sebuah pulpen (P) adalah Rp1.000 lebih murah dari harga buku tulis. Berapakah harga pulpen?",
+        "options": ["Rp2.000", "Rp4.000", "Rp1.500", "Rp2.500"],
+        "correct": "a",
+        "explanation": "Kata kunci \"lebih murah\" berarti dikurang. \n$P = B - 1000$. \n$P = 3000 - 1000 = 2000$."
+      },
+      {
+        "prompt": "Harga Mangga (M) adalah Rp15.000/kg. Harga Apel (A) adalah 2 kali harga Mangga. Berapa harga Apel?",
+        "options": ["Rp30.000", "Rp17.000", "Rp7.500", "Rp20.000"],
+        "correct": "a",
+        "explanation": "Kata kunci \"2 kali\" berarti perkalian. \n$A = 2 \\times M$. \n$A = 2 \\times 15.000 = 30.000$."
+      },
+      {
+        "prompt": "Umur Kakak 12 tahun. Umur Adik 4 tahun lebih muda dari Kakak. Berapa umur Adik?",
+        "options": ["8 tahun", "16 tahun", "3 tahun", "6 tahun"],
+        "correct": "a",
+        "explanation": "Lebih muda = dikurang. \nUmur Adik = $12 - 4 = 8$ tahun."
+      },
+      {
+        "prompt": "Diketahui harga 1 pensil adalah $x$. Harga 1 buku adalah $x + 2000$. Jika harga pensil Rp1.500, maka harga buku adalah ...",
+        "options": ["Rp3.500", "Rp2.500", "Rp500", "Rp3.000"],
+        "correct": "a",
+        "explanation": "Substitusi nilai $x = 1500$. \nHarga Buku = $1500 + 2000 = 3500$."
+      },
+      {
+        "prompt": "Panjang persegi panjang adalah 10 cm. Lebarnya adalah setengah dari panjangnya. Berapa lebarnya?",
+        "options": ["5 cm", "20 cm", "2 cm", "8 cm"],
+        "correct": "a",
+        "explanation": "Lebar = $\\frac{1}{2} \\times 10 = 5$ cm."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "topic": "Identifikasi Persamaan Linear (PLSV)",
+    "kisi_kisi": "Siswa dapat membedakan Persamaan Linear Satu Variabel (PLSV) dengan bentuk aljabar lainnya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah di bawah ini yang merupakan Persamaan Linear Satu Variabel?",
+        "options": ["$2x + 5 = 15$", "$x + y = 10$", "$x^2 + 2 = 6$", "$5 > 2$"],
+        "correct": "a",
+        "explanation": "PLSV harus: (1) Memuat tanda sama dengan (=), (2) Hanya satu variabel ($x$), (3) Pangkat tertinggi variabel adalah 1 (linear)."
+      },
+      {
+        "prompt": "Bentuk $x^2 - 4 = 0$ BUKAN merupakan persamaan linear satu variabel karena ...",
+        "options": ["Variabelnya berpangkat dua", "Memiliki dua variabel", "Tidak memiliki tanda sama dengan", "Konstantanya negatif"],
+        "correct": "a",
+        "explanation": "Syarat linear adalah pangkat tertingginya 1. Di sini pangkatnya 2 (kuadrat)."
+      },
+      {
+        "prompt": "Yang termasuk persamaan linear satu variabel adalah ...",
+        "options": ["$3p - 6 = 12$", "$2a + 3b = 12$", "$4x \\leq 10$", "$y^2 = 9$"],
+        "correct": "a",
+        "explanation": "Pilihan A memenuhi syarat (satu variabel $p$, pangkat 1, tanda =). \nPilihan B dua variabel ($a,b$). C pertidaksamaan. D kuadrat."
+      },
+      {
+        "prompt": "Pernyataan $2x + 3y = 6$ disebut ...",
+        "options": ["Persamaan Linear Dua Variabel", "Persamaan Linear Satu Variabel", "Pertidaksamaan Linear", "Persamaan Kuadrat"],
+        "correct": "a",
+        "explanation": "Memiliki dua variabel berbeda ($x$ dan $y$)."
+      },
+      {
+        "prompt": "Manakah yang merupakan persmaaan linier satu variabel?",
+        "options": ["$m + 8 = 12$", "$5 + 3 = 8$", "$k > 10$", "$a^3 = 27$"],
+        "correct": "a",
+        "explanation": "Hanya $m+8=12$ yang memuat variabel berpangkat satu dan tanda sama dengan."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "topic": "Penyelesaian Pertidaksamaan Linear",
+    "kisi_kisi": "Siswa dapat menentukan himpunan penyelesaian dari pertidaksamaan linear satu variabel.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Nilai $x$ yang memenuhi $2x + 5 > 15$ adalah ...",
+        "options": ["$x > 5$", "$x < 5$", "$x > 10$", "$x = 5$"],
+        "correct": "a",
+        "explanation": "$2x > 15 - 5 \\rightarrow 2x > 10$. \nBagi kedua ruas dengan 2: $x > 5$."
+      },
+      {
+        "prompt": "Penyelesaian dari $3x - 2 \\leq 10$ adalah ...",
+        "options": ["$x \\leq 4$", "$x \\geq 4$", "$x \\leq 12$", "$x < 4$"],
+        "correct": "a",
+        "explanation": "$3x \\leq 10 + 2 \\rightarrow 3x \\leq 12$. \nBagi dengan 3: $x \\leq 4$."
+      },
+      {
+        "prompt": "Himpunan penyelesaian dari $5p > 2p + 12$ adalah ...",
+        "options": ["$p > 4$", "$p < 4$", "$p > 3$", "$p > 6$"],
+        "correct": "a",
+        "explanation": "Kumpulkan $p$ di kiri: $5p - 2p > 12$. \n$3p > 12$. \n$p > 4$."
+      },
+      {
+        "prompt": "Penyelesaian dari pertidaksamaan $-2x < 8$ adalah ... (Ingat aturan pembagian negatif)",
+        "options": ["$x > -4$", "$x < -4$", "$x > 4$", "$x < 4$"],
+        "correct": "a",
+        "explanation": "Jika dibagi bilangan negatif, tanda pertidaksamaan DIBALIK. \n$x > 8 : (-2)$. \n$x > -4$."
+      },
+      {
+        "prompt": "Nilai $y$ yang memenuhi $y + 5 \\geq 2$ adalah ...",
+        "options": ["$y \\geq -3$", "$y \\leq -3$", "$y \\geq 3$", "$y > -3$"],
+        "correct": "a",
+        "explanation": "$y \\geq 2 - 5$. \n$y \\geq -3$."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "topic": "Model Pertidaksamaan (Timbangan)",
+    "kisi_kisi": "Siswa dapat menerjemahkan visualisasi timbangan (berat/ringan) ke dalam model matematika.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah timbangan lebih berat ke kiri. Piringan kiri berisi 3 bola besi ($x$), piringan kanan berisi beban 6 kg. Model matematikanya adalah ...",
+        "options": ["$3x > 6$", "$3x < 6$", "$3x = 6$", "$3x \\geq 6$"],
+        "correct": "a",
+        "explanation": "Lebih berat berarti lebih besar ($>$). Posisi kiri turun (berat). \nJadi $3x > 6$."
+      },
+      {
+        "prompt": "Timbangan miring ke kanan (kanan lebih berat). Kiri ada kotak $x$, kanan ada beban 5 kg. Maka ...",
+        "options": ["$x < 5$", "$x > 5$", "$x = 5$", "$x \\geq 5$"],
+        "correct": "a",
+        "explanation": "Kiri lebih ringan dari kanan, atau Kanan lebih berat dari kiri. \nJadi $x < 5$."
+      },
+      {
+        "prompt": "Timbangan dalam keadaan seimbang. Kiri: 2 kotak ($x$), Kanan: beban 10 kg. Maka ...",
+        "options": ["$2x = 10$", "$2x > 10$", "$2x < 10$", "$x = 10$"],
+        "correct": "a",
+        "explanation": "Seimbang berarti sama beratnya ($=$). \n$2x = 10$."
+      },
+      {
+        "prompt": "Berat total belanjaan Bu Ani ($b$) tidak boleh melebihi 20 kg. Model matematikanya ...",
+        "options": ["$b \\leq 20$", "$b < 20$", "$b > 20$", "$b \\geq 20$"],
+        "correct": "a",
+        "explanation": "\"Tidak boleh melebihi\" berarti boleh kurang atau pas 20 kg. \nSimbolnya $\\leq$ (kurang dari atau sama dengan)."
+      },
+      {
+        "prompt": "Agar jungkat-jungkit sisi kiri (berat $x$) turun ke bawah mengangkat sisi kanan (berat 50kg), maka ...",
+        "options": ["$x > 50$", "$x < 50$", "$x = 50$", "$x \\leq 50$"],
+        "correct": "a",
+        "explanation": "Agar turun ke bawah, sisi kiri harus lebih berat dari sisi kanan."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "topic": "Sifat Perpangkatan",
+    "kisi_kisi": "Siswa dapat menyederhanakan operasi perkalian dan pembagian bilangan berpangkat.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil sederhana dari $2^3 \\times 2^4$ adalah ...",
+        "options": ["$2^7$", "$2^{12}$", "$4^7$", "$4^{12}$"],
+        "correct": "a",
+        "explanation": "Sifat: $a^m \\times a^n = a^{m+n}$. \n$2^{3+4} = 2^7$."
+      },
+      {
+        "prompt": "Bentuk sederhana dari $5^8 : 5^2$ adalah ...",
+        "options": ["$5^6$", "$5^4$", "$1^6$", "$5^{10}$"],
+        "correct": "a",
+        "explanation": "Sifat: $a^m : a^n = a^{m-n}$. \n$5^{8-2} = 5^6$."
+      },
+      {
+        "prompt": "Hasil dari $(3^2)^3$ adalah ...",
+        "options": ["$3^6$", "$3^5$", "$3^8$", "$9^2$"],
+        "correct": "a",
+        "explanation": "Sifat: $(a^m)^n = a^{m \\times n}$. \n$3^{2 \\times 3} = 3^6$."
+      },
+      {
+        "prompt": "Nilai dari $a^4 \\times a \\times a^2$ adalah ...",
+        "options": ["$a^7$", "$a^6$", "$a^8$", "$a^5$"],
+        "correct": "a",
+        "explanation": "Ingat $a = a^1$. \n$a^{4+1+2} = a^7$."
+      },
+      {
+        "prompt": "Bentuk sederhana dari $\\frac{k^5 \\times k^2}{k^3}$ adalah ...",
+        "options": ["$k^4$", "$k^3$", "$k^2$", "$k^{10}$"],
+        "correct": "a",
+        "explanation": "Pembilang: $k^{5+2} = k^7$. \nDibagi penyebut: $k^{7-3} = k^4$."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "topic": "Barisan Aritmatika (Soal Cerita)",
+    "kisi_kisi": "Siswa dapat memecahkan masalah kontekstual menggunakan konsep barisan aritmatika.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sekelompok burung terbang membentuk formasi barisan. Baris pertama ada 1 ekor, baris kedua 3 ekor, baris ketiga 5 ekor. Berapa jumlah burung di baris ke-5?",
+        "options": ["9", "7", "11", "13"],
+        "correct": "a",
+        "explanation": "Pola bilangan ganjil: 1, 3, 5, 7, 9. \nJadi baris ke-5 ada 9 ekor."
+      },
+      {
+        "prompt": "Tumpukan batu bata disusun bertingkat. Paling atas 8 batu, di bawahnya 10 batu, bawahnya lagi 12 batu. Berapa batu pada tumpukan ke-5 dari atas?",
+        "options": ["16", "18", "14", "20"],
+        "correct": "a",
+        "explanation": "Barisan: 8, 10, 12, ... (tambah 2). \nSuku ke-4: 14. \nSuku ke-5: 16."
+      },
+      {
+        "prompt": "Di sebuah gedung pertunjukan, baris paling depan ada 20 kursi. Baris di belakangnya selalu bertambah 4 kursi. Banyak kursi di baris ke-4 adalah ...",
+        "options": ["32", "28", "36", "24"],
+        "correct": "a",
+        "explanation": "Baris 1: 20. \nBaris 2: 24. \nBaris 3: 28. \nBaris 4: 32."
+      },
+      {
+        "prompt": "Seorang anak menabung setiap hari. Hari pertama Rp1.000, hari kedua Rp1.500, hari ketiga Rp2.000. Berapa tabungan dia pada hari ke-6?",
+        "options": ["Rp3.500", "Rp3.000", "Rp4.000", "Rp2.500"],
+        "correct": "a",
+        "explanation": "Pola bertambah 500. \n1000, 1500, 2000, 2500, 3000, 3500."
+      },
+      {
+        "prompt": "Tinggi tanaman diamati setiap minggu. Minggu 1: 5 cm. Minggu 2: 8 cm. Minggu 3: 11 cm. Tinggi pada minggu ke-5 adalah ...",
+        "options": ["17 cm", "14 cm", "15 cm", "20 cm"],
+        "correct": "a",
+        "explanation": "Pola bertambah 3. \n5, 8, 11, 14, 17."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "topic": "Posisi Relatif Titik",
+    "kisi_kisi": "Siswa dapat menentukan posisi suatu titik terhadap titik acuan tertentu.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sekolah terletak pada koordinat ...",
+        "image":"img/no18.png",
+        "options": ["$(4,3)$","$(3,4)$","$(-3,2)$","$(2,-3)$"],
+        "correct": "a",
+        "explanation": ""
+      },
+      {
+        "prompt": "Kantor terletak pada koordinat ...",
+        "image":"img/no18.png",
+        "options": ["$(2.2)$","$(2,-2)$","$(-2,2)$","$(-2,-2)$"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "topic": "Jenis Segitiga (Pythagoras)",
+    "kisi_kisi": "Siswa dapat menentukan jenis segitiga (lancip, tumpul, siku-siku) berdasarkan panjang sisi-sisinya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Kelompok sisi berikut yang membentuk segitiga siku-siku adalah ...",
+        "options": ["3 cm, 4 cm, 5 cm", "5 cm, 6 cm, 7 cm", "4 cm, 5 cm, 8 cm", "6 cm, 8 cm, 12 cm"],
+        "correct": "a",
+        "explanation": "Cek teorema Pythagoras ($a^2 + b^2 = c^2$). \n$3^2 + 4^2 = 9 + 16 = 25$. \n$5^2 = 25$. \nKarena sama, maka siku-siku."
+      },
+      {
+        "prompt": "Segitiga dengan panjang sisi 5 cm, 12 cm, 15 cm. Karena $5^2 + 12^2 < 15^2$, maka jenis segitiga tersebut adalah ...",
+        "options": ["Segitiga Tumpul", "Segitiga Lancip", "Segitiga Siku-siku", "Segitiga Sama sisi"],
+        "correct": "a",
+        "explanation": "$25 + 144 = 169$. \n$15^2 = 225$. \nKarena $169 < 225$ ($a^2+b^2 < c^2$), maka ini segitiga tumpul."
+      },
+      {
+        "prompt": "Segitiga dengan sisi 10 cm, 10 cm, 12 cm. Jenisnya adalah ...",
+        "options": ["Segitiga Sama kaki", "Segitiga Siku-siku", "Segitiga Tumpul", "Segitiga Sembarang"],
+        "correct": "a",
+        "explanation": "Ada dua sisi yang sama panjang (10 dan 10), maka disebut segitiga sama kaki."
+      },
+      {
+        "prompt": "Manakah yang merupakan meupakan sisi segitga siku-siku?",
+        "options": ["6, 8, 10", "5, 10, 12", "3, 4, 6", "7, 8, 9"],
+        "correct": "a",
+        "explanation": "$6^2 + 8^2 = 36 + 64 = 100$. \n$10^2 = 100$. \nCocok."
+      },
+      {
+        "prompt": "Jika $a^2 + b^2 > c^2$ (kuadrat sisi miring lebih kecil dari jumlah kuadrat sisi lain), maka segitiga tersebut adalah ...",
+        "options": ["Segitiga Lancip", "Segitiga Tumpul", "Segitiga Siku-siku", "Segitiga Lurus"],
+        "correct": "a",
+        "explanation": "Definisi: Jika $c^2 < a^2 + b^2$, maka segitiga lancip."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "topic": "Identifikasi Pertidaksamaan Linear (PtLSV)",
+    "kisi_kisi": "Siswa dapat mengidentifikasi bentuk pertidaksamaan linear satu variabel.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Manakah yang merupakan Pertidaksamaan Linear Satu Variabel?",
+        "options": ["$3y - 2 < 10$", "$x + y > 5$", "$x^2 < 9$", "$2x = 8$"],
+        "correct": "a",
+        "explanation": "Harus memuat tanda ketidaksamaan ($<, >, \\leq, \\geq$), satu variabel, dan pangkat 1. \nPilihan A memenuhi ($y$, pangkat 1, tanda $<$)."
+      },
+      {
+        "prompt": "Pernyataan $x^2 \\geq 16$ BUKAN merupakan pertidaksamaan linear karena ...",
+        "options": ["Variabelnya berpangkat dua", "Tidak memiliki tanda sama dengan", "Memiliki dua variabel", "Konstantanya terlalu besar"],
+        "correct": "a",
+        "explanation": "Kata \"Linear\" berarti pangkat variabelnya harus 1. Di sini pangkat 2."
+      },
+      {
+        "prompt": "Yang termasuk pertidaksamaan linier satu variabel adalah adalah ...",
+        "options": ["$4a \\geq 12$", "$a + b \\leq 10$", "$p^2 > 16$", "$5 + 2 = 7$"],
+        "correct": "a",
+        "explanation": "Hanya $4a \\geq 12$ yang memiliki satu variabel berpangkat satu."
+      },
+      {
+        "prompt": "Simbol berikut digunakan dalam pertidaksamaan, KECUALI ...",
+        "options": ["=", ">", "<", "$\\leq$"],
+        "correct": "a",
+        "explanation": "Tanda \"=\" digunakan untuk Persamaan, bukan Pertidaksamaan."
+      },
+      {
+        "prompt": "Manakah contoh pertidaksamaan linear satu variabel?",
+        "options": ["$2x + 1 > 5$", "$x + y < 5$", "$2x + 1 = 5$", "$x^3 > 1$"],
+        "correct": "a",
+        "explanation": "Pilihan A: Satu variabel $x$, linear, tanda $>$."
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "topic": "Sistem Persamaan Linear Dua Variabel (SPtLDV)",
+    "kisi_kisi": "Siswa dapat membuat model matematika (persamaan) dari soal cerita yang melibatkan dua variabel.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil dari $6^0+7^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
+        "correct": "c",
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $6^0+7^0=1+1=2$."
+      },
+      {
+        "prompt": "Hasil dari $(13+7)^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
+        "correct": "b",
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $(13+7)^0=1$."
+      },
+      {
+        "prompt": "Hasil dari $8^0-6^0 adalah$",
+        "options": ["$0$", "$1$", "$2$", "$5$"],
+        "correct": "a",
+        "explanation": "Bilangan dengan pangkat 0 hasilnya 1. $8^0+6^0=1-1=0$."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "topic": "Hubungan Garis pada Koordinat",
+    "kisi_kisi": "Siswa dapat menentukan hubungan dua garis (sejajar/tegak lurus) berdasarkan koordinat titik yang dilalui.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui titik P(0,0) dan Q(4,3). Jarak titik antara P ke titik Q adalah ... .",
+        "options": ["1","2","5","7"],
+        "correct": "c",
+        "explanation": ""
+      },
+          {
+        "prompt": "Diketahui titik K(2,5) dan L(10,11). Jarak titik antara P ke titik Q adalah ... .",
+        "options": ["7","10","12","16"],
+        "correct": "b",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "topic": "Tripel Pythagoras",
+    "kisi_kisi": "Siswa dapat mengidentifikasi kelompok tiga bilangan yang memenuhi teorema Pythagoras ($a^2 + b^2 = c^2$).",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik A(9,5) terletak pada kuadran ....",
+        "options": ["$I$", "$II$", "$III$", "$IV$"],
+        "correct": "a",
+        "explanation": "Perhatikan A memiliki absis positif dan ordinat positif, maka A terletak pada kuadran I"
+      },
+      {
+        "prompt": "Titik P(9,-5) terletak pada kuadran ....",
+        "options": ["$I$", "$II$", "$III$", "$IV$"],
+        "correct": "d",
+        "explanation": "Perhatikan P memiliki absis positif dan ordinat negatif, maka P terletak pada kuadran IV"
+      },
+      {
+        "prompt": "Titik yang terletak pada kuadran II adalah ... ",
+        "options": ["A(2,3)","B(-4,-6)","C(2,-4)","D(-9,3)"],
+        "correct": "c",
+        "explanation": "Kuadran II memiliki absis(angka pertama) negatif dan ordinat(angka kedua) positif, maka yang sesuai adalah C(2,4)"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "topic": "Aplikasi Sistem Persamaan Linear",
+    "kisi_kisi": "Siswa dapat menyelesaikan masalah sehari-hari dengan memodelkan dan menghitung nilai variabel dari SPLDV.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui segitiga ABC siku-siku di C. Jika panjang AB = 20 cm dan panjang AC = 16 cm, maka panjang BC ....",
+        "options": ["10 cm", "12 cm", "15 cm", "25 cm"],
+        "correct": "b",
+        "explanation": "Gunakan rumus sisi tegak. $BC = \\sqrt{AB^-AC^2}=\\sqrt{20^2-16^2}=\\sqrt{400-264}=\\sqrt{144}=12$"
+      },
+      {
+        "prompt": "Diketahui segitiga PQR siku-siku di Q. Jika panjang PQ = 9 cm dan panjang QR = 12 cm, maka panjang PR ....",
+        "options": ["10 cm", "12 cm", "15 cm", "25 cm"],
+        "correct": "c",
+        "explanation": "GGunakan rumus sisi miring. $BPR= \\sqrt{PQ^+QR^2}=\\sqrt{9^2+12^2}=\\sqrt{81+144}=\\sqrt{255}=15"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "topic": "Sifat Perpangkatan dan Eksponen Negatif",
+    "kisi_kisi": "Siswa dapat mengubah bentuk pangkat negatif menjadi pangkat positif dan sebaliknya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Nilai $x$ dari persamaan $3x+5=23$ adalah ....",
+        "options": ["4","5","6","7"],
+        "correct": "c",
+        "explanation": ""
+      },
+       {
+        "prompt": "Nilai $x$ dari persamaan $8x-4=68$ adalah ....",
+        "options": ["3","6","9","12"],
+        "correct": "c",
+        "explanation": ""
+      },
+       {
+        "prompt": "Nilai $x$ dari persamaan $2x=42$ adalah ....",
+        "options": ["12","15","18","21"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "topic": "Operasi Bentuk Akar",
+    "kisi_kisi": "Siswa dapat melakukan operasi penjumlahan dan pengurangan pada bentuk akar.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Seorang petani memiliki sebuah lahan kebun dengan luas $2^8$ meter persegi. Petani tersebut ingin membagi kebun tersebut untuk menanam buah yang berbeda. Jika tiap kebun memiliki ukuran $2^4$, banyak jenis buah yang bisa ditanami oleh petani adalah ....",
+        "options": ["$2^2$", "$2^4$", "$2^6$", "$2^8$"],
+        "correct": "b",
+        "explanation": "$2^8:2^4=2^{8-4}=2^4$."
+      },
+      {
+        "prompt": "Seseorang memiliki lahan seluas $5^4$ meter persegi. Jika tanah tersebut akan dibagi menjadi petak dengan ukuran $5^3$ meter persegi, maka banyak petak yang dibuat adalah... ",
+        "options": ["5^1", "5^2", "5^4", "5^5"],
+        "correct": "",
+        "explanation": "."
+      },
+      {
+        "prompt": "Seorang petani memiliki sebuah lahan kebun dengan luas $2^8$ meter persegi. Petani tersebut ingin membagi kebun tersebut untuk menanam buah yang berbeda. Jika tiap kebun memiliki ukuran $2^4$, banyak jenis buah yang bisa ditanami oleh petani adalah ....",
+        "options": ["$2^2$", "$2^4$", "$2^6$", "$2^8$"],
+        "correct": "b",
+        "explanation": "$2^8:2^4=2^{8-4}=2^4$."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "topic": "Barisan Geometri (Soal Cerita)",
+    "kisi_kisi": "Siswa dapat menyelesaikan masalah pertumbuhan atau pembagian yang mengikuti pola barisan geometri.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Pada sebuah tempat pertunjukkan kursi dipasang bertingkat. Tingkat pertama ada 12 kursi, tingkat 2 ada 15 kursi, dan tingkat ketiga ada 20 kursi Banyak kursi pada tingkat ke-5 adalah ... kursi.",
+        "options": ["25", "30", "35", "40"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Pohon pada sebuah taman membentuk seubuah pola bilangan. Pada baris pertama terdapat 25 pohon, baris kedua terdapat 11 pohon, baris ketiga terdapat 7 pohon. Banyak pohon pada baris ke empat adalah ... pohon.",
+        "options": ["6", "5", "4", "3"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "topic": "Jarak Titik ke Sumbu Koordinat",
+    "kisi_kisi": "Siswa dapat menentukan jarak sebuah titik terhadap sumbu X dan sumbu Y.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Titik yang memiliki absis 4 dan ordinat 3 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$B$","$C$","$D$"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Titik yang memiliki absis -4 dan ordinat 4 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$B$","$C$","$D$"],
+        "correct": "c",
+        "explanation": ""
+      },
+      {
+        "prompt": "Titik yang memiliki absis -3 dan ordinat 3 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$C$","$E$","$G$"],
+        "correct": "c",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "topic": "Jarak Antara Dua Titik",
+    "kisi_kisi": "Siswa dapat menghitung jarak antara dua titik pada bidang kartesius menggunakan rumus jarak.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah taman berbentuk segitiga dengan panjang sisi 15 m, 20 m, dan 25 m. Taman tersebut bebentuk segitiga ....",
+        "options": ["tumpul", "lancip", "siku-siku", "sama sisi"],
+        "correct": "c",
+        "explanation": ""
+      },
+      {
+        "prompt": "Ibnu memiliki cemilan dengan bentuk segitiga dengan panjang sisi 5 m, 7 m, dan 1 m. Cemilan tersebut adalah  segitiga ....",
+        "options": ["tumpul", "lancip", "siku-siku", "sama sisi"],
+        "correct": "a",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "topic": "Notasi Ilmiah (Bentuk Baku)",
+    "kisi_kisi": "Siswa dapat mengubah bilangan biasa ke dalam bentuk baku (notasi ilmiah) dan sebaliknya.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Ibu membeli 18 bungkus lutis dengan harga Rp100.000. Bentuk persamaan linear dari pernyatan tersebut adalah",
+        "options": ["$18x = 100000$", "$18 + x = 100000$", "$18 - x = 100000$", "$\\frac{18}{x}=100000$"],
+        "correct": "a",
+        "explanation": ""
+      },
+            {
+        "prompt": "Aska membawa 4 karung tepung terigu, dengan berat keseluruhan 9kg. Bentuk persamaan linear dari pernyatan tersebut adalah",
+        "options": ["$4x = 9$", "$4 + x = 9$", "$4 - x = 9$", "$\\frac{4}{x}=9$"],
+        "correct": "a",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "topic": "Suku ke-n Barisan Aritmetika",
+    "kisi_kisi": "Siswa dapat menentukan suku ke-n dari suatu barisan aritmetika.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Hasil dari $\\sqrt{7} \\times \\sqrt{6}$ adalah",
+        "options": ["$\\sqrt{13}$", "$\\sqrt{42}$", "13", "42"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Hasil dari $\\sqrt{11} \\times \\sqrt{6}$ adalah",
+        "options": ["$\\sqrt{5}$", "$\\sqrt{17}$", "$\\sqrt{33}$", "$\\sqrt{66}$"],
+        "correct": "d",
+        "explanation": ""
+      },
+      {
+        "prompt": "Hasil dari $\\sqrt{21} : \\sqrt{3}$ adalah",
+        "options": ["$\\sqrt{7}$", "$\\sqrt{19}$", "$\\sqrt{24}$", "$\\sqrt{63}$"],
+        "correct": "a",
+        "explanation": ""
+      }
+      
+      
+    ]
+  },
+  {
+    "id": 32,
+    "topic": "Pembuat Nol Fungsi Kuadrat",
+    "kisi_kisi": "Siswa dapat menentukan pembuat nol (akar-akar persamaan) dari fungsi kuadrat.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Pada sebuah tempat pertunjukkan kursi dipasang bertingkat. Tingkat pertama ada 12 kursi, tingkat 2 ada 15 kursi, dan tingkat ketiga ada 20 kursi Banyak kursi pada tingkat ke-5 adalah ... kursi.",
+        "options": ["25", "30", "35", "40"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Pohon pada sebuah taman membentuk seubuah pola bilangan. Pada baris pertama terdapat 25 pohon, baris kedua terdapat 11 pohon, baris ketiga terdapat 7 pohon. Banyak pohon pada baris ke empat adalah ... pohon.",
+        "options": ["6", "5", "4", "3"],
+        "correct": "d",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "topic": "Penyelesaian SPLDV (Eliminasi/Substitusi)",
+    "kisi_kisi": "Siswa dapat menentukan himpunan penyelesaian dari dua persamaan linear.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Diketahui sebuah bangun persegi panjang KLMN pada koordinat kartesius. Diketahui titik K(1,5), L(6,5), dan M(6, 10). Koordinat titik N dan luas bangun tersebut adalah... .",
+        "options": ["N{1,10) dan Luas 25", "N{1,10) dan Luas 30", "N{10,1) dan Luas 25", "N{10,1) dan Luas 30"],
+        "correct": "a",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "topic": "Sifat Grafik Fungsi Kuadrat",
+    "kisi_kisi": "Siswa dapat menentukan arah bukaan grafik (parabola) berdasarkan nilai koefisien a.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sebuah tiang bendera berdiri tegak di lapangan. Pak Rudi ingin mengikatkan tali dari ujung atas tiang ke tanah. Jarak antara titik di tanah tempat tali diikatkan ke dasar tiang adalah $9$ meter. Panjang tali yang digunakan (dari ujung atas tiang ke tanah) adalah $15$ meter. Tinggi tiang tersebut adalah ....",
+        "options": ["6", "9", "12", "24"],
+        "correct": "b",
+        "explanation": ""
+      },
+       {
+        "prompt": "Sebuah tangga disandarkan pada dinding yang tegak lurus dengan lantai. Ujung bawah tangga diletakkan $7$ meter dari kaki dinding. Jika tinggi dinding yang dicapai oleh tangga adalah $24$ meter,Panjang tangga tersebut adalah ....",
+        "options": ["17", "25", "31", "32"],
+        "correct": "b",
+        "explanation": ""
+      },
+       {
+        "prompt": "Andi bersepeda dari rumah menuju taman. Ia tidak mengambil jalan lurus, melainkan berbelok siku-siku. Pertama, ia bergerak ke arah timur sejauh $8$ km. Kemudian, ia berbelok ke utara dan bergerak sejauh $6$ km untuk sampai di taman. Jarak terpendek (garis lurus) dari rumah Andi ke taman adalah ....",
+        "options": ["10", "13", "14", "16"],
+        "correct": "b",
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "topic": "Menghitung Sisi Segitiga Siku-siku",
+    "kisi_kisi": "Siswa dapat menghitung panjang sisi segitiga siku-siku yang belum diketahui menggunakan teorema Pythagoras.",
+    "type": "mcq",
+    "variations": [
+      {
+        "prompt": "Sentukan himpunan penyelesaian dari pertidaksamaan berikut: $x + 5 < 12$",
+        "options": ["$x<7$", "$x>7$", "$x>17$", "$x<17$"],
+        "correct": "a",
+        "explanation": ""
+      },
+      {
+        "prompt": "Selesaikan pertidaksamaan berikut dan tunjukkan himpunan penyelesaiannya: $3y - 4 > 8$",
+        "options": ["$y<4$", "$y>4$", "$y>12$", "$y<12$"],
+        "correct": "b",
+        "explanation": ""
+      },
+      {
+        "prompt": "Tentukan himpunan penyelesaian untuk pertidaksamaan:$10 - 2p > 4$",
+        "options": ["$p < 3$", "$p > 3$", "$p < 6$", "$p > 6$"],
+        "correct": "a",
+        "explanation": ""
+      }
+  ]
+  }
+]
