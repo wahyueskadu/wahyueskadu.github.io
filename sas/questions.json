@@ -44,34 +44,10 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Bentuk dengan penyebut rasional dari $\\frac{8}{\\sqrt{2}}$ adalah ...",
-        "options": ["$2\\sqrt{2}$", "$4\\sqrt{2}$", "$8\\sqrt{2}$", "$\\sqrt{2}$"],
-        "correct": "b",
-        "explanation": "Kalikan pembilang dan penyebut dengan $\\sqrt{2}$. \n$\\frac{8}{\\sqrt{2}} \\times \\frac{\\sqrt{2}}{\\sqrt{2}} = \\frac{8\\sqrt{2}}{2}$. \nKemudian sederhanakan $8 : 2 = 4$. Hasilnya $4\\sqrt{2}$."
-      },
-      {
-        "prompt": "Rasionalkan bentuk $\\frac{10}{2\\sqrt{5}}$ ...",
-        "options": ["$\\sqrt{5}$", "$2\\sqrt{5}$", "$5\\sqrt{5}$", "$10\\sqrt{5}$"],
-        "correct": "a",
-        "explanation": "Bisa disederhanakan dulu $10:2 = 5$. Jadi $\\frac{5}{\\sqrt{5}}$. \nKalikan dengan $\\sqrt{5}/\\sqrt{5} \\rightarrow \\frac{5\\sqrt{5}}{5} = \\sqrt{5}$."
-      },
-      {
-        "prompt": "Hasil rasional dari $\\frac{\\sqrt{3}}{\\sqrt{5}}$ adalah ...",
-        "options": ["$\\frac{1}{5}\\sqrt{15}$", "$\\frac{3}{5}$", "$\\sqrt{15}$", "$3\\sqrt{5}$"],
-        "correct": "a",
-        "explanation": "Kalikan dengan $\\sqrt{5}/\\sqrt{5}$. \nPembilang: $\\sqrt{3} \\times \\sqrt{5} = \\sqrt{15}$. \nPenyebut: $\\sqrt{5} \\times \\sqrt{5} = 5$. \nJadi $\\frac{\\sqrt{15}}{5}$ atau $\\frac{1}{5}\\sqrt{15}$."
-      },
-      {
-        "prompt": "Bentuk rasional dari $\\frac{12}{\\sqrt{3}}$ adalah ...",
-        "options": ["$3\\sqrt{3}$", "$4\\sqrt{3}$", "$6\\sqrt{3}$", "$12\\sqrt{3}$"],
-        "correct": "b",
-        "explanation": "$\\frac{12}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{12\\sqrt{3}}{3} = 4\\sqrt{3}$."
-      },
-      {
-        "prompt": "Bentuk sederhana dari $\\frac{6}{\\sqrt{12}}$ adalah ...",
-        "options": ["$\\sqrt{3}$", "$2\\sqrt{3}$", "$3\\sqrt{2}$", "$\\sqrt{2}$"],
-        "correct": "a",
-        "explanation": "Sederhanakan penyebut dulu: $\\sqrt{12} = \\sqrt{4 \\times 3} = 2\\sqrt{3}$. \nSoal menjadi $\\frac{6}{2\\sqrt{3}} = \\frac{3}{\\sqrt{3}}$. \nRasionalkan: $\\frac{3}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{3\\sqrt{3}}{3} = \\sqrt{3}$."
+        "prompt": "Bentuk dengan penyebut rasional dari $\\frac{3}{5+\\sqrt{7}}$ adalah ...",
+        "options": ["$\\frac{5-\\sqrt{7}}{11}$", "$\\frac{5+\\sqrt{7}}{11}$","$\\frac{5-\\sqrt{7}}{6}$", "$\\frac{5+\\sqrt{7}}{6}$"],
+        "correct": "d",
+        "explanation": ""
       }
     ]
   },
@@ -234,34 +210,18 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Diketahui titik $P(-5, 8)$. Pernyataan yang benar adalah ...",
-        "options": ["Absis = -5, Ordinat = 8", "Absis = 8, Ordinat = -5", "Absis = 5, Ordinat = 8", "Absis = -5, Ordinat = -8"],
-        "correct": "a",
-        "explanation": "Format koordinat adalah $(x, y)$. \n$x$ disebut Absis. \n$y$ disebut Ordinat. \nJadi Absis -5, Ordinat 8."
+        "prompt": "Titik B terletak pada koordinat ...",
+        "image": "img/no7.jpg",
+        "options": ["$B(3,4)$","$B(-3,-4)$","$B(4,3)$","$B(-4,-3)$"],
+        "correct": "c",
+        "explanation": ""
       },
       {
-        "prompt": "Titik $K(3, -4)$ terletak pada kuadran ...",
-        "options": ["IV", "I", "II", "III"],
-        "correct": "a",
-        "explanation": "Kuadran I: $(+,+)$ \nKuadran II: $(-,+)$ \nKuadran III: $(-,-)$ \nKuadran IV: $(+,-)$. \nKarena $(3, -4)$ adalah $(+,-)$, maka di Kuadran IV."
-      },
-      {
-        "prompt": "Titik yang berjarak 3 satuan dari sumbu Y dan berada di sebelah kiri adalah ...",
-        "options": ["(-3, 5)", "(3, 5)", "(0, 3)", "(5, -3)"],
-        "correct": "a",
-        "explanation": "Jarak dari sumbu Y berhubungan dengan nilai $x$ (absis). \n\"Sebelah kiri\" berarti $x$ negatif. Jadi $x = -3$. Pilihan A benar."
-      },
-      {
-        "prompt": "Koordinat titik potong sumbu X dan sumbu Y (Titik Asal) adalah ...",
-        "options": ["(0, 0)", "(1, 1)", "(0, 1)", "(1, 0)"],
-        "correct": "a",
-        "explanation": "Titik pusat koordinat (origin) selalu di $(0,0)$."
-      },
-      {
-        "prompt": "Sebuah titik memiliki ordinat 0. Titik tersebut pasti terletak pada ...",
-        "options": ["Sumbu X", "Sumbu Y", "Kuadran 1", "Kuadran 2"],
-        "correct": "a",
-        "explanation": "Ordinat adalah $y$. Jika $y=0$, titik tidak naik/turun, berarti menempel pada garis mendatar (Sumbu X)."
+        "prompt": "Titik C terletak pada koordinat ...",
+        "image": "img/no7.jpg",
+        "options": ["$B(4,4)$","$B(-4,-4)$","$B(4,-4)$","$B(-4,4)$"],
+        "correct": "d",
+        "explanation": ""
       }
     ]
   },
@@ -271,35 +231,27 @@
     "kisi_kisi": "Siswa dapat menentukan posisi garis (sejajar/tegak lurus sumbu) berdasarkan koordinat yang dilalui.",
     "type": "mcq",
     "variations": [
-      {
-        "prompt": "Garis $m$ melalui titik $A(2, 5)$ dan $B(2, -3)$. Posisi garis $m$ adalah ...",
-        "options": ["Sejajar sumbu Y", "Sejajar sumbu X", "Memotong sumbu Y tegak lurus", "Miring"],
-        "correct": "a",
-        "explanation": "Perhatikan nilai $x$ (absis) pada kedua titik sama, yaitu $x=2$. \nJika absis tetap, garis berbentuk vertikal. Garis vertikal itu sejajar sumbu Y dan tegak lurus sumbu X."
+     {
+        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "image": "img/no8sejajarx.png",
+        "options": ["memotong sumbu x","tegak lurus sumbu x","sejajar sumbu x","sejajar sumbu y"],
+        "correct": "c",
+        "explanation": ""
       },
-      {
-        "prompt": "Garis $k$ melalui titik $C(-3, 4)$ dan $D(5, 4)$. Posisi garis $k$ adalah ...",
-        "options": ["Sejajar sumbu X", "Sejajar sumbu Y", "Tegak lurus sumbu X", "Melalui titik pusat"],
+     {
+        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "image": "img/no8sejajary.png",
+        "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
+        "correct": "c",
+        "explanation": ""
+      }
+      ,
+     {
+        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "image": "img/no8memotong.png",
+        "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
         "correct": "a",
-        "explanation": "Perhatikan nilai $y$ (ordinat) pada kedua titik sama, yaitu $y=4$. \nJika ordinat tetap, garis berbentuk horizontal. Garis horizontal itu sejajar sumbu X."
-      },
-      {
-        "prompt": "Garis $x = -3$ adalah garis yang ...",
-        "options": ["Sejajar sumbu Y dan berada di sebelah kiri sumbu Y", "Sejajar sumbu X dan berada di bawah sumbu X", "Sejajar sumbu Y dan berada di sebelah kanan sumbu Y", "Berimpit dengan sumbu Y"],
-        "correct": "a",
-        "explanation": "Persamaan $x = c$ adalah garis vertikal (sejajar sumbu Y). Karena $-3$, posisinya di kiri."
-      },
-      {
-        "prompt": "Garis $y = 5$ memiliki sifat ...",
-        "options": ["Tegak lurus terhadap sumbu Y", "Tegak lurus terhadap sumbu X", "Sejajar sumbu Y", "Memotong titik (0,0)"],
-        "correct": "a",
-        "explanation": "$y = 5$ adalah garis horizontal. Garis horizontal memotong sumbu Y secara tegak lurus."
-      },
-      {
-        "prompt": "Garis yang melalui $(1,1)$ dan $(4,4)$ posisinya adalah ...",
-        "options": ["Memotong sumbu X dan Y (Miring)", "Sejajar sumbu X", "Sejajar sumbu Y", "Tegak lurus sumbu X"],
-        "correct": "a",
-        "explanation": "Nilai $x$ berubah, nilai $y$ berubah. Garis ini diagonal/miring, tidak sejajar sumbu manapun."
+        "explanation": ""
       }
     ]
   },
@@ -1131,7 +1083,6 @@
         "correct": "a",
         "explanation": ""
       }
-      
-    ]
+  ]
   }
 ]
