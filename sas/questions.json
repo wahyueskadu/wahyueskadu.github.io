@@ -239,7 +239,7 @@
         "explanation": ""
       },
      {
-        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "prompt": "Posisi garis n pada bidang kartesius adalah ....",
         "image": "img/no8sejajary.png",
         "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
         "correct": "c",
@@ -247,7 +247,7 @@
       }
       ,
      {
-        "prompt": "Posisi garis m pada bidang kartesius adalah ....",
+        "prompt": "Posisi garis p pada bidang kartesius adalah ....",
         "image": "img/no8memotong.png",
         "options": ["memotong sumbu y","tegak lurus sumbu y","sejajar sumbu x","sejajar sumbu y"],
         "correct": "a",
@@ -604,34 +604,18 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Diketahui Rumah A di $(0,0)$ dan Rumah B di $(3,4)$. Posisi Rumah B terhadap Rumah A adalah ...",
-        "options": ["3 satuan ke kanan, 4 satuan ke atas", "3 satuan ke kiri, 4 satuan ke atas", "4 satuan ke kanan, 3 satuan ke atas", "3 satuan ke bawah, 4 satuan ke kanan"],
+        "prompt": "Sekolah terletak pada koordinat ...",
+        "image":"img/no18.png",
+        "options": ["$(4,3)$","$(3,4)$","$(-3,2)$","$(2,-3)$"],
         "correct": "a",
-        "explanation": "$x$ positif (3) = Kanan. $y$ positif (4) = Atas. \nJadi 3 kanan, 4 atas."
+        "explanation": ""
       },
       {
-        "prompt": "Titik $P(2,1)$ dijadikan titik acuan $(0,0)$. Maka koordinat baru titik $Q(5,5)$ adalah ...",
-        "options": ["(3, 4)", "(7, 6)", "(3, 6)", "(4, 3)"],
-        "correct": "a",
-        "explanation": "Koordinat relatif = Titik Tujuan - Titik Acuan. \n$x = 5 - 2 = 3$. \n$y = 5 - 1 = 4$. \nJadi $(3, 4)$."
-      },
-      {
-        "prompt": "Posisi titik $(-2, 3)$ terhadap titik asal $(0,0)$ adalah ...",
-        "options": ["2 satuan ke kiri, 3 satuan ke atas", "2 satuan ke kanan, 3 satuan ke bawah", "2 satuan ke kiri, 3 satuan ke bawah", "3 satuan ke kanan, 2 satuan ke atas"],
-        "correct": "a",
-        "explanation": "$x$ negatif (-2) = Kiri. \n$y$ positif (3) = Atas."
-      },
-      {
-        "prompt": "Titik $A$ berada 5 satuan di sebelah kanan sumbu Y dan 2 satuan di bawah sumbu X. Koordinat titik $A$ adalah ...",
-        "options": ["(5, -2)", "(-5, 2)", "(2, -5)", "(-2, 5)"],
-        "correct": "a",
-        "explanation": "Kanan sumbu Y $\\rightarrow x=5$. \nBawah sumbu X $\\rightarrow y=-2$."
-      },
-      {
-        "prompt": "Jika titik $M(1,1)$ digeser 3 satuan ke kanan dan 2 satuan ke atas, posisi barunya adalah ...",
-        "options": ["(4, 3)", "(3, 4)", "(-2, -1)", "(1, 3)"],
-        "correct": "a",
-        "explanation": "$x' = 1 + 3 = 4$. \n$y' = 1 + 2 = 3$. \nJadi $(4, 3)$."
+        "prompt": "Kantor terletak pada koordinat ...",
+        "image":"img/no18.png",
+        "options": ["$(2.2)$","$(2,-2)$","$(-2,2)$","$(-2,-2)$"],
+        "correct": "d",
+        "explanation": ""
       }
     ]
   },
@@ -744,34 +728,16 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Garis $g$ melalui $(3, 2)$ dan $(3, -1)$. Garis $h$ melalui $(-4, 5)$ dan $(1, 5)$. Hubungan garis $g$ dan $h$ adalah ...",
-        "options": ["Tegak Lurus", "Sejajar", "Berimpit", "Berpotongan tidak tegak lurus"],
-        "correct": "a",
-        "explanation": "Analisis koordinat: \nGaris $g$: Nilai $x$ selalu 3 (tetap). Ini adalah garis vertikal (sejajar sumbu Y). \nGaris $h$: Nilai $y$ selalu 5 (tetap). Ini adalah garis horizontal (sejajar sumbu X). \nGaris vertikal dan horizontal pasti saling **Tegak Lurus**."
+        "prompt": "Diketahui titik P(0,0) dan Q(4,3). Jarak titik antara P ke titik Q adalah ... .",
+        "options": ["1","2","5","7"],
+        "correct": "c",
+        "explanation": ""
       },
-      {
-        "prompt": "Garis $k$ melalui $(0, -5)$ dan $(4, -5)$. Garis $l$ melalui $(-2, 1)$ dan $(5, 1)$. Hubungan $k$ dan $l$ adalah ...",
-        "options": ["Sejajar", "Tegak Lurus", "Berpotongan", "Berimpit"],
-        "correct": "a",
-        "explanation": "Garis $k$: Nilai $y = -5$ (Horizontal). \nGaris $l$: Nilai $y = 1$ (Horizontal). \nDua garis yang sama-sama horizontal adalah **Sejajar**."
-      },
-      {
-        "prompt": "Garis $m$ adalah garis $x=4$. Garis $n$ adalah garis $y=-2$. Hubungan $m$ dan $n$ adalah ...",
-        "options": ["Tegak Lurus", "Sejajar", "Berimpit", "Miring"],
-        "correct": "a",
-        "explanation": "$x=4$ adalah garis vertikal. \n$y=-2$ adalah garis horizontal. \nVertikal bertemu horizontal membentuk sudut 90 derajat (**Tegak Lurus**)."
-      },
-      {
-        "prompt": "Garis $p$ melalui $(1, 2)$ dan $(1, 8)$. Garis $q$ melalui $(3, 0)$ dan $(3, 6)$. Hubungan $p$ dan $q$ adalah ...",
-        "options": ["Sejajar", "Tegak Lurus", "Berpotongan", "Berimpit"],
-        "correct": "a",
-        "explanation": "Garis $p$: Nilai $x=1$ (Vertikal). \nGaris $q$: Nilai $x=3$ (Vertikal). \nDua garis yang sama-sama vertikal adalah **Sejajar**."
-      },
-      {
-        "prompt": "Dua garis saling tegak lurus. Jika salah satu garis sejajar sumbu X, maka garis yang lain harus ...",
-        "options": ["Sejajar sumbu Y", "Miring ke kanan", "Miring ke kiri", "Berpotongan dengan titik asal"],
-        "correct": "a",
-        "explanation": "Garis sejajar sumbu X itu mendatar (horizontal). \nAgar tegak lurus dengan garis mendatar, garis lainnya harus tegak (vertikal). \nGaris vertikal itu sejajar dengan sumbu Y."
+          {
+        "prompt": "Diketahui titik K(2,5) dan L(10,11). Jarak titik antara P ke titik Q adalah ... .",
+        "options": ["7","10","12","16"],
+        "correct": "b",
+        "explanation": ""
       }
     ]
   },
@@ -900,34 +866,25 @@
     "type": "mcq",
     "variations": [
       {
-        "prompt": "Titik $P(-5, 7)$. Jarak titik $P$ terhadap sumbu Y adalah ...",
-        "options": ["5 satuan", "7 satuan", "12 satuan", "-5 satuan"],
-        "correct": "a",
-        "explanation": "Jarak ke Sumbu Y ditentukan oleh nilai mutlak absis ($x$). \n$|-5| = 5$ satuan. (Jarak selalu positif)."
+        "prompt": "Titik yang memiliki absis 4 dan ordinat 3 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$B$","$C$","$D$"],
+        "correct": "b",
+        "explanation": ""
       },
       {
-        "prompt": "Jarak titik $Q(10, -3)$ terhadap sumbu X adalah ...",
-        "options": ["3 satuan", "10 satuan", "7 satuan", "-3 satuan"],
-        "correct": "a",
-        "explanation": "Jarak ke Sumbu X ditentukan oleh nilai mutlak ordinat ($y$). \n$|-3| = 3$ satuan."
+        "prompt": "Titik yang memiliki absis -4 dan ordinat 4 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$B$","$C$","$D$"],
+        "correct": "c",
+        "explanation": ""
       },
       {
-        "prompt": "Sebuah titik berjarak 4 satuan dari sumbu X dan 6 satuan dari sumbu Y. Titik yang mungkin adalah ...",
-        "options": ["(6, 4)", "(4, 6)", "(4, -6)", "(-4, -6)"],
-        "correct": "a",
-        "explanation": "Jarak ke sumbu X = 4 $\\rightarrow y = 4$ atau $-4$. \nJarak ke sumbu Y = 6 $\\rightarrow x = 6$ atau $-6$. \nKombinasi yang mungkin adalah (6, 4), (6, -4), (-6, 4), atau (-6, -4). Pilihan A benar."
-      },
-      {
-        "prompt": "Titik $R(a, b)$ berjarak 8 satuan dari sumbu X dan 3 satuan dari sumbu Y. Nilai $a$ yang mungkin adalah ...",
-        "options": ["3", "8", "-8", "11"],
-        "correct": "a",
-        "explanation": "Jarak ke sumbu Y adalah mutlak dari $a$ ($x$). \n$|a| = 3$, jadi $a$ bisa 3 atau -3."
-      },
-      {
-        "prompt": "Titik $S$ terletak pada kuadran III. Jika jaraknya ke sumbu X adalah 1, dan ke sumbu Y adalah 2, koordinat $S$ adalah ...",
-        "options": ["(-2, -1)", "(-1, -2)", "(2, -1)", "(-2, 1)"],
-        "correct": "a",
-        "explanation": "Kuadran III: $x$ negatif, $y$ negatif. \nJarak ke sumbu Y = 2 $\\rightarrow x = -2$. \nJarak ke sumbu X = 1 $\\rightarrow y = -1$. \nKoordinat: $(-2, -1)$."
+        "prompt": "Titik yang memiliki absis -3 dan ordinat 3 adalah",
+        "image": "img/no7.jpg",
+        "options": ["$A$","$C$","$E$","$G$"],
+        "correct": "c",
+        "explanation": ""
       }
     ]
   },
