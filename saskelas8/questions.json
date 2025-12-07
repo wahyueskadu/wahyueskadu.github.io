@@ -219,7 +219,7 @@
       {
         "prompt": "Titik C terletak pada koordinat ...",
         "image": "img/no7.jpg",
-        "options": ["$B(4,4)$","$B(-4,-4)$","$B(4,-4)$","$B(-4,4)$"],
+        "options": ["$C(4,4)$","$C(-4,-4)$","$C(4,-4)$","$C(-4,4)$"],
         "correct": "d",
         "explanation": ""
       }
