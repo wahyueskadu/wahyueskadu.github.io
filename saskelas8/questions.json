@@ -46,7 +46,7 @@
       {
         "prompt": "Bentuk dengan penyebut rasional dari $\\frac{3}{5+\\sqrt{7}}$ adalah ...",
         "options": ["$\\frac{5-\\sqrt{7}}{11}$", "$\\frac{5+\\sqrt{7}}{11}$","$\\frac{5-\\sqrt{7}}{6}$", "$\\frac{5+\\sqrt{7}}{6}$"],
-        "correct": "d",
+        "correct": "c",
         "explanation": ""
       }
     ]
