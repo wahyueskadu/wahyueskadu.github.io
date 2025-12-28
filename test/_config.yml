@@ -1,0 +1,8 @@
+title: My GFM + KaTeX Site
+baseurl: "/test" # Change this to your repository name
+url: "https://wahyueskadu.github.io" # Change to your GitHub URL
+markdown: kramdown
+theme: minima # The default standard theme
+kramdown:
+  input: GFM
+  math_engine: nil # We will handle math with client-side JS (easiest for GitHub Pages)
