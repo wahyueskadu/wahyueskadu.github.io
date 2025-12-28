@@ -1,8 +1,26 @@
-title: My GFM + KaTeX Site
-baseurl: "/test" # Change this to your repository name
-url: "https://wahyueskadu.github.io" # Change to your GitHub URL
+title: My Knowledge Base
+description: Notes with GFM and KaTeX support
+remote_theme: pages-themes/minimal # Optional GitHub Pages theme base
+
+# Markdown Processor Settings
 markdown: kramdown
-theme: minima # The default standard theme
 kramdown:
-  input: GFM
-  math_engine: nil # We will handle math with client-side JS (easiest for GitHub Pages)
+  input: GFM                 # Enables GitHub Flavored Markdown (tables, task lists)
+  hard_wrap: false
+  syntax_highlighter: rouge  # Standard Jekyll syntax highlighter
+  math_engine: katex         # Tells kramdown to treat $$ as math blocks
+
+# Defaults: Apply the 'note' layout to all Markdown files automatically
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "note"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "note"
+
+exclude: [Gemfile, Gemfile.lock, node_modules]
