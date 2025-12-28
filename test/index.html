@@ -1,0 +1,16 @@
+---
+layout: default
+title: My Notes Collection
+---
+
+<h1>All Notes</h1>
+
+<ul>
+  {% for note in site.pages %}
+    {% if note.url contains '/notes/' and note.title and note.url != '/notes/' %}
+      <li>
+        <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

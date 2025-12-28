@@ -1,22 +1,13 @@
 ---
-layout: default
-title: Index of Notes
+layout: note
+title: Introduction to Physics
 ---
 
-## My Notes Collection
+Here is some regular text.
 
-<ul>
-  {% for note in site.pages %}
-    
-    {% if note.path contains 'notes/' and note.title %}
-      <li>
-        <a href="{{ site.baseurl }}{{ note.url }}">
-          {{ note.title }}
-        </a>
-        <br>
-        <small><i>Last modified: {{ note.last_modified_at | date: "%B %d, %Y" }}</i></small>
-      </li>
-    {% endif %}
+Here is an inline formula: $E = mc^2$
 
-  {% endfor %}
-</ul>
+Here is a block formula:
+$$
+F = G \frac{m_1 m_2}{r^2}
+$$
