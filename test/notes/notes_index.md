@@ -11,3 +11,8 @@ Here is a block formula:
 $$
 F = G \frac{m_1 m_2}{r^2}
 $$
+
+graph TD;
+    A[Start] --> B{Is it Math?};
+    B -- Yes --> C[Use MathJax];
+    B -- No --> D[Use Mermaid];
