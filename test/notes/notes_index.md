@@ -1,4 +1,4 @@
----
+8---
 layout: note
 title: Introduction to Physics
 ---
@@ -12,7 +12,9 @@ $$
 F = G \frac{m_1 m_2}{r^2}
 $$
 
+```mermaid
 graph TD;
     A[Start] --> B{Is it Math?};
     B -- Yes --> C[Use MathJax];
     B -- No --> D[Use Mermaid];
+```
