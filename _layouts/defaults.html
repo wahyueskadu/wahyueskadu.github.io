@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,13 +27,7 @@
     <div class="container">
         <header>
             <a href="{{ '/' | relative_url }}" class="logo">SWW.MY.ID</a>
-            <nav>
-                {% comment %} Automatically find pages for the menu {% endcomment %}
-                {% assign nav_pages = site.pages | where: "nav_menu", true | sort: "nav_order" %}
-                {% for p in nav_pages %}
-                    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-                {% endfor %}
-            </nav>
+            
         </header>
 
         {{ content }}
