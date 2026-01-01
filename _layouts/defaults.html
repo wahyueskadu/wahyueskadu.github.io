@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: "SWW.MY.ID" }}</title>
+    <style>
+        :root {
+            --bg-color: #f7c8a8; /* Matching the peach background */
+            --text-color: #000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+
+        nav a {
+            margin-left: 15px;
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-style: dotted; /* Mimics the red underline in your image */
+            text-decoration-color: #ff4d4d;
+            color: black;
+        }
+
+        /* Main Grid */
+        .grid-container {
+            display: flex;
+            flex-direction: column; /* Mobile first */
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .class-column {
+            flex: 1;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Accordion-style Details */
+        details {
+            margin-bottom: 5px;
+        }
+
+        summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        /* Custom Arrows */
+        summary::before {
+            content: '▶';
+            display: inline-block;
+            width: 1.2em;
+            font-size: 0.8em;
+        }
+
+        details[open] > summary::before {
+            content: '▼';
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        li::before {
+            content: "- ";
+        }
+
+        .quiz-link {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-decoration-color: #ff4d4d;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">SWW.MY.ID</a>
+        <nav>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </nav>
+    </header>
+
+    <main class="grid-container">
+        {% assign month = "now" | date: "%m" | plus: 0 %}
+        
+        {% for class_num in (7..9) %}
+        <section class="class-column">
+            <h2>KELAS {{ class_num }}</h2>
+            
+            <details {% if month >= 1 and month <= 6 %}open{% endif %}>
+                <summary>Semester 1</summary>
+                <ul>
+                    <li>Material 1 [<a href="#" class="quiz-link">Quiz</a>]</li>
+                    <li>Material 2 [<a href="#" class="quiz-link">Quiz</a>]</li>
+                    <li>...</li>
+                </ul>
+            </details>
+
+            <details {% if month >= 7 and month <= 12 %}open{% endif %}>
+                <summary>Semester 2</summary>
+                <ul>
+                    <li>Material 1 [<a href="#" class="quiz-link">Quiz</a>]</li>
+                    <li>Material 2 [<a href="#" class="quiz-link">Quiz</a>]</li>
+                    <li>...</li>
+                </ul>
+            </details>
+        </section>
+        {% endfor %}
+    </main>
+
+    {{ content }}
+
+</body>
+</html>

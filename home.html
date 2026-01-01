@@ -1,0 +1,42 @@
+---
+layout: default
+title: Home
+---
+
+<main class="grid-container">
+    {% assign month = "now" | date: "%m" | plus: 0 %}
+
+    {% comment %} Loop through Grades 7, 8, and 9 {% endcomment %}
+    {% assign grades = "7,8,9" | split: "," %}
+    {% for grade in grades %}
+    <section class="class-column">
+        <h2>KELAS {{ grade }}</h2>
+        
+        {% comment %} Semester 1 (Expanded Jan-Jun) {% endcomment %}
+        <details {% if month >= 1 and month <= 6 %}open{% endif %}>
+            <summary>Semester 1</summary>
+            <ul>
+                {% assign s1_materials = site.pages | where_exp: "item", "item.path contains 'grade-' | append: grade" | filter_attributes: "semester", 1 %}
+                {% for mat in s1_materials %}
+                    <li><a href="{{ mat.url }}">{{ mat.title }}</a> [<a href="{{ mat.quiz_url }}" class="quiz-link">Quiz</a>]</li>
+                {% empty %}
+                    <li>...</li>
+                {% endfor %}
+            </ul>
+        </details>
+
+        {% comment %} Semester 2 (Expanded Jul-Dec) {% endcomment %}
+        <details {% if month >= 7 and month <= 12 %}open{% endif %}>
+            <summary>Semester 2</summary>
+            <ul>
+                {% assign s2_materials = site.pages | where_exp: "item", "item.path contains 'grade-' | append: grade" | filter_attributes: "semester", 2 %}
+                {% for mat in s2_materials %}
+                    <li><a href="{{ mat.url }}">{{ mat.title }}</a> [<a href="{{ mat.quiz_url }}" class="quiz-link">Quiz</a>]</li>
+                {% empty %}
+                    <li>...</li>
+                {% endfor %}
+            </ul>
+        </details>
+    </section>
+    {% endfor %}
+</main>
