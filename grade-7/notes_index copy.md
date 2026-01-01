@@ -1,6 +1,8 @@
 ---
-layout: note
-title: Introduction to Physics
+layout: default
+title: "Material Name"
+semester: 1
+quiz_url: "#"
 ---
 
 Here is some regular text.
