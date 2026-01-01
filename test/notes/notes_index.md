@@ -1,6 +1,8 @@
 ---
 layout: note
 title: Introduction to Physics
+quiz_url : bla
+semester : 1
 ---
 
 Here is some regular text.
