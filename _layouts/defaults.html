@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | SWW.MY.ID</title>
+    <style>
+        :root { --bg-color: #f7c8a8; }
+        body { font-family: sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
+        
+        header { 
+            display: flex; justify-content: space-between; align-items: baseline; 
+            flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid rgba(0,0,0,0.1);
+            padding-bottom: 10px;
+        }
+        .logo { font-size: 24px; font-weight: bold; text-decoration: none; color: #000; }
+        
+        nav a { 
+            margin-left: 15px; font-weight: bold; color: #000; text-decoration: none;
+            border-bottom: 2px dotted #ff4d4d;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ '/' | relative_url }}" class="logo">SWW.MY.ID</a>
+            <nav>
+                {% comment %} Automatically find pages for the menu {% endcomment %}
+                {% assign nav_pages = site.pages | where: "nav_menu", true | sort: "nav_order" %}
+                {% for p in nav_pages %}
+                    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+                {% endfor %}
+            </nav>
+        </header>
+
+        {{ content }}
+    </div>
+</body>
+</html>
