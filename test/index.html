@@ -14,7 +14,7 @@ title: My Notes Collection
 {%- comment -%} 
 2. Group files by the subfolder name (e.g., kelas_7, kelas_8)
 {%- endcomment -%}
-{% assign grouped_notes = all_files | group_by_exp: "item", "item.path | split: '/' | slice: 1" %}
+{% assign grouped_notes = all_files | group_by_exp: "item", "item.path | split: '/' | slice: 2" %}
 
 {% for group in grouped_notes %}
   {%- comment -%} 
