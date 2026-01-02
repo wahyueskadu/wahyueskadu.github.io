@@ -6,8 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | SWW.MY.ID</title>
     <style>
-        :root { --bg-color: #f7c8a8; }
-        body { font-family: sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
+  :root {
+    --bg: #e8e0d5; /* Recycled paper color */
+    --border: 3px solid #000;
+    --shadow: 8px 8px 0px #000;
+  }
+
+  body {
+    background: #d4cfc9;
+    font-family: "Courier New", Courier, monospace;
+    padding: 20px;
+    color: #000;
+bg-color: #f7c8a8;
+  }
+
+  
+        
+        body {
+font-family: sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px;
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--bg);
+    border: var(--border);
+    box-shadow: var(--shadow);
+  }
+}
         
         header { 
             display: flex; justify-content: space-between; align-items: baseline; 
@@ -20,7 +45,7 @@
             margin-left: 15px; font-weight: bold; color: #000; text-decoration: none;
             border-bottom: 2px dotted #ff4d4d;
         }
-        .container { max-width: 1000px; margin: 0 auto; }
+
     </style>
 </head>
 <body>
