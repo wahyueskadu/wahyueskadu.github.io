@@ -1,36 +1,155 @@
+---
+layout: default
+title: Home
+---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | SWW.MY.ID</title>
-    <style>
-        :root { --bg-color: #f7c8a8; }
-        body { font-family: sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
-        
-        header { 
-            display: flex; justify-content: space-between; align-items: baseline; 
-            flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid rgba(0,0,0,0.1);
-            padding-bottom: 10px;
-        }
-        .logo { font-size: 24px; font-weight: bold; text-decoration: none; color: #000; }
-        
-        nav a { 
-            margin-left: 15px; font-weight: bold; color: #000; text-decoration: none;
-            border-bottom: 2px dotted #ff4d4d;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <a href="{{ '/' | relative_url }}" class="logo">SWW.MY.ID</a>
-            
-        </header>
+<style>
+  /* Grade Button */
+  .grade-wrapper { border-bottom: 3px solid var(--ink); }
+  .grade-wrapper:last-child { border-bottom: none; }
 
-        {{ content }}
+  .grade-btn {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem; /* Big chunky text */
+    padding: 25px;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink);
+    transition: background 0.2s;
+  }
+  
+  .grade-btn:hover { background-color: #fff; }
+  .grade-wrapper.active .grade-btn { background-color: var(--accent); }
+
+  /* Arrow Animation */
+  .arrow { font-size: 1.5rem; transition: transform 0.3s; }
+  .grade-wrapper.active .arrow { transform: rotate(180deg); }
+
+  /* Content Area */
+  .grade-content {
+    display: none;
+    background: #fff;
+    border-top: 3px solid var(--ink);
+  }
+  .grade-wrapper.active .grade-content { display: block; }
+
+  /* Semester Blocks */
+  .semester-block { padding: 25px; border-bottom: 2px dashed #ccc; }
+  .semester-block:last-child { border-bottom: none; }
+
+  .sem-label {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+
+  /* List Items */
+  ul.material-list { list-style: none; padding: 0; margin: 0; }
+  ul.material-list li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Links */
+  a.mat-link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  a.mat-link:hover { background-color: var(--accent); text-decoration: none; }
+
+  /* Quiz Badge */
+  .quiz-badge {
+    font-size: 0.8rem;
+    border: 2px solid var(--ink);
+    padding: 2px 8px;
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: 0.1s;
+    background: #fff;
+  }
+  .quiz-badge:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+    background: var(--accent);
+  }
+</style>
+
+  {{ content }}
+
+<div class="grade-wrapper">
+  <button class="grade-btn" onclick="toggleAccordion(this)">
+    Kelas 7
+    <span class="arrow">▼</span>
+  </button>
+  <div class="grade-content">
+    <div class="semester-block">
+      <div class="sem-label">Semester 1</div>
+      <ul class="material-list">
+        <li>
+          <a href="#" class="mat-link">Greetings & Introduction</a>
+          <a href="#" class="quiz-badge">QUIZ</a>
+        </li>
+        <li><a href="#" class="mat-link">Family Members</a></li>
+      </ul>
     </div>
-</body>
-</html>
+  </div>
+</div>
+
+<div class="grade-wrapper">
+  <button class="grade-btn" onclick="toggleAccordion(this)">
+    Kelas 8
+    <span class="arrow">▼</span>
+  </button>
+  <div class="grade-content">
+    <div class="semester-block">
+      <div class="sem-label">Semester 1</div>
+      <ul class="material-list">
+        <li><a href="#" class="mat-link">Recount Text</a> <a href="#" class="quiz-badge">QUIZ</a></li>
+        <li><a href="#" class="mat-link">Descriptive Text</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="grade-wrapper">
+  <button class="grade-btn" onclick="toggleAccordion(this)">
+    Kelas 9
+    <span class="arrow">▼</span>
+  </button>
+  <div class="grade-content">
+    <div class="semester-block">
+      <div class="sem-label">Semester 1</div>
+      <ul class="material-list">
+        <li><a href="#" class="mat-link">Narrative Text</a></li>
+        <li><a href="#" class="mat-link">Passive Voice</a> <a href="#" class="quiz-badge">QUIZ</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleAccordion(btn) {
+    btn.parentElement.classList.toggle('active');
+  }
+</script>
