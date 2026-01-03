@@ -61,100 +61,7 @@
   nav.top-links a:last-child { border-right: none; }
   nav.top-links a:hover { background: #000; color: #fff; }
 
-  /* GRADE ACCORDION STYLE */
-  .grade-wrapper {
-    border-bottom: var(--border);
-  }
-  .grade-wrapper:last-child { border-bottom: none; }
-
-  .grade-btn {
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: none;
-    font-family: Impact, sans-serif;
-    font-size: 4rem;
-    padding: 20px;
-    cursor: pointer;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
   
-  .grade-btn:hover {
-    background: #ffecb3; /* Highlight color */
-  }
-
-  .arrow { font-size: 2rem; transform: rotate(0deg); transition: 0.3s; }
-  .active .arrow { transform: rotate(180deg); }
-
-  /* CONTENT AREA */
-  .grade-content {
-    display: none;
-    border-top: var(--border);
-    background: #fff;
-  }
-  .active .grade-content { display: block; }
-
-  /* SEMESTERS */
-  .semester-block {
-    padding: 20px;
-    border-bottom: 2px dashed #000;
-  }
-  .semester-block:last-child { border-bottom: none; }
-
-  .sem-label {
-    background: #000;
-    color: #fff;
-    display: inline-block;
-    padding: 5px 10px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-  }
-
-  ul.material-list {
-    list-style-type: square;
-    padding-left: 20px;
-    margin: 0;
-  }
-
-  ul.material-list li {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    line-height: 1.5;
-  }
-
-  a.mat-link {
-    color: #000;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-  }
-  a.mat-link:hover { background: yellow; }
-
-  a.quiz-btn {
-    font-size: 0.8rem;
-    border: 2px solid #000;
-    padding: 2px 6px;
-    text-decoration: none;
-    color: #000;
-    margin-left: 10px;
-    font-weight: bold;
-    box-shadow: 2px 2px 0 #000;
-    transition: 0.1s;
-  }
-  a.quiz-btn:hover {
-    box-shadow: 0 0 0 #000;
-    transform: translate(2px, 2px);
-  }
-
-  /* MEDIA QUERIES */
-  @media (max-width: 600px) {
-    h1 { font-size: 4rem; }
-    .grade-btn { font-size: 2.5rem; }
-    .container { margin: 10px; width: auto; box-shadow: 5px 5px 0 #000; }
-  }
 </style>
 </head>
 <body>
@@ -169,17 +76,8 @@
     </nav>
   </header>
 
- 
-
   {{ content }}
 </div>
-
-<script>
-  function toggleBrutal(btn) {
-    // Toggle the class on the wrapper parent
-    btn.parentElement.classList.toggle('active');
-  }
-</script>
 
 </body>
 </html>
