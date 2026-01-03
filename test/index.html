@@ -67,7 +67,7 @@ title: My Notes Collection
   </div>
 
   
-<h1>All Notes</h1>
+
 
 <ul>
 {%- comment -%} 
@@ -86,6 +86,31 @@ title: My Notes Collection
   {%- endcomment -%}
   {% if group.name != "" and group.name != nil and group.name != "pages" %}
     
+
+
+ <div class="grade-wrapper">
+    <button class="grade-btn" onclick="toggleBrutal(this)">
+      K{{ group.name | replace: "_", " " | capitalize }}
+      <span class="arrow">▼</span>
+    </button>
+    <div class="grade-content">
+      <div class="semester-block">
+        <div class="sem-label">SEMESTER 1</div>
+        <ul class="material-list">
+        {% for note in group.items %}
+          {%- comment -%} 
+            Only show the link if the page has a title and isn't an index file
+          {%- endcomment -%}
+          {% if note.title and note.url != group.items[0].dir %}
+            <li>
+              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
     <section class="note-group">
       <h3>{{ group.name | replace: "_", " " | capitalize }}</h3>
       
