@@ -120,7 +120,7 @@ title: My Notes Collection
 
  <div class="grade-wrapper">
     <button class="grade-btn" onclick="toggleBrutal(this)">
-      {{ group.name | replace: "["," "| capitalize }}
+      {{ group.name | replace: "_"," " | remove: "[" | remove: "]" | capitalize }}
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
