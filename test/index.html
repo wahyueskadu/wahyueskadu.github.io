@@ -3,7 +3,6 @@ layout: defaults
 title: My Notes Collection
 ---
 
-<ul>
 {%- comment -%} 
 1. Get all files located within the "pages" folder
 {%- endcomment -%}
@@ -24,7 +23,7 @@ title: My Notes Collection
 
  <div class="grade-wrapper">
     <button class="grade-btn" onclick="toggleBrutal(this)">
-      {{ group.name | replace: "_",| capitalize }}
+      {{ group.name | replace: "_",""| capitalize }}
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
@@ -47,4 +46,3 @@ title: My Notes Collection
   </div>
       {% endif %}
 {% endfor %}
-</ul>
