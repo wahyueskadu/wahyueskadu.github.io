@@ -90,7 +90,7 @@ title: My Notes Collection
 
  <div class="grade-wrapper">
     <button class="grade-btn" onclick="toggleBrutal(this)">
-      K{{ group.name | replace: "_", " " | capitalize }}
+      {{ group.name | replace: "_", " " | capitalize }}
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
@@ -111,24 +111,6 @@ title: My Notes Collection
       </div>
     </div>
   </div>
-
-    <section class="note-group">
-      <h3>{{ group.name | replace: "_", " " | capitalize }}</h3>
-      
-      <ul>
-        {% for note in group.items %}
-          {%- comment -%} 
-            Only show the link if the page has a title and isn't an index file
-          {%- endcomment -%}
-          {% if note.title and note.url != group.items[0].dir %}
-            <li>
-              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </section>
-    
-  {% endif %}
+      {% endif %}
 {% endfor %}
 </ul>
