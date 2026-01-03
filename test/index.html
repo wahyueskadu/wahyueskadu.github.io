@@ -3,72 +3,6 @@ layout: defaults
 title: My Notes Collection
 ---
 
-
- <div class="grade-wrapper">
-    <button class="grade-btn" onclick="toggleBrutal(this)">
-      KELAS 7
-      <span class="arrow">▼</span>
-    </button>
-    <div class="grade-content">
-      
-      <div class="semester-block">
-        <div class="sem-label">SEMESTER 1</div>
-        <ul class="material-list">
-          <li>
-            <a href="#" class="mat-link">Greeting & Introduction</a>
-            <a href="#" class="quiz-btn">QUIZ</a>
-          </li>
-          <li><a href="#" class="mat-link">Family Members</a></li>
-        </ul>
-      </div>
-
-      <div class="semester-block">
-        <div class="sem-label">SEMESTER 2</div>
-        <ul class="material-list">
-          <li>
-            <a href="#" class="mat-link">Descriptive Text: Animals</a>
-            <a href="#" class="quiz-btn">QUIZ</a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="grade-wrapper">
-    <button class="grade-btn" onclick="toggleBrutal(this)">
-      KELAS 8
-      <span class="arrow">▼</span>
-    </button>
-    <div class="grade-content">
-      <div class="semester-block">
-        <div class="sem-label">SEMESTER 1</div>
-        <ul class="material-list">
-          <li><a href="#" class="mat-link">Recount Text</a> <a href="#" class="quiz-btn">QUIZ</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="grade-wrapper">
-    <button class="grade-btn" onclick="toggleBrutal(this)">
-      KELAS 9
-      <span class="arrow">▼</span>
-    </button>
-    <div class="grade-content">
-      <div class="semester-block">
-        <div class="sem-label">SEMESTER 1</div>
-        <ul class="material-list">
-          <li><a href="#" class="mat-link">Narrative Text</a></li>
-          <li><a href="#" class="mat-link">Passive Voice</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  
-
-
 <ul>
 {%- comment -%} 
 1. Get all files located within the "pages" folder
@@ -90,7 +24,7 @@ title: My Notes Collection
 
  <div class="grade-wrapper">
     <button class="grade-btn" onclick="toggleBrutal(this)">
-      {{ group.name | replace: "_", " " | capitalize }}
+      {{ group.name | replace: "_",| capitalize }}
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
