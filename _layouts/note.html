@@ -1,9 +1,7 @@
 ---
 layout: defaults
 ---
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+{% include katex_setup.html %}
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
 
@@ -28,6 +26,11 @@ layout: defaults
 </article>
 
 <style>
+  .page-wrapper {
+    max-width: 800px; /* Standard reading width */
+    margin: 0 auto;   /* Centers the block */
+    padding: 20px;    /* Breathing room on sides */
+}
   /* --- 1. FIXED HEADER STYLES --- */
   
   /* Reset the h1 inside articles so it is not HUGE like the logo */
@@ -76,10 +79,10 @@ layout: defaults
   }
 
   /* Header row specific */
-  th {
-    background-color: #000; /* Black header */
-    color: #fff; /* White text */
-    font-weight: bold;
+  /*th {
+   /* background-color: #000; /* Black header */
+    /*color: #fff; /* White text */
+    /*font-weight: bold;
     text-transform: uppercase;
   }
 
