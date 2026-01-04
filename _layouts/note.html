@@ -3,42 +3,124 @@ layout: defaults
 ---
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
-        onload="renderMathInElement(document.body);"></script>
-
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
 
 <article class="markdown-body">
-  <header style="margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-    <h1>{{ page.title }}</h1>
-    <p style="color: #666;">Semester {{ page.semester }} | Grade {{ page.path | split: "/" | second | last }}</p>
+  
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">Semester {{ page.semester }} | Grade {{ page.path | split: "/" | second | last }}</p>
   </header>
 
-  {{ content }}
-
-  <hr>
-  <div style="margin-top: 2rem;">
-    <a href="{{ page.quiz_url | default: '#' }}" class="quiz-button">Take the Quiz</a>
-    <a href="/" style="margin-left: 10px;">Back to Home</a>
+  <div class="content-wrapper">
+    {{ content }}
   </div>
+
+  <hr class="brutal-divider">
+  
+  <div class="post-actions">
+    <a href="{{ page.quiz_url | default: '#' }}" class="brutal-btn">Take the Quiz</a>
+    <a href="/" class="simple-link">Back to Home</a>
+  </div>
+
 </article>
 
 <style>
-  /* GFM Style Tweaks */
-  .markdown-body {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  /* --- 1. FIXED HEADER STYLES --- */
+  
+  /* Reset the h1 inside articles so it is not HUGE like the logo */
+  .markdown-body h1.post-title {
+    font-family: var(--font-body, "Courier New", monospace); /* Use typewriter font */
+    font-size: 2.5rem; /* Smaller than the 6rem Logo */
+    font-weight: bold;
+    text-transform: none; /* Allows lowercase letters */
+    letter-spacing: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    border: none; /* Remove border if inherited */
   }
-  .quiz-button {
-    background: #000;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+
+  .post-meta {
+    font-size: 0.9rem;
+    border-bottom: 3px solid black; /* The separator line you wanted */
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
     font-weight: bold;
   }
-  /* KaTeX alignment fix */
-  .katex-display { overflow: auto hidden; }
+
+  /* --- 2. BRUTAL TABLE STYLES --- */
+  
+  /* Container to allow scrolling on small phones */
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Adds scrollbar if table is too wide */
+    margin-bottom: 1.5rem;
+    border: 3px solid black; /* Outer border of the table area */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse; /* Merges borders into single lines */
+    font-size: 0.95rem;
+    min-width: 500px; /* Ensures table doesn't squish too much */
+  }
+
+  /* Target all cells (header and data) */
+  th, td {
+    border: 2px solid black; /* Visible grid lines */
+    padding: 12px;
+    text-align: left;
+    color: #000;
+  }
+
+  /* Header row specific */
+  th {
+    background-color: #000; /* Black header */
+    color: #fff; /* White text */
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  /* --- 3. BUTTONS & UTILS --- */
+  
+  .brutal-divider {
+    border: 0;
+    border-top: 3px solid black;
+    margin: 3rem 0;
+  }
+
+  .post-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Wraps on mobile */
+  }
+
+  .brutal-btn {
+    background: #000;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #000;
+    /* Hover effect */
+    transition: all 0.2s;
+  }
+  
+  .brutal-btn:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  .simple-link {
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  /* Fix for KaTeX overflow */
+  .katex-display { overflow-x: auto; overflow-y: hidden; }
 </style>

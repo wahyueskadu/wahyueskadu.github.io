@@ -1,0 +1,44 @@
+---
+layout: defaults
+---
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body);"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
+
+<article class="markdown-body">
+  <header style="margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+    <h1>{{ page.title }}</h1>
+    <p style="color: #666;">Semester {{ page.semester }} | Grade {{ page.path | split: "/" | second | last }}</p>
+  </header>
+
+  {{ content }}
+
+  <hr>
+  <div style="margin-top: 2rem;">
+    <a href="{{ page.quiz_url | default: '#' }}" class="quiz-button">Take the Quiz</a>
+    <a href="/" style="margin-left: 10px;">Back to Home</a>
+  </div>
+</article>
+
+<style>
+  /* GFM Style Tweaks */
+  .markdown-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .quiz-button {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  /* KaTeX alignment fix */
+  .katex-display { overflow: auto hidden; }
+</style>

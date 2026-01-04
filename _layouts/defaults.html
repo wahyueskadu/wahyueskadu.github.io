@@ -4,16 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SWW.MY.ID - Brutal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --bg: #e8e0d5; /* Recycled paper color */
     --border: 3px solid #000;
     --shadow: 8px 8px 0px #000;
+
+    --font-body:"Space Grotesk"
   }
 
   body {
     background: #d4cfc9;
-    font-family: "Courier New", Courier, monospace;
+    font-family: var(--font-body), Courier, monospace;
     padding: 20px;
     color: #000;
     
@@ -35,7 +41,7 @@
   }
 
   h1 {
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-family: (--font-body);
     font-size: 6rem;
     text-transform: uppercase;
     margin: 0;
@@ -68,7 +74,7 @@
     .grade-btn { font-size: 2.5rem; }
     .container { margin: 10px; width: auto; box-shadow: 5px 5px 0 #000; }
   }
-  
+
 </style>
 </head>
 <body>
