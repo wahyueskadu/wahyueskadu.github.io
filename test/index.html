@@ -92,12 +92,7 @@ title: My Notes Collection
     transform: translate(2px, 2px);
   }
 
-  /* MEDIA QUERIES */
-  @media (max-width: 600px) {
-    h1 { font-size: 4rem; }
-    .grade-btn { font-size: 2.5rem; }
-    .container { margin: 10px; width: auto; box-shadow: 5px 5px 0 #000; }
-  }
+  
 
 </style>
 {%- comment -%} 
@@ -120,7 +115,7 @@ title: My Notes Collection
 
  <div class="grade-wrapper">
     <button class="grade-btn" onclick="toggleBrutal(this)">
-      {{ group.name | replace: "_"," " | remove: '["'' | remove: '"]' | capitalize }}
+      {{ group.name | replace: "_"," " | remove: '["' | remove: '"]' | capitalize }}
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
