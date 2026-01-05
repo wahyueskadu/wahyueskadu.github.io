@@ -9,7 +9,8 @@ layout: defaults
   
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">Semester {{ page.semester }} | Grade {{ page.path | split: "/" | second | last }}</p>
+   <!-- <p class="post-meta">Semester {{ page.semester }} | Grade {{ page.path | split: "/" | second | last }}</p>
+  -->
   </header>
 
     <div class="page-wrapper">
@@ -66,6 +67,7 @@ layout: defaults
   table {
     width: 100%;
     border-collapse: collapse; /* Merges borders into single lines */
+    min-width: 600px;
     font-size: 0.95rem;
     /*min-width: 500px; /* Ensures table doesn't squish too much */
   }
@@ -76,14 +78,16 @@ layout: defaults
     padding: 12px;
     text-align: left;
     color: #000;
+    word-wrap: break-word; /* Forces long words to break/wrap */
+    white-space: normal;   /* Ensures text wraps to next line */
   }
 
   /* Header row specific */
-  /*th {
-   /* background-color: #000; /* Black header */
+  th {
+    background-color: transparent; /* Black header */
     /*color: #fff; /* White text */
     /*font-weight: bold;
-    text-transform: uppercase;
+    text-transform: uppercase; */
   }
 
   /* --- 3. BUTTONS & UTILS --- */
