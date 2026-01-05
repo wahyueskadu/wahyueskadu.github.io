@@ -31,6 +31,26 @@
     background: var(--bg);
     border: var(--border);
     box-shadow: var(--shadow);
+
+    /* Images fit the screen */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tables scroll horizontally if they are too wide */
+table {
+    display: block;       /* Allows scrolling */
+    overflow-x: auto;     /* Adds scrollbar only if needed */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Optional: Code blocks often overflow too */
+pre, code {
+    white-space: pre-wrap; /* Wraps code text instead of scrolling */
+    word-break: break-word; /* Breaks long words/variables */
+}
   }
 
   /* HEADER */
