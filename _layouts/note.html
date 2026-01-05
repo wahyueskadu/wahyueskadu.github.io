@@ -59,7 +59,7 @@ layout: defaults
   /* Container to allow scrolling on small phones */
   .table-wrapper {
     width: 100%;
-    /*overflow-x: auto; Adds scrollbar if table is too wide */
+    overflow-x: auto; /*Adds scrollbar if table is too wide */
     margin-bottom: 1.5rem;
     border: 3px solid black; /* Outer border of the table area */
   }
@@ -67,10 +67,9 @@ layout: defaults
   table {
     width: 100%;
     border-collapse: collapse; /* Merges borders into single lines */
-    min-width: 200px;
     font-size: 0.95rem;
     /*min-width: 500px; /* Ensures table doesn't squish too much */
-    table-layout: fixed;
+    table-layout: auto;
   }
 
   /* Target all cells (header and data) */
