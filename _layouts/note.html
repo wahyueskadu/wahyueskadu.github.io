@@ -67,9 +67,10 @@ layout: defaults
   table {
     width: 100%;
     border-collapse: collapse; /* Merges borders into single lines */
-    min-width: 600px;
+    min-width: 200px;
     font-size: 0.95rem;
     /*min-width: 500px; /* Ensures table doesn't squish too much */
+    table-layout: fixed;
   }
 
   /* Target all cells (header and data) */
@@ -85,8 +86,8 @@ layout: defaults
   /* Header row specific */
   th {
     background-color: transparent; /* Black header */
-    /*color: #fff; /* White text */
-    /*font-weight: bold;
+    color: #000; /* White text */
+   /* font-weight: regular;
     text-transform: uppercase; */
   }
 
