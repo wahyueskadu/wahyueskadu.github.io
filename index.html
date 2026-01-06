@@ -181,12 +181,12 @@ title: My Notes Collection
         </div>
         {% endif %}
        
-       {%- comment -%} ================= SEMESTER 2 ================= {%- endcomment -%}
+       {%- comment -%} ================= OTHER ================= {%- endcomment -%}
         {% assign other_notes = sorted_items | where_exp: "item", "item.semester != 1 and item.semester != 2" %}
         
         {% if other_notes.size > 0 %}
         <div class="semester-block">
-          <div class="sem-label">SEMESTER 2</div>
+          <div class="sem-label">OTHER</div>
           <ul class="material-list">
             {% for note in other_notes %}
               <li>
