@@ -119,10 +119,13 @@ title: My Notes Collection
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
-      {%- comment -%} 3. SORTING: Sort the items by filename first {%- endcomment -%}
+      {%- comment -%} 
+           SORTING: Sorts by filename (01-intro, 02-algebra). 
+           Remember to use 01.09, 01.10 for version sorting! 
+        {%- endcomment -%}
         {% assign sorted_items = group.items | sort: 'name' %}
 
-        {%- comment -%} 4. DIVISOR: Create Logic for Semester 1 {%- endcomment -%}
+        {%- comment -%} ================= SEMESTER 1 ================= {%- endcomment -%}
         {% assign sem1_notes = sorted_items | where: "semester", 1 %}
         
         {% if sem1_notes.size > 0 %}
@@ -130,13 +133,25 @@ title: My Notes Collection
           <div class="sem-label">SEMESTER 1</div>
           <ul class="material-list">
             {% for note in sem1_notes %}
-              {% include list_item_logic.html note=note %} 
+              <li>
+                {%- comment -%} CHECK: If 'no_article: true', show text only. Else, show Link. {%- endcomment -%}
+                {% if note.no_article == true %}
+                   <span class="material-title-plain">{{ note.title }}</span>
+                {% else %}
+                   <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                {% endif %}
+
+                {%- comment -%} BUTTON: Show PDF button if 'pdf_url' exists {%- endcomment -%}
+                {% if note.pdf_url %}
+                   <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
+                {% endif %}
+              </li>
             {% endfor %}
           </ul>
         </div>
         {% endif %}
 
-        {%- comment -%} Create Logic for Semester 2 {%- endcomment -%}
+        {%- comment -%} ================= SEMESTER 2 ================= {%- endcomment -%}
         {% assign sem2_notes = sorted_items | where: "semester", 2 %}
         
         {% if sem2_notes.size > 0 %}
@@ -144,7 +159,17 @@ title: My Notes Collection
           <div class="sem-label">SEMESTER 2</div>
           <ul class="material-list">
             {% for note in sem2_notes %}
-               {% include list_item_logic.html note=note %}
+              <li>
+                {% if note.no_article == true %}
+                   <span class="material-title-plain">{{ note.title }}</span>
+                {% else %}
+                   <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                {% endif %}
+
+                {% if note.pdf_url %}
+                   <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
+                {% endif %}
+              </li>
             {% endfor %}
           </ul>
         </div>
