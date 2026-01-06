@@ -174,32 +174,30 @@ title: My Notes Collection
           </ul>
         </div>
         {% endif %}
-
-        {%- comment -%} === NO SEMESTER / OTHERS (New Section) === {%- endcomment -%}
-        {%- comment -%} This filters for items where semester is NOT 1 AND NOT 2 {%- endcomment -%}
-        {% assign other_notes = sorted_items | where_exp: "item", "item.semester != 1 and item.semester != 2" %}
+       
+       {%- comment -%} ================= SEMESTER 2 ================= {%- endcomment -%}
+        {% assign sem2_notes = sorted_items | where: "semester", 2 %}
         
-        {% if other_notes.size > 0 %}
+        {% if sem2_notes.size > 0 %}
         <div class="semester-block">
-          <div class="sem-label">MATERI UMUM</div> <ul class="material-list">
-            {% for note in other_notes %}
+          <div class="sem-label">SEMESTER 2</div>
+          <ul class="material-list">
+            {% for note in sem2_notes %}
               <li>
-                {%- comment -%} Standard logic for links/ghost pages {%- endcomment -%}
-                {% if note.no_article == true %} 
+                {% if note.no_article == true %}
                    <span class="material-title-plain">{{ note.title }}</span>
-                {% else %} 
-                   <a href="{{ note.url | relative_url }}">{{ note.title }}</a> 
+                {% else %}
+                   <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
                 {% endif %}
 
-                {% if note.pdf_url %} 
-                   <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a> 
+                {% if note.pdf_url %}
+                   <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
                 {% endif %}
               </li>
             {% endfor %}
           </ul>
         </div>
         {% endif %}
-
         
     </div>
   </div>
