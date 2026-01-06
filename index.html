@@ -119,22 +119,36 @@ title: My Notes Collection
       <span class="arrow">▼</span>
     </button>
     <div class="grade-content">
-      <div class="semester-block">
-        <div class="sem-label">SEMESTER 1</div>
-        <ul class="material-list">
-        {% for note in group.items %}
-          {%- comment -%} 
-            Only show the link if the page has a title and isn't an index file
-          {%- endcomment -%}
-          {% if note.title and note.url != group.items[0].dir %}
-            <li>
-              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-              <a href="p/{{ note.pdf_url }}.pdf" class="quiz-btn">PDF</a>
-            </li>
-          {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
+      {%- comment -%} 3. SORTING: Sort the items by filename first {%- endcomment -%}
+        {% assign sorted_items = group.items | sort: 'name' %}
+
+        {%- comment -%} 4. DIVISOR: Create Logic for Semester 1 {%- endcomment -%}
+        {% assign sem1_notes = sorted_items | where: "semester", 1 %}
+        
+        {% if sem1_notes.size > 0 %}
+        <div class="semester-block">
+          <div class="sem-label">SEMESTER 1</div>
+          <ul class="material-list">
+            {% for note in sem1_notes %}
+              {% include list_item_logic.html note=note %} 
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {%- comment -%} Create Logic for Semester 2 {%- endcomment -%}
+        {% assign sem2_notes = sorted_items | where: "semester", 2 %}
+        
+        {% if sem2_notes.size > 0 %}
+        <div class="semester-block">
+          <div class="sem-label">SEMESTER 2</div>
+          <ul class="material-list">
+            {% for note in sem2_notes %}
+               {% include list_item_logic.html note=note %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
     </div>
   </div>
       {% endif %}
