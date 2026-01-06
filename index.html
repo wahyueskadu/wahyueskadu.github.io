@@ -129,6 +129,7 @@ title: My Notes Collection
           {% if note.title and note.url != group.items[0].dir %}
             <li>
               <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+              <a href="sww.my.id/p/{{ note.pdf_url }}" class="quiz-btn">PDF</a>
             </li>
           {% endif %}
           {% endfor %}
