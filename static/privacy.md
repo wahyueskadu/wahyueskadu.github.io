@@ -7,7 +7,7 @@ permalink: /privacy/
 Privasi Anda sangat penting. Kebijakan Privasi ini menjelaskan bagaimana [Nama Situs] mengumpulkan, menggunakan, dan melindungi informasi Anda.
 
 1. Pengumpulan Informasi
-[Nama Situs] adalah situs web pendidikan pribadi.
+sww.my.id adalah situs web pendidikan pribadi.
 
 Penjelajahan: Kami tidak mengharuskan Anda membuat akun untuk mengakses tutorial atau lembar kerja.
 
