@@ -145,6 +145,9 @@ title: My Notes Collection
                 {% if note.pdf_url %}
                    <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
                 {% endif %}
+                {% if note.quiz_url %}
+                   <a href="{{ note.quiz_url }}" class="quiz-btn">QUIZ</a>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
@@ -169,6 +172,9 @@ title: My Notes Collection
                 {% if note.pdf_url %}
                    <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
                 {% endif %}
+                                {% if note.quiz_url %}
+                   <a href="{{ note.quiz_url }}" class="quiz-btn">QUIZ</a>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
@@ -176,13 +182,13 @@ title: My Notes Collection
         {% endif %}
        
        {%- comment -%} ================= SEMESTER 2 ================= {%- endcomment -%}
-        {% assign sem2_notes = sorted_items | where: "semester", 2 %}
+        {% assign other_notes = sorted_items | where_exp: "item", "item.semester != 1 and item.semester != 2" %}
         
-        {% if sem2_notes.size > 0 %}
+        {% if other_notes.size > 0 %}
         <div class="semester-block">
           <div class="sem-label">SEMESTER 2</div>
           <ul class="material-list">
-            {% for note in sem2_notes %}
+            {% for note in other_notes %}
               <li>
                 {% if note.no_article == true %}
                    <span class="material-title-plain">{{ note.title }}</span>
@@ -192,6 +198,9 @@ title: My Notes Collection
 
                 {% if note.pdf_url %}
                    <a href="{{ note.pdf_url }}" class="quiz-btn">PDF</a>
+                {% endif %}
+                                {% if note.quiz_url %}
+                   <a href="{{ note.quiz_url }}" class="quiz-btn">QUIZ</a>
                 {% endif %}
               </li>
             {% endfor %}
