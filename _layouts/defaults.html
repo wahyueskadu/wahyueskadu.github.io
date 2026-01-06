@@ -95,6 +95,17 @@ pre, code {
   nav.top-links a:last-child { border-right: none; }
   nav.top-links a:hover { background: #000; color: #fff; }
 
+  a, 
+  a:visited {
+    color: inherit; /* Takes the color of the parent <div> or <p> */
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit; /* A slightly lighter/different color on mouseover */
+    text-decoration: underline;
+    background: #fff;
+}
   /* MEDIA QUERIES */
   @media (max-width: 600px) {
     .site-header { font-size: 3.5rem; }*/
