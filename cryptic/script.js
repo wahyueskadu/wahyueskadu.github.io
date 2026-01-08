@@ -1,8 +1,8 @@
 // --- DATA ---
 const puzzleData = {
     clue: "Some cheap arrogant bird (6)",
-    answer: "PARROT",
-    length: 6,
+    answer: "PARROTer",
+    length: 9,
     breakdown: {
         definition: "bird",
         indicator: "Some (Hidden Word Container)",
@@ -87,3 +87,82 @@ themeSwitcher.addEventListener('change', (e) => {
 });
 
 initGame();
+    renderKeyboard();
+   function renderKeyboard() {
+            const layout = [
+                "QWERTYUIOP",
+                "ASDFGHJKL",
+                "ZXCVBNM"
+            ];
+            const kbContainer = document.getElementById('keyboard');
+
+            layout.forEach(rowStr => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'kb-row';
+                
+                rowStr.split('').forEach(char => {
+                    const btn = document.createElement('div');
+                    btn.className = 'kb-key';
+                    btn.textContent = char;
+                    btn.addEventListener('click', () => handleInput(char));
+                    rowDiv.appendChild(btn);
+                });
+
+                // Add Backspace to last row
+                if (rowStr.startsWith('Z')) {
+                    const backBtn = document.createElement('div');
+                    backBtn.className = 'kb-key wide';
+                    backBtn.innerHTML = '⌫';
+                    backBtn.addEventListener('click', handleBackspace);
+                    rowDiv.appendChild(backBtn);
+                }
+
+                kbContainer.appendChild(rowDiv);
+            });
+        }
+
+               // Wire up Check button
+        document.getElementById('check-btn').addEventListener('click', checkAnswer);
+
+        // Optional: Support physical keyboard too
+        document.addEventListener('keydown', (e) => {
+            if(e.key.match(/^[a-zA-Z]$/)) handleInput(e.key.toUpperCase());
+            if(e.key === 'Backspace') handleBackspace();
+            if(e.key === 'ArrowLeft') setFocus(currentFocusIndex - 1);
+            if(e.key === 'ArrowRight') setFocus(currentFocusIndex + 1);
+        });
+  // --- CORE LOGIC ---
+        function setFocus(index) {
+            if (index < 0 || index >= data.length) return;
+            currentFocusIndex = index;
+            
+            // Visual Update
+            document.querySelectorAll('.char-box').forEach(b => b.classList.remove('active'));
+            const currentBox = gridEl.children[index];
+            currentBox.classList.add('active');
+        }
+
+        function handleInput(char) {
+            const currentBox = gridEl.children[currentFocusIndex];
+            currentBox.textContent = char;
+            
+            // Move to next
+            if (currentFocusIndex < data.length - 1) {
+                setFocus(currentFocusIndex + 1);
+            }
+        }
+
+        function handleBackspace() {
+            const currentBox = gridEl.children[currentFocusIndex];
+            
+            if (currentBox.textContent === '') {
+                // If empty, move back and delete
+                if (currentFocusIndex > 0) {
+                    setFocus(currentFocusIndex - 1);
+                    gridEl.children[currentFocusIndex].textContent = '';
+                }
+            } else {
+                // Just delete current
+                currentBox.textContent = '';
+            }
+        }

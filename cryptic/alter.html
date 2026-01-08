@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptic Daily</title>
+    <style>
+        :root {
+            --bg-color: #aed9ff; /* Light blue from image */
+            --box-border: #000;
+            --box-bg: #fff;
+            --highlight-ind: #ffb7b2; /* Pinkish */
+            --highlight-fod: #fff2cc; /* Yellowish */
+            --highlight-def: #cce5ff; /* Blueish */
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Clue --- */
+        .header {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .clue-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        /* --- Input Grid --- */
+        .grid-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .char-box {
+            width: 50px;
+            height: 50px;
+            border: 3px solid black;
+            border-radius: 4px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: white;
+        }
+
+        /* Focused box styling */
+        .char-box.active {
+            background-color: #ffe0f0; /* Light pink focus */
+            outline: none;
+        }
+        
+        /* Correct Answer State */
+        .char-box.solved {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+
+        /* --- Controls --- */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: 2px solid #000;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 2px 2px 0px rgba(0,0,0,1);
+            transition: transform 0.1s;
+        }
+
+        .btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px rgba(0,0,0,1); }
+        .btn-hint { background-color: #fff5c2; }
+        .btn-check { background-color: #a0c4ff; }
+
+        /* --- On-Screen Keyboard --- */
+        .keyboard {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto; /* Push to bottom */
+            padding-bottom: 20px;
+        }
+
+        .kb-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .kb-key {
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 5px;
+            min-width: 32px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+            flex: 1;
+            max-width: 50px;
+        }
+
+        .kb-key:active { background: rgba(255,255,255,0.8); }
+        .kb-key.wide { flex: 1.5; }
+
+        /* --- Hint Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid black;
+            width: 300px;
+            position: relative;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hint-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid #eee;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+        }
+
+        /* Visual styles for the hint text inside the modal */
+        .hint-hl-ind { background: linear-gradient(180deg, transparent 60%, var(--highlight-ind) 60%); }
+        .hint-hl-fod { background: linear-gradient(180deg, transparent 60%, var(--highlight-fod) 60%); }
+        .hint-hl-def { background: linear-gradient(180deg, transparent 60%, var(--highlight-def) 60%); }
+        .hint-hl-let { background: linear-gradient(180deg, transparent 60%, #ffeeba 60%); }
+
+        /* --- Highlighting Logic for the Clue Box --- */
+        /* These classes are added to the clue paragraph by JS */
+        .reveal-ind .clue-ind { background-color: var(--highlight-ind); border-radius: 3px; }
+        .reveal-fod .clue-fod { background-color: var(--highlight-fod); border-radius: 3px; }
+        .reveal-def .clue-def { background-color: var(--highlight-def); border-radius: 3px; }
+
+        /* Default state: spans are invisible unless activated */
+        span[class^="clue-"] { transition: background-color 0.3s; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="date">8 January, 2026</div>
+        <div>By Liam Runnalls</div>
+    </div>
+
+    <div class="clue-box">
+        <p id="clue-display">Loading...</p>
+    </div>
+
+    <div class="grid-container" id="grid"></div>
+
+    <div class="controls">
+        <button class="btn btn-hint" id="hint-btn">hints</button>
+        <button class="btn btn-check" id="check-btn">check</button>
+    </div>
+
+    <div class="keyboard" id="keyboard">
+        </div>
+
+    <div class="modal-overlay" id="hint-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <span>Select a hint</span>
+                <button class="close-btn" id="close-modal">✕</button>
+            </div>
+            
+            <button class="hint-option" onclick="activateHint('ind')">
+                <span class="hint-hl-ind">show indicators</span>
+            </button>
+            <button class="hint-option" onclick="activateHint('fod')">
+                <span class="hint-hl-fod">show fodder</span>
+            </button>
+            <button class="hint-option" onclick="activateHint('def')">
+                <span class="hint-hl-def">show definition</span>
+            </button>
+            <br>
+            <button class="hint-option" onclick="revealLetter()">
+                <span class="hint-hl-let">show letter</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const data = {
+            // Note: We wrap the specific parts in spans. 
+            // .clue-ind = indicator, .clue-fod = fodder, .clue-def = definition
+            clueHtml: `<span class="clue-def">Get out!</span> <span class="clue-fod">Shakespeare</span> <span class="clue-ind">to banish</span> <span class="clue-fod">Romeo and bring in Charlie</span>? (6)`,
+            answer: "BANISH",
+            length: 6
+        };
+
+        let currentFocusIndex = 0;
+        const gridEl = document.getElementById('grid');
+        const clueEl = document.getElementById('clue-display');
+        const modalEl = document.getElementById('hint-modal');
+
+        // --- INITIALIZATION ---
+        function init() {
+            // Render Clue
+            clueEl.innerHTML = data.clueHtml;
+
+            // Render Boxes
+            for(let i=0; i<data.length; i++) {
+                const box = document.createElement('div');
+                box.className = 'char-box';
+                box.dataset.index = i;
+                
+                // Allow clicking box to focus
+                box.addEventListener('click', () => setFocus(i));
+                
+                gridEl.appendChild(box);
+            }
+            setFocus(0);
+
+            // Render Keyboard
+            renderKeyboard();
+        }
+
+        // --- CORE LOGIC ---
+        function setFocus(index) {
+            if (index < 0 || index >= data.length) return;
+            currentFocusIndex = index;
+            
+            // Visual Update
+            document.querySelectorAll('.char-box').forEach(b => b.classList.remove('active'));
+            const currentBox = gridEl.children[index];
+            currentBox.classList.add('active');
+        }
+
+        function handleInput(char) {
+            const currentBox = gridEl.children[currentFocusIndex];
+            currentBox.textContent = char;
+            
+            // Move to next
+            if (currentFocusIndex < data.length - 1) {
+                setFocus(currentFocusIndex + 1);
+            }
+        }
+
+        function handleBackspace() {
+            const currentBox = gridEl.children[currentFocusIndex];
+            
+            if (currentBox.textContent === '') {
+                // If empty, move back and delete
+                if (currentFocusIndex > 0) {
+                    setFocus(currentFocusIndex - 1);
+                    gridEl.children[currentFocusIndex].textContent = '';
+                }
+            } else {
+                // Just delete current
+                currentBox.textContent = '';
+            }
+        }
+
+        function checkAnswer() {
+            let guess = '';
+            const boxes = document.querySelectorAll('.char-box');
+            boxes.forEach(b => guess += b.textContent);
+
+            if (guess === data.answer) {
+                clueEl.innerHTML = "🎉 Correct! " + data.clueHtml;
+                boxes.forEach(b => b.classList.add('solved'));
+            } else {
+                // Simple shake animation
+                gridEl.style.transform = "translateX(5px)";
+                setTimeout(() => gridEl.style.transform = "translateX(0)", 100);
+                setTimeout(() => gridEl.style.transform = "translateX(-5px)", 200);
+                setTimeout(() => gridEl.style.transform = "translateX(0)", 300);
+            }
+        }
+
+        // --- HINT SYSTEM ---
+        document.getElementById('hint-btn').addEventListener('click', () => {
+            modalEl.style.display = 'flex';
+        });
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            modalEl.style.display = 'none';
+        });
+
+        // Close modal if clicking outside content
+        modalEl.addEventListener('click', (e) => {
+            if (e.target === modalEl) modalEl.style.display = 'none';
+        });
+
+        function activateHint(type) {
+            // Adds a class to the Clue Display (e.g., 'reveal-ind')
+            // CSS handles the actual highlighting
+            clueEl.classList.toggle(`reveal-${type}`);
+            modalEl.style.display = 'none';
+        }
+
+        function revealLetter() {
+            // Find the current box, or the first empty box
+            const boxes = document.querySelectorAll('.char-box');
+            let targetIndex = currentFocusIndex;
+
+            // Fill it with the correct answer letter
+            const correctChar = data.answer[targetIndex];
+            boxes[targetIndex].textContent = correctChar;
+            boxes[targetIndex].style.color = "blue"; // Mark as revealed visually
+            
+            modalEl.style.display = 'none';
+            
+            // Advance focus
+            if (targetIndex < data.length - 1) setFocus(targetIndex + 1);
+        }
+
+        // --- KEYBOARD GENERATION ---
+        function renderKeyboard() {
+            const layout = [
+                "QWERTYUIOP",
+                "ASDFGHJKL",
+                "ZXCVBNM"
+            ];
+            const kbContainer = document.getElementById('keyboard');
+
+            layout.forEach(rowStr => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'kb-row';
+                
+                rowStr.split('').forEach(char => {
+                    const btn = document.createElement('div');
+                    btn.className = 'kb-key';
+                    btn.textContent = char;
+                    btn.addEventListener('click', () => handleInput(char));
+                    rowDiv.appendChild(btn);
+                });
+
+                // Add Backspace to last row
+                if (rowStr.startsWith('Z')) {
+                    const backBtn = document.createElement('div');
+                    backBtn.className = 'kb-key wide';
+                    backBtn.innerHTML = '⌫';
+                    backBtn.addEventListener('click', handleBackspace);
+                    rowDiv.appendChild(backBtn);
+                }
+
+                kbContainer.appendChild(rowDiv);
+            });
+        }
+
+        // Wire up Check button
+        document.getElementById('check-btn').addEventListener('click', checkAnswer);
+
+        // Optional: Support physical keyboard too
+        document.addEventListener('keydown', (e) => {
+            if(e.key.match(/^[a-zA-Z]$/)) handleInput(e.key.toUpperCase());
+            if(e.key === 'Backspace') handleBackspace();
+            if(e.key === 'ArrowLeft') setFocus(currentFocusIndex - 1);
+            if(e.key === 'ArrowRight') setFocus(currentFocusIndex + 1);
+        });
+
+        init();
+
+    </script>
+</body>
+</html>
