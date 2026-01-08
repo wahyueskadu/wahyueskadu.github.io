@@ -1,0 +1,131 @@
+:root {
+    --bg-color: #050a0f;
+    --card-bg: #0a121a;
+    --text-color: #00ff9d; /* Matrix Green */
+    --accent-color: #00d2ff; /* Cyber Blue */
+    --font-stack: 'Fira Code', 'Roboto Mono', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-stack);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    /* Scanline effect */
+    background-image: linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+    background-size: 100% 3px;
+}
+
+.main-container {
+    max-width: 550px;
+    width: 100%;
+}
+
+header {
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.clue-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border: 1px solid var(--text-color);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+/* Add a blinking cursor effect to the clue */
+.clue-card::after {
+    content: '_';
+    animation: blink 1s infinite;
+}
+
+.input-area {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.char-box {
+    width: 45px;
+    height: 55px;
+    font-size: 32px;
+    text-align: center;
+    font-family: var(--font-stack);
+    background-color: rgba(0,0,0,0.3);
+    border: none;
+    border-bottom: 3px solid var(--text-color);
+    color: var(--text-color);
+    border-radius: 0;
+    text-shadow: 0 0 8px var(--text-color);
+}
+
+.char-box:focus {
+    outline: none;
+    border-bottom-color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-color);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.game-btn {
+    padding: 12px 30px;
+    font-family: var(--font-stack);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid var(--text-color);
+    background: rgba(0, 255, 157, 0.1);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.game-btn.check {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(0, 210, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.game-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--text-color);
+}
+
+/* Success State */
+.char-box.correct {
+    border-bottom-color: var(--accent-color);
+    color: var(--accent-color);
+    text-shadow: 0 0 15px var(--accent-color);
+}
+
+.hidden { display: none; }
+
+.breakdown-area {
+    margin-top: 30px;
+    border: 1px solid var(--accent-color);
+    padding: 20px;
+    background: rgba(0, 210, 255, 0.05);
+}
+
+.breakdown-item .label {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+.shake { animation: shake 0.5s; }

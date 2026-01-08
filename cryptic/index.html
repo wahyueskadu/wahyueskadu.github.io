@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Cryptic Twist</title>
+    <link rel="stylesheet" href="theme-investigator.css" id="theme-stylesheet">
+</head>
+<body>
+
+    <div class="main-container">
+        <header>
+            <div class="date">8 January, 2026</div>
+            <div class="author">By Cryptic Setter</div>
+        </header>
+
+        <main>
+            <section class="clue-card">
+                <p id="clue-text">Loading clue...</p>
+            </section>
+
+            <section class="input-area" id="input-container">
+                </section>
+
+            <section class="controls">
+                 <select id="theme-switcher" style="margin-bottom: 20px; padding: 5px;">
+                    <option value="theme-investigator.css">Theme: The Investigator</option>
+                    <option value="theme-newspaper.css">Theme: The Sunday Paper</option>
+                    <option value="theme-neon.css">Theme: Neon Hacker</option>
+                </select>
+                <br>
+
+                <button id="hint-btn" class="game-btn hint">Hint</button>
+                <button id="check-btn" class="game-btn check">Check</button>
+            </section>
+
+            <section class="breakdown-area hidden" id="breakdown-container">
+                <h3>The Breakdown</h3>
+                <div class="breakdown-item"><span class="label">Definition:</span> <span id="bd-def"></span></div>
+                <div class="breakdown-item"><span class="label">Indicator:</span> <span id="bd-ind"></span></div>
+                <div class="breakdown-item"><span class="label">Fodder/Wordplay:</span> <span id="bd-fod"></span></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

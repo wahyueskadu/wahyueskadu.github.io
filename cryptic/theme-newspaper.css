@@ -1,0 +1,114 @@
+:root {
+    --bg-color: #f0eee9;
+    --card-bg: #ffffff;
+    --text-color: #111111;
+    --accent-color: #2b6cb0; /* Classic newspaper blue link color */
+    --serif-font: 'Georgia', Times, serif;
+    --sans-font: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--sans-font);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.main-container {
+    max-width: 600px;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 30px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+header {
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 10px;
+    margin-bottom: 2rem;
+    font-family: var(--serif-font);
+    display: flex;
+    justify-content: space-between;
+}
+
+.clue-card {
+    font-family: var(--serif-font);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.input-area {
+    display: flex;
+    justify-content: flex-start; /* Left align for newspaper feel */
+    gap: 0; /* Boxes touch */
+    margin-bottom: 30px;
+    border: 2px solid var(--text-color);
+    display: inline-flex; /* Wrap tightly */
+}
+
+.char-box {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+    font-family: var(--sans-font);
+    font-weight: bold;
+    background-color: #fff;
+    border: none;
+    border-right: 1px solid var(--text-color);
+    border-radius: 0;
+    text-transform: uppercase;
+}
+
+.char-box:last-child { border-right: none; }
+
+.char-box:focus {
+    outline: none;
+    background-color: #e6f0ff;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.game-btn {
+    padding: 10px 25px;
+    font-family: var(--sans-font);
+    font-size: 0.9rem;
+    border: 1px solid var(--accent-color);
+    background: #fff;
+    color: var(--accent-color);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.game-btn.check {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Success State */
+.char-box.correct {
+    background-color: #eee;
+    color: var(--text-color);
+}
+
+.hidden { display: none; }
+
+.breakdown-area {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dotted var(--text-color);
+    font-family: var(--serif-font);
+}
+
+.shake { animation: shake 0.5s; }
