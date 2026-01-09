@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cryptic Master</title>
+    <style>
+        /* --- CSS VARIABLES & THEMES --- */
+        :root {
+            /* Default: Neon Hacker (Matches your image) */
+            --bg: #050c12;
+            --box-bg: #050c12;
+            --text: #00ffcc;
+            --accent: #00ffcc;
+            --border: #00ffcc;
+            --key-bg: #666;
+            --key-text: #fff;
+            --input-line: #00ffcc;
+            --font: 'Courier New', monospace;
+        }
+
+        [data-theme="noir"] {
+            --bg: #1a1a1a;
+            --box-bg: #2d2d2d;
+            --text: #e0e0e0;
+            --accent: #d4a373;
+            --border: #404040;
+            --key-bg: #444;
+            --key-text: #fff;
+            --input-line: #d4a373;
+            --font: 'Georgia', serif;
+        }
+
+        [data-theme="paper"] {
+            --bg: #f4f1ea;
+            --box-bg: #ffffff;
+            --text: #222;
+            --accent: #0056b3;
+            --border: #ccc;
+            --key-bg: #ddd;
+            --key-text: #222;
+            --input-line: #222;
+            --font: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* --- Header & Theme Select --- */
+        .header { width: 100%; max-width: 500px; margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; }
+        select { background: #000; color: #fff; border: 1px solid #fff; padding: 5px; margin-top: 10px; }
+
+        /* --- Clue Display --- */
+        .clue-container {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid var(--border);
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: var(--box-bg);
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+        }
+
+        .clue-text { font-size: 1.2rem; margin: 0; }
+
+        /* --- Answer Input Boxes (Underline Style) --- */
+        .answer-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .char-slot {
+            width: 35px;
+            height: 45px;
+            border-bottom: 3px solid var(--input-line);
+            font-size: 1.8rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* --- Controls --- */
+        .btn-row { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn {
+            background: none;
+            border: 2px solid var(--border);
+            color: var(--text);
+            padding: 10px 25px;
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .btn:active { opacity: 0.5; }
+
+        /* --- On-Screen Keyboard --- */
+        .keyboard { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 5px; }
+        .kb-row { display: flex; justify-content: center; gap: 5px; }
+        .key {
+            background: var(--key-bg);
+            color: var(--key-text);
+            border: none;
+            border-radius: 5px;
+            padding: 12px 0;
+            flex: 1;
+            font-size: 1rem;
+            cursor: pointer;
+            max-width: 45px;
+        }
+        .key.wide { max-width: 60px; font-size: 1.2rem; }
+
+        /* --- Breakdown UI (The Twist) --- */
+        #breakdown {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed var(--accent);
+            max-width: 500px;
+            font-size: 0.9rem;
+        }
+        .highlight { color: #fff; background: var(--accent); padding: 2px 4px; border-radius: 3px; color: #000; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>8 January, 2026</div>
+        <div>By Cryptic Setter</div>
+        <select id="themePicker">
+            <option value="default">Theme: Neon Hacker</option>
+            <option value="noir">Theme: Noir Detective</option>
+            <option value="paper">Theme: Plain Paper</option>
+        </select>
+    </div>
+
+    <div class="clue-container">
+        <p class="clue-text" id="clueDisplay"></p>
+        <p style="margin-top: 20px; opacity: 0.5;">_</p>
+    </div>
+
+    <div class="answer-area" id="answerGrid"></div>
+
+    <div class="btn-row">
+        <button class="btn" onclick="alert('Hint: Definition is at the end')">Hint</button>
+        <button class="btn" onclick="checkAnswer()">Check</button>
+    </div>
+
+    <div id="breakdown"></div>
+
+    <div class="keyboard">
+        <div class="kb-row">
+            <button class="key" onclick="press('Q')">Q</button>
+            <button class="key" onclick="press('W')">W</button>
+            <button class="key" onclick="press('E')">E</button>
+            <button class="key" onclick="press('R')">R</button>
+            <button class="key" onclick="press('T')">T</button>
+            <button class="key" onclick="press('Y')">Y</button>
+            <button class="key" onclick="press('U')">U</button>
+            <button class="key" onclick="press('I')">I</button>
+            <button class="key" onclick="press('O')">O</button>
+            <button class="key" onclick="press('P')">P</button>
+        </div>
+        <div class="kb-row">
+            <button class="key" onclick="press('A')">A</button>
+            <button class="key" onclick="press('S')">S</button>
+            <button class="key" onclick="press('D')">D</button>
+            <button class="key" onclick="press('F')">F</button>
+            <button class="key" onclick="press('G')">G</button>
+            <button class="key" onclick="press('H')">H</button>
+            <button class="key" onclick="press('J')">J</button>
+            <button class="key" onclick="press('K')">K</button>
+            <button class="key" onclick="press('L')">L</button>
+        </div>
+        <div class="kb-row">
+            <button class="key" onclick="press('Z')">Z</button>
+            <button class="key" onclick="press('X')">X</button>
+            <button class="key" onclick="press('C')">C</button>
+            <button class="key" onclick="press('V')">V</button>
+            <button class="key" onclick="press('B')">B</button>
+            <button class="key" onclick="press('N')">N</button>
+            <button class="key" onclick="press('M')">M</button>
+            <button class="key wide" onclick="press('BACK')">⌫</button>
+        </div>
+    </div>
+
+    <script>
+        // --- YOUR DATA ---
+        const puzzles = [
+            {
+                clue: "Some cheap arrogant bird (6)",
+                answer: "PARROT",
+                indicator: "Some (Hidden Word)",
+                fodder: "cheaP ARROTgant",
+                definition: "bird"
+            },
+            {
+                clue: "A master breaking crate he creates (7)",
+                answer: "TEACHER",
+                indicator: "breaking (Anagram)",
+                fodder: "crate he",
+                definition: "A master"
+            }
+        ];
+
+        let currentIdx = 0;
+        let guess = [];
+
+        // --- THEME LOGIC ---
+        document.getElementById('themePicker').addEventListener('change', (e) => {
+            document.body.setAttribute('data-theme', e.target.value);
+        });
+
+        // --- GAME LOGIC ---
+        function initPuzzle() {
+            const p = puzzles[currentIdx];
+            document.getElementById('clueDisplay').innerText = p.clue;
+            guess = [];
+            const grid = document.getElementById('answerGrid');
+            grid.innerHTML = '';
+            for(let i=0; i<p.answer.length; i++) {
+                const d = document.createElement('div');
+                d.className = 'char-slot';
+                grid.appendChild(d);
+            }
+            document.getElementById('breakdown').style.display = 'none';
+        }
+
+        function press(key) {
+            const p = puzzles[currentIdx];
+            if (key === 'BACK') {
+                guess.pop();
+            } else if (guess.length < p.answer.length) {
+                guess.push(key);
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const slots = document.querySelectorAll('.char-slot');
+            slots.forEach((s, i) => {
+                s.innerText = guess[i] || '';
+            });
+        }
+
+        function checkAnswer() {
+            const p = puzzles[currentIdx];
+            if (guess.join('') === p.answer) {
+                const bd = document.getElementById('breakdown');
+                bd.style.display = 'block';
+                bd.innerHTML = `
+                    <p><strong>CORRECT!</strong></p>
+                    <p><span class="highlight">Def:</span> ${p.definition}</p>
+                    <p><span class="highlight">Wordplay:</span> ${p.fodder}</p>
+                    <p><span class="highlight">Type:</span> ${p.indicator}</p>
+                    <button class="btn" style="width:100%; margin-top:10px" onclick="next()">Next Puzzle</button>
+                `;
+            } else {
+                alert("Incorrect. Keep investigating.");
+            }
+        }
+
+        function next() {
+            currentIdx = (currentIdx + 1) % puzzles.length;
+            initPuzzle();
+        }
+
+        // Initialize first puzzle
+        initPuzzle();
+    </script>
+</body>
+</html>

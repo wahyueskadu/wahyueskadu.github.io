@@ -16,6 +16,7 @@ const inputContainerEl = document.getElementById('input-container');
 const checkBtn = document.getElementById('check-btn');
 const breakdownContainer = document.getElementById('breakdown-container');
 const themeSwitcher = document.getElementById('theme-switcher');
+ const gridEl = document.getElementById('input-container');
 
 // --- INITIALIZATION ---
 function initGame() {
