@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cryptic Master</title>
     <style>
-        /* --- CSS VARIABLES & THEMES --- */
         :root {
-            /* Default: Neon Hacker (Matches your image) */
+            /* Neon Hacker Theme */
             --bg: #050c12;
-            --box-bg: #050c12;
+            --box-bg: #0b161f;
             --text: #00ffcc;
             --accent: #00ffcc;
             --border: #00ffcc;
-            --key-bg: #666;
+            --key-bg: #2a3b47;
             --key-text: #fff;
             --input-line: #00ffcc;
+            --check-btn: #00ffcc;
             --font: 'Courier New', monospace;
         }
 
@@ -28,6 +28,7 @@
             --key-bg: #444;
             --key-text: #fff;
             --input-line: #d4a373;
+            --check-btn: #d4a373;
             --font: 'Georgia', serif;
         }
 
@@ -40,6 +41,7 @@
             --key-bg: #ddd;
             --key-text: #222;
             --input-line: #222;
+            --check-btn: #0056b3;
             --font: 'Arial', sans-serif;
         }
 
@@ -52,86 +54,120 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
+            overflow-x: hidden;
         }
 
-        /* --- Header & Theme Select --- */
-        .header { width: 100%; max-width: 500px; margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; }
-        select { background: #000; color: #fff; border: 1px solid #fff; padding: 5px; margin-top: 10px; }
+        /* --- Header --- */
+        .header { width: 100%; max-width: 500px; margin-bottom: 20px; font-size: 0.8rem; }
+        select { background: #000; color: #fff; border: 1px solid var(--border); padding: 5px; cursor: pointer; }
 
-        /* --- Clue Display --- */
+        /* --- Clue --- */
         .clue-container {
             width: 100%;
             max-width: 500px;
             border: 2px solid var(--border);
-            padding: 40px 20px;
-            margin-bottom: 30px;
+            padding: 30px 20px;
+            margin-bottom: 20px;
             background: var(--box-bg);
-            text-align: left;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
         }
+        .clue-text { font-size: 1.2rem; line-height: 1.4; }
 
-        .clue-text { font-size: 1.2rem; margin: 0; }
-
-        /* --- Answer Input Boxes (Underline Style) --- */
+        /* --- Answer Input --- */
         .answer-area {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 25px;
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .char-slot {
-            width: 35px;
-            height: 45px;
+            width: 30px;
+            height: 40px;
             border-bottom: 3px solid var(--input-line);
             font-size: 1.8rem;
             text-align: center;
             text-transform: uppercase;
-            font-weight: bold;
+            transition: all 0.2s;
         }
+        .char-slot.active { border-bottom-color: #fff; transform: translateY(-2px); }
 
-        /* --- Controls --- */
-        .btn-row { display: flex; gap: 10px; margin-bottom: 20px; }
+        /* --- Buttons --- */
+        .btn-row { display: flex; gap: 15px; margin-bottom: 20px; width: 100%; max-width: 500px; }
         .btn {
             background: none;
             border: 2px solid var(--border);
             color: var(--text);
-            padding: 10px 25px;
+            padding: 12px;
+            flex: 1;
             cursor: pointer;
-            font-family: inherit;
-            letter-spacing: 2px;
+            font-weight: bold;
             text-transform: uppercase;
+            font-family: inherit;
         }
-        .btn:active { opacity: 0.5; }
+        .btn-check {
+            background-color: var(--check-btn);
+            color: #000;
+            border: 2px solid var(--check-btn);
+            box-shadow: 0 0 10px var(--check-btn);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0px var(--check-btn); }
+            50% { box-shadow: 0 0 15px var(--check-btn); }
+            100% { box-shadow: 0 0 0px var(--check-btn); }
+        }
 
-        /* --- On-Screen Keyboard --- */
-        .keyboard { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 5px; }
-        .kb-row { display: flex; justify-content: center; gap: 5px; }
+        /* --- Keyboard --- */
+        .keyboard { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 6px; }
+        .kb-row { display: flex; justify-content: center; gap: 4px; }
         .key {
             background: var(--key-bg);
             color: var(--key-text);
             border: none;
-            border-radius: 5px;
-            padding: 12px 0;
+            border-radius: 4px;
+            height: 50px;
             flex: 1;
             font-size: 1rem;
             cursor: pointer;
-            max-width: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .key.wide { max-width: 60px; font-size: 1.2rem; }
+        .key.wide { flex: 1.5; }
 
-        /* --- Breakdown UI (The Twist) --- */
-        #breakdown {
+        /* --- Modal --- */
+        .modal {
             display: none;
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px dashed var(--accent);
-            max-width: 500px;
-            font-size: 0.9rem;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
         }
-        .highlight { color: #fff; background: var(--accent); padding: 2px 4px; border-radius: 3px; color: #000; }
+        .modal-content {
+            background: var(--box-bg);
+            border: 2px solid var(--border);
+            padding: 25px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .hint-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .hint-text { margin-top: 15px; font-style: italic; color: #fff; min-height: 20px; }
+        .close-modal { margin-top: 20px; font-size: 0.8rem; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -148,19 +184,27 @@
 
     <div class="clue-container">
         <p class="clue-text" id="clueDisplay"></p>
-        <p style="margin-top: 20px; opacity: 0.5;">_</p>
     </div>
 
     <div class="answer-area" id="answerGrid"></div>
 
     <div class="btn-row">
-        <button class="btn" onclick="alert('Hint: Definition is at the end')">Hint</button>
-        <button class="btn" onclick="checkAnswer()">Check</button>
+        <button class="btn" onclick="openModal()">Hint</button>
+        <button class="btn btn-check" onclick="checkAnswer()">Check Answer</button>
     </div>
 
-    <div id="breakdown"></div>
+    <div class="modal" id="hintModal">
+        <div class="modal-content">
+            <h3>Declassify Intel</h3>
+            <button class="hint-btn" onclick="revealHint('definition')">Reveal Definition</button>
+            <button class="hint-btn" onclick="revealHint('indicator')">Reveal Indicator</button>
+            <button class="hint-btn" onclick="revealHint('fodder')">Reveal Fodder</button>
+            <div class="hint-text" id="hintResult"></div>
+            <div class="close-modal" onclick="closeModal()">Return to Mission</div>
+        </div>
+    </div>
 
-    <div class="keyboard">
+    <div class="keyboard" id="vk">
         <div class="kb-row">
             <button class="key" onclick="press('Q')">Q</button>
             <button class="key" onclick="press('W')">W</button>
@@ -185,6 +229,7 @@
             <button class="key" onclick="press('L')">L</button>
         </div>
         <div class="kb-row">
+            <button class="key wide" onclick="press('ENTER')">ENT</button>
             <button class="key" onclick="press('Z')">Z</button>
             <button class="key" onclick="press('X')">X</button>
             <button class="key" onclick="press('C')">C</button>
@@ -197,33 +242,27 @@
     </div>
 
     <script>
-        // --- YOUR DATA ---
         const puzzles = [
             {
                 clue: "Some cheap arrogant bird (6)",
                 answer: "PARROT",
-                indicator: "Some (Hidden Word)",
-                fodder: "cheaP ARROTgant",
-                definition: "bird"
+                definition: "bird",
+                indicator: "Some (Hidden word container)",
+                fodder: "Inside: chea[P ARROT]gant"
             },
             {
-                clue: "A master breaking crate he creates (7)",
-                answer: "TEACHER",
-                indicator: "breaking (Anagram)",
-                fodder: "crate he",
-                definition: "A master"
+                clue: "Recalled huge weapon (3)",
+                answer: "GUM",
+                definition: "weapon (slang for gun)",
+                indicator: "Recalled (Reversal)",
+                fodder: "MUG (Huge)"
             }
         ];
 
         let currentIdx = 0;
         let guess = [];
 
-        // --- THEME LOGIC ---
-        document.getElementById('themePicker').addEventListener('change', (e) => {
-            document.body.setAttribute('data-theme', e.target.value);
-        });
-
-        // --- GAME LOGIC ---
+        // Initialization
         function initPuzzle() {
             const p = puzzles[currentIdx];
             document.getElementById('clueDisplay').innerText = p.clue;
@@ -235,49 +274,69 @@
                 d.className = 'char-slot';
                 grid.appendChild(d);
             }
-            document.getElementById('breakdown').style.display = 'none';
+            updateDisplay();
         }
 
+        // Handle Input (Both Virtual and Physical)
         function press(key) {
             const p = puzzles[currentIdx];
-            if (key === 'BACK') {
+            if (key === 'BACK' || key === 'BACKSPACE') {
                 guess.pop();
-            } else if (guess.length < p.answer.length) {
+            } else if (key === 'ENTER') {
+                checkAnswer();
+            } else if (guess.length < p.answer.length && key.length === 1 && /[A-Z]/.test(key)) {
                 guess.push(key);
             }
             updateDisplay();
         }
 
+        // Physical Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toUpperCase();
+            if (key === 'BACKSPACE' || key === 'ENTER' || /^[A-Z]$/.test(key)) {
+                press(key);
+            }
+        });
+
         function updateDisplay() {
             const slots = document.querySelectorAll('.char-slot');
             slots.forEach((s, i) => {
                 s.innerText = guess[i] || '';
+                s.classList.toggle('active', i === guess.length);
             });
         }
 
         function checkAnswer() {
             const p = puzzles[currentIdx];
             if (guess.join('') === p.answer) {
-                const bd = document.getElementById('breakdown');
-                bd.style.display = 'block';
-                bd.innerHTML = `
-                    <p><strong>CORRECT!</strong></p>
-                    <p><span class="highlight">Def:</span> ${p.definition}</p>
-                    <p><span class="highlight">Wordplay:</span> ${p.fodder}</p>
-                    <p><span class="highlight">Type:</span> ${p.indicator}</p>
-                    <button class="btn" style="width:100%; margin-top:10px" onclick="next()">Next Puzzle</button>
-                `;
+                alert("Correct! Access Granted.");
+                currentIdx = (currentIdx + 1) % puzzles.length;
+                initPuzzle();
             } else {
-                alert("Incorrect. Keep investigating.");
+                const grid = document.getElementById('answerGrid');
+                grid.style.animation = 'none';
+                grid.offsetHeight; /* trigger reflow */
+                grid.style.animation = 'shake 0.4s';
+                setTimeout(() => grid.style.animation = '', 400);
             }
         }
 
-        function next() {
-            currentIdx = (currentIdx + 1) % puzzles.length;
-            initPuzzle();
+        // Modal Logic
+        function openModal() { document.getElementById('hintModal').style.display = 'flex'; }
+        function closeModal() { 
+            document.getElementById('hintModal').style.display = 'none'; 
+            document.getElementById('hintResult').innerText = '';
+        }
+        function revealHint(type) {
+            const p = puzzles[currentIdx];
+            document.getElementById('hintResult').innerText = p[type];
         }
 
-        // Initialize first puzzle
+        // Theme Toggle
+        document.getElementById('themePicker').addEventListener('change', (e) => {
+            document.body.setAttribute('data-theme', e.target.value);
+        });
+
         initPuzzle();
     </script>
 </body>
